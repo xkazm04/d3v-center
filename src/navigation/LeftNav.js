@@ -3,78 +3,99 @@ import {Form, RadioGroup, Radio} from 'rsuite'
 import styled from 'styled-components'
 import { FilterContext } from '../contexts/FilterContext';
 
-
-const Group = styled(RadioGroup)`
-    background: red;
+const Kontejner = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
 `
 
-
+const Group = styled(RadioGroup)`
+    background: #f7f7fa;
+    padding-left: 5%;
+` 
 
 function LeftNav() {
-const {appliedFilter, setAppliedFilter} = useContext(FilterContext);
+const {filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage} = useContext(FilterContext);
 
-// Set filter for whole group
-const handleChange = (filter) => {
-    setAppliedFilter(filter)
-    console.log(appliedFilter)
-
+// Filter handlers
+const handleChangeChain = (filter) => {
+    setFilterChain(filter)
+    console.log("Filtered chain: " + filterChain)
 }
 
-const checkCurrentValue = () => {
-    console.log(appliedFilter)
+// Filter handlers
+const handleChangeSource = (filter) => {
+    setFilterSource(filter)
+    console.log("Filtered source: " + filterSource)
 }
+
+// Filter handlers
+const handleChangeStage = (filter) => {
+    setFilterStage(filter)
+    console.log("Filtered stage: " + filterStage)
+}
+
+// Filter handlers
+const handleChangeUsage = (filter) => {
+    setFilterUsage(filter)
+    console.log("Filtered stage: " + filterUsage)
+}
+
     return (
-        <div>
+        <Kontejner>
         <Form.Group controlId="radioList">
             <Group  
                 name="radioList"
-                value={appliedFilter}
-                onChange={value => {handleChange(value)}}
+                value={filterChain}
+                onChange={value => {handleChangeChain(value)}}
                 >
-            <p>Group1</p>
-            <Radio value="A">Item A</Radio>
-            <Radio value="B">Item B</Radio>
-            <Radio value="C">Item C</Radio>
+            <p>Ecosystem</p>
+            <Radio value="?filters[Chain][$notNull]">All</Radio>
+            <Radio value="?filters[Chain][$eq]=evm">EVM</Radio>
+            <Radio value="?filters[Chain][$eq]=solana">Solana</Radio>
+            <Radio value="?filters[Chain][$eq]=cardano">Cardano</Radio>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
             <Group  
                 name="radioList"
-                value={appliedFilter}
-                onChange={value => {handleChange(value)}}
+                value={filterSource}
+                onChange={value => {handleChangeSource(value)}}
                 >
-            <p>Group1</p>
-            <Radio value="A">Item A</Radio>
-            <Radio value="B">Item B</Radio>
-            <Radio value="C">Item C</Radio>
+            <p>Source</p>
+            <Radio value="?filters[Source][$notNull]">All</Radio>
+            <Radio value="?filters[Source][$eq]=github">Github</Radio>
+            <Radio value="?filters[Source][$eq]=log">Blog</Radio>
+            <Radio value="?filters[Source][$eq]=youtube">YouTube</Radio>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
             <Group  
                 name="radioList"
-                value={appliedFilter}
-                onChange={value => {handleChange(value)}}
+                value={filterStage}
+                onChange={value => {handleChangeStage(value)}}
                 >
-            <p>Group1</p>
-            <Radio value="A">Item A</Radio>
-            <Radio value="B">Item B</Radio>
-            <Radio value="C">Item C</Radio>
+            <p>Stage</p>
+            <Radio value="?filters[Stage][$notNull]">All</Radio>
+            <Radio value="dev">Development</Radio>
+            <Radio value="test">Testing</Radio>
+            <Radio value="deploy">Deployment</Radio>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
             <Group  
                 name="radioList"
-                value={appliedFilter}
-                onChange={value => {handleChange(value)}}
+                value={filterUsage}
+                onChange={value => {handleChangeUsage(value)}}
                 >
-            <p>Group1</p>
-            <Radio value="A">Item A</Radio>
-            <Radio value="B">Item B</Radio>
-            <Radio value="C">Item C</Radio>
+            <p>Usage</p>
+            <Radio value="">All</Radio>
+            <Radio value="defi">Defi</Radio>
+            <Radio value="nft">NFT</Radio>
             </Group>
         </Form.Group>
-        <button onClick={checkCurrentValue}>Check value</button>
-        </div>
+        </Kontejner>
     );
 }
 
