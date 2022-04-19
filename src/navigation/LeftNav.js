@@ -7,13 +7,30 @@ const Kontejner = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
-    
+    margin-top: 15%;
+    height: 100%;
+
 `
 
 const Group = styled(RadioGroup)`
-    background: #f7f7fa;
-    padding-left: 5%;
+    padding-left: 8%;
+ 
 ` 
+
+const GroupTitle = styled.p`
+    font-family: 'Staatliches', cursive;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    color: #007463;
+`
+
+const RadioItem = styled(Radio)`
+    color: black;
+    font-family: 'Spectral', serif;
+    size: 12px;
+    font-weight: 400;
+    font-style: normal;
+`
 
 function LeftNav() {
 const {filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage} = useContext(FilterContext);
@@ -50,11 +67,11 @@ const handleChangeUsage = (filter) => {
                 value={filterChain}
                 onChange={value => {handleChangeChain(value)}}
                 >
-            <p>Ecosystem</p>
-            <Radio value="?filters[Chain][$notNull]">All</Radio>
-            <Radio value="?filters[Chain][$eq]=evm">EVM</Radio>
-            <Radio value="?filters[Chain][$eq]=solana">Solana</Radio>
-            <Radio value="?filters[Chain][$eq]=cardano">Cardano</Radio>
+            <GroupTitle>Ecosystem</GroupTitle>
+            <RadioItem value="?filters[Chain][$notNull]">All</RadioItem>
+            <RadioItem value="?filters[Chain][$eq]=evm">EVM</RadioItem>
+            <RadioItem value="?filters[Chain][$eq]=solana">Solana</RadioItem>
+            <RadioItem value="?filters[Chain][$eq]=cardano">Cardano</RadioItem>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
@@ -63,11 +80,11 @@ const handleChangeUsage = (filter) => {
                 value={filterSource}
                 onChange={value => {handleChangeSource(value)}}
                 >
-            <p>Source</p>
-            <Radio value="?filters[Source][$notNull]">All</Radio>
-            <Radio value="?filters[Source][$eq]=github">Github</Radio>
-            <Radio value="?filters[Source][$eq]=log">Blog</Radio>
-            <Radio value="?filters[Source][$eq]=youtube">YouTube</Radio>
+            <GroupTitle>Source</GroupTitle>
+            <RadioItem value="?filters[Source][$notNull]">All</RadioItem>
+            <RadioItem value="?filters[Source][$eq]=github">Github</RadioItem>
+            <RadioItem value="?filters[Source][$eq]=log">Blog</RadioItem>
+            <RadioItem value="?filters[Source][$eq]=youtube">YouTube</RadioItem>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
@@ -76,11 +93,11 @@ const handleChangeUsage = (filter) => {
                 value={filterStage}
                 onChange={value => {handleChangeStage(value)}}
                 >
-            <p>Stage</p>
-            <Radio value="?filters[Stage][$notNull]">All</Radio>
-            <Radio value="dev">Development</Radio>
-            <Radio value="test">Testing</Radio>
-            <Radio value="deploy">Deployment</Radio>
+            <GroupTitle>Stage</GroupTitle>
+            <RadioItem value="?filters[Stage][$notNull]">All</RadioItem>
+            <RadioItem value="dev">Development</RadioItem>
+            <RadioItem value="test">Testing</RadioItem>
+            <RadioItem value="deploy">Deployment</RadioItem>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">
@@ -89,10 +106,10 @@ const handleChangeUsage = (filter) => {
                 value={filterUsage}
                 onChange={value => {handleChangeUsage(value)}}
                 >
-            <p>Usage</p>
-            <Radio value="">All</Radio>
-            <Radio value="defi">Defi</Radio>
-            <Radio value="nft">NFT</Radio>
+            <GroupTitle>Usage</GroupTitle>
+            <RadioItem value="">All</RadioItem>
+            <RadioItem value="defi">Defi</RadioItem>
+            <RadioItem value="nft">NFT</RadioItem>
             </Group>
         </Form.Group>
         </Kontejner>

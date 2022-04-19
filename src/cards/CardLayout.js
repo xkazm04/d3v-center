@@ -4,7 +4,17 @@ import { Grid, Col } from 'rsuite'
 import Card from './Card';
 import axios from 'axios'
 import { FilterContext } from '../contexts/FilterContext';
+import styled from 'styled-components'
 
+const Kontejner = styled.div`
+    padding-top: 2%;
+    border-left: 0.1px solid black;
+    padding-left: 5%;
+    min-height: 4000px;
+    @media (max-width: 768px) {
+    padding: 0;
+  }
+`
 
 function CardLayout() {
     const {filterChain, filterSource, filterStage, filterUsage} = useContext(FilterContext);
@@ -32,12 +42,12 @@ function CardLayout() {
 
 
     return (
-
+        <Kontejner>
             <Grid >
             {response ? <>
             {response.map(data => (
                 <div key={data.id}>  
-                    <Col xs={12} sm={12} md={12} lg={6}>
+                    <Col xs={24} sm={24} md={12} lg={6}>
                         <Card 
                             title={data.attributes.Title} 
                             description={data.attributes.Description} 
@@ -52,6 +62,7 @@ function CardLayout() {
 
 
             </Grid>
+            </Kontejner>
     );
 }
 

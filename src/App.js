@@ -8,13 +8,23 @@ import LeftNav from './navigation/LeftNav';
 import styled from 'styled-components';
 import { FilterContext } from './contexts/FilterContext';
 
+
+const Kontejner = styled.div`
+  text-align: center;
+  background: #E2E2E2;
+  min-height: 4000px;
+`
+
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
 `
 
 const LeftNavBox = styled.div`
-min-width: 10rem;
+  min-width: 15%;
+    @media (max-width: 768px) {
+    min-width: 5%;
+  }
 `
 
 
@@ -25,16 +35,15 @@ function App() {
   const [filterUsage, setFilterUsage] = useState("?filters[Chain][$notNull]")
 
   return (
-    <div className="App">
+    <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
                 <Navbar/>
                     <Flex>
                         <LeftNavBox> <LeftNav/></LeftNavBox>
                         <CardLayout/>
                     </Flex>
-                 
                 </FilterContext.Provider>
-    </div>
+    </Kontejner>
   );
 }
 

@@ -1,19 +1,28 @@
 
 import styled from 'styled-components'
 import { Badge } from 'rsuite';
+import Github from '../images/Github.png'
 
+const Kontejner = styled.div`
+  margin: 10%;
+  @media (max-width: 768px) {
+    margin: 1%;
+  }
+`
 
 const CardBox = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-text-align: left;
-padding: 24px;
-width: 15rem;
-height: 15rem;
-background: #FFFFFF;
-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.02), 0px 4px 13px rgba(0, 0, 0, 0.03);
-border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 24px;
+  width: 15rem;
+  height: 15rem;
+  background: #D2D2D2;
+  border: 1px solid #808080;
+  box-sizing: border-box;
+  border-radius: 15px;
+  font-family: 'Spectral', serif;
 cursor: pointer;
 &:hover{
     transition: all 0.2s ease-in-out;
@@ -23,11 +32,12 @@ cursor: pointer;
 `
 const Title = styled.p`
 text-decoration: none;
-font-family: Inter;
+font-family: 'NoBill';
 font-style: normal;
 font-weight: 600;
 font-size: 1rem;
 line-height: 140%;
+min-height: 25%;
 color: #302F35;
 &:hover{
     text-decoration:none;
@@ -35,17 +45,37 @@ color: #302F35;
 `
 
 const Description = styled.p`
-font-family: Inter;
-font-style: normal;
-font-weight: normal;
-font-size: 14px;
-color: #767481;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: none;
+  font-size: 15px;
+  color: #767481;
+  font-weight: 400;
+`
+
+const Tags = styled.div`
+  display: flex;
+  position: absolute;
+  margin-top: 65%;
+`
+
+const Tag = styled.div`
+  background: #442F17;
+  border-radius: 15px;
+  padding-left: 15%;
+  padding-right: 15%;
+  font-family: 'Courier Prime', monospace;
+  font-family: 'Courier New';
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+  font-size: 12px;
+  margin-right: 7%;
 `
 
 const Date = styled.div`
   position: absolute;
   bottom: 0;
-  margin-bottom: 2%;
+  margin-bottom: 3%;
 `
 
 const Info = styled.div`
@@ -57,16 +87,15 @@ const Info = styled.div`
 `
 
 const Logo = styled.div`
-  margin-top: 15%;
   position: absolute;
   top: 0;
   right: 0;
-
+  margin-top: 15%;
 `
 
 const Reference = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
 `
 
@@ -86,21 +115,24 @@ function Card({title, description, update, reference, source, chain}) {
 
 
   return (
-    
-    <Badge content="NEW">
+    <Kontejner>    <Badge content="NEW">
   
     <CardBox>
 
                  <Title>{title}</Title>
                  <Description>{description}</Description>
+                 <Tags><Tag>Tag1</Tag><Tag>Tag2</Tag></Tags>
+                    
                  <Date>{update}</Date>
                  <Info>{chain}</Info>
                  <Logo>{source}</Logo>
-                 <Reference><a href={reference} target="_blank">Logo</a></Reference>
+                 <Reference><a href={reference} target="_blank"><img src={Github} alt="Girl in a jacket" width="50" height="50"></img></a></Reference>
 
      </CardBox>
 
      </Badge>
+     </Kontejner>
+
   );
 }
 
