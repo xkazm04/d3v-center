@@ -1,10 +1,12 @@
 
 import { useEffect, useState, useContext } from 'react';
 import { Grid, Col } from 'rsuite'
-import Card from './Card';
 import axios from 'axios'
 import { FilterContext } from '../contexts/FilterContext';
 import styled from 'styled-components'
+
+import ChainCard from './Card'
+import Card from './ChainCard';
 
 const Kontejner = styled.div`
     padding-top: 2%;
@@ -43,6 +45,7 @@ function CardLayout() {
 
     return (
         <Kontejner>
+            <ChainCard/>
             <Grid >
             {response ? <>
             {response.map(data => (

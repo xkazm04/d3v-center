@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import { Badge } from 'rsuite';
 import Github from '../images/Github.png'
+import {Cardano} from '../icons/chain'
 
 const Kontejner = styled.div`
   margin: 10%;
@@ -102,16 +103,8 @@ const Reference = styled.div`
 
 
 function Card({title, description, update, reference, source, chain}) {
-  // title={data.attributes.Title} 
-  // description={data.attributes.Description} 
-  // update={data.attributes.Update}
-  // reference={data.attributes.Reference}
-  // type={data.attributes.Type}
-  // chain={data.attributes.Chain}
-
   // Tooltip 
   // Logos
-  // Filtr 
 
 
   return (
@@ -122,10 +115,10 @@ function Card({title, description, update, reference, source, chain}) {
                  <Title>{title}</Title>
                  <Description>{description}</Description>
                  <Tags><Tag>Tag1</Tag><Tag>Tag2</Tag></Tags>
-                    
                  <Date>{update}</Date>
                  <Info>{chain}</Info>
                  <Logo>{source}</Logo>
+         
                  <Reference><a href={reference} target="_blank"><img src={Github} alt="Girl in a jacket" width="50" height="50"></img></a></Reference>
 
      </CardBox>
