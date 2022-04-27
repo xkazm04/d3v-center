@@ -14,11 +14,14 @@ const Kontejner = styled.div`
 const NavItem = styled(Nav.Item)`
     color: #007463;
     border-right: 2px solid #9E9E9E;
+    background: ${props => props.theme.colors.medium};
+    color: ${props => props.theme.colors.title};
 `
 
 const NavGroup = styled(Nav)`
     margin-top: 2%;
     margin-left: 4%;   
+    
 `
 
 

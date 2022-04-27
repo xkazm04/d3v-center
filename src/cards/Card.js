@@ -39,7 +39,7 @@ font-weight: 600;
 font-size: 1rem;
 line-height: 140%;
 min-height: 25%;
-color: #302F35;
+color: ${props => props.theme.colors.title};
 &:hover{
     text-decoration:none;
 }

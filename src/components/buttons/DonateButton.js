@@ -3,13 +3,13 @@ import styled from 'styled-components'
 
 
 const Button = styled.button`
-    background: #000000;
+    background: ${props => props.theme.colors.light};
 border-radius: 15px;
 font-family: 'Courier';
 font-weight: 400;
 font-size: 10px;
 letter-spacing: 1px;
-color: white;
+color: ${props => props.theme.colors.text_primary};
 padding-left: 1%;
 padding-right: 1%;
 `
@@ -23,9 +23,9 @@ font-weight: 400;
 font-size: 10px;
 line-height: 131.5%;
 letter-spacing: 0.07em;
-color: #000000;
+color: ${props => props.theme.colors.text_secondary};
 font-weight: 400;
-background: white;
+background: ${props => props.theme.colors.medium};
 padding: 2%;
 border-radius: 15px;
 `
@@ -37,8 +37,8 @@ padding: 2%;
 
 const MyWhisper = styled(Popover)`
     width: 40%;
-color: #000000;
-background: #DBDBDB;
+color: ${props => props.theme.colors.text_secondary};
+background: ${props => props.theme.colors.light};;
 `
 
 function DonateButton() {

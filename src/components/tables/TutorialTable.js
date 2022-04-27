@@ -22,14 +22,15 @@ const Kontejner = styled.div`
 `
 
 const ImageCell = styled(Table.Cell)`
-        background: '#f5f5f5';
+        background: inherit;
         border-radius: 20;
         margin-top: 2;
         overflow: hidden;
 `
 
 const CompactCell = styled(Table.Cell)`
-  color: black;
+  color: ${props => props.theme.colors.text_primary};
+  background: ${props => props.theme.colors.medium};
   text-align: left;
   font-family: 'Inter';
   font-weight: 700;
@@ -41,8 +42,8 @@ const CompactCell = styled(Table.Cell)`
 
 const HeaderCell = styled(Table.HeaderCell)`
     padding: 4;
-    background: '#F1F1F1'; 
-    color: '#000000';
+    background: ${props => props.theme.colors.medium};
+    color: ${props => props.theme.colors.text_primary};
     text-align: left;
 `
 

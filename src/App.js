@@ -1,6 +1,6 @@
 
 import './App.css';
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import {lightTheme, darkTheme} from "./theme/theme";
 import { GoDark, GoLight } from './icons/main';
 
@@ -18,6 +18,22 @@ import LeftNav from './navigation/LeftNav';
 import { FilterContext } from './contexts/FilterContext';
 import FilterChain from './components/filters/chainFilter';
 import MeiliSearch from './navigation/Search';
+
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: ${props => props.theme.colors.background};
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+  }
+  nav {
+    background: ${props => props.theme.colors.background};
+  }
+  .rs-navbar{
+    background: ${props => props.theme.colors.background};
+  }
+`;
 
 
 const Kontejner = styled.div`
@@ -80,7 +96,9 @@ function App() {
 
 
   return (
+    <>
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <GlobalStyle />
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
       {tableView === true ? null :  <MeiliSearch/>    }     
@@ -101,6 +119,7 @@ function App() {
                 </FilterContext.Provider>
     </Kontejner>
     </ThemeProvider>
+    </>
   );
 }
 

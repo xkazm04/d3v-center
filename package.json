@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.6.2",
     "@meilisearch/instant-meilisearch": "^0.7.0",
     "assert": "^2.0.0",
     "axios": "^0.26.1",
