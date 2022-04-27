@@ -69,7 +69,7 @@ const handleChangeUsage = (filter) => {
                 >
             <GroupTitle>Ecosystem</GroupTitle>
             <RadioItem value="?filters[Chain][$notNull]">All</RadioItem>
-            <RadioItem value="?filters[Chain][$eq]=evm">EVM</RadioItem>
+            <RadioItem value="?filters[Chain][$startsWith]=evm">EVM</RadioItem>
             <RadioItem value="?filters[Chain][$eq]=solana">Solana</RadioItem>
             <RadioItem value="?filters[Chain][$eq]=cardano">Cardano</RadioItem>
             </Group>
@@ -85,19 +85,6 @@ const handleChangeUsage = (filter) => {
             <RadioItem value="?filters[Source][$eq]=github">Github</RadioItem>
             <RadioItem value="?filters[Source][$eq]=log">Blog</RadioItem>
             <RadioItem value="?filters[Source][$eq]=youtube">YouTube</RadioItem>
-            </Group>
-        </Form.Group>
-        <Form.Group controlId="radioList">
-            <Group  
-                name="radioList"
-                value={filterStage}
-                onChange={value => {handleChangeStage(value)}}
-                >
-            <GroupTitle>Stage</GroupTitle>
-            <RadioItem value="?filters[Stage][$notNull]">All</RadioItem>
-            <RadioItem value="dev">Development</RadioItem>
-            <RadioItem value="test">Testing</RadioItem>
-            <RadioItem value="deploy">Deployment</RadioItem>
             </Group>
         </Form.Group>
         <Form.Group controlId="radioList">

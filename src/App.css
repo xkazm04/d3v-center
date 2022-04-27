@@ -3,3 +3,7 @@
   background: #E2E2E2;
 }
 
+.rs-table-row:hover {
+  background: red;
+}
+

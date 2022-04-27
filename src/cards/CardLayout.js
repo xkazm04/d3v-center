@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import ChainCard from './Card'
 import Card from './ChainCard';
 
+
 const Kontejner = styled.div`
     padding-top: 2%;
     border-left: 0.1px solid black;
@@ -18,22 +19,25 @@ const Kontejner = styled.div`
   }
 `
 
+
+
+
 function CardLayout() {
+
+
     const {filterChain, filterSource, filterStage, filterUsage} = useContext(FilterContext);
     const [error, setError] = useState(null)
     const [response, setResponse] = useState()
     // Filter based on context 
     const getData = async () => {
-      try {const res = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/bits${filterChain}${filterSource}${filterStage}${filterUsage}&pagination[pageSize]=100&sort=Update:ASC`)
+      try {const res = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/bits${filterChain}&${filterSource}&${filterUsage}&pagination[pageSize]=100&sort=Update:ASC`)
       setResponse(res.data.data)
         setError(null)
         console.log(res.data.data)
-     
     } catch (error) {
         setError(error)
     }
   }
-
 
 
   useEffect(
@@ -43,9 +47,13 @@ function CardLayout() {
 )
 
 
+
     return (
         <Kontejner>
+
+
             <ChainCard/>
+
             <Grid >
             {response ? <>
             {response.map(data => (
