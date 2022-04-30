@@ -1,23 +1,34 @@
 
 import './App.css';
+import {Switch, Route, Redirect} from 'react-router-dom'
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import {lightTheme, darkTheme} from "./theme/theme";
-import { GoDark, GoLight } from './icons/main';
 
 import { useState } from 'react';
 import 'rsuite/dist/rsuite.min.css'
 
-import CardLayout from './cards/CardLayout'
 import Navbar from './navigation/Navbar';
-import TutorialTable from './components/tables/TutorialTable'
 import DonateButton from './components/buttons/DonateButton';
+import DiscordButton from './components/buttons/DiscordButton';
+import MediumButton from './components/buttons/MediumButton';
+
+import Bits from './Pages/Bits';
+import Roadmap from './Pages/Roadmap';
+import Tutorials from './Pages/Tutorials';
+
+import TanTable from './components/tables/TanTable'
 
 
-import LeftNav from './navigation/LeftNav';
+import MeiliSearch from './navigation/Search';
 
 import { FilterContext } from './contexts/FilterContext';
-import FilterChain from './components/filters/chainFilter';
-import MeiliSearch from './navigation/Search';
+
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrandIcon } from './icons/main';
+
+
+const queryClient = new QueryClient()
+
 
 
 const GlobalStyle = createGlobalStyle`
@@ -37,18 +48,38 @@ const GlobalStyle = createGlobalStyle`
 
 
 const Kontejner = styled.div`
+  margin-left: 5%;
+  margin-right: 5%;
   text-align: center;
   background: ${props => props.theme.colors.background};
-  min-height: 3000px;
+  @media (min-width: 3000px) {
+    margin-left: 10%;
+  margin-right: 10%;
+  }
 `
 
-const NavRight = styled.div`
-  position: absolute;
+const Navigation = styled.div`
+margin-top: 1%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  padding: 3%;
+  justify-content: space-between;
+  padding-left: 3%;
+  padding-bottom: 3%;
   right: 0;
+`
+
+const BrandTopBox = styled.div`
+  position: absolute;
+  margin-left: 2%;
+`
+
+const BrandBottomBox = styled.div`
+  position: absolute;
+  margin-left: 2%;
+  bottom: 0;
+  font-family: 'NoBill';
+  font-size: 2vh;
+  color: ${props => props.theme.colors.text_title};
 `
 
 const ThemeSwitcher = styled.div`
@@ -67,6 +98,12 @@ const Button = styled.div`
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
+  padding-right: 2%;
+  z-index: 150;
+  height: 30%;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `
 
 const LeftNavBox = styled.div`
@@ -96,29 +133,45 @@ function App() {
 
 
   return (
-    <>
+    <><QueryClientProvider client={queryClient}>
+
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <GlobalStyle />
+    <BrandTopBox> <BrandIcon/></BrandTopBox>
+    <BrandBottomBox> <BrandIcon/>DEV CENTER</BrandBottomBox>
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
-      {tableView === true ? null :  <MeiliSearch/>    }     
+            <MeiliSearch/>              
+                <Navigation>
                 <Navbar/>
-                          
-                <NavRight>
-                   {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><GoDark/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
-                   {theme === 'light' ?  <ViewSwitcher><Button onClick={viewToggler}><GoLight/></Button> </ViewSwitcher> : <ViewSwitcher><Button onClick={viewToggler}><GoDark/></Button> </ViewSwitcher>}
+                   {/* {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><GoDark/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
+                   {theme === 'light' ?  <ViewSwitcher><Button onClick={viewToggler}><GoLight/></Button> </ViewSwitcher> : <ViewSwitcher><Button onClick={viewToggler}><GoDark/></Button> </ViewSwitcher>} */}
+                   <Flex> <DiscordButton/>
+                    <MediumButton/>
                     <DonateButton/>
-                </NavRight>
+                    </Flex>
+                </Navigation>
 
-                <FilterChain/>  
+              
+                <Switch>
+                  <Route exact path="/" render={() => <Tutorials />} />
+                  <Route exact path ="/bits"  component={Bits}  />
+                  <Route exact path ="/tutorials"  component={Bits}  />
+                  <Route exact path ="/tools"  component={Roadmap}  />
+                  <Route exact path ="/definitions"  component={Roadmap}  />
+                  <Route exact path ="/roadmap"  component={Roadmap}  />
+                  <Route render={() => <Redirect to="/" />} />
+                </Switch>
+{/* 
       {tableView === false ?  
       <Flex>
         <LeftNavBox> <LeftNav/></LeftNavBox>
         <CardLayout/>
-       </Flex>   :  <TutorialTable/>  }             
+       </Flex>   :  <><NewTable/></>}    */}
                 </FilterContext.Provider>
     </Kontejner>
     </ThemeProvider>
+    </QueryClientProvider>
     </>
   );
 }

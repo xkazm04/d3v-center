@@ -3,43 +3,56 @@ import {   InstantSearch,
     Hits,
     Pagination,
     Configure,
-    connectSearchBox ,   
     MenuSelect,
-    Highlight,Index,
+    Highlight,
     SearchBox,
     Stats} from 'react-instantsearch-dom';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import styled from 'styled-components'
+import Divider from 'rsuite/Divider';
+import { SearchIcon } from '../icons/utils';
 
 const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, // HOST
     process.env.REACT_APP_MEILI_KEY
   );
 
+  const Kontejner = styled.div`
+    margin-right: 10%;
+    position: absolute;
+    right: 0;
+    margin-top: 1%;
+    z-index: 100;
+    background: ${props => props.theme.colors.blackwhite};
+    border-left: 0.2px solid ${props => props.theme.colors.medium};
+`
+
 // Algolia styled customization
 const MyStats = styled(Stats)`
     text-align: left;
-    padding-left: 1%;
+    padding-left: 2%;
+    font-family: 'NoBills';
 `
 
 const HitTitle = styled(Highlight)`
-    color: #302F35;
+    color: ${props => props.theme.colors.text_title};
     font-family: 'NoBill';
     letter-spacing: 0.1rem;
+    font-size: 1rem;
 `
 
 const HitDescription = styled(Highlight)`
-    color: red;
+    color: ${props => props.theme.colors.text_primary};
+    font-family: 'Helvetica';
 `
 
 const MyHighlight = styled(Highlight)`
-    color: red;
 `
 
 
 const SelectBox = styled.div`
     display: flex;
-    margin-top: 2%;
+    margin: 2%;
 `
 
 const ImageBox = styled.div`
@@ -47,12 +60,11 @@ const ImageBox = styled.div`
 `
 
 const SelectTitle = styled.p`
-
+    margin-left: 2%;
 `
 
 const MyMenuSelect = styled(MenuSelect)`
     color: #302F35;
-    padding: 1%;
     margin-left: 2%;
 `
 
@@ -61,14 +73,18 @@ const Flex = styled.div`
     flex-direction: row;
 `
 
+const SearchFlex = styled(Flex)`
+    padding-left: 2%;
+`
+
 const ResultBox = styled.div`
     display: flex;
     justify-content: space-between;
-    border-bottom: 0.2px solid red;
+    border-bottom: 0.2px solid ${props => props.theme.colors.medium};
     padding-top: 1%;
     transition: 0.1s;
     &:hover{
-        background: #E4E4E4;
+        background: ${props => props.theme.colors.red};
         cursor: pointer;
     }
 `
@@ -87,25 +103,21 @@ const SourceColumn = styled.div`
     margin-left: 2%;
 `
 
-const Kontejner = styled.div`
-    width: 50%;
-    position: absolute;
-    right: 0;
-    margin-top: 2%;
-`
-
 const HitBox = styled.div`
-    background: #F1F1F1;
-
+    background: ${props => props.theme.colors.lighter};
+    padding: 1%;
 `
 
 const Search = styled.div`
-   background: red;
+   background: ${props => props.theme.colors.background};
    min-width: 800px;
+   @media (max-width: 700px) {
+    min-width: 50px;
+  }
 `
 
 const PaginationBox = styled.div`
-    background: red;
+    background: ${props => props.theme.colors.section};
     display: flex;
     flex-direction: row;
 `
@@ -116,9 +128,13 @@ const TitleBox = styled.div`
     align-items: flex-start;
     font-family: 'Staatliches';
     color: #007463;
-    background: white;
+    background: ${props => props.theme.colors.section};
     font-size: 1.5em;
     padding-left: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    z-index: 99;
+    letter-spacing: 1px;
 `
 
 const Header = ({title}) => {
@@ -162,21 +178,6 @@ function Hit(props) {
       console.log(searchValue)
   }
 
-  const MySearchBox = (refine, onClick) => {
-      return <div class="ais-SearchBox">
-    <form class="ais-SearchBox-form" novalidate>
-        <div>
-            <input onClick={onClick}
-            type="search"
-            value={searchValue}
-            onChange={event => refine(event.currentTarget.value)}
-            placeholder='Custom'
-        />
-    </div>
-    </form>
-</div>
-}
-
 
  const SetMinimum = (helper) => {
     if (helper.state.query.length < 3) {
@@ -189,7 +190,6 @@ function Hit(props) {
         setSearchValue(e.target.value);
         console.log(searchValue)
     }
-  const CustomSearchBox = connectSearchBox(MySearchBox);
   
   // Search na click smazat state,
     return (
@@ -204,7 +204,7 @@ function Hit(props) {
       <HitBox> <Hits hitComponent={Hit} /></HitBox>
     </Index> */}
 
-                <Search><SearchBox 
+                <Search><SearchFlex><SearchBox 
                     onChange={handleChange}
                     onReset={ResetValue}
                     onClick={ResetValue}
@@ -212,12 +212,7 @@ function Hit(props) {
                     focusShortcuts={['s']} 
                     min
                 />
-                <CustomSearchBox 
-                    onClick={ResetValue}
-                    defaultRefinement={searchValue} 
-                    focusShortcuts={['s']} 
-                />
-                </Search>
+                </SearchFlex></Search>
                 {searchValue === 'Press S to search' || searchValue === '' ? null : <div><Header title='Tutorials'/>
                 <MyStats/>
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
@@ -226,7 +221,9 @@ function Hit(props) {
                <PaginationBox> <Pagination /></PaginationBox>
             <SelectBox>  
                     <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  
+                    <Divider vertical/>
                     <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> 
+                    <Divider vertical/>
                     <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    
             </SelectBox>
               </div> }  
