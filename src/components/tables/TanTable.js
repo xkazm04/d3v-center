@@ -7,89 +7,46 @@ import {
 } from 'react-query';
 
 // https://nafeu.medium.com/using-react-query-with-react-table-884158535424
-
-const fetchData = () => axios.get(`https://d3v-center.herokuapp.com/api/bits`);
-
-const TableQuery = () => {
-  const [tableData, setTableData] = useState(null);
-  const { data: apiResponse, isLoading } = useQuery('id', fetchData);
-
-  useEffect(() => {
-    setTableData(apiResponse?.data.attributes);
-  }, [apiResponse])
-
-  if (isLoading || !tableData) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <TableInstance tableData={tableData}/>
-  );
-}
-
-const TableInstance = ({ tableData }) => {
-  const [columns, data] = useMemo(
-    () => {
-      const columns = [
-        {
-          Header: 'Title',
-          accessor: 'Title'
-        },
-        {
-          Header: 'Description',
-          accessor: 'Description'
-        }
-      ];
-      return [columns, tableData];
-    },
-    [tableData]
-  );
-
-  const tableInstance = useTable({ columns, data });
-
-  return (
-    <TableLayout {...tableInstance} />
-  );
-}
-
-const TableLayout = ({
-  getTableProps,
-  getTableBodyProps,
-  headerGroups,
-  rows,
-  prepareRow,
-}) => {
-  return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
-  );
-}
+// https://medium.com/swlh/getting-started-with-usequery-react-query-9ea181c3dd47
+// https://www.youtube.com/watch?v=WRKEjPq75BY
 
 const TanTable = () => {
+
+  const [error, setError] = useState(null)
+  const [response, setResponse] = useState()
+
+  const fetchData = async () => {
+    try {const res = await axios.get(`https://localhost:1337/api/bits`)
+    setResponse(res.data.data)
+      setError(null)
+  } catch (error) {
+      setError(error)
+  }
+}
+
+  const [tableData, setTableData] = useState(null);
+  const { data: apiResponse, isLoading,status } = useQuery('bit', fetchData);
+
+  useEffect(() => {
+    setTableData(apiResponse?.data);
+    console.log(tableData)
+  }, [apiResponse])
+
+
+
   return (
     <>
-      <TableQuery />
+        <div className="App">
+      {status === "error" && <p>Error fetching data</p>}
+      {status === "loading" && <p>Fetching data...</p>}
+      {status === "success" && (
+        <div>
+          {tableData.map((bit) => (
+            <p key={bit.id}>{bit.id}</p>
+          ))}
+        </div>
+      )}
+    </div>
     </>
   );
 }

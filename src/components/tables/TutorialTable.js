@@ -44,7 +44,7 @@ const Flex = styled.div`
 
 const Background = styled.div`
   background:  ${props => props.theme.colors.light};
-  padding: 2%;
+  padding: 0.5%;
   border-radius: 5px;
 `
 
@@ -60,9 +60,7 @@ const CompactCell = styled(Table.Cell)`
   overflow: visible;
   cursor: pointer;
   transition: 0.1s;
-  &:hover{
-    background:  ${props => props.theme.colors.red};
-  }
+  line-height: 1;
 `
 
 const SpecialColumn = styled(Table.Column)`
@@ -73,8 +71,13 @@ const SpecialColumn = styled(Table.Column)`
 
 const HeaderCell = styled(Table.HeaderCell)`
     background: ${props => props.theme.colors.light};
-    color: ${props => props.theme.colors.heavy};
+    color: ${props => props.theme.colors.text_title};
     text-align: left;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-family: 'NoBill';
+    line-height: 1;
 `
 
 
@@ -142,7 +145,6 @@ function TutorialTable() {
       try {const res = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/bits${filterChain}&${filterSource}&${filterUsage}&pagination[pageSize]=100&sort=Update:ASC`)
       setResponse(res.data.data)
         setError(null)
-        console.log(res.data.data)
     } catch (error) {
         setError(error)
     }

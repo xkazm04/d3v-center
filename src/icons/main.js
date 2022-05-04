@@ -40,10 +40,10 @@ export const GoLight = () => {
   
 }
 
-export const BrandIcon = () => {
+export const BrandIcon = ({color}) => {
   return <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M16 10.0227L3.73531 20L0.0559054 17.0068L8.64111 10.0227L0 2.9932L3.67941 0L16 10.0227Z" fill="#007463"/>
-  <rect x="11" y="16" width="10" height="4" fill="#007463"/>
+  <path d="M16 10.0227L3.73531 20L0.0559054 17.0068L8.64111 10.0227L0 2.9932L3.67941 0L16 10.0227Z" fill={color}/>
+  <rect x="11" y="16" width="10" height="4" fill={color}/>
   </svg>
   
 }

@@ -7,12 +7,12 @@ import {Solana, Evm} from '../../icons/chain'
 const Kontejner = styled.div`
     margin-left: 5%;
     display: flex;
+    flex-direction: column;
     background: ${props => props.theme.colors.background};
-    justify-content: start;
     border-radius: 45px;
-    gap: 0.3rem;
     overflow-x: auto;
 	white-space: nowrap; 
+    text-align: left;
     -webkit-overflow-scrolling: touch; /* [3] */
     -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */ 
     @media (max-width: 700px) {
@@ -25,15 +25,23 @@ const BoxAll = styled.div`
     margin-top: 2%;
 `
 
-const BoxEvm = styled(BoxAll)`
-    margin-top: 1%;
-    margin-left: 8%;
+const BoxEvm = styled.div`
+    position: absolute;
+    margin-left: 10%;
+    opacity:${props => props.setOpacity ? 1 : 0.5};
 `
+const TopBox = styled.div`
+    display: flex;
+    flex-direction: column;
+
+`
+
 
 const Text = styled.div`
     padding-top: 10%;
     font-family: 'Staatliches';
     letter-spacing: 0.1rem;
+    color: ${props => props.theme.colors.text_title};
     @media (max-width: 700px) {
     display: none;
   }
@@ -41,21 +49,18 @@ const Text = styled.div`
 
 const ChainBox = styled.button`
     background: ${props => props.theme.colors.background};
-    border: 0.3px solid #FFFFFF;
+    border: 0.3px solid ${props => props.theme.colors.lighter};
     box-sizing: border-box;
     min-width: 50px;
     border-radius: 45px;
     transition: 0.1s;
+    margin: 0.5%;
     &:hover{
-        background: ${props => props.theme.colors.medium};
+        background: ${props => props.theme.colors.light};
     }
     @media (max-width: 700px) {
         min-width: 20px
   }
-`
-
-const EvmBox = styled(ChainBox)`
-    opacity:${props => props.setOpacity ? 1 : 0.5};
 `
 
 const ChainActiveBox = styled(ChainBox)`
@@ -79,6 +84,7 @@ const FilterTitle = styled.div`
     font-family: 'NoBill';
     font-size: 20px;
     letter-spacing: 0.1px;
+    color: ${props => props.theme.colors.text_primary};
     @media (max-width: 700px) {
     display: none;
   }
@@ -117,7 +123,11 @@ function FilterChain() {
     return (
 
                 <Kontejner>    
-                    <FilterTitle>Filter results per chain</FilterTitle>
+               <TopBox>     <FilterTitle>Filter results per chain</FilterTitle>      
+            <BoxEvm> <ChainActiveBox background={'white'} onClick={()=>handleClick("??filters[Chain][$notNull]")}>Title</ChainActiveBox> 
+           <ChainActiveBox background={'white'} onClick={()=>handleClick("??filters[Chain][$notNull]")}>Title</ChainActiveBox> 
+            <ChainActiveBox background={'white'} onClick={()=>handleClick("??filters[Chain][$notNull]")}>Title</ChainActiveBox> </BoxEvm>
+        </TopBox>
                 <BoxAll>
                 {filterChain === '??filters[Chain][$notNull]' ? 
         <ChainActiveBox background={'white'} onClick={()=>handleClick('??filters[Chain][$notNull]')}><IconWrapper title={'Solana'}/></ChainActiveBox> : 
@@ -170,22 +180,7 @@ function FilterChain() {
 
 
                  </BoxAll>
-     {evmVisibility ?  <BoxEvm>
-    
-            {filterChain === "??filters[Chain][$notNull]" ? <ChainActiveBox background={'white'} onClick={()=>handleClick("??filters[Chain][$notNull]")}><Wrapper><Evm width={40} height={40}/><Text>All</Text></Wrapper></ChainActiveBox> : 
-        <EvmBox onClick={()=>handleClick("??filters[Chain][$notNull]")}><Wrapper><Evm width={40} height={40}/><Text>All</Text></Wrapper></EvmBox>
-        }  
 
-        {filterChain === "?filters[Chain][$startsWith]=evm" ? <ChainActiveBox background={'yellow'} onClick={()=>handleClick("?filters[Chain][$startsWith]=evm")}><Wrapper><Evm width={40} height={40}/><Text>Evm</Text></Wrapper></ChainActiveBox> : 
-        <ChainBox onClick={()=>handleClick("?filters[Chain][$startsWith]=evm")}><Wrapper><Evm width={40} height={40}/><Text>EVM</Text></Wrapper></ChainBox>
-        }  
-
-        {filterChain === "?filters[Chain][$startsWith]=solana" ? <ChainActiveBox background={'blue'} onClick={()=>handleClick("?filters[Chain][$startsWith]=solana")}><Wrapper><Solana width={40} height={40}/><Text>Solana</Text></Wrapper></ChainActiveBox> : 
-        <ChainBox onClick={()=>handleClick("?filters[Chain][$startsWith]=solana")}><Wrapper><Solana width={40} height={40}/><Text>Solana</Text></Wrapper></ChainBox>
-        }  
-
-
-     </BoxEvm> : null}
             </Kontejner>
     );
 }

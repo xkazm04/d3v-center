@@ -32,7 +32,7 @@ color: ${props => props.theme.colors.text_secondary};
 background: ${props => props.theme.colors.light};;
 `
 
-function DiscordButton() {
+function DiscordButton({color}) {
 
     const speaker =
     <MyWhisper>
@@ -43,7 +43,7 @@ function DiscordButton() {
 
                 < >
                                 <Whisper placement='bottomStart' trigger="hover" speaker={speaker}>
-                                <MyButton icon={<DiscordIcon/>}/>
+                                <MyButton icon={<DiscordIcon color={color}/>}/>
                 </Whisper>    
             </>
     );

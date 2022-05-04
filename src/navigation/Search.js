@@ -24,7 +24,6 @@ const searchClient = instantMeiliSearch(
     margin-top: 1%;
     z-index: 100;
     background: ${props => props.theme.colors.blackwhite};
-    border-left: 0.2px solid ${props => props.theme.colors.medium};
 `
 
 // Algolia styled customization
@@ -32,6 +31,7 @@ const MyStats = styled(Stats)`
     text-align: left;
     padding-left: 2%;
     font-family: 'NoBills';
+    color: ${props => props.theme.colors.text_primary};
 `
 
 const HitTitle = styled(Highlight)`
@@ -55,17 +55,32 @@ const SelectBox = styled.div`
     margin: 2%;
 `
 
+const SelectItem = styled.div`
+    padding: 2%;
+    border-radius: 15px;
+    border: solid 0.2px ${props => props.theme.colors.light};
+    transition: 0.1s;
+    &:hover{
+        background: ${props => props.theme.colors.lighter};
+    }
+`
+
 const ImageBox = styled.div`
     margin-top: 10%;
 `
 
 const SelectTitle = styled.p`
-    margin-left: 2%;
+    margin-left: 1%;
+    font-family: 'NoBill';
+    font-size: 18px;
+    margin-bottom: 10%;
+    color: ${props => props.theme.colors.text_primary};
+    cursor: default;
 `
 
 const MyMenuSelect = styled(MenuSelect)`
-    color: #302F35;
-    margin-left: 2%;
+    color: ${props => props.theme.colors.text_title};
+    margin-left: 1%;
 `
 
 const Flex = styled.div`
@@ -80,7 +95,7 @@ const SearchFlex = styled(Flex)`
 const ResultBox = styled.div`
     display: flex;
     justify-content: space-between;
-    border-bottom: 0.2px solid ${props => props.theme.colors.medium};
+    border-bottom: 0.2px solid ${props => props.theme.colors.light};
     padding-top: 1%;
     transition: 0.1s;
     &:hover{
@@ -106,6 +121,8 @@ const SourceColumn = styled.div`
 const HitBox = styled.div`
     background: ${props => props.theme.colors.lighter};
     padding: 1%;
+    border-right: 1px solid ${props => props.theme.colors.line};
+    border-left: 1px solid ${props => props.theme.colors.line};
 `
 
 const Search = styled.div`
@@ -120,6 +137,9 @@ const PaginationBox = styled.div`
     background: ${props => props.theme.colors.section};
     display: flex;
     flex-direction: row;
+    padding-top: 1%;
+    padding-left: 1%;
+    color: ${props => props.theme.colors.text_primary};
 `
 
 
@@ -127,7 +147,7 @@ const TitleBox = styled.div`
     display: flex;
     align-items: flex-start;
     font-family: 'Staatliches';
-    color: #007463;
+    color: ${props => props.theme.colors.text_primary};
     background: ${props => props.theme.colors.section};
     font-size: 1.5em;
     padding-left: 5%;
@@ -191,6 +211,22 @@ function Hit(props) {
         console.log(searchValue)
     }
   
+    const renderSelectMenu = () => {
+        return <>
+        <SelectBox>  
+               <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  </SelectItem>
+                <Divider vertical/>
+              <SelectItem>   <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> </SelectItem>
+                <Divider vertical/>
+                <SelectItem> <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    </SelectItem>
+                <Divider vertical/>
+                <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  </SelectItem>
+                <Divider vertical/>
+              <SelectItem>   <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> </SelectItem>
+                <Divider vertical/>
+                <SelectItem> <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    </SelectItem>
+        </SelectBox></>
+    }
   // Search na click smazat state,
     return (
         <Kontejner>
@@ -213,19 +249,17 @@ function Hit(props) {
                     min
                 />
                 </SearchFlex></Search>
-                {searchValue === 'Press S to search' || searchValue === '' ? null : <div><Header title='Tutorials'/>
-                <MyStats/>
+           
+                {searchValue === 'Press S to search' || searchValue === '' ? null : <div>
+                {renderSelectMenu()}  
+                <Header title='Tutorials'/>
+                <MyStats/>  
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
                 <Header title='Definitions'/>
                 <HitBox>  <Hits hitComponent={Hit} /></HitBox>
-               <PaginationBox> <Pagination /></PaginationBox>
-            <SelectBox>  
-                    <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  
-                    <Divider vertical/>
-                    <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> 
-                    <Divider vertical/>
-                    <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    
-            </SelectBox>
+            
+
+            <PaginationBox> <SelectTitle>Pagination</SelectTitle><Pagination /></PaginationBox>
               </div> }  
 
                </div>

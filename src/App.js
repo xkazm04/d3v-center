@@ -16,7 +16,7 @@ import Bits from './Pages/Bits';
 import Roadmap from './Pages/Roadmap';
 import Tutorials from './Pages/Tutorials';
 
-import TanTable from './components/tables/TanTable'
+import { GoLight } from './icons/main';
 
 
 import MeiliSearch from './navigation/Search';
@@ -28,23 +28,6 @@ import { BrandIcon } from './icons/main';
 
 
 const queryClient = new QueryClient()
-
-
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    background: ${props => props.theme.colors.background};
-    font-family: Open-Sans, Helvetica, Sans-Serif;
-  }
-  nav {
-    background: ${props => props.theme.colors.background};
-  }
-  .rs-navbar{
-    background: ${props => props.theme.colors.background};
-  }
-`;
 
 
 const Kontejner = styled.div`
@@ -71,6 +54,7 @@ margin-top: 1%;
 const BrandTopBox = styled.div`
   position: absolute;
   margin-left: 2%;
+  display: flex;
 `
 
 const BrandBottomBox = styled.div`
@@ -86,13 +70,15 @@ const ThemeSwitcher = styled.div`
   margin-right: 15%;
 `
 
-const ViewSwitcher = styled.div`
-margin-right: 15%;
-`
-
 const Button = styled.div`
   background: inherit;
   cursor: pointer;
+  padding: 10px;
+  border-radius: 15px; 
+  transition: 1s; 
+  &:hover{
+    background: ${props => props.theme.colors.red};
+  }
 `
 
 const Flex = styled.div`
@@ -106,12 +92,6 @@ const Flex = styled.div`
   }
 `
 
-const LeftNavBox = styled.div`
-  min-width: 15%;
-    @media (max-width: 768px) {
-    min-width: 5%;
-  }
-`
 
 
 function App() {
@@ -126,10 +106,6 @@ function App() {
     theme === 'light' ? setTheme('dark') : setTheme('light')
 }
 
-  const [tableView, setTableView] = useState(false);
-  const viewToggler = () => {
-    setTableView(!tableView)
-  }
 
 
   return (
@@ -137,17 +113,20 @@ function App() {
 
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <GlobalStyle />
-    <BrandTopBox> <BrandIcon/></BrandTopBox>
-    <BrandBottomBox> <BrandIcon/>DEV CENTER</BrandBottomBox>
+    <BrandTopBox> 
+    
+      {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
+    </BrandTopBox>
+
+    <BrandBottomBox> <BrandIcon color='#007463'/>DEV CENTER</BrandBottomBox>
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
             <MeiliSearch/>              
                 <Navigation>
                 <Navbar/>
-                   {/* {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><GoDark/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
-                   {theme === 'light' ?  <ViewSwitcher><Button onClick={viewToggler}><GoLight/></Button> </ViewSwitcher> : <ViewSwitcher><Button onClick={viewToggler}><GoDark/></Button> </ViewSwitcher>} */}
-                   <Flex> <DiscordButton/>
-                    <MediumButton/>
+                   <Flex> 
+                   {theme === 'light' ? <DiscordButton color='#2D0363'/> : <DiscordButton color='#30FFE1'/>}  
+                    <MediumButton color='red'/>
                     <DonateButton/>
                     </Flex>
                 </Navigation>
@@ -175,5 +154,90 @@ function App() {
     </>
   );
 }
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: ${props => props.theme.colors.background};
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+  }
+  nav {
+    background: ${props => props.theme.colors.background};
+  }
+  .rs-navbar{
+    background: ${props => props.theme.colors.background};
+  }
+  .ais-SearchBox-submit {
+  display: none;
+}
+.ais-SearchBox-reset {
+  display: none;
+}
+
+.rs-table-cell-content{
+  background: ${props => props.theme.colors.lighter};
+  border: 1px dotted ${props => props.theme.colors.light};
+  &:hover{
+    background:  ${props => props.theme.colors.red};
+    color: ${props => props.theme.colors.text_title};
+  }
+}
+
+.ais-SearchBox-input{
+  background: inherit;
+  border: none;
+  padding-left: 5%;
+  font-family: 'NoBill';
+  font-size: 20px;
+  color: ${props => props.theme.colors.text_primary};
+  z-index: 95;
+  border-left: 0.1px dotted green;
+  min-width: 300px;
+  box-shadow: 0px 1px 4px ${props => props.theme.colors.red};
+  cursor: pointer;
+}
+
+.ais-MenuSelect-select, .ais-MenuSelect-select:active, .ais-MenuSelect-select:focus {
+  padding-top: 5%;
+  width: 100%;
+  font-family: 'Helvetica';
+  border-radius: 5px;
+  cursor: pointer;
+  border:none;
+  background:  #F5FFFB;
+
+}
+
+.ais-MenuSelect{
+  width: 110%;
+  
+
+}
+
+.ais-MenuSelect-option{
+  padding-top: 5%;
+  cursor:pointer;
+  min-height: 1.4em;
+  background: ${props => props.theme.colors.light};
+  color: ${props => props.theme.colors.text_primary};
+}
+
+.ais-Pagination, .ais-Pagination-list, .ais-Pagination-item, .ais-Pagination-list--noRefinement{
+  list-style-type: none;
+}
+
+.ais-Pagination-item--firstPage, .ais-Pagination-item--previousPage, .ais-Pagination-item--nextPage{
+  display: none;
+  
+}
+
+.ais-Pagination-link{
+  font-family: 'NoBill';
+  font-size: 24px;
+}
+
+`;
+
 
 export default App;

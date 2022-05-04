@@ -27,14 +27,14 @@ letter-spacing: 0.07em;
 color: ${props => props.theme.colors.text_secondary};
 font-weight: 400;
 padding: 2%;
-border-radius: 15px;
+border-radius: 15px;r
 `
 const MyWhisper = styled(Popover)`
 color: ${props => props.theme.colors.text_secondary};
 background: ${props => props.theme.colors.light};;
 `
 
-function DiscordButton() {
+function MediumButton({color}) {
 
     const speaker =
     <MyWhisper>
@@ -45,13 +45,13 @@ function DiscordButton() {
 
                 < >
                                 <Whisper placement='bottomStart' trigger="hover" speaker={speaker}>
-                                <MyButton icon={<MediumIcon/>}/>
+                                <MyButton icon={<MediumIcon color={color}/>}/>
                 </Whisper>    
             </>
     );
 }
 
-export default DiscordButton;
+export default MediumButton;
 
 
 

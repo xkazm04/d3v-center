@@ -30,11 +30,11 @@ export const lightTheme = {
       background: "#1F0202",
       heavy: "#1F0202",
       medium: "#280000",  
-      light: "#4A0000",
-      lighter: "#FDFDFD",
-      line: "#FFFFFF",
+      light: "#A40C0C",
+      lighter: "#480505",
+      line: "#9F9F9F",
       text_title: "#30FFE1",
-      text_primary: "#FFFFFF",
+      text_primary: "#D3FCFF",
       text_secondary: "#FFFFFF",
 
       // Cards-Alternative colors
