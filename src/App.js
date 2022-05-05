@@ -57,15 +57,6 @@ const BrandTopBox = styled.div`
   display: flex;
 `
 
-const BrandBottomBox = styled.div`
-  position: absolute;
-  margin-left: 2%;
-  bottom: 0;
-  font-family: 'NoBill';
-  font-size: 2vh;
-  color: ${props => props.theme.colors.text_title};
-`
-
 const ThemeSwitcher = styled.div`
   margin-right: 15%;
 `
@@ -117,8 +108,6 @@ function App() {
     
       {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
     </BrandTopBox>
-
-    <BrandBottomBox> <BrandIcon color='#007463'/>DEV CENTER</BrandBottomBox>
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
             <MeiliSearch/>              
@@ -183,6 +172,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.colors.text_title};
   }
 }
+.ais-Hits-item{
+  list-style-type: none;
+}
+
 
 .ais-SearchBox-input{
   background: inherit;
@@ -225,6 +218,10 @@ const GlobalStyle = createGlobalStyle`
 
 .ais-Pagination, .ais-Pagination-list, .ais-Pagination-item, .ais-Pagination-list--noRefinement{
   list-style-type: none;
+  width: auto;
+  gap: 50%;
+  display: flex;
+  justify-content: start;
 }
 
 .ais-Pagination-item--firstPage, .ais-Pagination-item--previousPage, .ais-Pagination-item--nextPage{
@@ -235,9 +232,11 @@ const GlobalStyle = createGlobalStyle`
 .ais-Pagination-link{
   font-family: 'NoBill';
   font-size: 24px;
+  width: 20px;
 }
 
 `;
+
 
 
 export default App;

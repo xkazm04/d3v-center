@@ -11,6 +11,8 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import styled from 'styled-components'
 import Divider from 'rsuite/Divider';
 import { SearchIcon } from '../icons/utils';
+import { Button } from 'rsuite';
+import axios from 'axios';
 
 const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, // HOST
@@ -52,7 +54,13 @@ const MyHighlight = styled(Highlight)`
 
 const SelectBox = styled.div`
     display: flex;
+    position: absolute;
+    right: -150px;
+    z-index: 250;
+    flex-direction: column;
     margin: 2%;
+    background: white;
+    opacity: ${props => props.opacity};
 `
 
 const SelectItem = styled.div`
@@ -84,6 +92,11 @@ const MyMenuSelect = styled(MenuSelect)`
 `
 
 const Flex = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+const TitleFlex = styled(Flex)`
     display: flex;
     flex-direction: row;
 `
@@ -123,6 +136,7 @@ const HitBox = styled.div`
     padding: 1%;
     border-right: 1px solid ${props => props.theme.colors.line};
     border-left: 1px solid ${props => props.theme.colors.line};
+    position: sticky;
 `
 
 const Search = styled.div`
@@ -157,20 +171,59 @@ const TitleBox = styled.div`
     letter-spacing: 1px;
 `
 
-const Header = ({title}) => {
-    return <TitleBox>{title}</TitleBox>
-}
+const FilterBox = styled.div`
+    width: 100%;
+`
+
+const MyButton = styled(Button)`
+    width: 100%;
+    background:${props => props.theme.colors.red};
+    font-family: 'NoBill';
+    font-size: 1.5em;
+`
+
+
 
 
 function MeiliSearch() {
 
     const [searchValue, setSearchValue] = useState('Press S to search')
+    const [selectOpacity, setSelectOpacity] = useState(0)
 
-    // Rsuite whisper tam zkusit narvat
+    const toggleSelectOpacity = () => {
+        if (selectOpacity === 0){
+            setSelectOpacity(1)
+        } else{
+            setSelectOpacity(0)
+        }
+    }
+
+    const Header = ({title}) => {
+        return <TitleBox>{title}</TitleBox>
+          
+    }
+
+    const handleResultClick = (reference,id,counter) => {
+        window.open(reference, "_blank")
+        addCounter(id,counter)
+    }
+
+    const addCounter = async(tutorialId,viewCounter) => {
+        const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
+        const token = process.env.REACT_APP_CMS_API // Master strapi token
+        const body = { data: { ViewCounter: viewCounter+1 } }
+        const res = await axios.put(`https://d3v-center.herokuapp.com/api/tutorials/${updatedId}`, body, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+    })
+        console.log(res)
+}
 
 function Hit(props) {
     return (
-      <ResultBox onClick={()=> window.open(props.hit.Reference, "_blank")}>
+      <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>
+          {/* onClick={()=>{handleClickResult(1,2,3)}} */}
           <SourceColumn><ImageBox> 
               { props.hit.Source === "github" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
               { props.hit.Source === "youtube" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
@@ -213,24 +266,26 @@ function Hit(props) {
   
     const renderSelectMenu = () => {
         return <>
-        <SelectBox>  
-               <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  </SelectItem>
+        <SelectBox opacity={selectOpacity}>  
+               <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect attribute='Chain'/>  </SelectItem>
                 <Divider vertical/>
-              <SelectItem>   <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> </SelectItem>
+              <SelectItem>   <SelectTitle>Series</SelectTitle><MyMenuSelect attribute='Series'/> </SelectItem>
                 <Divider vertical/>
-                <SelectItem> <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    </SelectItem>
+                <SelectItem> <SelectTitle>Category</SelectTitle>   <MyMenuSelect attribute='Category'/>    </SelectItem>
                 <Divider vertical/>
-                <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect defaultRefinement="evm" attribute='Chain'/>  </SelectItem>
+                <SelectItem> <SelectTitle>Source</SelectTitle> <MyMenuSelect  attribute='Source'/>  </SelectItem>
                 <Divider vertical/>
-              <SelectItem>   <SelectTitle>Usage</SelectTitle><MyMenuSelect attribute='Usage'/> </SelectItem>
+              <SelectItem>   <SelectTitle>Tool</SelectTitle><MyMenuSelect attribute='Tool'/> </SelectItem>
                 <Divider vertical/>
-                <SelectItem> <SelectTitle>Phase</SelectTitle>   <MyMenuSelect attribute='Phase'/>    </SelectItem>
+                <SelectItem> <SelectTitle>Language</SelectTitle>   <MyMenuSelect attribute='Language'/>    </SelectItem>
+                <Divider vertical/>
+                <SelectItem> <SelectTitle>Difficulty</SelectTitle>   <MyMenuSelect attribute='Difficulty'/>    </SelectItem>
         </SelectBox></>
     }
   // Search na click smazat state,
     return (
         <Kontejner>
-            <InstantSearch indexName="bit" searchClient={searchClient} searchFunction={SetMinimum}>
+            <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum}>
             <Flex>
                 <div>
                 <Configure hitsPerPage={10} />
@@ -249,14 +304,16 @@ function Hit(props) {
                     min
                 />
                 </SearchFlex></Search>
-           
+
                 {searchValue === 'Press S to search' || searchValue === '' ? null : <div>
+                <FilterBox><MyButton onClick={toggleSelectOpacity}>Filter</MyButton></FilterBox>
                 {renderSelectMenu()}  
                 <Header title='Tutorials'/>
+
                 <MyStats/>  
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
-                <Header title='Definitions'/>
-                <HitBox>  <Hits hitComponent={Hit} /></HitBox>
+                {/* <Header title='Definitions'/>
+                <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
             
 
             <PaginationBox> <SelectTitle>Pagination</SelectTitle><Pagination /></PaginationBox>
