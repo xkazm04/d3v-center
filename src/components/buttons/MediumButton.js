@@ -1,6 +1,6 @@
 import {Popover, Whisper, IconButton} from 'rsuite'
 import styled from 'styled-components'
-import { DiscordIcon, MediumIcon } from '../../icons/utils'
+import { MediumIcon } from '../../icons/utils'
 
 
 

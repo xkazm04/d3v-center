@@ -112,14 +112,14 @@ function App() {
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
             {/* <MeiliSearch/>               */}
-                {/* <Navigation>
+                <Navigation>
                 <Navbar/>
                    <Flex> 
                    {theme === 'light' ? <DiscordButton color='#2D0363'/> : <DiscordButton color='#30FFE1'/>}  
                     <MediumButton color='red'/>
                     <DonateButton/>
                     </Flex>
-                </Navigation> */}
+                </Navigation>
 
               
                 <Switch>
