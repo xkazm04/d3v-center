@@ -21,8 +21,8 @@ export const DiscordIcon = ({color}) => {
     </svg>
 }
 
-export const MediumIcon = ({color}) => {
-    return <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const MediumIcon = ({color,height,width}) => {
+    return <svg width={width} height={height} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9 23.5C12.866 23.5 16 20.1421 16 16C16 11.8579 12.866 8.5 9 8.5C5.13401 8.5 2 11.8579 2 16C2 20.1421 5.13401 23.5 9 23.5Z" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M23 23C24.6569 23 26 19.866 26 16C26 12.134 24.6569 9 23 9C21.3431 9 20 12.134 20 16C20 19.866 21.3431 23 23 23Z" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M30 9V23" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,4 +35,10 @@ export const SearchIcon = () => {
     <path d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z" stroke="#8247E5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M21.9248 21.925L27.9998 28" stroke="#8247E5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
+}
+export const YTIcon = ({color,height,width}) => {
+return <svg width={width} height={height}  viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 16L14 12V20L20 16Z" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 15.9999C3 19.7249 3.3875 21.8999 3.675 23.0249C3.75427 23.3301 3.90418 23.6125 4.11262 23.8491C4.32106 24.0858 4.58221 24.2702 4.875 24.3874C9.0625 25.9874 16 25.9499 16 25.9499C16 25.9499 22.9375 25.9874 27.125 24.3874C27.4178 24.2702 27.6789 24.0858 27.8874 23.8491C28.0958 23.6125 28.2457 23.3301 28.325 23.0249C28.6125 21.8999 29 19.7249 29 15.9999C29 12.2749 28.6125 10.0999 28.325 8.97488C28.2457 8.66963 28.0958 8.38729 27.8874 8.15062C27.6789 7.91395 27.4178 7.72958 27.125 7.61238C22.9375 6.01238 16 6.04988 16 6.04988C16 6.04988 9.0625 6.01238 4.875 7.61238C4.58221 7.72958 4.32106 7.91395 4.11262 8.15062C3.90418 8.38729 3.75427 8.66963 3.675 8.97488C3.3875 10.0999 3 12.2749 3 15.9999Z" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 }

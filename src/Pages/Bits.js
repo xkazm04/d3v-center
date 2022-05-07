@@ -1,10 +1,5 @@
-import TanTable from "../components/tables/TanTable";
-
 
 export default function Bits() {
 
-    return <h2>Bits
-      <TanTable/>
-
-    </h2>;
+    return <><h2>Planned for 5/2022</h2></>;
   }

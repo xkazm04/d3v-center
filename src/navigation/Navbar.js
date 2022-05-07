@@ -15,13 +15,9 @@ const Kontejner = styled.div`
         font-size: 1.2rem;
         margin-top: 10%;
   }
-  @media (min-width: 3000px) {
-    font-size: 1.4vh;
-  }
 `
 
 const NavItem = styled(Nav.Item)`
-    color: #007463;
     border-right: 0.5px dotted ${props => props.theme.colors.ligher};
     background: inherit;
     color: ${props => props.theme.colors.text_title};
@@ -50,10 +46,11 @@ function TopNav() {
         <Kontejner>
             <Navbar>
                 <NavGroup>
-                     <NavItem><MyLink to="/">Tutorials</MyLink></NavItem>
-                    <NavItem><MyLink to="/bits">Bits</MyLink></NavItem>
+                    <NavItem><MyLink to="/">Tutorials</MyLink></NavItem>
                     <NavItem><MyLink to="/definitions">Definitions</MyLink></NavItem>
                     <NavItem><MyLink to="/tools">Tools</MyLink></NavItem>
+                    <NavItem><MyLink to="/bits">Bits</MyLink></NavItem>
+                    <NavItem><MyLink to="/chains">Chain</MyLink></NavItem>
                     <NavItem><MyLink to="/roadmap">Roadmap</MyLink></NavItem>
                 </NavGroup>
                 <Nav pullRight>

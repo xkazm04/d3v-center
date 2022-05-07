@@ -1,10 +1,8 @@
-import TutorialTable from "../components/tables/TutorialTable";
-import FilterChain from '../components/filters/chainFilter';
-import AlgoliaTable from "../components/tables/AlgoliaTable";
+
+import AlgoliaTutorialTable from "../components/tables/AlgoliaTutorialTable";
 
 export default function Tutorials() {
-    return <>  <FilterChain/>  
-    <TutorialTable/> 
-    <AlgoliaTable/>
-    </>;
+    return <>  
+    <AlgoliaTutorialTable />;
+    </>
   }

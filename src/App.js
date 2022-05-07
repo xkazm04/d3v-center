@@ -12,43 +12,41 @@ import DonateButton from './components/buttons/DonateButton';
 import DiscordButton from './components/buttons/DiscordButton';
 import MediumButton from './components/buttons/MediumButton';
 
+import Chains from './Pages/Chains';
 import Bits from './Pages/Bits';
 import Roadmap from './Pages/Roadmap';
 import Tutorials from './Pages/Tutorials';
+import Tools from './Pages/Tools';
+import Definitions from './Pages/Definitions';
 
 import { GoLight } from './icons/main';
 
-
-import MeiliSearch from './navigation/Search';
 
 import { FilterContext } from './contexts/FilterContext';
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrandIcon } from './icons/main';
-
+import {Helmet} from "react-helmet";
 
 const queryClient = new QueryClient()
 
 
 const Kontejner = styled.div`
-  margin-left: 5%;
-  margin-right: 5%;
   text-align: center;
   background: ${props => props.theme.colors.background};
-  @media (min-width: 3000px) {
-    margin-left: 10%;
-  margin-right: 10%;
-  }
+  transition: 0.1s;
 `
 
 const Navigation = styled.div`
-margin-top: 1%;
+padding-top: 1%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding-left: 3%;
-  padding-bottom: 3%;
+  justify-content: space-around;
+  margin-left: 3%;
+  padding-bottom: 1%;
   right: 0;
+  width: 100%;
+  border-bottom: 1px solid ${props => props.theme.colors.line};
 `
 
 const BrandTopBox = styled.div`
@@ -58,7 +56,7 @@ const BrandTopBox = styled.div`
 `
 
 const ThemeSwitcher = styled.div`
-  margin-right: 15%;
+  padding-right: 15%;
 `
 
 const Button = styled.div`
@@ -75,7 +73,6 @@ const Button = styled.div`
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
-  padding-right: 2%;
   z-index: 150;
   height: 30%;
   @media (max-width: 700px) {
@@ -101,6 +98,10 @@ function App() {
 
   return (
     <><QueryClientProvider client={queryClient}>
+      <Helmet>
+        <title>D3V Center</title>
+        <meta name="description" content="Archive of web3 development wisdom. Tutorials, guides, definitions and tools for both EVM and non-EVM blockchains" />
+      </Helmet>
 
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <GlobalStyle />
@@ -110,23 +111,24 @@ function App() {
     </BrandTopBox>
     <Kontejner>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
-            <MeiliSearch/>              
-                <Navigation>
+            {/* <MeiliSearch/>               */}
+                {/* <Navigation>
                 <Navbar/>
                    <Flex> 
                    {theme === 'light' ? <DiscordButton color='#2D0363'/> : <DiscordButton color='#30FFE1'/>}  
                     <MediumButton color='red'/>
                     <DonateButton/>
                     </Flex>
-                </Navigation>
+                </Navigation> */}
 
               
                 <Switch>
                   <Route exact path="/" render={() => <Tutorials />} />
                   <Route exact path ="/bits"  component={Bits}  />
-                  <Route exact path ="/tutorials"  component={Bits}  />
-                  <Route exact path ="/tools"  component={Roadmap}  />
-                  <Route exact path ="/definitions"  component={Roadmap}  />
+                  <Route exact path ="/tutorials"  component={Tutorials}  />
+                  <Route exact path ="/tools"  component={Tools}  />
+                  <Route exact path ="/chains"  component={Chains}  />
+                  <Route exact path ="/definitions"  component={Definitions}  />
                   <Route exact path ="/roadmap"  component={Roadmap}  />
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
@@ -185,35 +187,37 @@ const GlobalStyle = createGlobalStyle`
   font-size: 20px;
   color: ${props => props.theme.colors.text_primary};
   z-index: 95;
-  border-left: 0.1px dotted green;
+  border-left: 0.1px dotted ${props => props.theme.colors.red};
   min-width: 300px;
   box-shadow: 0px 1px 4px ${props => props.theme.colors.red};
   cursor: pointer;
+  outline: none;
 }
 
-.ais-MenuSelect-select, .ais-MenuSelect-select:active, .ais-MenuSelect-select:focus {
+.ais-MenuSelect-select {
   padding-top: 5%;
-  width: 100%;
   font-family: 'Helvetica';
-  border-radius: 5px;
   cursor: pointer;
   border:none;
-  background:  #F5FFFB;
-
+  min-width: 170px;
+  border-bottom: 1px solid ${props => props.theme.colors.red};
 }
 
-.ais-MenuSelect{
-  width: 110%;
-  
-
+.ais-MenuSelect-select{
+  background:  ${props => props.theme.colors.light};
+  background: transparent;
+  text-align: left;
+  outline: none;
 }
 
 .ais-MenuSelect-option{
   padding-top: 5%;
   cursor:pointer;
   min-height: 1.4em;
-  background: ${props => props.theme.colors.light};
+  background: ${props => props.theme.colors.lighter};
   color: ${props => props.theme.colors.text_primary};
+  text-align: left;
+  outline: none;
 }
 
 .ais-Pagination, .ais-Pagination-list, .ais-Pagination-item, .ais-Pagination-list--noRefinement{
@@ -234,6 +238,16 @@ const GlobalStyle = createGlobalStyle`
   font-size: 24px;
   width: 20px;
 }
+.ais-ClearRefinements-button{
+  background: ${props => props.theme.colors.green};
+  font-size: 11px;
+}
+
+.ais-ClearRefinements-button--disabled{
+  background: ${props => props.theme.colors.red};
+  opacity: 0.5;
+}
+
 
 `;
 
