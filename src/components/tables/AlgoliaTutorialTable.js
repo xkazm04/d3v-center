@@ -9,6 +9,7 @@
       Highlight,
       SearchBox,
       ClearRefinements,
+      SortBy,
       Stats} from 'react-instantsearch-dom';
   import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
   import styled from 'styled-components'
@@ -25,16 +26,16 @@ import { MediumIcon, YTIcon } from '../../icons/utils';
   const Kontejner = styled.div`
     @media (min-width: 1800px) {
     margin-right: 10%;
-    margin-left: 10%;
+    margin-left: 7%;
   }
   @media (min-width: 2500px) {
     margin-right: 10%;
-    margin-left: 20%;
+    margin-left: 15%;
   }
   `
 
   const Box = styled.div`
-    padding: 4%;
+    padding: 2%;
     padding-top: 1%;
     
   `
@@ -72,35 +73,45 @@ const HitColumn = styled.div`
     padding-bottom: 2px;
 `
 
+const HitMainColumn = styled(HitColumn)`
+  display: flex;
+  flex-direction: column;
+  background: ${props => props.theme.colors.main};
+  border-radius: 15px;
+  margin-left: 2%;
+  padding-left: 2%;
+`
+
 const HitSeriesColumn = styled(HitColumn)`
-    width: 150px;
     font-size: 12px;
+    padding-top: 3%;
 `
 
 
 const HitTitle = styled(Highlight)`
     color: ${props => props.theme.colors.text_title};
     font-family: 'Helvetica';
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 1.1em;
 `
 
 const HitDescription = styled(Highlight)`
     color: ${props => props.theme.colors.text_primary};
     font-family: 'Helvetica';
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
 `
 const HitDifficulty = styled.div`
     font-family: 'NoBill';
     letter-spacing: 1.5px;
+    font-size: 0.8rem;
     color: ${props => props.theme.colors.text_primary};
 `
 
 const HitLanguage = styled.div`
-color: ${props => props.theme.colors.text_title};
+color: ${props => props.theme.colors.text_primary};
       font-weight: 400;
-    font-size: 1rem;
+    font-size: 1.1em;
 `
 
 
@@ -108,6 +119,7 @@ const HitSeries = styled(Highlight)`
     font-family: 'NoBill';
     letter-spacing: 1.5px;
     color: ${props => props.theme.colors.text_primary};
+    padding-left: 4%;
 `
 
 const HitCategory = styled(Highlight)`
@@ -259,22 +271,22 @@ function Hit(props) {
         {/* Main part */}
         <HitFlex onClick={addCounter}>  
         <Divider vertical/>
-            {/* Hit series */}
-              <HitColumn width={'400px'}>{props.hit.Series === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="Series" hit={props.hit} tagName="mark" /> </HitSeriesColumn>} 
-            {/* Hit title */}
-              <HitTitle attribute="Title" hit={props.hit}  tagName="mark"/></HitColumn>
-              <Divider vertical/>
-            {/* Hit description with tags: Use case*/}
-          <HitColumn width={'550px'}> 
-          <HitSeriesColumn>
-                {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="mark" /> }         
-                {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="mark" />}
-            </HitSeriesColumn>
-          <HitColumn>  <HitDescription attribute="Description" hit={props.hit} tagName="mark" /> </HitColumn></HitColumn>
+            {/* Left column */}
+            <HitColumn width={'150px'}>
+                {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }         
+                {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="strong" />}
+                {props.hit.Series === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="Series" hit={props.hit} tagName="strong" /> </HitSeriesColumn>} 
+       </HitColumn>
+            <Divider vertical/>
+            {/* Main column*/}
+          <HitMainColumn width={'650px'}>  
+              <HitTitle attribute="Title" hit={props.hit}  tagName="strong"/>
+              <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
+          </HitMainColumn>
           <Divider vertical/>
           <HitColumn>
+          {props.hit.Language === null ? null :  <HitLanguage>{props.hit.Language} </HitLanguage>}
             {props.hit.Difficulty === null ? null :  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty>}
-            {props.hit.Language === null ? null :  <HitLanguage>{props.hit.Language} </HitLanguage>}
           </HitColumn>
         </HitFlex>
 
@@ -313,7 +325,7 @@ function Hit(props) {
 
   return (
     <Kontejner>
-                 <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum}>
+                 <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum} stalledSearchDelay='500'>
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
                 <BoxSubtitle>Subtitle</BoxSubtitle>

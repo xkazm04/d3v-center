@@ -36,13 +36,13 @@ function DiscordButton({color}) {
 
     const speaker =
     <MyWhisper>
-            <Message>Need help? Join <b>Discord</b> channel and lets start discussion</Message>
+            <Message>Need help? Join <b><a href="https://discord.gg/HnFAKSCD">Discord</a></b> channel and lets start discussion</Message>
   </MyWhisper>
 
     return (
 
                 < >
-                                <Whisper placement='bottomStart' trigger="hover" speaker={speaker}>
+                                <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
                                 <MyButton icon={<DiscordIcon color={color}/>}/>
                 </Whisper>    
             </>
