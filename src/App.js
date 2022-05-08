@@ -99,7 +99,7 @@ function App() {
   return (
     <><QueryClientProvider client={queryClient}>
       <Helmet>
-        <title>D3V Center</title>
+        <title>D3V Library</title>
         <meta name="description" content="Archive of web3 development wisdom. Tutorials, guides, definitions and tools for both EVM and non-EVM blockchains" />
       </Helmet>
 
