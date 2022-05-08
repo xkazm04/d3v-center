@@ -1,19 +1,17 @@
-  // Sear
-
-  import { useState } from 'react';
   import {   InstantSearch,
       Hits,
       Pagination,
       Configure,
       MenuSelect,
       Highlight,
-      SearchBox,
+      connectSearchBox,
       ClearRefinements,
       Stats} from 'react-instantsearch-dom';
   import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
   import styled from 'styled-components'
   import Divider from 'rsuite/Divider';
   import axios from 'axios';
+  import SearchBox from './SearchBox';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/utils';
 
@@ -60,8 +58,8 @@ import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/
 const MyStats = styled(Stats)`
     text-align: left;
     padding-top: 5px;
-    padding-left: 1%;
-    font-family: 'NoBills';
+    margin-left: 5%;
+    font-family: 'NoBill';
     color: ${props => props.theme.colors.text_primary};
 `
 
@@ -113,7 +111,6 @@ const HitDifficulty = styled.div`
     color: ${props => props.theme.colors.text_primary};
 `
 
-
 const HitSeries = styled(Highlight)`
     font-family: 'NoBill';
     letter-spacing: 1.5px;
@@ -148,14 +145,12 @@ const HitUpdate = styled.div`
 const SelectItem = styled.div`
     border-radius: 15px;
     border: solid 0.2px ${props => props.theme.colors.light};
-    padding-right: 3%;
+    padding-right: 1%;
     padding-top: 1%;
     padding-left: 1%;
     margin-bottom: 1%;
     transition: 0.1s;
     background: ${props => props.theme.colors.light};
-    width: 200px;
-    height: 80px;
     align-items: left;
     text-align: left;
     &:hover{
@@ -187,6 +182,7 @@ const Flex = styled.div`
 `
 
 const HitFlex = styled(Flex)`
+
 `
 
 
@@ -217,6 +213,7 @@ const HitBox = styled.div`
     background: ${props => props.theme.colors.lighter};
     border-left: 1px solid ${props => props.theme.colors.line};
     position: sticky;
+    margin-left: 5%;
 `
 
 const Search = styled.div`
@@ -234,6 +231,7 @@ const PaginationBox = styled.div`
     padding-left: 1%;
     color: ${props => props.theme.colors.text_primary};
     height: 50px;
+    margin-left: 5%;
 `
 
 const AbsoluteBox = styled.div`
@@ -243,7 +241,6 @@ const AbsoluteBox = styled.div`
 
 
 const AlgoliaTable = () => {
-    const [searchValue, setSearchValue] = useState('')
 
     const handleResultClick = (reference,id,counter) => {
         window.open(reference, "_blank")
@@ -261,7 +258,7 @@ const AlgoliaTable = () => {
     })
     console.log(res)
 }
-
+const DebouncedSearchBox = connectSearchBox(SearchBox)
 function Hit(props) {
     return (
       <>
@@ -296,7 +293,7 @@ function Hit(props) {
 
           </HitColumn>
           <Divider vertical/>
-          <HitColumn>
+          <HitColumn  width={'50px'}>
           {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null }
           </HitColumn>
 
@@ -320,23 +317,9 @@ function Hit(props) {
   }
 
 
-
- const SetMinimum = (helper) => {
-    if (helper.state.query.length < 3) {
-        return; 
-      }
-      helper.search();
-    }
-
-    const handleChange = (e) => {
-        setSearchValue(e.target.value);
-    }
-
-
-
   return (
     <Kontejner>
-                 <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum} stalledSearchDelay={'1000'}>
+                 <InstantSearch indexName="tutorial" searchClient={searchClient}>
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
                 <BoxSubtitle>Subtitle</BoxSubtitle>
@@ -356,10 +339,8 @@ function Hit(props) {
                 <MyDivider vertical/> 
                 <SelectItem> <SelectTitle>Source</SelectTitle> <MyMenuSelect  attribute='Source'/>  </SelectItem>
                 <MyDivider vertical/> <ClearRefinements />
-        </Flex>  <SearchFlex><MyStats/><SearchBox 
-                    onChange={handleChange}
-                    defaultRefinement={searchValue} 
-                    focusShortcuts={['s']} 
+        </Flex>  <SearchFlex><MyStats/><DebouncedSearchBox 
+                    delay={500}
                 />
                 </SearchFlex></Search>
             

@@ -179,21 +179,6 @@ const GlobalStyle = createGlobalStyle`
 }
 
 
-.ais-SearchBox-input{
-  background: inherit;
-  border: none;
-  padding-left: 5%;
-  font-family: 'Helvetica';
-  font-size: 1.3em;
-  color: ${props => props.theme.colors.text_primary};
-  z-index: 95;
-  border-left: 0.1px dotted ${props => props.theme.colors.red};
-  min-width: 300px;
-  box-shadow: 0px 1px 4px ${props => props.theme.colors.red};
-  cursor: pointer;
-  outline: none;
-}
-
 .ais-MenuSelect-select {
   padding-top: 5%;
   font-family: 'Helvetica';
