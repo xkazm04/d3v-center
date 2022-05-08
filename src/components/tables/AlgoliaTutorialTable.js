@@ -9,14 +9,13 @@
       Highlight,
       SearchBox,
       ClearRefinements,
-      SortBy,
       Stats} from 'react-instantsearch-dom';
   import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
   import styled from 'styled-components'
   import Divider from 'rsuite/Divider';
   import axios from 'axios';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
-import { MediumIcon, YTIcon } from '../../icons/utils';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/utils';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -71,13 +70,19 @@ const HitColumn = styled.div`
     flex-direction: start;
     text-align: left;
     padding-bottom: 2px;
+    @media (max-width: 700px) {
+      display: none;
+  }
 `
 
-const HitMainColumn = styled(HitColumn)`
+const HitMainColumn = styled.div`
+ width: ${props => props.width};
   display: flex;
   flex-direction: column;
   background: ${props => props.theme.colors.main};
   border-radius: 15px;
+  text-align: left;
+  padding-bottom: 2px;
   margin-left: 2%;
   padding-left: 2%;
 `
@@ -106,12 +111,6 @@ const HitDifficulty = styled.div`
     letter-spacing: 1.5px;
     font-size: 0.8rem;
     color: ${props => props.theme.colors.text_primary};
-`
-
-const HitLanguage = styled.div`
-color: ${props => props.theme.colors.text_primary};
-      font-weight: 400;
-    font-size: 1.1em;
 `
 
 
@@ -237,6 +236,10 @@ const PaginationBox = styled.div`
     height: 50px;
 `
 
+const AbsoluteBox = styled.div`
+  position: absolute;
+`
+
 
 
 const AlgoliaTable = () => {
@@ -264,8 +267,8 @@ function Hit(props) {
       <>
       <SourceColumn>
       { props.hit.Source === "github" ? <MediumIcon width={'20'}/> : null } 
-      { props.hit.Source === "youtube" ? <YTIcon width={'25'} color={'#601919'}/> : null } 
-      { props.hit.Source === "medium" ? <MediumIcon width={'25'} color={'black'}/> : null } 
+      { props.hit.Source === "youtube" ? <YTIcon width={'25'} color={'#CB0000'}/> : null } 
+      { props.hit.Source === "medium" ? <MediumIcon width={'25'}/> : null } 
     </SourceColumn>
       <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.Counter)}}>
         {/* Main part */}
@@ -284,10 +287,19 @@ function Hit(props) {
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
           </HitMainColumn>
           <Divider vertical/>
-          <HitColumn>
-          {props.hit.Language === null ? null :  <HitLanguage>{props.hit.Language} </HitLanguage>}
-            {props.hit.Difficulty === null ? null :  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty>}
+          <HitColumn width={'50px'}>
+            <AbsoluteBox>          
+              {props.hit.Language === 'Solidity' ?  <><SolidityIcon width='50' height='35' /></> : null }
+              {props.hit.Language === 'Rust' ?  <><JsIcon width='50' height='25' /></> : null }
+              {props.hit.Language === 'JavaScript' ?  <><RustIcon width='50' height='50' /></>  : null }
+          </AbsoluteBox>
+
           </HitColumn>
+          <Divider vertical/>
+          <HitColumn>
+          {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null }
+          </HitColumn>
+
         </HitFlex>
 
         {/* Right part */}
@@ -318,14 +330,13 @@ function Hit(props) {
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        console.log(searchValue)
     }
 
 
 
   return (
     <Kontejner>
-                 <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum} stalledSearchDelay='500'>
+                 <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum} stalledSearchDelay={'1000'}>
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
                 <BoxSubtitle>Subtitle</BoxSubtitle>
@@ -351,7 +362,6 @@ function Hit(props) {
                     focusShortcuts={['s']} 
                 />
                 </SearchFlex></Search>
-              
             
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
                 {/* <Header title='Definitions'/>

@@ -36,7 +36,7 @@ export const lightTheme = {
       text_title: "#B40808",
       text_primary: "#97B9BB",
       text_secondary: "#FFFFFF",
-      main: "#f7feff",
+      main: "#1F0202",
 
       // Cards-Alternative colors
       blue: "#0C002E",
