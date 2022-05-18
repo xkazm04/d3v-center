@@ -27,7 +27,7 @@ color: ${props => props.theme.colors.text_primary};
 export default function Roadmap() {
     return <Kontejner>
       <BoxTitle>Roadmap</BoxTitle>
-                <BoxSubtitle><a href=''>Q3 - 2022</a></BoxSubtitle>
+                <BoxSubtitle>Q3 - 2022</BoxSubtitle>
     <Map color='red' />
     </Kontejner>
   }

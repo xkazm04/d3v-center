@@ -37,10 +37,6 @@ const CompactCell = styled(Table.Cell)`
   line-height: 1;
 `
 
-const ActionCell = styled(CompactCell)`
-  cursor: pointer;
-  transition: 0.1s;
-`
 
 const HeaderCell = styled(Table.HeaderCell)`
     background: ${props => props.theme.colors.light};

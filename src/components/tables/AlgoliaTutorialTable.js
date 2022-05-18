@@ -13,8 +13,7 @@
   import axios from 'axios';
   import SearchBox from './SearchBox';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
-import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, InfoIcon } from '../../icons/utils';
-import ReactTooltip from 'react-tooltip';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/utils';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 

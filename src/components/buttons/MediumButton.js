@@ -37,7 +37,7 @@ function MediumButton({color}) {
 
     const speaker =
     <MyWhisper>
-            <Message>Something about this <a href=''><b>project</b></a> and me</Message>
+            <Message>Something about this <b>project</b> and me</Message>
   </MyWhisper>
 
     return (
