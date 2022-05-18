@@ -14,7 +14,6 @@ margin-right: 3%;
 letter-spacing: 1px;
 color: ${props => props.theme.colors.text_primary};
 transition: 0.1s;
-display: none;
 `
 
 
@@ -27,7 +26,7 @@ letter-spacing: 0.07em;
 color: ${props => props.theme.colors.text_secondary};
 font-weight: 400;
 padding: 2%;
-border-radius: 15px;r
+border-radius: 15px;
 `
 const MyWhisper = styled(Popover)`
 color: ${props => props.theme.colors.text_secondary};
@@ -38,14 +37,14 @@ function MediumButton({color}) {
 
     const speaker =
     <MyWhisper>
-            <Message>Something about me</Message>
+            <Message>Something about this <a href=''><b>project</b></a> and me</Message>
   </MyWhisper>
 
     return (
 
                 < >
-                                <Whisper placement='bottomStart' trigger="hover" speaker={speaker}>
-                                <MyButton icon={<MediumIcon color={color}/>}/>
+                                <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
+                                <MyButton icon={<MediumIcon width='30'/>}/>
                 </Whisper>    
             </>
     );

@@ -13,7 +13,8 @@
   import axios from 'axios';
   import SearchBox from './SearchBox';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
-import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/utils';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, InfoIcon } from '../../icons/utils';
+import ReactTooltip from 'react-tooltip';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -68,9 +69,12 @@ const HitColumn = styled.div`
     flex-direction: start;
     text-align: left;
     padding-bottom: 2px;
+    &:hover{
+    font-weight: 700;
+  }
     @media (max-width: 700px) {
       display: none;
-  }
+    }
 `
 
 const HitMainColumn = styled.div`
@@ -259,6 +263,15 @@ const AlgoliaTable = () => {
     console.log(res)
 }
 const DebouncedSearchBox = connectSearchBox(SearchBox)
+
+const SelectFilter = ({title,attribute}) => {
+  return(
+  <SelectItem><SelectTitle>{title}
+  {/* <InfoIcon width={'20'} color={'black'}/> */}
+  </SelectTitle> <MyMenuSelect attribute={attribute}/>  </SelectItem>
+  )
+}
+
 function Hit(props) {
     return (
       <>
@@ -317,27 +330,28 @@ function Hit(props) {
   }
 
 
+
   return (
     <Kontejner>
                  <InstantSearch indexName="tutorial" searchClient={searchClient}>
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
-                <BoxSubtitle>Subtitle</BoxSubtitle>
+                <BoxSubtitle>Some subtitle</BoxSubtitle>
                 <Configure hitsPerPage={20} />   
                 <Search>        <Flex>  
-                <SelectItem>   <SelectTitle>Series</SelectTitle><MyMenuSelect attribute='Series'/> </SelectItem>
+                <SelectFilter title={'Series'} attribute={'Series'}/>
                 <MyDivider vertical/>
-               <SelectItem> <SelectTitle>Ecosystem</SelectTitle> <MyMenuSelect attribute='Chain'/>  </SelectItem>
+                <SelectFilter title={'Ecosystem'} attribute={'Chain'}/>
                <MyDivider vertical/>
-                <SelectItem> <SelectTitle>Difficulty</SelectTitle>   <MyMenuSelect attribute='Difficulty'/>    </SelectItem>
+               <SelectFilter title={'Difficulty'} attribute={'Difficulty'}/>
                 <MyDivider vertical/>
-                <SelectItem> <SelectTitle>Usage</SelectTitle>   <MyMenuSelect attribute='Category'/>    </SelectItem>
+                <SelectFilter title={'Usage'} attribute={'Category'}/>
                 <MyDivider vertical/>
-                <SelectItem> <SelectTitle>Language</SelectTitle>   <MyMenuSelect attribute='Language'/>    </SelectItem>
+                <SelectFilter title={'Language'} attribute={'Language'}/>
                 <MyDivider vertical/>
-              <SelectItem>   <SelectTitle>Tool</SelectTitle><MyMenuSelect attribute='Tool'/> </SelectItem>
+                <SelectFilter title={'Tool'} attribute={'Tool'}/>
                 <MyDivider vertical/> 
-                <SelectItem> <SelectTitle>Source</SelectTitle> <MyMenuSelect  attribute='Source'/>  </SelectItem>
+                <SelectFilter title={'Source'} attribute={'Source'}/>
                 <MyDivider vertical/> <ClearRefinements />
         </Flex>  <SearchFlex><MyStats/><DebouncedSearchBox 
                     delay={500}

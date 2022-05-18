@@ -32,10 +32,14 @@ const CompactCell = styled(Table.Cell)`
   font-size: ${props => props.fontFancy ? '15px' : '14px'};
   letter-spacing: ${props => props.fontFancy ? '0.2px' : '0px'};
   font-weight: ${props => props.fontBold ? 700 : 400};
+  
   overflow: visible;
+  line-height: 1;
+`
+
+const ActionCell = styled(CompactCell)`
   cursor: pointer;
   transition: 0.1s;
-  line-height: 1;
 `
 
 const HeaderCell = styled(Table.HeaderCell)`
@@ -61,64 +65,69 @@ function ChainTable() {
     
         const CustomHeaderCell = compact ? HeaderCell : Table.HeaderCell;
 
+        const ConfigCell = ({ rowData, dataKey, ...props }) => (
+          <CompactCell {...props} >
+            <a href={rowData[dataKey]}>{rowData[dataKey]}</a>
+          </CompactCell>
+        );
+        
+        const ChainCell = ({ rowData, dataKey, ...props }) => (
+          <CompactCell {...props} >
+            <>{rowData[dataKey]}</>
+          </CompactCell>
+        );
 
+// Překopat UI dneska - Nechat v tabulce EVM, ECO, Lang, Doc reference
+// Přidat ikonku ke každému chainu -> Tzn. mannual tabulka - Grid 
+// Nová UI componenta
     return (
 
             <Kontejner>
-               Battle of platforms began, whom to pick?                
-      <Background>
-        <Table
-          virtualized
-          loading={loading}
-          hover={false}
-          showHeader={true}
-          autoHeight={true}
-          data={noData ? [] : chainData}
-          bordered={true}
-          cellBordered={true}
-          headerHeight={compact ? 33 : 40}
-          rowHeight={compact ? 33 : 46}
-          rowKey={row => row.id}
-        >
-
-     <Table.Column flexGrow={2}>
-        <CustomHeaderCell>Blockc</CustomHeaderCell>
-        <CompactCell dataKey="chain" />
-      </Table.Column>
-      <Table.Column flexGrow={1}>
-        <CustomHeaderCell>EVM</CustomHeaderCell>
-        <CompactCell dataKey="evm" />
-      </Table.Column>
-      <Table.Column flexGrow={1}>
-        <CustomHeaderCell>ECO</CustomHeaderCell>
-        <CompactCell dataKey="eco" />
-      </Table.Column>
-      <Table.Column flexGrow={2}>
-        <CustomHeaderCell>Lang</CustomHeaderCell>
-        <CompactCell dataKey="language" />
-      </Table.Column>
-      <Table.Column flexGrow={2}>
-        <CustomHeaderCell>Config</CustomHeaderCell>
-        <CompactCell dataKey="config" />
-      </Table.Column>
-      <Table.Column flexGrow={2}>
-        <CustomHeaderCell>Main DEX + TVL</CustomHeaderCell>
-        <CompactCell dataKey="swap" />
-      </Table.Column>
-      <Table.Column flexGrow={2}>
-        <CustomHeaderCell>Main attribute</CustomHeaderCell>
-        <CompactCell dataKey="attribute" />
-      </Table.Column>
-      <Table.Column flexGrow={3}>
-        <CustomHeaderCell>Reason to pick</CustomHeaderCell>
-        <CompactCell dataKey="reasonPlus" />
-      </Table.Column>
-      <Table.Column flexGrow={3}>
-        <CustomHeaderCell>Concerns</CustomHeaderCell>
-        <CompactCell dataKey="reasonMinus" />
-      </Table.Column>
-        </Table>
-      </Background>
+               5/2022 to develop - Modal with data, Pros/Cons               
+                    <Background>
+                      <Table
+                        virtualized
+                        loading={loading}
+                        hover={false}
+                        showHeader={true}
+                        autoHeight={true}
+                        data={noData ? [] : chainData}
+                        bordered={true}
+                        cellBordered={true}
+                        headerHeight={compact ? 33 : 40}
+                        rowHeight={compact ? 33 : 46}
+                        rowKey={row => row.id}
+                      >
+                  <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>Blockchain</CustomHeaderCell>
+                      <ChainCell dataKey="chain"/>
+                    </Table.Column>
+                    <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>EVM</CustomHeaderCell>
+                      <CompactCell dataKey="evm" />
+                    </Table.Column>
+                    <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>Ecosystem</CustomHeaderCell>
+                      <CompactCell dataKey="eco" />
+                    </Table.Column>
+                    <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>Language</CustomHeaderCell>
+                      <CompactCell dataKey="language" />
+                    </Table.Column>
+                    <Table.Column flexGrow={2}>
+                      <CustomHeaderCell>Main DEX + TVL</CustomHeaderCell>
+                      <CompactCell dataKey="swap" />
+                    </Table.Column>
+                    <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>Config</CustomHeaderCell>
+                      <ConfigCell dataKey="config" />
+                    </Table.Column>
+                    <Table.Column flexGrow={1}>
+                      <CustomHeaderCell>Review</CustomHeaderCell>
+                      <ConfigCell dataKey="config" />
+                    </Table.Column>
+                      </Table>
+                    </Background>
             </Kontejner>
     );
 }

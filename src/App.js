@@ -169,10 +169,6 @@ const GlobalStyle = createGlobalStyle`
 .rs-table-cell-content{
   background: ${props => props.theme.colors.lighter};
   border: 1px dotted ${props => props.theme.colors.light};
-  &:hover{
-    background:  ${props => props.theme.colors.red};
-    color: ${props => props.theme.colors.text_title};
-  }
 }
 .ais-Hits-item{
   list-style-type: none;
