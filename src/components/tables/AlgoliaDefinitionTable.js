@@ -88,12 +88,6 @@ const HitMainColumn = styled.div`
   padding-left: 2%;
 `
 
-const HitSeriesColumn = styled(HitColumn)`
-    font-size: 12px;
-    padding-top: 3%;
-`
-
-
 const HitTitle = styled(Highlight)`
     color: ${props => props.theme.colors.text_title};
     font-family: 'Helvetica';
@@ -112,31 +106,6 @@ const HitDifficulty = styled.div`
     letter-spacing: 1.5px;
     font-size: 0.8rem;
     color: ${props => props.theme.colors.text_primary};
-`
-
-const HitSeries = styled(Highlight)`
-    font-family: 'NoBill';
-    letter-spacing: 1.5px;
-    color: ${props => props.theme.colors.text_primary};
-    padding-left: 4%;
-`
-
-const HitCategory = styled(Highlight)`
-    color: ${props => props.theme.colors.text_primary};
-    font-family: 'Helvetica';
-    font-weight: 700;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 5%;
-    padding-right: 5%;
-    margin-right: 3%;
-    border-radius: 15px;
-    font-size: 11px;
-    background: ${props => props.theme.colors.purple};
-`
-
-const HitTool = styled(HitCategory)`
-     background: ${props => props.theme.colors.blue};
 `
 
 const HitUpdate = styled.div`
@@ -268,7 +237,7 @@ const AlgoliaTutorialTable = () => {
         console.log(updatedId)
         const token = process.env.REACT_APP_CMS_API // Master strapi token
         const body = { data: { ViewCounter: viewCounter+1 } }
-        const res = await axios.put(`https://d3v-center.herokuapp.com/api/tutorials/${updatedId}`, body, {
+        const res = await axios.put(`https://d3v-center.herokuapp.com/api/definition/${updatedId}`, body, {
             headers: {
               Authorization: `Bearer ${token}`
             },
@@ -296,13 +265,6 @@ function Hit(props) {
       <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>
         {/* Main part */}
         <HitFlex>  
-        <Divider vertical/>
-            {/* Left column */}
-            <HitColumn width={'150px'}>
-                {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }         
-                {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="strong" />}
-                {props.hit.Series === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="Series" hit={props.hit} tagName="strong" /> </HitSeriesColumn>} 
-       </HitColumn>
             <Divider vertical/>
             {/* Main column*/}
           <HitMainColumn width={'650px'}>  
@@ -346,23 +308,19 @@ function Hit(props) {
 
   return (
     <Kontejner>
-                 <InstantSearch indexName="tutorial" searchClient={searchClient}>
+                 <InstantSearch indexName="definition" searchClient={searchClient}>
             <Flex> 
-                <Box><BoxTitle>Tutorials</BoxTitle>
-                <BoxSubtitle>Learn from 300+ articles</BoxSubtitle>
+                <Box><BoxTitle>Definitions</BoxTitle>
+                <BoxSubtitle>Absorb all crypto foundations</BoxSubtitle>
                 <Configure hitsPerPage={20} />   
                 <Search>        <Flex>  
-                <SelectFilter title={'Series'} attribute={'Series'} />
-                <MyDivider vertical/>
                 <SelectFilter title={'Ecosystem'} attribute={'Chain'} />
                <MyDivider vertical/>
                <SelectFilter title={'Difficulty'} attribute={'Difficulty'}/>
                 <MyDivider vertical/>
-                <SelectFilter title={'Usage'} attribute={'Category'}/>
+                <SelectFilter title={'Usage'} attribute={'Usage'}/>
                 <MyDivider vertical/>
                 <SelectFilter title={'Language'} attribute={'Language'}/>
-                <MyDivider vertical/>
-                <SelectFilter title={'Tool'} attribute={'Tool'}/>
                 <MyDivider vertical/> 
                 <SelectFilter title={'Source'} attribute={'Source'}/>
                 <MyDivider vertical/> <ClearRefinements />
@@ -372,9 +330,6 @@ function Hit(props) {
                 </SearchFlex></Search>
             
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
-                {/* <Header title='Definitions'/>
-                <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
-            
 
             <PaginationBox> <SelectTitle>Pagination</SelectTitle><Pagination /></PaginationBox> 
 

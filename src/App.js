@@ -14,7 +14,6 @@ import MediumButton from './components/buttons/MediumButton';
 
 import Chains from './Pages/Chains';
 import Bits from './Pages/Bits';
-import Roadmap from './Pages/Roadmap';
 import Tutorials from './Pages/Tutorials';
 import Tools from './Pages/Tools';
 import Definitions from './Pages/Definitions';
@@ -42,8 +41,6 @@ padding-top: 1%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-left: 3%;
-  padding-bottom: 1%;
   right: 0;
   width: 100%;
   border-bottom: 1px solid ${props => props.theme.colors.line};
@@ -129,7 +126,6 @@ function App() {
                   <Route exact path ="/tools"  component={Tools}  />
                   <Route exact path ="/chains"  component={Chains}  />
                   <Route exact path ="/definitions"  component={Definitions}  />
-                  <Route exact path ="/roadmap"  component={Roadmap}  />
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
 {/* 

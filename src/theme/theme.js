@@ -13,7 +13,7 @@ export const lightTheme = {
        main: "#f7feff",
  
        // Cards-Alternative colors
-       blue: "#CAD1D9",
+       blue: "#FFA3A3",
        green: "#D1DECE",
        black: "#D2D2D2",
        purple: "#EDD8ED",

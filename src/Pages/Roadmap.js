@@ -24,11 +24,15 @@ padding-bottom: 1%;
 color: ${props => props.theme.colors.text_primary};
 `
 
+const MapBox = styled.div`
+position: absolute;
+`
+
 export default function Roadmap() {
     return <Kontejner>
       <BoxTitle>Roadmap</BoxTitle>
                 <BoxSubtitle>Q3 - 2022</BoxSubtitle>
-    <Map color='red' />
+      <MapBox> <Map/> </MapBox>
     </Kontejner>
   }
 

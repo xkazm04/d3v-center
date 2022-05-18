@@ -49,9 +49,7 @@ function TopNav() {
                     <NavItem><MyLink to="/">Tutorials</MyLink></NavItem>
                     <NavItem><MyLink to="/definitions">Definitions</MyLink></NavItem>
                     <NavItem><MyLink to="/tools">Tools</MyLink></NavItem>
-                    <NavItem><MyLink to="/bits">Bits</MyLink></NavItem>
-                    <NavItem><MyLink to="/chains">Chain</MyLink></NavItem>
-                    <NavItem><MyLink to="/roadmap">Roadmap</MyLink></NavItem>
+                   <NavItem> ...more coming</NavItem>
                 </NavGroup>
                 <Nav pullRight>
                    {MoonSvg}
