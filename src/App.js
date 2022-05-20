@@ -223,10 +223,7 @@ const GlobalStyle = createGlobalStyle`
   background: ${props => props.theme.colors.red};
   opacity: 0.5;
 }
-
-
 `;
-
 
 
 export default App;
