@@ -107,8 +107,7 @@ function App() {
       {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
     </BrandTopBox>
     <Kontejner>
-            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>
-            {/* <MeiliSearch/>               */}
+            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>   
                 <Navigation>
                 <Navbar/>
                    <Flex> 
@@ -177,7 +176,6 @@ const GlobalStyle = createGlobalStyle`
   cursor: pointer;
   border:none;
   min-width: 170px;
-  border-bottom: 1px solid ${props => props.theme.colors.red};
 }
 
 .ais-MenuSelect-select{
@@ -218,6 +216,7 @@ const GlobalStyle = createGlobalStyle`
 .ais-ClearRefinements-button{
   background: ${props => props.theme.colors.green};
   font-size: 11px;
+  color: ${props => props.theme.colors.text_primary};
 }
 
 .ais-ClearRefinements-button--disabled{

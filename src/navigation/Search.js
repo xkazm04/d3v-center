@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {   InstantSearch,
     Hits,
-    Pagination,
     Configure,
+    Index,
     MenuSelect,
     Highlight,
     SearchBox,
@@ -10,20 +10,16 @@ import {   InstantSearch,
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import styled from 'styled-components'
 import Divider from 'rsuite/Divider';
-import { SearchIcon } from '../icons/utils';
 import { Button } from 'rsuite';
 import axios from 'axios';
 
 const searchClient = instantMeiliSearch(
-    process.env.REACT_APP_MEILI_URL, // HOST
+    process.env.REACT_APP_MEILI_URL,
     process.env.REACT_APP_MEILI_KEY
   );
 
   const Kontejner = styled.div`
-    margin-right: 10%;
     position: absolute;
-    right: 0;
-    margin-top: 1%;
     z-index: 100;
     background: ${props => props.theme.colors.blackwhite};
 `
@@ -73,10 +69,6 @@ const SelectItem = styled.div`
     }
 `
 
-const ImageBox = styled.div`
-    margin-top: 10%;
-`
-
 const SelectTitle = styled.p`
     margin-left: 1%;
     font-family: 'NoBill';
@@ -92,11 +84,6 @@ const MyMenuSelect = styled(MenuSelect)`
 `
 
 const Flex = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-
-const TitleFlex = styled(Flex)`
     display: flex;
     flex-direction: row;
 `
@@ -123,22 +110,6 @@ const FlexColumn = styled.div`
     padding-left: 10%;
 `
 
-const SourceColumn = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    left:0;
-    margin-left: 2%;
-`
-
-const HitBox = styled.div`
-    background: ${props => props.theme.colors.lighter};
-    padding: 1%;
-    border-right: 1px solid ${props => props.theme.colors.line};
-    border-left: 1px solid ${props => props.theme.colors.line};
-    position: sticky;
-`
-
 const Search = styled.div`
    background: ${props => props.theme.colors.background};
    min-width: 800px;
@@ -146,16 +117,6 @@ const Search = styled.div`
     min-width: 50px;
   }
 `
-
-const PaginationBox = styled.div`
-    background: ${props => props.theme.colors.section};
-    display: flex;
-    flex-direction: row;
-    padding-top: 1%;
-    padding-left: 1%;
-    color: ${props => props.theme.colors.text_primary};
-`
-
 
 const TitleBox = styled.div`
     display: flex;
@@ -181,9 +142,6 @@ const MyButton = styled(Button)`
     font-family: 'NoBill';
     font-size: 1.5em;
 `
-
-
-
 
 function MeiliSearch() {
 
@@ -220,18 +178,9 @@ function MeiliSearch() {
         console.log(res)
 }
 
-function Hit(props) {
+function TutorialHit(props) {
     return (
       <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>
-          {/* onClick={()=>{handleClickResult(1,2,3)}} */}
-          <SourceColumn><ImageBox> 
-              { props.hit.Source === "github" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
-              { props.hit.Source === "youtube" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
-              { props.hit.Source === "linked" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
-              { props.hit.Source === "twitter" ? <img src={props.hit.Source} width="40" height="40"/> : null } 
-              { props.hit.Source === "..." ? <img src={props.hit.Source} width="40" height="40"/> : null } 
-              
-              </ImageBox>  <div>{props.hit.id}</div> </SourceColumn>
         <FlexColumn>  
                 <HitTitle attribute="Title" hit={props.hit}  tagName="mark"/> 
                 <HitDescription attribute="Description" hit={props.hit} tagName="mark" />
@@ -250,14 +199,6 @@ function Hit(props) {
       setSearchValue('Press S to search')
       console.log(searchValue)
   }
-
-
- const SetMinimum = (helper) => {
-    if (helper.state.query.length < 3) {
-        return; 
-      }
-      helper.search();
-    }
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
@@ -285,16 +226,7 @@ function Hit(props) {
   // Search na click smazat state,
     return (
         <Kontejner>
-            <InstantSearch indexName="tutorial" searchClient={searchClient} searchFunction={SetMinimum}>
-            <Flex>
-                <div>
-                <Configure hitsPerPage={10} />
-
-                {/* <Index indexName="bit">
-      <h2>Multiple indexes search</h2>
-      <HitBox> <Hits hitComponent={Hit} /></HitBox>
-    </Index> */}
-
+            <InstantSearch indexName="tutorial" searchClient={searchClient}>
                 <Search><SearchFlex><SearchBox 
                     onChange={handleChange}
                     onReset={ResetValue}
@@ -308,20 +240,14 @@ function Hit(props) {
                 {searchValue === 'Press S to search' || searchValue === '' ? null : <div>
                 <FilterBox><MyButton onClick={toggleSelectOpacity}>Filter</MyButton></FilterBox>
                 {renderSelectMenu()}  
+                <Index indexName="tutorial" searchClient={searchClient} >
                 <Header title='Tutorials'/>
-
-                <MyStats/>  
-                <HitBox> <Hits hitComponent={Hit} /></HitBox>
-                {/* <Header title='Definitions'/>
-                <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
-            
-
-            <PaginationBox> <SelectTitle>Pagination</SelectTitle><Pagination /></PaginationBox>
+                <MyStats/> 
+                        <Configure hitsPerPage={8} />
+                        <Hits hitComponent={TutorialHit} />
+                </Index>
               </div> }  
-
-               </div>
-
-         </Flex>
+             
     </InstantSearch>
         </Kontejner>
     );

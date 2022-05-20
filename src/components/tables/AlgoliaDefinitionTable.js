@@ -13,7 +13,7 @@
   import axios from 'axios';
   import SearchBox from './SearchBox';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
-import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon } from '../../icons/utils';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, PythIcon  } from '../../icons/utils';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -197,7 +197,6 @@ const HitBox = styled.div`
     background: ${props => props.theme.colors.lighter};
     border-left: 1px solid ${props => props.theme.colors.line};
     position: sticky;
-    margin-left: 5%;
     padding: 1%;
 `
 
@@ -216,7 +215,6 @@ const PaginationBox = styled.div`
     padding-left: 1%;
     color: ${props => props.theme.colors.text_primary};
     height: 50px;
-    margin-left: 5%;
 `
 
 const AbsoluteBox = styled.div`
@@ -258,9 +256,12 @@ function Hit(props) {
     return (
       <>
       <SourceColumn>
-      { props.hit.Source === "github" ? <MediumIcon width={'20'}/> : null } 
+      { props.hit.Source === "github" ? <GithubIcon width={'20'}/> : null } 
       { props.hit.Source === "youtube" ? <YTIcon width={'25'} color={'#CB0000'}/> : null } 
       { props.hit.Source === "medium" ? <MediumIcon width={'25'}/> : null } 
+      { props.hit.Source === "web" ? <MediumIcon width={'25'}/> : null }  
+      { props.hit.Source === "blog" ? <MediumIcon width={'25'}/> : null }  
+      { props.hit.Source === "devto" ? <DevToIcon width={'25'}/> : null }  
     </SourceColumn>
       <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>
         {/* Main part */}
@@ -277,6 +278,7 @@ function Hit(props) {
               {props.hit.Language === 'Solidity' ?  <><SolidityIcon width='50' height='35' /></> : null }
               {props.hit.Language === 'Rust' ?  <><JsIcon width='50' height='25' /></> : null }
               {props.hit.Language === 'JavaScript' ?  <><RustIcon width='50' height='50' /></>  : null }
+              {props.hit.Language === 'Python' ?  <><PythIcon width='50' height='50' /></>  : null }
           </AbsoluteBox>
 
           </HitColumn>

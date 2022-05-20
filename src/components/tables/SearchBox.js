@@ -5,7 +5,8 @@ const Kontejner = styled.div`
     margin-bottom: 1%;
 `
 const Input = styled.input`
-      background: inherit;
+
+      background: ${props => props.theme.colors.search};
   border: none;
   padding-left: 5%;
   font-family: 'Helvetica';
@@ -20,6 +21,9 @@ const Input = styled.input`
   transition: 0.1s;
   &:hover{
       background: ${props => props.theme.colors.red};
+  }
+  &:focus{
+    box-shadow: 0px 1px 4px white;
   }
 `
 
