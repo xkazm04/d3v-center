@@ -12,7 +12,7 @@ const Kontejner = styled.div`
     margin-left: 1%;
     font-size: 1.4rem;
     @media (max-width: 900px) {
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-top: 10%;
   }
 `

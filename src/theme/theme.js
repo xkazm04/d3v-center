@@ -10,7 +10,7 @@ export const lightTheme = {
        text_title: "#007463",
        text_primary: "#000000",
        text_secondary: "#000000",
-       main: "#f7feff",
+       main: "#EDF5F6",
        search: "#f9f9f9",
  
        // Cards-Alternative colors

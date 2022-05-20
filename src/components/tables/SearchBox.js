@@ -25,6 +25,7 @@ const Input = styled.input`
   &:focus{
     box-shadow: 0px 1px 4px white;
   }
+  
 `
 
 class SearchBox extends Component {

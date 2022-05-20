@@ -169,6 +169,11 @@ const GlobalStyle = createGlobalStyle`
   list-style-type: none;
 }
 
+.ais-Hits-list{
+  margin: 0;
+  padding: 0;
+}
+
 
 .ais-MenuSelect-select {
   padding-top: 5%;
