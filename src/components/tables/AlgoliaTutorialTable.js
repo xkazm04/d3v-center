@@ -16,7 +16,7 @@
 import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
-import { DiffBasic, DiffScholar } from '../../icons/difficulty';
+import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -423,7 +423,8 @@ function Hit(props) {
           <Difficulty>   
             {props.hit.Difficulty === 'basic' ? <DiffBasic width={25}/> : null} 
             {props.hit.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null} 
-        
+            {props.hit.Difficulty === 'advanced' ? <DiffAdvanced width={25}/> : null} 
+            {props.hit.Difficulty === 'hacker' ? <DiffHacker width={25}/> : null} 
           {props.hit.Difficulty}</Difficulty>
           </HitColumn>
           <MyDivider vertical/>
