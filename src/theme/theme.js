@@ -10,7 +10,7 @@ export const lightTheme = {
        text_title: "#007463",
        text_primary: "#000000",
        text_secondary: "#000000",
-       main: "#EDF5F6",
+       main: "#fffdfd",
        search: "#f9f9f9",
  
        // Cards-Alternative colors
@@ -35,10 +35,10 @@ export const lightTheme = {
       light: "#601919",
       lighter: "#601919",
       line: "#9F9F9F",
-      text_title: "#B40808",
+      text_title: "#ffcfcf",
       text_primary: "#A6E4E8",
       text_secondary: "#FFFFFF",
-      main: "#1F0202",
+      main: "#010103",
       search: "#000000",
 
       // Cards-Alternative colors

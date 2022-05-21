@@ -106,8 +106,8 @@ const HitMainColumn = styled.div`
   background: ${props => props.theme.colors.main};
   border-radius: 15px;
   text-align: left;
-
   padding-left: 2%;
+  box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
   @media (max-width: 700px) {
       margin-left: 0;
       border-radius: 0;
@@ -126,7 +126,7 @@ const HitSeriesColumn = styled(HitColumn)`
 
 const HitTitle = styled(Highlight)`
     color: ${props => props.theme.colors.text_title};
-    font-family: 'Helvetica';
+    font-family: 'auto';
     font-weight: 400;
     font-size: 1.1em;
 `
@@ -136,6 +136,11 @@ const HitDescription = styled(Highlight)`
     font-family: 'Helvetica';
     font-size: 0.7rem;
     font-weight: 500;
+    opacity: 0.3;
+    transition: 0.1s;
+    &:hover{
+      opacity: 1;
+    }
 `
 const HitDifficulty = styled.div`
     font-family: 'NoBill';
@@ -154,10 +159,7 @@ const HitSeries = styled(Highlight)`
     @media (max-width: 700px) {
       display: none;
     }
-    &:hover{
-      box-shadow: 0px 0px 2px 0px white;
-      cursor: pointer;
-    }
+
 `
 
 const HitCategory = styled(Highlight)`
@@ -302,12 +304,12 @@ const AbsoluteBox = styled.div`
 
 const AlgoliaTutorialTable = () => {
 
+
     const [filterSource, setFilterSource] = useState(false);
     const switchFilterSource = () => {
       setFilterSource(!filterSource);
     }
-
-
+    // Series handlers
     const [filterSeries, setFilterSeries] = useState(false);
     const switchFilterSeries = () => {
       setFilterSeries(!filterSeries);
