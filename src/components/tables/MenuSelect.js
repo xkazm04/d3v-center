@@ -52,7 +52,7 @@ const MenuSelect = ({ items, currentRefinement, refine }) => {
           key={item.label}
           value={item.isRefined ? currentRefinement : item.value}
         >
-          {item.label}
+          {item.label} {item.count}
         </MyOption>
       ))}
          

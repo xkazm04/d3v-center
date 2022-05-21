@@ -13,9 +13,10 @@
   import Divider from 'rsuite/Divider';
   import axios from 'axios';
   import SearchBox from './SearchBox';
-import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
+import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
+import { DiffBasic, DiffScholar } from '../../icons/difficulty';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -121,6 +122,7 @@ const HitMainColumn = styled.div`
 const HitSeriesColumn = styled(HitColumn)`
     font-size: 12px;
     padding-top: 3%;
+    font-family: 'Staatliches';
 `
 
 
@@ -141,12 +143,6 @@ const HitDescription = styled(Highlight)`
     &:hover{
       opacity: 1;
     }
-`
-const HitDifficulty = styled.div`
-    font-family: 'NoBill';
-    letter-spacing: 1.5px;
-    font-size: 0.8rem;
-    color: ${props => props.theme.colors.text_primary};
 `
 
 const HitSeries = styled(Highlight)`
@@ -301,41 +297,51 @@ const AbsoluteBox = styled.div`
   position: absolute;
 `
 
+const Difficulty = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-family: 'NoBill';
+  gap: 5%;
+  letter-spacing: 1.5px;
+  font-size: 0.7rem;
+  color: ${props => props.theme.colors.yellow};
+`
+
 
 const AlgoliaTutorialTable = () => {
 
 
-    const [filterSource, setFilterSource] = useState(false);
+    const [filterSource, setFilterSource] = useState(true);
     const switchFilterSource = () => {
       setFilterSource(!filterSource);
     }
     // Series handlers
-    const [filterSeries, setFilterSeries] = useState(false);
+    const [filterSeries, setFilterSeries] = useState(true);
     const switchFilterSeries = () => {
       setFilterSeries(!filterSeries);
     }
 
-    const [filterLang, setFilterLang] = useState(false);
+    const [filterLang, setFilterLang] = useState(true);
     const switchFilterLang = () => {
       setFilterLang(!filterLang);
     }
 
-    const [filterDifficulty, setFilterDifficulty] = useState(false);
+    const [filterDifficulty, setFilterDifficulty] = useState(true);
     const switchFilterDifficulty = () => {
       setFilterDifficulty(!filterDifficulty);
     }
 
-    const [filterChain, setFilterChain] = useState(false);
+    const [filterChain, setFilterChain] = useState(true);
     const switchFilterChain = () => {
       setFilterChain(!filterChain);
     }
 
-    const [filterUsage, setFilterUsage] = useState(false);
+    const [filterUsage, setFilterUsage] = useState(true);
     const switchFilterUsage = () => {
       setFilterUsage(!filterUsage);
     }
 
-    const [filterTool, setFilterTool] = useState(false);
+    const [filterTool, setFilterTool] = useState(true);
     const switchFilterTool = () => {
       setFilterTool(!filterTool);
     }
@@ -413,7 +419,12 @@ function Hit(props) {
           </HitColumn>
           <MyDivider vertical/>
           <HitColumn  width={'120px'}>
-          {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null }
+          {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
+          <Difficulty>   
+            {props.hit.Difficulty === 'basic' ? <DiffBasic width={25}/> : null} 
+            {props.hit.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null} 
+        
+          {props.hit.Difficulty}</Difficulty>
           </HitColumn>
           <MyDivider vertical/>
           <HitColumn  width={'100px'}>
@@ -430,6 +441,9 @@ function Hit(props) {
           {props.hit.Chain === 'solana' ? <Solana width={'25'}/> : null}
           {props.hit.Chain === 'near' ? <Near width={'25'}/> : null}
           {props.hit.Chain === 'ziliqa' ? <Ziliqa width={'25'}/> : null}
+          {props.hit.Chain === 'polkadot' ? <Polkadot width={'25'}/> : null}
+          {props.hit.Chain === 'elrond' ? <Elrond width={'25'}/> : null}
+          {props.hit.Chain === 'cosmos' ? <Cosmos width={'25'}/> : null}
           {/* Update date */}
          <HitUpdate>   {props.hit.Update}</HitUpdate>
          </RightBox>
