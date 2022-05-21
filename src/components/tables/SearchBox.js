@@ -3,12 +3,14 @@ import styled from 'styled-components';
 
 const Kontejner = styled.div`
     margin-bottom: 1%;
+    
 `
 const Input = styled.input`
 
-      background: ${props => props.theme.colors.search};
+  background: ${props => props.theme.colors.search};
   border: none;
   padding-left: 5%;
+  margin-left: 20px;
   font-family: 'Helvetica';
   font-size: 1.1em;
   color: ${props => props.theme.colors.text_primary};
@@ -19,6 +21,7 @@ const Input = styled.input`
   cursor: pointer;
   outline: none;
   transition: 0.1s;
+  width: 330px;
   &:hover{
       background: ${props => props.theme.colors.red};
   }

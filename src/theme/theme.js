@@ -15,6 +15,7 @@ export const lightTheme = {
  
        // Cards-Alternative colors
        blue: "#FFA3A3",
+       yellow: "#495823",
        green: "#D1DECE",
        black: "#D2D2D2",
        purple: "#EDD8ED",
@@ -32,7 +33,7 @@ export const lightTheme = {
       heavy: "#1F0202",
       medium: "#280000",  
       light: "#601919",
-      lighter: "#2C1010",
+      lighter: "#601919",
       line: "#9F9F9F",
       text_title: "#B40808",
       text_primary: "#A6E4E8",
@@ -45,6 +46,7 @@ export const lightTheme = {
       green: "#012413",
       black: "#000000",
       purple: "#5A0057",
+      yellow: "#fffcd9",
  
       red: "#280000",
 

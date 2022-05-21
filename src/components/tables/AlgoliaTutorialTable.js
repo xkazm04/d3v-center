@@ -1,8 +1,9 @@
+  import {useState} from 'react';
   import {   InstantSearch,
       Hits,
       Pagination,
       Configure,
-      MenuSelect,
+      connectMenu ,
       Highlight,
       connectSearchBox,
       ClearRefinements,
@@ -13,6 +14,7 @@
   import axios from 'axios';
   import SearchBox from './SearchBox';
 import { Evm, Near, Solana, Ziliqa } from '../../icons/chain';
+import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
 
   const searchClient = instantMeiliSearch(
@@ -21,20 +23,28 @@ import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIc
   );
 
   const Kontejner = styled.div`
-    @media (min-width: 1800px) {
-    margin-right: 10%;
+
+@media (min-width: 1000px) {
     margin-left: 5%;
   }
-  @media (min-width: 2500px) {
+    @media (min-width: 1800px) {
     margin-right: 10%;
+    margin-left: 10%;
+  }
+  @media (min-width: 2500px) {
     margin-left: 15%;
+  }
+  @media (min-width: 3000px) {
+    margin-right: 10%;
+    margin-left: 25%;
   }
   `
 
 
   const Box = styled.div`
-    padding: 2%;
-    padding-top: 1%;
+  padding-top: 1%;
+  padding-left: 2%;
+
   `
 
   const BoxTitle = styled.div`
@@ -46,6 +56,7 @@ import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIc
     color: ${props => props.theme.colors.text_title};
         @media (max-width: 700px) {
       font-size: 1em;
+      padding-left: 2%;
     }
 
   `
@@ -58,16 +69,18 @@ import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIc
     color: ${props => props.theme.colors.text_primary};
     @media (max-width: 700px) {
       font-size: 1em;
+      padding-left: 2%;
     }
   `
 
 // Algolia styled customization
 const MyStats = styled(Stats)`
     text-align: left;
-    padding-top: 5px;
-    margin-left: 5%;
     font-family: 'NoBill';
-    color: ${props => props.theme.colors.text_primary};
+    font-size: 0.8em;
+    padding: 1%;
+    margin-left: 20px;
+    color: ${props => props.theme.colors.yellow};
     @media (max-width: 700px) {
       margin-left: 0;
     }
@@ -135,9 +148,15 @@ const HitSeries = styled(Highlight)`
     font-family: 'NoBill';
     letter-spacing: 1.5px;
     color: ${props => props.theme.colors.text_primary};
-    padding-left: 4%;
+    margin-left: 4%;
+    padding: 4%;
+    transition: 0.2s;
     @media (max-width: 700px) {
       display: none;
+    }
+    &:hover{
+      box-shadow: 0px 0px 2px 0px white;
+      cursor: pointer;
     }
 `
 
@@ -162,27 +181,11 @@ const HitTool = styled(HitCategory)`
 const HitUpdate = styled.div`
     width: 80px;
     font-size: 10px;
-    color: ${props => props.theme.colors.text_secondary};
-
-`
-
-const SelectItem = styled.div`
-    border-radius: 15px;
-    border: solid 0.2px ${props => props.theme.colors.light};
-    padding-right: 1%;
-    padding-top: 1%;
-    padding-left: 1%;
-    margin-bottom: 1%;
-    transition: 0.1s;
-    background: ${props => props.theme.colors.light};
-    align-items: left;
-    text-align: left;
+    color: ${props => props.theme.colors.text_primary};
     &:hover{
-        background: ${props => props.theme.colors.medium};
+      cursor: default;
     }
-    @media (max-width: 700px) {
-      display: none;
-    }
+
 `
 
 const MyDivider = styled(Divider)`
@@ -198,41 +201,64 @@ const RightBox = styled.div`
     }
 `
 
+const SelectItem = styled.div`
+    transition: 0.1s;
+    align-items: left;
+    text-align: left;
+    min-width: ${props => props.width};
+    margin-right: 1%;
+    @media (max-width: 700px) {
+      display: none;
+    }
+`
+
 const SelectTitle = styled.p`
     font-family: 'NoBill';
     text-align: left;
-    font-size: 17px;
-    padding: 1%;
+    font-size: 1.2em;
+    padding-left: 10%;
+    padding-right: 10%;
     color: ${props => props.theme.colors.text_primary};
     cursor: default;
+    &:hover{
+      cursor: pointer;
+      background: ${props => props.theme.colors.light};
+    }
 `
 
 const SelectTitleBox = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: solid 0.2px ${props => props.theme.colors.blue};
-  padding-left: 2%;
-
+  background: ${props => props.theme.colors.lighter};
+  margin-bottom: 4px;
+  box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
+  &:hover{
+      cursor: pointer;
+      background: ${props => props.theme.colors.light};
+    }
 `
 
-const MyMenuSelect = styled(MenuSelect)`
-    color: ${props => props.theme.colors.text_title};
+const FilterButton = styled.button`
+  background: ${props => props.theme.colors.background};
+  transition: 0.1s;
+  &:hover{
+    opacity:0.4;
+  }
+`
+
+const MetaRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `
 
 const Flex = styled.div`
     display: flex;
     flex-direction: row;
- 
 `
 
-const HitFlex = styled(Flex)`
-
-`
-
-
-const SearchFlex = styled(Flex)`
-    justify-content: space-between;
-    padding-right: 1%;
+const FlexFilter = styled(Flex)`
+  min-height: 50px;
 `
 
 const ResultBox = styled.div`
@@ -245,7 +271,7 @@ const ResultBox = styled.div`
 `
 
 const HitBox = styled.div`
-
+  border-top: 2px solid ${props => props.theme.colors.light};
     @media (min-width: 700px) {
     position: sticky;
     padding: 5px;
@@ -254,8 +280,9 @@ const HitBox = styled.div`
 
 const Search = styled.div`
    background: ${props => props.theme.colors.background};
+   padding-right: 100px;
    @media (max-width: 700px) {
-    min-width: 50px;
+    width: 100%;
   }
 `
 
@@ -264,7 +291,6 @@ const PaginationBox = styled.div`
     display: flex;
     flex-direction: row;
     padding-top: 1%;
-    padding-left: 1%;
     color: ${props => props.theme.colors.text_primary};
     height: 50px;
 `
@@ -274,13 +300,49 @@ const AbsoluteBox = styled.div`
 `
 
 
-
 const AlgoliaTutorialTable = () => {
 
-    const handleResultClick = (reference,id,counter) => {
-        window.open(reference, "_blank")
-        addCounter(id,counter)
+    const [filterSource, setFilterSource] = useState(false);
+    const switchFilterSource = () => {
+      setFilterSource(!filterSource);
     }
+
+
+    const [filterSeries, setFilterSeries] = useState(false);
+    const switchFilterSeries = () => {
+      setFilterSeries(!filterSeries);
+    }
+
+    const [filterLang, setFilterLang] = useState(false);
+    const switchFilterLang = () => {
+      setFilterLang(!filterLang);
+    }
+
+    const [filterDifficulty, setFilterDifficulty] = useState(false);
+    const switchFilterDifficulty = () => {
+      setFilterDifficulty(!filterDifficulty);
+    }
+
+    const [filterChain, setFilterChain] = useState(false);
+    const switchFilterChain = () => {
+      setFilterChain(!filterChain);
+    }
+
+    const [filterUsage, setFilterUsage] = useState(false);
+    const switchFilterUsage = () => {
+      setFilterUsage(!filterUsage);
+    }
+
+    const [filterTool, setFilterTool] = useState(false);
+    const switchFilterTool = () => {
+      setFilterTool(!filterTool);
+    }
+
+    const handleResultClick = (reference,id,counter) => {
+      window.open(reference, "_blank")
+      addCounter(id,counter)
+  }
+
 
     const addCounter = async(tutorialId,viewCounter) => {
         const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
@@ -295,12 +357,19 @@ const AlgoliaTutorialTable = () => {
     console.log(res)
 }
 const DebouncedSearchBox = connectSearchBox(SearchBox)
+const CustomMenuSelect = connectMenu(MenuSelect);
 
-const SelectFilter = ({title,attribute,icon}) => {
+const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
   return(
-  <SelectItem> <SelectTitleBox><SelectTitle>{title} 
+  <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
   {/* <InfoIcon width={'20'} color={'black'}/> */}
-  </SelectTitle>{icon} </SelectTitleBox> <MyMenuSelect attribute={attribute}/>  </SelectItem>
+  </SelectTitle > <FilterButton >
+  {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
+    
+    </FilterButton></SelectTitleBox> 
+   {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
+  
+  </SelectItem>
   )
 }
 
@@ -308,7 +377,7 @@ function Hit(props) {
     return (
       <>
 
-      <ResultBox onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>
+      <ResultBox>
       <HitColumn width={'50px'}>
       { props.hit.Source === "github" ? <GithubIcon width={'25'}/> : null } 
       { props.hit.Source === "youtube" ? <YTIcon width={'25'} color={'#CB0000'}/> : null } 
@@ -318,17 +387,15 @@ function Hit(props) {
       { props.hit.Source === "devto" ? <DevToIcon width={'25'}/> : null }  
     </HitColumn>
         {/* Main part */}
-        <HitFlex>  
+        <Flex>  
         <MyDivider vertical/>
             {/* Left column */}
             <HitColumn width={'150px'}>
-                {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }         
-                {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="strong" />}
                 {props.hit.Series === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="Series" hit={props.hit} tagName="strong" /> </HitSeriesColumn>} 
        </HitColumn>
             <MyDivider vertical/>
             {/* Main column*/}
-          <HitMainColumn width={'450px'}>  
+          <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
               <HitTitle attribute="Title" hit={props.hit}  tagName="strong"/>
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
           </HitMainColumn>
@@ -343,15 +410,19 @@ function Hit(props) {
 
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'100px'}>
+          <HitColumn  width={'120px'}>
           {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null }
           </HitColumn>
-
-        </HitFlex>
-
-        {/* Right part */}
-        <HitFlex> 
-            {/* Chain images */}
+          <MyDivider vertical/>
+          <HitColumn  width={'100px'}>
+          {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }         
+          </HitColumn>
+          <MyDivider vertical/>
+          <HitColumn  width={'70px'}>
+            {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="strong" />}
+          </HitColumn>
+          <MyDivider vertical/>
+        <HitColumn  width={'120px'}>
          <RightBox>
           {props.hit.Chain === 'evm' ? <Evm width={'25'}/> : null}
           {props.hit.Chain === 'solana' ? <Solana width={'25'}/> : null}
@@ -360,7 +431,9 @@ function Hit(props) {
           {/* Update date */}
          <HitUpdate>   {props.hit.Update}</HitUpdate>
          </RightBox>
-           </HitFlex>
+         </HitColumn>
+        </Flex>
+
       </ResultBox>
       </>
     );
@@ -371,30 +444,27 @@ function Hit(props) {
   return (
     <Kontejner>
                  <InstantSearch indexName="tutorial" searchClient={searchClient}>
+                 
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
                 <BoxSubtitle>Learn from 300+ articles</BoxSubtitle>
+               
                 <Configure hitsPerPage={20} />   
-                <Search>        <Flex>  
-                <SelectFilter title={'Series'} attribute={'Series'} />
+                
+                <FlexFilter>  
+                <SelectFilter title={'Src'} attribute={'Source'} width='70px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
+                <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
+                <Search>     <DebouncedSearchBox delay={500}/>        
+                <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
                 <MyDivider vertical/>
-                <SelectFilter title={'Ecosystem'} attribute={'Chain'} />
-               <MyDivider vertical/>
-               <SelectFilter title={'Difficulty'} attribute={'Difficulty'}/>
-                <MyDivider vertical/>
-                <SelectFilter title={'Usage'} attribute={'Category'}/>
-                <MyDivider vertical/>    </Flex> <Flex>
-                <SelectFilter title={'Language'} attribute={'Language'}/>
-                <MyDivider vertical/>
-                <SelectFilter title={'Tool'} attribute={'Tool'}/>
-                <MyDivider vertical/> 
-                <SelectFilter title={'Source'} attribute={'Source'}/>
-                <MyDivider vertical/> <ClearRefinements />
-        </Flex>  <SearchFlex><MyStats/><DebouncedSearchBox 
-                    delay={500}
-                />
-                </SearchFlex></Search>
+                <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
+                <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
+                <SelectFilter title={'Usage'} attribute={'Category'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+                <SelectFilter title={'Tool'} attribute={'Tool'}  width='70px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
+                <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
             
+        </FlexFilter>
+
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
                 {/* <Header title='Definitions'/>
                 <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
@@ -408,6 +478,20 @@ function Hit(props) {
     </InstantSearch>
     </Kontejner>
   )
+}
+
+const FilterIcon = ({width, height}) => {
+  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='#0C9682' stroke="#0C9682"/>
+  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="#0C9682" stroke="white"/>
+  </svg>  
+}
+
+const FilterActiveIcon = ({width, height}) => {
+  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='red' stroke="#0C9682"/>
+  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="red" stroke="white"/>
+  </svg>  
 }
 
 export default AlgoliaTutorialTable;
