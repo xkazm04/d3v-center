@@ -23,6 +23,7 @@ import NftCards from '../hits/NftCards';
 import NodeCards from '../hits/NodeCards';
 
 import {  Divider } from 'rsuite';
+import LazyLoad from 'react-lazyload';
 
 import { DevelopIcon,StorageIcon,WisdomIcon, DaoIcon, NftIcon, NodeIcon, DefiIcon, MonitorIcon } from '../../icons/tool';
 
@@ -255,23 +256,23 @@ return (
              
               <Configure hitsPerPage={200} />   
               
-              <FlexFilter>  
+       <LazyLoad>       <FlexFilter>  
               <Search>     <DebouncedSearchBox delay={500}/>        
               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
               <MyDivider vertical/>
               <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
               <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
 
-      </FlexFilter>
+      </FlexFilter></LazyLoad>
 
-      <ToolTitle><IconBox><DevelopIcon width='20'/></IconBox>Develop</ToolTitle> <ToolBox> <Hits hitComponent={DevelopHits}  /></ToolBox>
-      <ToolTitle><IconBox><StorageIcon width='20'/></IconBox>Storage</ToolTitle> <ToolBox> <Hits hitComponent={StorageHits}  /></ToolBox>
-      <ToolTitle><IconBox><WisdomIcon width='20'/></IconBox>Knowledge</ToolTitle> <ToolBox> <Hits hitComponent={KnowledgeHits}  /></ToolBox>
-      <ToolTitle><IconBox><DaoIcon width='20'/></IconBox>DAO</ToolTitle> <ToolBox> <Hits hitComponent={DaoHits}  /></ToolBox>
-      <ToolTitle><IconBox><NftIcon width='20'/></IconBox>NFT</ToolTitle>       <ToolBox> <Hits hitComponent={NftHits}  /></ToolBox>
-      <ToolTitle><IconBox><NodeIcon width='20'/></IconBox>Node</ToolTitle>       <ToolBox> <Hits hitComponent={NodeHits}  /></ToolBox>
-      <ToolTitle><IconBox><DefiIcon width='20'/></IconBox>DeFi</ToolTitle>       <ToolBox> <Hits hitComponent={DefiHits}  /></ToolBox>
-      <ToolTitle><IconBox><MonitorIcon width='20'/></IconBox>Monitor</ToolTitle>       <ToolBox> <Hits hitComponent={MonitorHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><DevelopIcon width='20'/></IconBox></LazyLoad>Develop</ToolTitle> <ToolBox> <Hits hitComponent={DevelopHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><StorageIcon width='20'/></IconBox></LazyLoad>Storage</ToolTitle> <ToolBox> <Hits hitComponent={StorageHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><WisdomIcon width='20'/></IconBox></LazyLoad>Knowledge</ToolTitle> <ToolBox> <Hits hitComponent={KnowledgeHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><DaoIcon width='20'/></IconBox></LazyLoad>DAO</ToolTitle> <ToolBox> <Hits hitComponent={DaoHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><NftIcon width='20'/></IconBox></LazyLoad>NFT</ToolTitle>       <ToolBox> <Hits hitComponent={NftHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><NodeIcon width='20'/></IconBox></LazyLoad>Node</ToolTitle>       <ToolBox> <Hits hitComponent={NodeHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><DefiIcon width='20'/></IconBox></LazyLoad>DeFi</ToolTitle>       <ToolBox> <Hits hitComponent={DefiHits}  /></ToolBox>
+      <ToolTitle><LazyLoad><IconBox><MonitorIcon width='20'/></IconBox></LazyLoad>Monitor</ToolTitle>       <ToolBox> <Hits hitComponent={MonitorHits}  /></ToolBox>
 
              </Box>
 

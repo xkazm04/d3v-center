@@ -4,6 +4,7 @@
   src: local("NoBill"),
     url('./fonts/postnobillscolombo-bold.ttf') format("truetype");
   font-weight: normal;
+  font-display: swap;
 }
 
 body {

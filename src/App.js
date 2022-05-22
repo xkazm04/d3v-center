@@ -94,7 +94,6 @@ function App() {
   const [filterStage, setFilterStage] = useState("?filters[Stage][$notNull]")
   const [filterUsage, setFilterUsage] = useState("?filters[Usage][$notNull]")
 
-
   const [theme, setTheme] = useState('light');
   const themeToggler = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light')
@@ -116,7 +115,7 @@ function App() {
       {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
     </BrandTopBox>
     <Kontejner>
-            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>   
+            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>  
                 <Navigation>
                 <Navbar/>
                    <Flex> 

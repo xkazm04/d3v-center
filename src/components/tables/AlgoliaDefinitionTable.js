@@ -17,6 +17,7 @@ import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons
 import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
+import LazyLoad from 'react-lazyload';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -244,7 +245,7 @@ const SelectTitleBox = styled.div`
 display: flex;
 justify-content: space-between;
 background: ${props => props.theme.colors.lighter};
-margin-bottom: 4px;
+margin-bottom: 2px;
 box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
 &:hover{
     cursor: pointer;
@@ -414,12 +415,12 @@ function Hit(props) {
 
     <ResultBox>
     <HitColumn width={'50px'}>
-    { props.hit.Source === "github" ? <GithubIcon width={'25'}/> : null } 
-    { props.hit.Source === "youtube" ? <YTIcon width={'25'} color={'#CB0000'}/> : null } 
-    { props.hit.Source === "medium" ? <MediumIcon width={'25'}/> : null }
-    { props.hit.Source === "web" ? <WebIcon width={'25'}/> : null }  
-    { props.hit.Source === "blog" ? <MediumIcon width={'25'}/> : null }  
-    { props.hit.Source === "devto" ? <DevToIcon width={'25'}/> : null }  
+    { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'}/></LazyLoad> : null } 
+      { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
+      { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
+      { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'}/></LazyLoad> : null }  
+      { props.hit.Source === "blog" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }  
+      { props.hit.Source === "devto" ?  <LazyLoad><DevToIcon width={'25'}/></LazyLoad> : null } 
   </HitColumn>
       {/* Main part */}
       <Flex>  
@@ -437,10 +438,10 @@ function Hit(props) {
         <MyDivider vertical/>
         <HitColumn width={'100px'}>
           <AbsoluteBox>          
-            {props.hit.Language === 'Solidity' ?  <><SolidityIcon width='50' height='35' /></> : null }
-            {props.hit.Language === 'Rust' ?  <><JsIcon width='50' height='25' /></> : null }
-            {props.hit.Language === 'JavaScript' ?  <><RustIcon width='50' height='50' /></>  : null }
-            {props.hit.Language === 'Python' ?  <><PythIcon width='50' height='30' /></>  : null }
+          {props.hit.Language === 'Solidity' ?  <> <LazyLoad><SolidityIcon width='50' height='35' /></LazyLoad></> : null }
+              {props.hit.Language === 'Rust' ?  <> <LazyLoad><JsIcon width='50' height='25' /></LazyLoad></> : null }
+              {props.hit.Language === 'JavaScript' ?  <> <LazyLoad><RustIcon width='50' height='50' /></LazyLoad></>  : null }
+              {props.hit.Language === 'Python' ?  <> <LazyLoad><PythIcon width='50' height='30' /></LazyLoad></>  : null }
         </AbsoluteBox>
 
         </HitColumn>
@@ -448,10 +449,10 @@ function Hit(props) {
         <HitColumn  width={'120px'}>
         {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
         <Difficulty>   
-          {props.hit.Difficulty === 'basic' ? <DiffBasic width={25}/> : null} 
-          {props.hit.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null} 
-          {props.hit.Difficulty === 'advanced' ? <DiffAdvanced width={25}/> : null} 
-          {props.hit.Difficulty === 'hacker' ? <DiffHacker width={25}/> : null} 
+        {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25}/></LazyLoad> : null} 
+            {props.hit.Difficulty === 'intermediate' ? <LazyLoad><DiffScholar width={25}/></LazyLoad> : null} 
+            {props.hit.Difficulty === 'advanced' ? <LazyLoad><DiffAdvanced width={25}/></LazyLoad> : null} 
+            {props.hit.Difficulty === 'hacker' ? <LazyLoad><DiffHacker width={25}/></LazyLoad> : null} 
         {props.hit.Difficulty}</Difficulty>
         </HitColumn>
         <MyDivider vertical/>
@@ -462,13 +463,13 @@ function Hit(props) {
         <MyDivider vertical/>
       <HitColumn  width={'120px'}>
        <RightBox>
-        {props.hit.Chain === 'EVM' ? <Evm width={'25'}/> : null}
-        {props.hit.Chain === 'Solana' ? <Solana width={'25'}/> : null}
-        {props.hit.Chain === 'Near' ? <Near width={'25'}/> : null}
-        {props.hit.Chain === 'Ziliqa' ? <Ziliqa width={'25'}/> : null}
-        {props.hit.Chain === 'Polkadot' ? <Polkadot width={'25'}/> : null}
-        {props.hit.Chain === 'Elrond' ? <Elrond width={'25'}/> : null}
-        {props.hit.Chain === 'Cosmos' ? <Cosmos width={'25'}/> : null}
+       {props.hit.Chain === 'evm' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'solana' ? <LazyLoad><Solana width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'near' ? <LazyLoad><Near width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'ziliqa' ? <LazyLoad><Ziliqa width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'polkadot' ? <LazyLoad><Polkadot width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'elrond' ? <LazyLoad><Elrond width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'cosmos' ? <LazyLoad><Cosmos width={'25'}/></LazyLoad> : null}
         {/* Update date */}
        <HitUpdate>   {props.hit.Update}</HitUpdate>
        </RightBox>
@@ -492,7 +493,7 @@ return (
              
               <Configure hitsPerPage={20} />   
               
-              <FlexFilter>  
+          <LazyLoad><FlexFilter>  
               <SelectFilter title={'Src'} attribute={'Source'} width='70px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
               <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
               <Search>     <DebouncedSearchBox delay={500}/>        
@@ -504,7 +505,7 @@ return (
               <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
               <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
           
-      </FlexFilter>
+      </FlexFilter></LazyLoad>
 
               <HitBox> <Hits hitComponent={Hit} /></HitBox>
               {/* <Header title='Definitions'/>

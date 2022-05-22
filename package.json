@@ -17,6 +17,7 @@
     "react-dom": "^17.0.0",
     "react-helmet": "^6.1.0",
     "react-instantsearch-dom": "^6.23.3",
+    "react-lazyload": "^3.2.0",
     "react-query": "^3.38.0",
     "react-router-dom": "^5.3.1",
     "react-scripts": "4.0.3",
@@ -53,8 +54,8 @@
   "devDependencies": {
     "react-error-overlay": "^6.0.9"
   },
-    "resolutions": {
-      "//": "See https://github.com/facebook/create-react-app/issues/11773",
-      "react-error-overlay": "6.0.9"
-    }
+  "resolutions": {
+    "//": "See https://github.com/facebook/create-react-app/issues/11773",
+    "react-error-overlay": "6.0.9"
+  }
 }
