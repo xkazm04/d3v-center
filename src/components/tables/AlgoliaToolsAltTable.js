@@ -194,7 +194,7 @@ ul{
 `
 
 const IconBox = styled.div`
-    margin-right: 1%;
+    margin-right: 2%;
 `
 
 const Search = styled.div`
