@@ -81,6 +81,10 @@ const PillBox = styled.div`
   opacity: 0.1;
   right: 0;
   bottom:0;
+  height: 30%;
+  @media (max-width: 1500px) {
+    display: none;
+  }
 `
 
 

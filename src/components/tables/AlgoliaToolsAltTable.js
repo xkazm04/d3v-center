@@ -200,8 +200,9 @@ const Search = styled.div`
  background: ${props => props.theme.colors.background};
  padding-right: 100px;
  @media (max-width: 700px) {
-  width: 100%;
-}
+    padding-right: 5px;
+    text-align: left;
+  }
 `
 
 

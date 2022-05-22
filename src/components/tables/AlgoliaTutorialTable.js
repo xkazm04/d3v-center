@@ -24,7 +24,7 @@ import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/di
   );
 
   const Kontejner = styled.div`
-
+z-index: 20;
 @media (min-width: 1000px) {
     margin-left: 5%;
   }
@@ -109,6 +109,7 @@ const HitMainColumn = styled.div`
   text-align: left;
   padding-left: 2%;
   box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+  margin: 5px;
   @media (max-width: 700px) {
       margin-left: 0;
       border-radius: 0;
@@ -212,6 +213,15 @@ const SelectItem = styled.div`
     }
 `
 
+const MobileItem = styled.div`
+    align-items: left;
+    text-align: left;
+    margin-right: 1%;
+    @media (min-width: 700px) {
+      display: none;
+    }
+`
+
 const SelectTitle = styled.p`
     font-family: 'NoBill';
     text-align: left;
@@ -223,6 +233,9 @@ const SelectTitle = styled.p`
     &:hover{
       cursor: pointer;
       background: ${props => props.theme.colors.light};
+    }
+    @media (min-width: 700px) {
+      width: 100%;
     }
 `
 
@@ -291,7 +304,8 @@ const Search = styled.div`
    background: ${props => props.theme.colors.background};
    padding-right: 100px;
    @media (max-width: 700px) {
-    width: 100%;
+    padding-right: 5px;
+    text-align: left;
   }
 `
 
@@ -393,6 +407,21 @@ const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => 
   )
 }
 
+const MobileSelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
+  return(
+  <MobileItem > <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
+  {/* <InfoIcon width={'20'} color={'black'}/> */}
+  </SelectTitle > <FilterButton >
+  {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
+    
+    </FilterButton></SelectTitleBox> 
+   {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
+  
+  </MobileItem>
+  )
+}
+
+
 function Hit(props) {
     return (
       <>
@@ -488,6 +517,7 @@ function Hit(props) {
                 <MyDivider vertical/>
                 <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
                 <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
+                <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
                 <SelectFilter title={'Usage'} attribute={'Category'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
                 <SelectFilter title={'Tool'} attribute={'Tool'}  width='70px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
                 <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
