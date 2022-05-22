@@ -15,10 +15,10 @@ import MediumButton from './components/buttons/MediumButton';
 import Chains from './Pages/Chains';
 import Bits from './Pages/Bits';
 import Tutorials from './Pages/Tutorials';
-import Tools from './Pages/Tools';
+import ToolsAlt from './Pages/ToolsAlt';
 import Definitions from './Pages/Definitions';
 
-import { GoLight } from './icons/main';
+import { GoLight, Pill } from './icons/main';
 
 
 import { FilterContext } from './contexts/FilterContext';
@@ -76,7 +76,12 @@ const Flex = styled.div`
     display: none;
   }
 `
-
+const PillBox = styled.div`
+  position: absolute;
+  opacity: 0.1;
+  right: 0;
+  bottom:0;
+`
 
 
 function App() {
@@ -122,17 +127,15 @@ function App() {
                   <Route exact path="/" render={() => <Tutorials />} />
                   <Route exact path ="/bits"  component={Bits}  />
                   <Route exact path ="/tutorials"  component={Tutorials}  />
-                  <Route exact path ="/tools"  component={Tools}  />
+                  <Route exact path ="/tools"  component={ToolsAlt}  />
                   <Route exact path ="/chains"  component={Chains}  />
                   <Route exact path ="/definitions"  component={Definitions}  />
+                  <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
-{/* 
-      {tableView === false ?  
-      <Flex>
-        <LeftNavBox> <LeftNav/></LeftNavBox>
-        <CardLayout/>
-       </Flex>   :  <><NewTable/></>}    */}
+
+          <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>
+
                 </FilterContext.Provider>
     </Kontejner>
     </ThemeProvider>
@@ -167,6 +170,12 @@ const GlobalStyle = createGlobalStyle`
 }
 .ais-Hits-item{
   list-style-type: none;
+  
+}
+
+.ais-Hits{
+  display: flex;
+  flex-direction: column;
 }
 
 .ais-Hits-list{
@@ -206,17 +215,18 @@ const GlobalStyle = createGlobalStyle`
   gap: 50%;
   display: flex;
   justify-content: start;
+  padding: 0;
+
 }
 
 .ais-Pagination-item--firstPage, .ais-Pagination-item--previousPage, .ais-Pagination-item--nextPage{
   display: none;
-  
 }
 
 .ais-Pagination-link{
   font-family: 'NoBill';
-  font-size: 24px;
-  width: 20px;
+  font-size: 17px;
+  width: 10px;
 }
 .ais-ClearRefinements-button{
   background: ${props => props.theme.colors.green};

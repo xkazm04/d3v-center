@@ -160,16 +160,18 @@ const HitSeries = styled(Highlight)`
 
 const HitCategory = styled(Highlight)`
     color: ${props => props.theme.colors.text_primary};
-    font-family: 'Helvetica';
-    font-weight: 700;
+    font-family: 'NoBill';
+    font-weight: 500;
+    letter-spacing: 1.2px;
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
     margin-right: 3%;
     border-radius: 15px;
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
 `
 
 const HitTool = styled(HitCategory)`
@@ -222,6 +224,15 @@ const SelectTitle = styled.p`
       cursor: pointer;
       background: ${props => props.theme.colors.light};
     }
+`
+
+const PaginationTitle = styled.p`
+    font-family: 'NoBill';
+    text-align: left;
+    font-size: 1.2em;
+    padding-left: 10%;
+    padding-right: 5%;
+    color: ${props => props.theme.colors.text_primary};
 `
 
 const SelectTitleBox = styled.div`
@@ -291,6 +302,7 @@ const PaginationBox = styled.div`
     padding-top: 1%;
     color: ${props => props.theme.colors.text_primary};
     height: 50px;
+    margin-bottom: 1%;
 `
 
 const AbsoluteBox = styled.div`
@@ -487,7 +499,7 @@ function Hit(props) {
                 <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
             
 
-            <PaginationBox> <SelectTitle>Pagination</SelectTitle><Pagination /></PaginationBox> 
+            <PaginationBox> <PaginationTitle>Pagination</PaginationTitle><Pagination /></PaginationBox> 
 
                </Box>
 
@@ -511,4 +523,4 @@ const FilterActiveIcon = ({width, height}) => {
   </svg>  
 }
 
-export default AlgoliaTutorialTable;
+export default AlgoliaTutorialTable
