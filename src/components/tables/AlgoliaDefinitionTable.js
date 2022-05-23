@@ -303,7 +303,7 @@ const Search = styled.div`
 `
 
 const PaginationBox = styled.div`
-  background: ${props => props.theme.colors.section};
+  box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.section};
   display: flex;
   flex-direction: row;
   padding-top: 1%;
@@ -512,7 +512,7 @@ return (
               <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
           
 
-          <PaginationBox> <PaginationTitle>Pagination</PaginationTitle><Pagination /></PaginationBox> 
+          <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
 
              </Box>
 

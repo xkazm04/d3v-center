@@ -25,8 +25,8 @@ import LazyLoad from 'react-lazyload';
   );
 
   const Kontejner = styled.div`
-z-index: 20;
-@media (min-width: 1000px) {
+    z-index: 20;
+    @media (min-width: 1000px) {
     margin-left: 5%;
   }
     @media (min-width: 1800px) {
@@ -42,11 +42,9 @@ z-index: 20;
   }
   `
 
-
   const Box = styled.div`
   padding-top: 1%;
   padding-left: 2%;
-
   `
 
   const BoxTitle = styled.div`
@@ -60,7 +58,6 @@ z-index: 20;
       font-size: 1em;
       padding-left: 2%;
     }
-
   `
   const BoxSubtitle = styled.div`
     text-align: left;
@@ -157,7 +154,6 @@ const HitSeries = styled(Highlight)`
     @media (max-width: 700px) {
       display: none;
     }
-
 `
 
 const HitCategory = styled(Highlight)`
@@ -187,7 +183,6 @@ const HitUpdate = styled.div`
     &:hover{
       cursor: default;
     }
-
 `
 
 const MyDivider = styled(Divider)`
@@ -311,7 +306,7 @@ const Search = styled.div`
 `
 
 const PaginationBox = styled.div`
-    background: ${props => props.theme.colors.section};
+    box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.section};
     display: flex;
     flex-direction: row;
     padding-top: 1%;
@@ -426,9 +421,8 @@ const MobileSelectFilter = ({title,attribute, width,filterEnabled, clickFunction
 function Hit(props) {
     return (
       <>
-
       <ResultBox>
-      <HitColumn width={'50px'}>
+      <HitColumn width={'80px'}>
       { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
@@ -445,12 +439,12 @@ function Hit(props) {
        </HitColumn>
             <MyDivider vertical/>
             {/* Main column*/}
-          <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
+          <HitMainColumn width={'430px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
               <HitTitle attribute="Title" hit={props.hit}  tagName="strong"/>
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
           </HitMainColumn>
           <MyDivider vertical/>
-          <HitColumn width={'100px'}>
+          <HitColumn width={'110px'}>
             <AbsoluteBox>          
               {props.hit.Language === 'Solidity' ?  <> <LazyLoad><SolidityIcon width='50' height='35' /></LazyLoad></> : null }
               {props.hit.Language === 'Rust' ?  <> <LazyLoad><JsIcon width='50' height='25' /></LazyLoad></> : null }
@@ -470,11 +464,12 @@ function Hit(props) {
           {props.hit.Difficulty}</Difficulty>
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'100px'}>
-          {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }         
+          <HitColumn  width={'150px'}>
+          {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }    
+          {props.hit.Subcategory === null ? null : <HitCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }         
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'70px'}>
+          <HitColumn  width={'90px'}>
             {props.hit.Tool === null ? null : <HitTool attribute="Tool" hit={props.hit} tagName="strong" />}
           </HitColumn>
           <MyDivider vertical/>
@@ -519,8 +514,8 @@ function Hit(props) {
                 <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
                 <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
                 <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-                <SelectFilter title={'Usage'} attribute={'Category'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
-                <SelectFilter title={'Tool'} attribute={'Tool'}  width='70px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
+                <SelectFilter title={'Usage'} attribute={'Category'}  width='10px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+                <SelectFilter title={'Tool'} attribute={'Tool'}  width='90px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
                 <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
             
         </FlexFilter></LazyLoad> 
@@ -530,7 +525,7 @@ function Hit(props) {
                 <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
             
 
-            <PaginationBox> <PaginationTitle>Pagination</PaginationTitle><Pagination /></PaginationBox> 
+            <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
 
                </Box>
 

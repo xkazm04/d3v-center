@@ -11,7 +11,7 @@ const MyButton = styled(Button)`
 border-radius: 15px;
 font-family: 'Courier';
 font-weight: 700;
-font-size: 20px;
+font-size: 18px;
 letter-spacing: 1px;
 color: ${props => props.theme.colors.text_primary};
 transition: 0.1s;
@@ -21,7 +21,7 @@ transition: 0.1s;
 const Message = styled.div`
     font-style: italic;
 font-weight: 400;
-font-size: 15px;
+font-size: 1.2em;
 line-height: 131.5%;
 letter-spacing: 0.07em;
 color: ${props => props.theme.colors.text_secondary};
@@ -115,7 +115,7 @@ function DonateButton() {
 
     const speaker =
     <MyWhisper>
-            <Message>Found it useful? Help me develop the app full time by sending any kind of <b>donation</b> to one of my addresses and I will acquire advanced content, more chains and better UI</Message>
+            <Message>Found it useful? Help me develop the app full time by sending any kind of <b>donation</b> to one of my addresses and I will acquire advanced content, project insights and better UI</Message>
             <Address><ChainText>Any EVM chain: <b>Polygon, Avax, Fantom, BSC, Eth</b>ereum,...</ChainText> 
             <Flex>    <CopyToClipboard text={'0xa0a39c5823A51184043655711C8157ef4826447a'} onCopy={handleEvmCopied}><AddressButton>0xa0a39c5823A51184043655711C8157ef4826447a</AddressButton></CopyToClipboard>
                 {evmCopied &&  <CheckBox/>}</Flex>
