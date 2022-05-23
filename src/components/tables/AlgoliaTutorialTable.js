@@ -444,7 +444,7 @@ function Hit(props) {
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
           </HitMainColumn>
           <MyDivider vertical/>
-          <HitColumn width={'110px'}>
+          <HitColumn width={'100px'}>
             <AbsoluteBox>          
               {props.hit.Language === 'Solidity' ?  <> <LazyLoad><SolidityIcon width='50' height='35' /></LazyLoad></> : null }
               {props.hit.Language === 'Rust' ?  <> <LazyLoad><JsIcon width='50' height='25' /></LazyLoad></> : null }
@@ -506,7 +506,7 @@ function Hit(props) {
                 <Configure hitsPerPage={20} />   
                 
                 <LazyLoad><FlexFilter>  
-                <SelectFilter title={'Src'} attribute={'Source'} width='70px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
+                <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
                 <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
                 <Search>     <DebouncedSearchBox delay={500}/>        
                 <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
@@ -514,8 +514,8 @@ function Hit(props) {
                 <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
                 <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
                 <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-                <SelectFilter title={'Usage'} attribute={'Category'}  width='10px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
-                <SelectFilter title={'Tool'} attribute={'Tool'}  width='90px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
+                <SelectFilter title={'Usage'} attribute={'Category'}  width='160px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+                <SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
                 <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
             
         </FlexFilter></LazyLoad> 

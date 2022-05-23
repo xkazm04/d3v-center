@@ -414,7 +414,7 @@ function Hit(props) {
     <>
 
     <ResultBox>
-    <HitColumn width={'50px'}>
+    <HitColumn width={'90px'}>
     { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
@@ -436,7 +436,7 @@ function Hit(props) {
             <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
         </HitMainColumn>
         <MyDivider vertical/>
-        <HitColumn width={'100px'}>
+        <HitColumn width={'80px'}>
           <AbsoluteBox>          
           {props.hit.Language === 'Solidity' ?  <> <LazyLoad><SolidityIcon width='50' height='35' /></LazyLoad></> : null }
               {props.hit.Language === 'Rust' ?  <> <LazyLoad><JsIcon width='50' height='25' /></LazyLoad></> : null }
@@ -446,7 +446,7 @@ function Hit(props) {
 
         </HitColumn>
         <MyDivider vertical/>
-        <HitColumn  width={'120px'}>
+        <HitColumn  width={'100px'}>
         {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
         <Difficulty>   
         {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25}/></LazyLoad> : null} 
@@ -459,7 +459,6 @@ function Hit(props) {
         <HitColumn  width={'100px'}>
         {props.hit.Usage === null ? null : <HitCategory attribute="Usage" hit={props.hit} tagName="strong" /> }         
         </HitColumn>
-        <MyDivider vertical/>
         <MyDivider vertical/>
       <HitColumn  width={'120px'}>
        <RightBox>
@@ -494,16 +493,16 @@ return (
               <Configure hitsPerPage={20} />   
               
           <LazyLoad><FlexFilter>  
-              <SelectFilter title={'Src'} attribute={'Source'} width='70px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
-              <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
+              <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
+              <SelectFilter title={'Series'} attribute={'Series'}  width='170px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
               <Search>     <DebouncedSearchBox delay={500}/>        
               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
               <MyDivider vertical/>
-              <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
+              <SelectFilter title={'Language'} attribute={'Language'}  width='100px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
               <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
               <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-              <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
-              <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
+              <SelectFilter title={'Usage'} attribute={'Usage'}  width='110px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+              <SelectFilter title={'Chain'} attribute={'Chain'}  width='110px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
           
       </FlexFilter></LazyLoad>
 
