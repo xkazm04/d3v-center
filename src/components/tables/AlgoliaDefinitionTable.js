@@ -490,7 +490,7 @@ return (
               <Box><BoxTitle>Definitions</BoxTitle>
               <BoxSubtitle>Absorb all crypto foundations</BoxSubtitle>
              
-              <Configure hitsPerPage={20} />   
+              <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  
               <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>

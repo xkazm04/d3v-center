@@ -1,9 +1,8 @@
 
-
-import { Navbar, Nav } from 'rsuite'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import {MoonSvg} from '../icons/main'
+import { Divider } from 'rsuite'
 
 const Kontejner = styled.div`
     font-family: 'Staatliches', cursive;
@@ -17,14 +16,29 @@ const Kontejner = styled.div`
   }
 `
 
-const NavItem = styled(Nav.Item)`
-    border-right: 0.5px dotted ${props => props.theme.colors.ligher};
+const NavItem = styled.button`
     background: inherit;
     color: ${props => props.theme.colors.text_title};
+    padding-right: 10px;
+    padding-left: 10px;
+    transition: 0.2s;
+    &:hover{
+        opacity: 0.6;
+    }
 `
 
-const NavGroup = styled(Nav)`
-    margin-top: 1%;   
+const ActiveItem = styled(NavItem)`
+    color: ${props => props.theme.colors.yellow};
+    border-bottom: 3px solid ${props => props.theme.colors.yellow};
+`
+
+const Disabled = styled(NavItem)`
+    background: ${props => props.theme.colors.disabled};
+    color: ${props => props.theme.colors.red};
+`
+
+const NavGroup = styled.div`
+    padding-top: 3%;   
 `
 
 
@@ -42,19 +56,26 @@ const MyLink = styled(Link)`
 
 function TopNav() {
 
+    const [link, setLink] = useState('tutorials')
+
+    const handleLink = (l) => {
+        setLink(l);
+    }
+
     return (
         <Kontejner>
-            <Navbar>
+            <>
                 <NavGroup>
-                    <NavItem><MyLink to="/">Tutorials</MyLink></NavItem>
-                    <NavItem><MyLink to="/definitions">Definitions</MyLink></NavItem>
-                    <NavItem><MyLink to="/tools">Tools</MyLink></NavItem>
-                   <NavItem> ...more coming</NavItem>
+                {link === 'tutorials' ?   <ActiveItem onClick={()=>{handleLink('tutorials')}}><MyLink to="/">Tutorials</MyLink></ActiveItem> :   <NavItem onClick={()=>{handleLink('tutorials')}}><MyLink to="/">Tutorials</MyLink></NavItem>}  
+                {link === 'definitions' ?     <ActiveItem onClick={()=>{handleLink('definitions')}}><MyLink to="/definitions">Definitions</MyLink></ActiveItem> :  <NavItem onClick={()=>{handleLink('definitions')}}><MyLink to="/definitions">Definitions</MyLink></NavItem>}
+                 {link === 'tools' ?      <ActiveItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></ActiveItem> :   <NavItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></NavItem> }
+                    <Divider vertical/>
+                    <Disabled disabled>Repos</Disabled>
+                    <Disabled disabled>Chains</Disabled>
+                    <Disabled disabled>D3V Path</Disabled>
+                   <Disabled disabled> ...more coming</Disabled>
                 </NavGroup>
-                <Nav pullRight>
-                   {MoonSvg}
-                </Nav>
-            </Navbar>
+            </>
         </Kontejner>
     );
 }

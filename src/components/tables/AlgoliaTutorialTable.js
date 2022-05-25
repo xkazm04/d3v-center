@@ -392,7 +392,6 @@ const CustomMenuSelect = connectMenu(MenuSelect);
 const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
   return(
   <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
-  {/* <InfoIcon width={'20'} color={'black'}/> */}
   </SelectTitle > <FilterButton >
   {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
     
@@ -406,13 +405,10 @@ const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => 
 const MobileSelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
   return(
   <MobileItem > <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
-  {/* <InfoIcon width={'20'} color={'black'}/> */}
   </SelectTitle > <FilterButton >
   {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
-    
     </FilterButton></SelectTitleBox> 
    {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
-  
   </MobileItem>
   )
 }
@@ -503,7 +499,7 @@ function Hit(props) {
                 <Box><BoxTitle>Tutorials</BoxTitle>
                 <BoxSubtitle>Learn from 300+ articles</BoxSubtitle>
                
-                <Configure hitsPerPage={20} />   
+                <Configure hitsPerPage={15} />   
                 
                 <LazyLoad><FlexFilter>  
                 <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
@@ -519,12 +515,7 @@ function Hit(props) {
                 <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
             
         </FlexFilter></LazyLoad> 
-
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
-                {/* <Header title='Definitions'/>
-                <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
-            
-
             <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
 
                </Box>
