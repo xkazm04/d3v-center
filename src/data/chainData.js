@@ -10,7 +10,7 @@ export const chainData = [
         "swap": "Acala hub",
         "attribute": "EVM+ features for advanced DeFi",
         "reasonPlus": "Grants, Flexible fees, DeFi oriented",
-        "reasonMinus": "Not prepared to build on",
+        "reasonMinus": "Not prepared to build on"
     },
     {
         "id": 4030,

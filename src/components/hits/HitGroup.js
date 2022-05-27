@@ -62,12 +62,15 @@ const Flex = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 0.8em;
+  text-align: center;
+  align-items: center;
   justify-content: space-between;
   height: 75px;
-  margin-right: 1%;
+  width: 60px;
+  margin: 1%;
   border-radius: 15px;
   transition: 0.1s;
-  padding: 2px;
+  padding: 4%;
   color: ${props => props.theme.colors.text_primary};
   &:hover{
     background: ${props => props.theme.colors.lighter};
@@ -185,18 +188,17 @@ const NodeHits = connectHits(NodeCards);
     return (
         <>
     <Menu>
-      <Flex><IconButton onClick={()=>toggleDevelop()}><DevelopIcon width={IconWidth}/></IconButton>Develop</Flex>
-      <Flex><IconButton onClick={()=>toggleKnowledge()}><WisdomIcon width={IconWidth}/></IconButton>Knowledge</Flex>
-      <Flex> <IconButton onClick={()=>toggleStorage()}><StorageIcon width={IconWidth}/></IconButton>Storage</Flex>
-      <Flex> <IconButton onClick={()=>toggleMonitor()}><MonitorIcon width={IconWidth}/></IconButton>Monitor</Flex>
-      <Flex> <IconButton onClick={()=>toggleDao()}><DaoIcon width={IconWidth}/></IconButton>DAO</Flex>
-      <Flex><IconButton onClick={()=>toggleNft()}><NftIcon width={IconWidth}/></IconButton>NFT</Flex>
-      <Flex><IconButton onClick={()=>toggleNode()}><NodeIcon width={IconWidth}/></IconButton>Node</Flex>
+    <IconButton onClick={()=>toggleDevelop()}><Flex><DevelopIcon width={IconWidth}/>Develop</Flex></IconButton>
+      <IconButton onClick={()=>toggleKnowledge()}><Flex><WisdomIcon width={IconWidth}/>Knowledge</Flex></IconButton>
+       <IconButton onClick={()=>toggleStorage()}><Flex><StorageIcon width={IconWidth}/>Storage</Flex></IconButton>
+      <IconButton onClick={()=>toggleMonitor()}> <Flex><MonitorIcon width={IconWidth}/>Monitor</Flex></IconButton>
+     <IconButton onClick={()=>toggleDao()}> <Flex> <DaoIcon width={IconWidth}/>DAO</Flex></IconButton>
+     <IconButton onClick={()=>toggleNft()}> <Flex><NftIcon width={IconWidth}/>NFT</Flex></IconButton>
+     <IconButton onClick={()=>toggleNode()}> <Flex><NodeIcon width={IconWidth}/>Node</Flex></IconButton>
 
     </Menu>
-  
-    {developLoaed ? <ToolSection icon={<DevelopIcon width='20'/>} title='Develop' hit={DevelopHits}/> : null}
-        {knowledgeLoaded ? <ToolSection  icon={<WisdomIcon width='20'/>} title='Knowledge' hit={KnowledgeHits}/> : null}
+     {developLoaed ? <ToolSection icon={<DevelopIcon width='20'/>} title='Develop' hit={DevelopHits}/> : null}
+     {knowledgeLoaded ? <ToolSection  icon={<WisdomIcon width='20'/>} title='Knowledge' hit={KnowledgeHits}/> : null}
      {storageLoaded ? <ToolSection icon={<StorageIcon width='20'/>} title='Storage' hit={StorageHits}/> : null}
      {monitorLoaded ? <ToolSection icon={<MonitorIcon width='20'/>} title='Monitor' hit={MonitorHits}/> : null}
      {daoLoaded ? <ToolSection icon={<DaoIcon width='20'/>} title='Dao' hit={DaoHits}/> : null}

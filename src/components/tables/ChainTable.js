@@ -50,9 +50,6 @@ const HeaderCell = styled(Table.HeaderCell)`
     font-family: 'NoBill';
 `
 
-
-
-
 function ChainTable() {
 
       const {chainArray, setChainArray} = useContext(ChainApiContext)
@@ -138,7 +135,7 @@ function ChainTable() {
                     </Table.Column> : null}     
                   <Table.Column flexGrow={1}>
                       <CustomHeaderCell>Name</CustomHeaderCell>
-                      <ChainCell dataKey="chain"/>
+                      <ChainCell dataKey="chain"/> 
                     </Table.Column>
                     <Table.Column flexGrow={1}>
                       <CustomHeaderCell>EVM</CustomHeaderCell>

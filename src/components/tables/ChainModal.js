@@ -2,6 +2,7 @@ import {Modal, Button } from 'rsuite';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { InfoIcon } from '../../icons/utils';
+import { Acala, Algorand, Arbitrum, Avalanche, Binance, Cardano, Celo, Cosmos, Elrond, Ethereum, Fantom, Flow, Harmony, Mina, Moonbeam, Polkadot , Polygon, Solana, Tezos, Ziliqa  } from '../../icons/chain';
 
 const Kontejner = styled.div`
     z-index: 40;
@@ -21,30 +22,32 @@ const ModalBody = styled.div`
 
 const Flex = styled.div`
   display: flex;
+  justify-content: space-around;
 `
 
 const FlexBetween = styled(Flex)`
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
 `
 
-const IntroBox = styled.div`
-  border: 1px solid #C9C9C9;
+const IconBox = styled.div`
   padding: 5%;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `
-
-const ApiBox = styled.div`
-  border: 1px solid #C9C9C9;
-  padding: 5%;
-`
-
 const ConfigBox = styled.div`
     border: 1px solid #C9C9C9;
-    padding: 5%;
+    padding: 2%;
 `
 
 const ReviewBox = styled.div`
-  border: 1px solid #C9C9C9;
   padding: 5%;
+`
+
+const Title = styled.div`
+  min-width: 100px;
 `
 
 const FlexColumn = styled.div`
@@ -89,14 +92,34 @@ const ChainModal = ({chain, dex, perk, pros, cons, config}) => {
         </Modal.Header>
         <ModalBody>
         <Flex>    
-          <IntroBox>Name and Icon </IntroBox>   
-          <div>
-          <ApiBox>API data container</ApiBox>
-          <ConfigBox>
-          <FlexBetween>Main dex<p>{dex}</p></FlexBetween>
+        <IconBox>  
+            {chain === 'Acala' && <Acala width={100}/>}
+            {chain === 'Algorand' && <Algorand width={100}/>}
+            {chain === 'Arbitrum' && <Arbitrum width={100}/>}
+            {chain === 'Avalanche' && <Avalanche width={100}/>}
+            {chain === 'Binance' && <Binance width={100}/>}
+            {chain === 'Cardano' && <Cardano width={100}/>}
+            {chain === 'Celo' && <Celo width={100}/>}
+            {chain === 'Cosmos' && <Cosmos width={100}/>}
+            {chain === 'Elrond' && <Elrond width={100}/>}
+            {chain === 'Ethereum' && <Ethereum width={100}/>}
+            {chain === 'Fantom' && <Fantom width={100}/>}
+            {chain === 'Flow' && <Flow width={100}/>}
+            {chain === 'Harmony' && <Harmony width={100}/>}
+            {chain === 'Mina' && <Mina width={100}/>}
+            {chain === 'Moonbeam' && <Moonbeam width={100}/>}
+            {chain === 'Polkadot' && <Polkadot width={100}/>}
+            {chain === 'Polygon' && <Polygon width={100}/>}
+            {chain === 'Solana' && <Solana width={100}/>}
+            {chain === 'Tezos' && <Tezos width={100}/>}
+            {chain === 'Ziliqa' && <Ziliqa width={100}/>}
+        </IconBox> 
+        <ConfigBox>
+            <FlexBetween><Title>TVL:</Title><Title>{dex}</Title></FlexBetween>
+              <FlexBetween><Title>Main dex:</Title><Title>{dex}</Title></FlexBetween>
               <FlexBetween><a link href={config}>Docs</a></FlexBetween>
-          </ConfigBox>
-          </div>
+         
+              </ConfigBox>
            </Flex>
            <ReviewBox>
 

@@ -21,6 +21,7 @@ const NavItem = styled.button`
     color: ${props => props.theme.colors.text_title};
     padding-right: 10px;
     padding-left: 10px;
+    margin: 5px;
     transition: 0.2s;
     &:hover{
         opacity: 0.6;
