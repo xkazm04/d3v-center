@@ -22,6 +22,7 @@ import { GoLight, Pill } from './icons/main';
 
 
 import { FilterContext } from './contexts/FilterContext';
+import { ChainApiContext } from './contexts/ChainApiContext';
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrandIcon } from './icons/main';
@@ -76,23 +77,26 @@ const Flex = styled.div`
     display: none;
   }
 `
+
 const PillBox = styled.div`
   position: absolute;
   opacity: 0.1;
   right: 0;
   bottom:0;
   height: 30%;
+  z-index: 2;
   @media (max-width: 1500px) {
     display: none;
   }
 `
-
 
 function App() {
   const [filterChain, setFilterChain] = useState("?filters[Chain][$notNull]")
   const [filterSource, setFilterSource] = useState("?filters[Source][$notNull]")
   const [filterStage, setFilterStage] = useState("?filters[Stage][$notNull]")
   const [filterUsage, setFilterUsage] = useState("?filters[Usage][$notNull]")
+
+  const [chainArray, setChainArray] = useState([])
 
   const [theme, setTheme] = useState('light');
   const themeToggler = () => {
@@ -115,7 +119,9 @@ function App() {
       {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
     </BrandTopBox>
     <Kontejner>
-            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}>  
+    <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>
+            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}> 
+            <ChainApiContext.Provider value={{ chainArray, setChainArray}}> 
                 <Navigation>
                 <Navbar/>
                    <Flex> 
@@ -125,7 +131,6 @@ function App() {
                     </Flex>
                 </Navigation>
 
-              
                 <Switch>
                   <Route exact path="/" render={() => <Tutorials />} />
                   <Route exact path ="/bits"  component={Bits}  />
@@ -136,9 +141,7 @@ function App() {
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
-
-          <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>
-
+                </ChainApiContext.Provider>
                 </FilterContext.Provider>
     </Kontejner>
     </ThemeProvider>

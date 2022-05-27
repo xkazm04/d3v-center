@@ -1,7 +1,7 @@
 export const lightTheme = {
     colors: {
        section: "#F5FFFB",
-       background: '#E2E2E2',
+       background: '#cfcfcf',
        heavy: "#9E9E9E",
        medium: "#EBEBEB",  
        light: "#F1F1F1",

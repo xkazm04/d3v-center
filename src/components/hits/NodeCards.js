@@ -82,6 +82,8 @@ const DevelopCards = ({ hit }) => {
   const Part = <><HitMainColumn onClick={()=>{handleResultClick(hit.Reference,hit.id,hit.ViewCounter)}}>  
   <TopLayer> <HitTitle attribute="Title" hit={hit}  tagName="strong"/>
   
+
+  
           {hit.Chain === 'EVM' ? <Evm width={'25'}/> : null}
           {hit.Chain === 'Solana' ? <Solana width={'25'}/> : null}
           {hit.Chain === 'Near' ? <Near width={'25'}/> : null}
@@ -97,7 +99,6 @@ const DevelopCards = ({ hit }) => {
 
     return  <Kontejner>
         {hit.Usage === 'Node' ? <>{Part}</> : null }
-
     </Kontejner>
 };
 

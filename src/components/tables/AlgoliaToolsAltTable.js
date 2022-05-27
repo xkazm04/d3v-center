@@ -1,31 +1,20 @@
-import {useState} from 'react';
+import React, {useState, Suspense} from 'react';
 import {   InstantSearch,
-    Hits,
     Configure,
     connectMenu ,
     connectSearchBox,
-    connectHits ,
     ClearRefinements,
     Stats} from 'react-instantsearch-dom';
+
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import styled from 'styled-components'
 import SearchBox from './SearchBox';
 
 import MenuSelect from './MenuSelect';
-import StorageCards from '../hits/StorageCards';
-import KnowledgeCards from '../hits/KnowledgeCards';
-import DevelopCards from '../hits/DevelopCards';
-
-import MonitorCards from '../hits/MonitorCards';
-import DaoCards from '../hits/DaoCards';
-import DefiCards from '../hits/DefiCards';
-import NftCards from '../hits/NftCards';
-import NodeCards from '../hits/NodeCards';
-
 import {  Divider } from 'rsuite';
 
-import { DevelopIcon,StorageIcon,WisdomIcon, DaoIcon, NftIcon, NodeIcon, DefiIcon, MonitorIcon } from '../../icons/tool';
 
+const HitGroup = React.lazy(() => import('../hits/HitGroup')); // 
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -83,19 +72,7 @@ const BoxSubtitle = styled.div`
   }
 `
 
-const ToolTitle = styled.div`
-  display: flex;
-  text-align: left;
-  letter-spacing: 1.2px;
-  font-family: 'NoBill';
-  font-size: 1.5em;
-  color: ${props => props.theme.colors.text_primary};
-  border-bottom: 1px solid ${props => props.theme.colors.line};
-  @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  } 
-`
+
 
 const MyStats = styled(Stats)`
   text-align: left;
@@ -181,20 +158,6 @@ min-height: 50px;
 `
 
 
-const ToolBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 2%;
-  margin-top: 1%;
-ul{
-    display: flex;
-    flex-wrap: wrap;
-}
-`
-
-const IconBox = styled.div`
-    margin-right: 1%;
-`
 
 const Search = styled.div`
  background: ${props => props.theme.colors.background};
@@ -204,7 +167,6 @@ const Search = styled.div`
     text-align: left;
   }
 `
-
 
 
 const AlgoliaDefinitionTable = () => {
@@ -221,18 +183,9 @@ const AlgoliaDefinitionTable = () => {
 
 
 
-
 const DebouncedSearchBox = connectSearchBox(SearchBox)
 const CustomMenuSelect = connectMenu(MenuSelect);
-const KnowledgeHits  = connectHits(KnowledgeCards);
-const StorageHits = connectHits(StorageCards);
-const DevelopHits = connectHits(DevelopCards);
 
-const DaoHits  = connectHits(DaoCards);
-const DefiHits = connectHits(DefiCards);
-const MonitorHits = connectHits(MonitorCards);
-const NftHits = connectHits(NftCards);
-const NodeHits = connectHits(NodeCards);
 
 const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
 return(
@@ -249,11 +202,11 @@ return (
   <Kontejner>
                <InstantSearch indexName="tool" searchClient={searchClient}>
 
-          <Flex> 
+      <Flex> 
               <Box><BoxTitle>Tools</BoxTitle>
               <BoxSubtitle>Save your time with effective tooling</BoxSubtitle>
              
-              <Configure hitsPerPage={200} />   
+              <Configure hitsPerPage={200}  attributesToSnippet={['Chain']}  />   
               
               <FlexFilter>  
               <Search>     <DebouncedSearchBox delay={500}/>        
@@ -261,20 +214,15 @@ return (
               <MyDivider vertical/>
               <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
               <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
-
+              
       </FlexFilter>
+      <Suspense fallback={<>Loader</>}>
+      <HitGroup/>
+</Suspense>
+     
 
-      <ToolTitle><IconBox><DevelopIcon width='20'/></IconBox>Develop</ToolTitle> <ToolBox> <Hits hitComponent={DevelopHits}  /></ToolBox>
-      <ToolTitle><IconBox><StorageIcon width='20'/></IconBox>Storage</ToolTitle> <ToolBox> <Hits hitComponent={StorageHits}  /></ToolBox>
-      <ToolTitle><IconBox><WisdomIcon width='20'/></IconBox>Knowledge</ToolTitle> <ToolBox> <Hits hitComponent={KnowledgeHits}  /></ToolBox>
-      <ToolTitle><IconBox><DaoIcon width='20'/></IconBox>DAO</ToolTitle> <ToolBox> <Hits hitComponent={DaoHits}  /></ToolBox>
-      <ToolTitle><IconBox><NftIcon width='20'/></IconBox>NFT</ToolTitle>       <ToolBox> <Hits hitComponent={NftHits}  /></ToolBox>
-      <ToolTitle><IconBox><NodeIcon width='20'/></IconBox>Node</ToolTitle>       <ToolBox> <Hits hitComponent={NodeHits}  /></ToolBox>
-      <ToolTitle><IconBox><DefiIcon width='20'/></IconBox>DeFi</ToolTitle>       <ToolBox> <Hits hitComponent={DefiHits}  /></ToolBox>
-      <ToolTitle><IconBox><MonitorIcon width='20'/></IconBox>Monitor</ToolTitle>       <ToolBox> <Hits hitComponent={MonitorHits}  /></ToolBox>
 
-             </Box>
-
+        </Box>
        </Flex>
   </InstantSearch>
   </Kontejner>
