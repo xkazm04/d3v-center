@@ -11,11 +11,11 @@ const HitMainColumn = styled.div`
 background: ${props => props.theme.colors.main};
 height: 70px;
 border-radius: 15px;
+margin: 5px;
 text-align: left;
 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
 width: 200px;
 padding: 5%;
-margin: 5px;
 @media (max-width: 700px) {
     margin-left: 0;
     border-radius: 0;
@@ -59,7 +59,7 @@ const TopLayer= styled.div`
 
 
 
-const StorageCards = ({ hit }) => {
+const DevelopCards = ({ hit }) => {
     const slicedDescription = (hit.Description).slice(0,55) + '...';
     const handleResultClick = (reference,id,counter) => {
         window.open(reference, "_blank")
@@ -79,7 +79,7 @@ const StorageCards = ({ hit }) => {
   }
   
 
-  const StoragePart = <><HitMainColumn onClick={()=>{handleResultClick(hit.Reference,hit.id,hit.ViewCounter)}}>  
+  const Part = <><HitMainColumn onClick={()=>{handleResultClick(hit.Reference,hit.id,hit.ViewCounter)}}>  
   <TopLayer> <HitTitle attribute="Title" hit={hit}  tagName="strong"/>
   
           {hit.Chain === 'EVM' ? <Evm width={'25'}/> : null}
@@ -96,9 +96,9 @@ const StorageCards = ({ hit }) => {
   </>
 
     return  <Kontejner>
-        {hit.Usage === 'Storage' ? <>{StoragePart}</> : null }
+        {hit.Usage === 'Utility' ? <>{Part}</> : null }
 
     </Kontejner>
 };
 
-export default StorageCards
+export default DevelopCards

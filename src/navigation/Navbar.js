@@ -67,9 +67,16 @@ function TopNav() {
         <Kontejner>
             <>
                 <NavGroup>
-                {link === 'tutorials' ?   <ActiveItem onClick={()=>{handleLink('tutorials')}}><MyLink to="/">Tutorials</MyLink></ActiveItem> :   <NavItem onClick={()=>{handleLink('tutorials')}}><MyLink to="/">Tutorials</MyLink></NavItem>}  
-                {link === 'definitions' ?     <ActiveItem onClick={()=>{handleLink('definitions')}}><MyLink to="/definitions">Definitions</MyLink></ActiveItem> :  <NavItem onClick={()=>{handleLink('definitions')}}><MyLink to="/definitions">Definitions</MyLink></NavItem>}
-                 {link === 'tools' ?      <ActiveItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></ActiveItem> :   <NavItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></NavItem> }
+                {link === 'tutorials' ?   
+                <ActiveItem onClick={()=>{handleLink('tutorials')}}><MyLink to="/">Tutorials</MyLink></ActiveItem> :   
+                <MyLink to="/"> <NavItem onClick={()=>{handleLink('tutorials')}}>Tutorials</NavItem></MyLink>}  
+                {link === 'definitions' ?   
+                <MyLink to="/definitions">  <ActiveItem onClick={()=>{handleLink('definitions')}}>Definitions</ActiveItem></MyLink> :  
+                <MyLink to="/definitions"><NavItem onClick={()=>{handleLink('definitions')}}>Definitions</NavItem></MyLink>}
+                 {link === 'tools' ?     
+                  <ActiveItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></ActiveItem> :   
+                  <MyLink to="/tools"> <NavItem onClick={()=>{handleLink('tools')}}>Tools</NavItem></MyLink> }
+
                     <Divider vertical/>
                     <Disabled disabled>Repos</Disabled>
                     <Disabled disabled>D3V Path</Disabled>

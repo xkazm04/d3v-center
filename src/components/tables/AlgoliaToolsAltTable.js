@@ -206,7 +206,7 @@ return (
               <Box><BoxTitle>Tools</BoxTitle>
               <BoxSubtitle>Save your time with effective tooling</BoxSubtitle>
              
-              <Configure hitsPerPage={200}  attributesToSnippet={['Chain']}  />   
+              <Configure hitsPerPage={300}  attributesToSnippet={['Chain']}  />   
               
               <FlexFilter>  
               <Search>     <DebouncedSearchBox delay={500}/>        

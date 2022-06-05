@@ -42,7 +42,7 @@ const SlicedDescription = styled.div`
   font-family: 'Helvetica';
   font-size: 0.7rem;
   font-weight: 500;
-  opacity: 0.3;
+  opacity: 0.6;
   transition: 0.1s;
   &:hover{
     opacity: 1;
