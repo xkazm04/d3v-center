@@ -9,12 +9,12 @@ const Kontejner = styled.div`
 
 const HitMainColumn = styled.div`
 background: ${props => props.theme.colors.main};
-height: 70px;
+height: 80px;
 border-radius: 15px;
 margin: 5px;
 text-align: left;
 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-width: 200px;
+width: 210px;
 padding: 5%;
 @media (max-width: 700px) {
     margin-left: 0;
@@ -30,7 +30,7 @@ padding: 5%;
 const HitTitle = styled(Highlight)`
   color: ${props => props.theme.colors.text_title};
   font-family: 'auto';
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1.1em;
 `
 
