@@ -370,9 +370,9 @@ const toggleAll = () => {
 
     </Menu>
     {utilityLoaded ? <ToolSection icon={<UtilityIcon width='20'/>} title='Utilities' hit={UtilityHits}/> : null}
-     {securityLoaded ? <ToolSection icon={<SecurityIcon width='20'/>} title='Library' hit={SecurityHits}/> : null}
-     {libraryLoaded ? <ToolSection icon={<LibraryIcon width='20'/>} title='Framework' hit={LibraryHits}/> : null}
-     {frameworkLoaded ? <ToolSection icon={<FrameworkIcon width='20'/>} title='Security' hit={FrameworkHits}/> : null}
+     {securityLoaded ? <ToolSection icon={<SecurityIcon width='20'/>} title='Security' hit={SecurityHits}/> : null}
+     {libraryLoaded ? <ToolSection icon={<LibraryIcon width='20'/>} title='Library' hit={LibraryHits}/> : null}
+     {frameworkLoaded ? <ToolSection icon={<FrameworkIcon width='20'/>} title='Framework' hit={FrameworkHits}/> : null}
      {developLoaed ? <ToolSection icon={<DevelopIcon width='20'/>} title='Develop' hit={DevelopHits}/> : null}
      {knowledgeLoaded ? <ToolSection  icon={<WisdomIcon width='20'/>} title='Knowledge' hit={KnowledgeHits}/> : null}
      {storageLoaded ? <ToolSection icon={<StorageIcon width='20'/>} title='Storage' hit={StorageHits}/> : null}
