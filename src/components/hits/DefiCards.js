@@ -30,7 +30,7 @@ padding: 5%;
 const HitTitle = styled(Highlight)`
   color: ${props => props.theme.colors.text_title};
   font-family: 'auto';
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1.1em;
 `
 
