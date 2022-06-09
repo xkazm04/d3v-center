@@ -133,7 +133,7 @@ function App() {
 
                 <Switch>
                   <Route exact path="/" render={() => <Tutorials />} />
-                  <Route exact path ="/bits"  component={Bits}  />
+                  <Route exact path ="/repos"  component={Bits}  />
                   <Route exact path ="/tutorials"  component={Tutorials}  />
                   <Route exact path ="/tools"  component={ToolsAlt}  />
                   <Route exact path ="/chains"  component={Chains}  />
