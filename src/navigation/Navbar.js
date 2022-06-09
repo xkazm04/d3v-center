@@ -76,9 +76,10 @@ function TopNav() {
                  {link === 'tools' ?     
                   <ActiveItem onClick={()=>{handleLink('tools')}}><MyLink to="/tools">Tools</MyLink></ActiveItem> :   
                   <MyLink to="/tools"> <NavItem onClick={()=>{handleLink('tools')}}>Tools</NavItem></MyLink> }
-
+                    {link === 'bits' ?     
+                    <ActiveItem onClick={()=>{handleLink('bits')}}><MyLink to="/bits">Repos</MyLink></ActiveItem> :   
+                  <MyLink to="/bits"> <NavItem onClick={()=>{handleLink('bits')}}>Repos</NavItem></MyLink> }
                     <Divider vertical/>
-                    <Disabled disabled>Repos</Disabled>
                     <Disabled disabled>D3V Path</Disabled>
                    <Disabled disabled> ...more coming</Disabled>
                 </NavGroup>

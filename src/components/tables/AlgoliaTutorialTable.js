@@ -497,7 +497,7 @@ function Hit(props) {
                  
             <Flex> 
                 <Box><BoxTitle>Tutorials</BoxTitle>
-                <BoxSubtitle>Learn from 300+ articles</BoxSubtitle>
+                <BoxSubtitle>Learn from hundreds of tech writers</BoxSubtitle>
                
                 <Configure hitsPerPage={15} />   
 

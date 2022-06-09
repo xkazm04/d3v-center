@@ -42,9 +42,7 @@ export const lightTheme = {
       text_secondary: "#FFFFFF",
       main: "#010103",
       search: "#000000",
-
       disabled: "#898989",
-
       // Cards-Alternative colors
       blue: "#0C002E",
       green: "#012413",

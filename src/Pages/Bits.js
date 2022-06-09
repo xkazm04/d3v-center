@@ -1,5 +1,6 @@
+import AlgoliaBitTable from "../components/tables/AlgoliaBitTable";
 
 export default function Bits() {
 
-    return <><h2>Bits</h2></>;
+    return <><AlgoliaBitTable/></>;
   }
