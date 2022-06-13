@@ -17,6 +17,7 @@ import Bits from './Pages/Bits';
 import Tutorials from './Pages/Tutorials';
 import ToolsAlt from './Pages/ToolsAlt';
 import Definitions from './Pages/Definitions';
+import Path from './Pages/Path';
 
 import { GoLight, Pill } from './icons/main';
 
@@ -84,7 +85,7 @@ const PillBox = styled.div`
   right: 0;
   bottom:0;
   height: 30%;
-  z-index: 2;
+  z-index: 0;
   @media (max-width: 1500px) {
     display: none;
   }
@@ -136,6 +137,7 @@ function App() {
                   <Route exact path ="/repos"  component={Bits}  />
                   <Route exact path ="/tutorials"  component={Tutorials}  />
                   <Route exact path ="/tools"  component={ToolsAlt}  />
+                  <Route exact path ="/path"  component={Path}  />
                   <Route exact path ="/chains"  component={Chains}  />
                   <Route exact path ="/definitions"  component={Definitions}  />
                   <Route path ="*" render={() => <Tutorials />}/> 

@@ -92,9 +92,9 @@ export const CheckIcon = ({width,height, color}) => {
 
 export const InfoIcon = ({width,height}) => {
     return <svg width={width} height={height} viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M42.5 74.375C60.1041 74.375 74.375 60.1041 74.375 42.5C74.375 24.8959 60.1041 10.625 42.5 10.625C24.8959 10.625 10.625 24.8959 10.625 42.5C10.625 60.1041 24.8959 74.375 42.5 74.375Z" stroke="#495823" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M39.8438 39.8438H42.5V58.4375H45.1562" stroke="#495823" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M41.8359 31.2109C43.6697 31.2109 45.1562 29.7244 45.1562 27.8906C45.1562 26.0569 43.6697 24.5703 41.8359 24.5703C40.0022 24.5703 38.5156 26.0569 38.5156 27.8906C38.5156 29.7244 40.0022 31.2109 41.8359 31.2109Z" fill="black"/>
+    <path d="M42.5 74.375C60.1041 74.375 74.375 60.1041 74.375 42.5C74.375 24.8959 60.1041 10.625 42.5 10.625C24.8959 10.625 10.625 24.8959 10.625 42.5C10.625 60.1041 24.8959 74.375 42.5 74.375Z" stroke="#4ECB71" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M39.8438 39.8438H42.5V58.4375H45.1562" stroke="#4ECB71" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M41.8359 31.2109C43.6697 31.2109 45.1562 29.7244 45.1562 27.8906C45.1562 26.0569 43.6697 24.5703 41.8359 24.5703C40.0022 24.5703 38.5156 26.0569 38.5156 27.8906C38.5156 29.7244 40.0022 31.2109 41.8359 31.2109Z" fill="#4ECB71"/>
     </svg>
     
 }

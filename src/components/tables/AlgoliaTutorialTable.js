@@ -25,7 +25,6 @@ import LazyLoad from 'react-lazyload';
   );
 
   const Kontejner = styled.div`
-    z-index: 20;
     @media (min-width: 1000px) {
     margin-left: 5%;
   }
