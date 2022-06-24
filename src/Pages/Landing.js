@@ -79,6 +79,7 @@ const Description = styled.div`
     height: 8em;
     font-size: 1.5em;
     font-family: 'No bill';
+    color: ${props => props.theme.colors.text_secondary};
 `
 
 const ServiceButton = styled.button`
@@ -95,7 +96,7 @@ const ServiceButton = styled.button`
 
 export default function Landing() {
     const theme = useTheme()
-    const [serviceDescription, setServiceDescription] = useState('Tutorials')
+    const [serviceDescription, setServiceDescription] = useState('')
     return <Kontejner>
                 <Section>
                     <Grid fluid>
