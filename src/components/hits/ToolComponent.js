@@ -2,10 +2,8 @@ import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons
 import styled from 'styled-components';
 import {  Highlight} from 'react-instantsearch-dom';
 import axios from 'axios';
+import SlicedDescription from './SlicedDescription';
 
-const Kontejner = styled.div`
-
-`
 
 const HitMainColumn = styled.div`
 background: ${props => props.theme.colors.main};
@@ -26,7 +24,6 @@ padding: 5%;
   }
 `
 
-
 const HitTitle = styled(Highlight)`
   color: ${props => props.theme.colors.text_title};
   font-family: 'auto';
@@ -37,27 +34,12 @@ const HitTitle = styled(Highlight)`
 const HitDescription = styled(Highlight)`
   display: none;
 `
-const SlicedDescription = styled.div`
-      color: ${props => props.theme.colors.text_primary};
-  font-family: 'Helvetica';
-  font-size: 0.7rem;
-  font-weight: 500;
-  opacity: 0.6;
-  transition: 0.1s;
-  &:hover{
-    opacity: 1;
-  }
-`
 
 const TopLayer= styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 `
-
-
-
-
 
 const ToolComponent = ({ hit, filter }) => {
     const slicedDescription = (hit.Description).slice(0,55) + '...';
@@ -80,10 +62,7 @@ const ToolComponent = ({ hit, filter }) => {
   
 
   const Part = <><HitMainColumn onClick={()=>{handleResultClick(hit.Reference,hit.id,hit.ViewCounter)}}>  
-  <TopLayer> <HitTitle attribute="Title" hit={hit}  tagName="strong"/>
-  
-
-  
+  <TopLayer> <HitTitle attribute="Title" hit={hit}  tagName="strong"/>  
           {hit.Chain === 'EVM' ? <Evm width={'25'}/> : null}
           {hit.Chain === 'Solana' ? <Solana width={'25'}/> : null}
           {hit.Chain === 'Near' ? <Near width={'25'}/> : null}
@@ -92,14 +71,14 @@ const ToolComponent = ({ hit, filter }) => {
           {hit.Chain === 'Elrond' ? <Elrond width={'25'}/> : null}
           {hit.Chain === 'Cosmos' ? <Cosmos width={'25'}/> : null}
   </TopLayer>
-    <SlicedDescription> {slicedDescription}</SlicedDescription>
+  <SlicedDescription content={slicedDescription}/>
       <HitDescription attribute="Description" hit={hit} tagName="strong" /> 
   </HitMainColumn>
   </>
 
-    return  <Kontejner>
+    return  <>
         {hit.Usage === {filter} ? <>{Part}</> : null }
-    </Kontejner>
+    </>
 };
 
 export default ToolComponent

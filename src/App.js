@@ -18,6 +18,7 @@ import Tutorials from './Pages/Tutorials';
 import ToolsAlt from './Pages/ToolsAlt';
 import Definitions from './Pages/Definitions';
 import Path from './Pages/Path';
+import Landing from './Pages/Landing';
 
 import { GoLight, Pill } from './icons/main';
 
@@ -113,7 +114,7 @@ function App() {
         <meta name="description" content="Archive of web3 development wisdom. Tutorials, guides, definitions and tools for both EVM and non-EVM blockchains" />
       </Helmet>
 
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme} value={{theme,setTheme}}>
     <GlobalStyle />
     <BrandTopBox> 
     
@@ -133,13 +134,13 @@ function App() {
                 </Navigation>
 
                 <Switch>
-                  <Route exact path="/" render={() => <Tutorials />} />
                   <Route exact path ="/repos"  component={Bits}  />
                   <Route exact path ="/tutorials"  component={Tutorials}  />
                   <Route exact path ="/tools"  component={ToolsAlt}  />
                   <Route exact path ="/path"  component={Path}  />
                   <Route exact path ="/chains"  component={Chains}  />
                   <Route exact path ="/definitions"  component={Definitions}  />
+                  <Route exact path ="/"  component={Landing}  />
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>

@@ -11,8 +11,7 @@ import DaoCards from '../hits/DaoCards';
 import DefiCards from '../hits/DefiCards';
 import NftCards from '../hits/NftCards';
 import NodeCards from '../hits/NodeCards';
-import styled from 'styled-components'
-
+import styled, { useTheme } from 'styled-components'
 import UtilityCards from '../hits/UtilityCards';
 import LibraryCards from '../hits/LibraryCards';
 import FrameworkCards from '../hits/FrameworkCards';
@@ -97,6 +96,8 @@ const Flex = styled.div`
 
 
 const HitGroup = () => {
+  const theme = useTheme()
+
     const [developLoaed, setDevelopLoaded] = useState(true)
     const [knowledgeLoaded, setKnowledgeLoaded]= useState(false);
     const [storageLoaded, setStorageLoaded]= useState(false);
@@ -342,6 +343,7 @@ const toggleAll = () => {
 
  const IconWidth = '40'
   const ToolSection = ({icon, title, hit}) => {
+    
 
       return (
       <>        
@@ -352,7 +354,7 @@ const toggleAll = () => {
     return (
       <>
     <Menu>
-    <IconButton onClick={()=>toggleDevelop()}><Flex><DevelopIcon width={IconWidth}/>Develop</Flex></IconButton>
+    <IconButton onClick={()=>toggleDevelop()}><Flex><DevelopIcon width={IconWidth}  color={theme.tool.develop}/>Develop</Flex></IconButton>
     <IconButton onClick={()=>toggleUtility()}> <Flex> <UtilityIcon width={IconWidth}/>Utilities</Flex></IconButton>
      <IconButton onClick={()=>toggleSecurity()}> <Flex><SecurityIcon width={IconWidth}/>Security</Flex></IconButton>
      <IconButton onClick={()=>toggleLibrary()}> <Flex><LibraryIcon width={IconWidth}/>Libraries</Flex></IconButton>
@@ -361,26 +363,23 @@ const toggleAll = () => {
        <IconButton onClick={()=>toggleStorage()}><Flex><StorageIcon width={IconWidth}/>Storage</Flex></IconButton>
       <IconButton onClick={()=>toggleMonitor()}> <Flex><MonitorIcon width={IconWidth}/>Monitor</Flex></IconButton>
      <IconButton onClick={()=>toggleDao()}> <Flex> <DaoIcon width={IconWidth}/>DAO</Flex></IconButton>
-     <IconButton onClick={()=>toggleNft()}> <Flex><NftIcon width={IconWidth}/>NFT</Flex></IconButton>
-     <IconButton onClick={()=>toggleNode()}> <Flex><NodeIcon width={IconWidth}/>Node</Flex></IconButton>
+     <IconButton onClick={()=>toggleNft()}> <Flex><NftIcon width={IconWidth} color={theme.tool.nft}/>NFT</Flex></IconButton>
+     <IconButton onClick={()=>toggleNode()}> <Flex><NodeIcon width={IconWidth} colorFill={theme.tool.nodeFill} colorStroke={theme.tool.nodeStroke}/>Node</Flex></IconButton>
      <IconButton onClick={()=>toggleDefi()}> <Flex> <DefiIcon width={IconWidth}/>Defi</Flex></IconButton>
-
      <AllButton onClick={()=>toggleAll()}>All</AllButton>
-
-
     </Menu>
     {utilityLoaded ? <ToolSection icon={<UtilityIcon width='20'/>} title='Utilities' hit={UtilityHits}/> : null}
      {securityLoaded ? <ToolSection icon={<SecurityIcon width='20'/>} title='Security' hit={SecurityHits}/> : null}
      {libraryLoaded ? <ToolSection icon={<LibraryIcon width='20'/>} title='Library' hit={LibraryHits}/> : null}
      {frameworkLoaded ? <ToolSection icon={<FrameworkIcon width='20'/>} title='Framework' hit={FrameworkHits}/> : null}
-     {developLoaed ? <ToolSection icon={<DevelopIcon width='20'/>} title='Develop' hit={DevelopHits}/> : null}
+     {developLoaed ? <ToolSection icon={<DevelopIcon width='20' color={theme.tool.develop}/>} title='Develop' hit={DevelopHits}/> : null}
      {knowledgeLoaded ? <ToolSection  icon={<WisdomIcon width='20'/>} title='Knowledge' hit={KnowledgeHits}/> : null}
      {storageLoaded ? <ToolSection icon={<StorageIcon width='20'/>} title='Storage' hit={StorageHits}/> : null}
      {monitorLoaded ? <ToolSection icon={<MonitorIcon width='20'/>} title='Monitor' hit={MonitorHits}/> : null}
      {daoLoaded ? <ToolSection icon={<DaoIcon width='20'/>} title='Dao' hit={DaoHits}/> : null}
      {defiLoaded ? <ToolSection icon={<DefiIcon width='20'/>} title='Defi' hit={DefiHits}/> : null}
-     {nftLoaded ? <ToolSection icon={<NftIcon width='20'/>} title='Nft' hit={NftHits}/> : null}
-     {nodeLoaded ? <ToolSection icon={<NodeIcon width='20'/>} title='Node' hit={NodeHits}/> : null}
+     {nftLoaded ? <ToolSection icon={<NftIcon width='20' color={theme.tool.nft}/>} title='Nft' hit={NftHits}/> : null}
+     {nodeLoaded ? <ToolSection icon={<NodeIcon width='20' colorFill={theme.tool.nodeFill} colorStroke={theme.tool.nodeStroke}/>} title='Node' hit={NodeHits}/> : null}
      {allLoaded ? <ToolSection  title='ALL' hit={AllHits}/> : null}
             </>
     )

@@ -37,14 +37,14 @@ function MediumButton({color}) {
 
     const speaker =
     <MyWhisper>
-            <Message>Something about this <a href='https://medium.com/@michalkadan/d3v-library-ccd977daf5dc'><b>project</b></a> and me</Message>
+            <Message>More info about <a href='https://medium.com/@michalkadan/d3v-library-ccd977daf5dc'><b>project</b></a> and my latest articles</Message>
   </MyWhisper>
 
     return (
 
                 < >
-                                <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
-                                <MyButton icon={<MediumIcon width='30'/>}/>
+                    <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
+                    <MyButton icon={<MediumIcon width='30'/>}/>
                 </Whisper>    
             </>
     );

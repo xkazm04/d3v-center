@@ -9,7 +9,7 @@
       ClearRefinements,
       Stats} from 'react-instantsearch-dom';
   import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-  import styled from 'styled-components'
+  import styled, {useTheme} from 'styled-components'
   import Divider from 'rsuite/Divider';
   import axios from 'axios';
   import SearchBox from './SearchBox';
@@ -18,6 +18,8 @@ import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 import LazyLoad from 'react-lazyload';
+import BoxTitle from '../typography/BoxTitle';
+import BoxSubtitle from '../typography/BoxSubtitle';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -44,31 +46,6 @@ import LazyLoad from 'react-lazyload';
   const Box = styled.div`
   padding-top: 1%;
   padding-left: 2%;
-  `
-
-  const BoxTitle = styled.div`
-    text-align: left;
-    padding-bottom: 1%;
-    letter-spacing: 1.3px;
-    font-family: 'NoBill';
-    font-size: 2em;
-    color: ${props => props.theme.colors.text_title};
-        @media (max-width: 700px) {
-      font-size: 1em;
-      padding-left: 2%;
-    }
-  `
-  const BoxSubtitle = styled.div`
-    text-align: left;
-    letter-spacing: 1.2px;
-    font-family: 'NoBill';
-    font-size: 1.5em;
-    padding-bottom: 1%;
-    color: ${props => props.theme.colors.text_primary};
-    @media (max-width: 700px) {
-      font-size: 1em;
-      padding-left: 2%;
-    }
   `
 
 // Algolia styled customization
@@ -169,6 +146,10 @@ const HitCategory = styled(Highlight)`
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+`
+
+const HitSubCategory = styled(HitCategory)`
+   background: ${props => props.theme.colors.green};
 `
 
 const HitTool = styled(HitCategory)`
@@ -330,8 +311,7 @@ const Difficulty = styled.div`
 
 
 const AlgoliaTutorialTable = () => {
-
-
+    const theme = useTheme()
     const [filterSource, setFilterSource] = useState(true);
     const switchFilterSource = () => {
       setFilterSource(!filterSource);
@@ -360,6 +340,11 @@ const AlgoliaTutorialTable = () => {
     const [filterUsage, setFilterUsage] = useState(true);
     const switchFilterUsage = () => {
       setFilterUsage(!filterUsage);
+    }
+
+    const [filterSub, setFilterSub] = useState(true)
+    const switchFilterSub = () => {
+      setFilterSub(!filterSub);
     }
 
     const [filterTool, setFilterTool] = useState(true);
@@ -418,7 +403,7 @@ function Hit(props) {
       <>
       <ResultBox>
       <HitColumn width={'80px'}>
-      { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'}/></LazyLoad> : null } 
+      { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'} color={theme.tool.github}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
       { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'}/></LazyLoad> : null }  
@@ -439,8 +424,8 @@ function Hit(props) {
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
           </HitMainColumn>
           <MyDivider vertical/>
-          <HitColumn width={'100px'}>
-            <AbsoluteBox>          
+          <HitColumn width={'110px'}>
+            <AbsoluteBox>         
               {props.hit.Language === 'Solidity' ?  <> <LazyLoad><SolidityIcon width='50' height='35' /></LazyLoad></> : null }
               {props.hit.Language === 'Rust' ?  <> <LazyLoad><JsIcon width='50' height='25' /></LazyLoad></> : null }
               {props.hit.Language === 'JavaScript' ?  <> <LazyLoad><RustIcon width='50' height='50' /></LazyLoad></>  : null }
@@ -449,7 +434,7 @@ function Hit(props) {
 
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'120px'}>
+          <HitColumn  width={'130px'}>
           {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
           <Difficulty>   
             {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25}/></LazyLoad> : null} 
@@ -459,9 +444,12 @@ function Hit(props) {
           {props.hit.Difficulty}</Difficulty>
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'150px'}>
+          <HitColumn  width={'120px'}>
           {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }    
-          {props.hit.Subcategory === null ? null : <HitCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }         
+          </HitColumn>
+          <MyDivider vertical/>
+          <HitColumn  width={'120px'}>
+          {props.hit.Subcategory === null ? null : <HitSubCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }  
           </HitColumn>
           <MyDivider vertical/>
           <HitColumn  width={'90px'}>
@@ -495,8 +483,8 @@ function Hit(props) {
                  <InstantSearch indexName="tutorial" searchClient={searchClient}>
                  
             <Flex> 
-                <Box><BoxTitle>Tutorials</BoxTitle>
-                <BoxSubtitle>Learn from hundreds of tech writers</BoxSubtitle>
+                <Box><BoxTitle content='Tutorials'/>
+                <BoxSubtitle content='Learn from hundreds of tech writers'/>
                
                 <Configure hitsPerPage={15} />   
 
@@ -510,7 +498,8 @@ function Hit(props) {
                 <SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
                 <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
                 <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-                <SelectFilter title={'Usage'} attribute={'Category'}  width='160px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+                <SelectFilter title={'Usage'} attribute={'Category'}  width='130px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+                <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='130px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
                 <SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
                 <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
             

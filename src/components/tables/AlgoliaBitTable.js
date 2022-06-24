@@ -15,6 +15,8 @@ import SearchBox from './SearchBox';
 import MenuSelect from './MenuSelect';
 import { RustIcon, SolidityIcon, JsIcon, PythIcon } from '../../icons/utils';
 import LazyLoad from 'react-lazyload';
+import BoxTitle from '../typography/BoxTitle';
+import BoxSubtitle from '../typography/BoxSubtitle';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -42,31 +44,6 @@ const Kontejner = styled.div`
 const Box = styled.div`
 padding-top: 1%;
 padding-left: 2%;
-`
-
-const BoxTitle = styled.div`
-  text-align: left;
-  padding-bottom: 1%;
-  letter-spacing: 1.3px;
-  font-family: 'NoBill';
-  font-size: 2em;
-  color: ${props => props.theme.colors.text_title};
-      @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
-`
-const BoxSubtitle = styled.div`
-  text-align: left;
-  letter-spacing: 1.2px;
-  font-family: 'NoBill';
-  font-size: 1.5em;
-  padding-bottom: 1%;
-  color: ${props => props.theme.colors.text_primary};
-  @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
 `
 
 // Algolia styled customization
@@ -399,8 +376,8 @@ return (
                <InstantSearch indexName="repo" searchClient={searchClient}>
                
           <Flex> 
-              <Box><BoxTitle>Repos</BoxTitle>
-              <BoxSubtitle>Get inspired from the best</BoxSubtitle>
+              <Box><BoxTitle content='Repos'/>
+              <BoxSubtitle content='Get inspired from the best'/>
 
               <Configure hitsPerPage={15} />   
               <LazyLoad><FlexFilter>  

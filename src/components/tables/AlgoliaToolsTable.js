@@ -16,6 +16,8 @@ import SearchBox from './SearchBox';
 import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
 import LazyLoad from 'react-lazyload';
+import BoxTitle from '../typography/BoxTitle';
+import BoxSubtitle from '../typography/BoxSubtitle';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -45,32 +47,6 @@ const Box = styled.div`
 padding-top: 1%;
 padding-left: 2%;
 
-`
-
-const BoxTitle = styled.div`
-  text-align: left;
-  padding-bottom: 1%;
-  letter-spacing: 1.3px;
-  font-family: 'NoBill';
-  font-size: 2em;
-  color: ${props => props.theme.colors.text_title};
-      @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
-
-`
-const BoxSubtitle = styled.div`
-  text-align: left;
-  letter-spacing: 1.2px;
-  font-family: 'NoBill';
-  font-size: 1.5em;
-  padding-bottom: 1%;
-  color: ${props => props.theme.colors.text_primary};
-  @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
 `
 
 // Algolia styled customization
@@ -154,6 +130,10 @@ const HitCategory = styled(Highlight)`
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+`
+
+const HitSubCategory = styled(HitCategory)`
+   background: ${props => props.theme.colors.green};
 `
 
 const MyDivider = styled(Divider)`
@@ -285,6 +265,11 @@ const AlgoliaToolTable = () => {
     setFilterUsage(!filterUsage);
   }
 
+  const [filterSub, setFilterSub] = useState(true)
+  const switchFilterSub = () => {
+    setFilterSub(!filterSub);
+  }
+
   const handleResultClick = (reference,id,counter) => {
     window.open(reference, "_blank")
     addCounter(id,counter)
@@ -327,7 +312,11 @@ function Hit(props) {
     <ResultBox>
       <Flex>          
           <HitColumn  width={'100px'}>
-        {props.hit.Usage === null ? null : <HitCategory attribute="Usage" hit={props.hit} tagName="strong" /> }         
+            {props.hit.Usage === null ? null : <HitCategory attribute="Usage" hit={props.hit} tagName="strong" /> }         
+        </HitColumn>
+         <MyDivider vertical/>
+        <HitColumn  width={'100px'}>
+        {props.hit.Subcategory === null ? null : <HitSubCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }         
         </HitColumn>
         <MyDivider vertical/>
         <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
@@ -335,7 +324,7 @@ function Hit(props) {
             <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
         </HitMainColumn>
         <MyDivider vertical/>
-        <HitColumn width={'80px'}>
+        <HitColumn width={'140px'}>
         {props.hit.Chain === 'EVM' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
           {props.hit.Chain === 'Solana' ? <LazyLoad><Solana width={'25'}/></LazyLoad> : null}
           {props.hit.Chain === 'Near' ? <LazyLoad><Near width={'25'}/></LazyLoad> : null}
@@ -358,17 +347,18 @@ return (
                <InstantSearch indexName="tool" searchClient={searchClient}>
                
           <Flex> 
-              <Box><BoxTitle>Tools</BoxTitle>
-              <BoxSubtitle>Save your time with effective tooling</BoxSubtitle>
+              <Box><BoxTitle content='Tools'/>
+              <BoxSubtitle content='Save your time with effective tooling'/>
              
               <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  
-          <SelectFilter title={'Usage'} attribute={'Usage'}  width='110px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+            <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+            <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='110px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
               <Search>     <DebouncedSearchBox delay={500}/>        
               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
               <MyDivider vertical/>
-              <SelectFilter title={'Chain'} attribute={'Chain'}  width='110px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
+              <SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
 
 
       </FlexFilter></LazyLoad>

@@ -2,6 +2,7 @@ import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons
 import styled from 'styled-components';
 import {  Highlight} from 'react-instantsearch-dom';
 import axios from 'axios';
+import SlicedDescription from './SlicedDescription'
 
 const Kontejner = styled.div`
 
@@ -37,18 +38,6 @@ const HitTitle = styled(Highlight)`
 const HitDescription = styled(Highlight)`
   display: none;
 `
-const SlicedDescription = styled.div`
-      color: ${props => props.theme.colors.text_primary};
-  font-family: 'Helvetica';
-  font-size: 0.7rem;
-  font-weight: 500;
-  opacity: 0.6;
-  transition: 0.1s;
-  &:hover{
-    opacity: 1;
-  }
-`
-
 const TopLayer= styled.div`
     display: flex;
     flex-direction: row;
@@ -90,7 +79,7 @@ const KnowledgeCards = ({ hit }) => {
           {hit.Chain === 'Elrond' ? <Elrond width={'25'}/> : null}
           {hit.Chain === 'Cosmos' ? <Cosmos width={'25'}/> : null}
   </TopLayer>
-    <SlicedDescription> {slicedDescription}</SlicedDescription>
+    <SlicedDescription content={slicedDescription}/>
       <HitDescription attribute="Description" hit={hit} tagName="strong" /> 
   </HitMainColumn>
   </>

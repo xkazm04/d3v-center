@@ -9,7 +9,7 @@ import {   InstantSearch,
     ClearRefinements,
     Stats} from 'react-instantsearch-dom';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import styled from 'styled-components'
+import styled, {useTheme} from 'styled-components'
 import Divider from 'rsuite/Divider';
 import axios from 'axios';
 import SearchBox from './SearchBox';
@@ -18,6 +18,8 @@ import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 import LazyLoad from 'react-lazyload';
+import BoxTitle from '../typography/BoxTitle';
+import BoxSubtitle from '../typography/BoxSubtitle';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -48,33 +50,6 @@ padding-top: 1%;
 padding-left: 2%;
 
 `
-
-const BoxTitle = styled.div`
-  text-align: left;
-  padding-bottom: 1%;
-  letter-spacing: 1.3px;
-  font-family: 'NoBill';
-  font-size: 2em;
-  color: ${props => props.theme.colors.text_title};
-      @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
-
-`
-const BoxSubtitle = styled.div`
-  text-align: left;
-  letter-spacing: 1.2px;
-  font-family: 'NoBill';
-  font-size: 1.5em;
-  padding-bottom: 1%;
-  color: ${props => props.theme.colors.text_primary};
-  @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
-  }
-`
-
 // Algolia styled customization
 const MyStats = styled(Stats)`
   text-align: left;
@@ -173,6 +148,10 @@ const HitCategory = styled(Highlight)`
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+`
+
+const HitSubCategory = styled(HitCategory)`
+   background: ${props => props.theme.colors.green};
 `
 
 const HitUpdate = styled.div`
@@ -328,7 +307,7 @@ color: ${props => props.theme.colors.yellow};
 
 
 const AlgoliaDefinitionTable = () => {
-
+  const theme = useTheme()
 
   const [filterSource, setFilterSource] = useState(true);
   const switchFilterSource = () => {
@@ -358,6 +337,11 @@ const AlgoliaDefinitionTable = () => {
   const [filterUsage, setFilterUsage] = useState(true);
   const switchFilterUsage = () => {
     setFilterUsage(!filterUsage);
+  }
+
+  const [filterSub, setFilterSub] = useState(true);
+  const switchFilterSub = () => {
+    setFilterSub(!filterSub);
   }
 
   const handleResultClick = (reference,id,counter) => {
@@ -410,12 +394,13 @@ const MobileSelectFilter = ({title,attribute, width,filterEnabled, clickFunction
   
 
 function Hit(props) {
+ 
   return (
     <>
 
     <ResultBox>
     <HitColumn width={'90px'}>
-    { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'}/></LazyLoad> : null } 
+    { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'} color={theme.tool.github}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
       { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'}/></LazyLoad> : null }  
@@ -446,7 +431,7 @@ function Hit(props) {
 
         </HitColumn>
         <MyDivider vertical/>
-        <HitColumn  width={'100px'}>
+        <HitColumn  width={'120px'}>
         {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
         <Difficulty>   
         {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25}/></LazyLoad> : null} 
@@ -456,8 +441,12 @@ function Hit(props) {
         {props.hit.Difficulty}</Difficulty>
         </HitColumn>
         <MyDivider vertical/>
-        <HitColumn  width={'100px'}>
-        {props.hit.Usage === null ? null : <HitCategory attribute="Usage" hit={props.hit} tagName="strong" /> }         
+        <HitColumn  width={'110px'}>
+            {props.hit.Usage === null ? null : <HitCategory attribute="Usage" hit={props.hit} tagName="strong" /> }         
+        </HitColumn>
+        <MyDivider vertical/>
+        <HitColumn  width={'110px'}>
+           {props.hit.Subcategory === null ? null : <HitSubCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }         
         </HitColumn>
         <MyDivider vertical/>
       <HitColumn  width={'120px'}>
@@ -487,9 +476,8 @@ return (
                <InstantSearch indexName="definition" searchClient={searchClient}>
                
           <Flex> 
-              <Box><BoxTitle>Definitions</BoxTitle>
-              <BoxSubtitle>Absorb all crypto foundations</BoxSubtitle>
-             
+              <Box><BoxTitle content='Definitions'/>
+              <BoxSubtitle content='Absorb all crypto foundations'/>             
               <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  
@@ -501,7 +489,8 @@ return (
               <SelectFilter title={'Language'} attribute={'Language'}  width='100px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
               <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
               <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-              <SelectFilter title={'Usage'} attribute={'Usage'}  width='110px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+              <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+              <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='120px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
               <SelectFilter title={'Chain'} attribute={'Chain'}  width='110px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
           
       </FlexFilter></LazyLoad>
