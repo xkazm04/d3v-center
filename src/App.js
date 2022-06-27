@@ -19,6 +19,7 @@ import ToolsAlt from './Pages/ToolsAlt';
 import Definitions from './Pages/Definitions';
 import Path from './Pages/Path';
 import Landing from './Pages/Landing';
+import Releases from './Pages/Releases';
 
 import { GoLight, Pill } from './icons/main';
 
@@ -140,6 +141,7 @@ function App() {
                   <Route exact path ="/path"  component={Path}  />
                   <Route exact path ="/chains"  component={Chains}  />
                   <Route exact path ="/definitions"  component={Definitions}  />
+                  <Route exact path ="/releases"  component={Releases}  />
                   <Route exact path ="/"  component={Landing}  />
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
