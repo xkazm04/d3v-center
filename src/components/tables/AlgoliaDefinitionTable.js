@@ -353,7 +353,7 @@ const AlgoliaDefinitionTable = () => {
   const addCounter = async(tutorialId,viewCounter) => {
       const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
       console.log(updatedId)
-      const token = process.env.REACT_APP_CMS_API // Master strapi token
+      const token = process.env.REACT_APP_CMS_API // 
       const body = { data: { ViewCounter: viewCounter+1 } }
       const res = await axios.put(`https://d3v-center.herokuapp.com/api/definitions/${updatedId}`, body, {
           headers: {
@@ -451,15 +451,15 @@ function Hit(props) {
         <MyDivider vertical/>
       <HitColumn  width={'120px'}>
        <RightBox>
-       {props.hit.Chain === 'evm' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'solana' ? <LazyLoad><Solana width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'near' ? <LazyLoad><Near width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'ziliqa' ? <LazyLoad><Ziliqa width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'polkadot' ? <LazyLoad><Polkadot width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'elrond' ? <LazyLoad><Elrond width={'25'}/></LazyLoad> : null}
-          {props.hit.Chain === 'cosmos' ? <LazyLoad><Cosmos width={'25'}/></LazyLoad> : null}
+       {props.hit.Chain === 'EVM' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Solana' ? <LazyLoad><Solana width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Near' ? <LazyLoad><Near width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Ziliqa' ? <LazyLoad><Ziliqa width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Polkadot' ? <LazyLoad><Polkadot width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Elrond' ? <LazyLoad><Elrond width={'25'}/></LazyLoad> : null}
+          {props.hit.Chain === 'Cosmos' ? <LazyLoad><Cosmos width={'25'}/></LazyLoad> : null}
         {/* Update date */}
-       <HitUpdate>   {props.hit.Update}</HitUpdate>
+        {props.hit.Update}
        </RightBox>
        </HitColumn>
       </Flex>

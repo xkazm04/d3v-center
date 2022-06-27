@@ -12,14 +12,17 @@ const Feature = styled.div`
 
 `
 
-export default function ReleaseTimeline() {
+
+export default function ReleaseTimeline(toolData) {
     const theme = useTheme()
+    console.log(toolData)
+
 
     return <>
     <VerticalTimeline>
   <VerticalTimelineElement
     className="vertical-timeline-element--work"
-    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+    contentStyle={{ background: theme.colors.background, color: theme.colors.heavy }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
     date="date"
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}

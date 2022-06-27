@@ -230,19 +230,25 @@ const PaginationBox = styled.div`
 
 const AlgoliaDefinitionTable = () => {
   const theme = useTheme()
-  const [timeline, setTimeline] = useState({})
+  const [timeline, setTimeline] = useState(null)
 
   const handleResultClick = (reference) => {
     window.open(reference, "_blank")
 }
 
+// Get me all items, query by tool
+const token = process.env.REACT_APP_CMS_API 
+
 const handleTimeline = async(t) => {
-    const header = {
-        "apiKey": `Bearer ${process.env.key}` 
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/releases/?filters[tool][$eq]=${t}`, {headers: {
+            Authorization: `Bearer ${token}` 
+    },})
+        setTimeline(res.data.data)
+    } catch {
+        console.log('API error');
     }
-    const res = await axios.get(`${process.env.url}/api/releases/${t}`, header)
-    setTimeline(res.data.data)
-    console.log(timeline)
+
 }
 
 const DebouncedSearchBox = connectSearchBox(SearchBox)
@@ -321,7 +327,7 @@ return (
 
                 </Col>
                 <Col xs={24} md={24} lg={10}>
-                    <ReleaseTimeline  />
+                    <ReleaseTimeline toolData={timeline}  />
                 </Col>
              </Row>
        </Grid>
