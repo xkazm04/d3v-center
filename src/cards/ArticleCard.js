@@ -5,8 +5,8 @@ const CardBox = styled.div`
 margin-top: 5%;
 display: flex;
 flex-direction: column;
-width: 21em;
-height: 24em;
+width: auto;
+height: 23em;
 background: ${props => props.theme.colors.lighter};
 box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.02), 0px 4px 13px rgba(0, 0, 0, 0.03);
 border-radius: 8px;

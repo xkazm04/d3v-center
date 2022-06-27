@@ -1,12 +1,16 @@
 import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { Grid, Row, Col } from 'rsuite';
 import ChartTutorial from "../components/charts/ChartUsage";
 import ChartLang from "../components/charts/ChartLang";
 import { DevelopIcon, CodeIcon } from "../icons/tool";
 import ArticleSection from '../cards/ArticleSection';
-import { MediumIcon } from '../icons/utils';
+import { ExitIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
+import Typewriter from 'typewriter-effect';
+import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';
+
 
 
 const Kontejner = styled.div`
@@ -31,6 +35,9 @@ const LeftBox = styled.div`
 
 const PictureBox = styled.div`
     opacity: 0.05;
+    @media (max-width: 1200px) {
+    display: none;
+  }
 `
 
 const RightBox = styled.div`
@@ -74,14 +81,6 @@ const Services = styled.div`
 
 `
 
-const Description = styled.div`
-    margin-top: 5%;
-    height: 8em;
-    font-size: 1.5em;
-    font-family: 'No bill';
-    color: ${props => props.theme.colors.text_secondary};
-`
-
 const ServiceButton = styled.button`
     border-radius: 15px;
     background: inherit;
@@ -93,10 +92,83 @@ const ServiceButton = styled.button`
     }
 `
 
+const CodeBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    background: black;
+    height: 100%;
+    color: white;
+    text-align: left;
+    padding-bottom: 2%;
+    font-family: 'Courier';
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 5%;
+`
+
+const Pre = styled.pre`
+    background: ${props => props.theme.colors.heavy};
+    padding-left: 5%;
+`
+
+
+const FlexRow = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+`
+
+const CodeTitle = styled.div`
+    color: ${props => props.theme.colors.text_title};
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-bottom: 15%;
+`
+
+const MyLink = styled(Link)`
+    background: ${props => props.theme.colors.background};
+    border-radius: 5px;
+    &:hover{
+        text-decoration: none;
+    }
+`
+
+
+
+const Loop = ({str}) => {
+    return<Typewriter
+    options={{
+        strings: [str],
+        autoStart: true,
+        delay: 100,
+        loop: true
+    }}/>
+}
+
+
 
 export default function Landing() {
     const theme = useTheme()
     const [serviceDescription, setServiceDescription] = useState('')
+
+    const [firstFile, setFirstFile] = useState(null)
+    const [secondFile, setSecondFile] = useState(null)
+    const [thirdFile, setThirdFile] = useState(null)
+    const [fourthFile, setFourthFile] = useState(null)
+
+    const handleDescription = ( desc,first,second,third, fourth  ) => {
+        setServiceDescription(desc);
+        setFirstFile(first)
+        setSecondFile(second)
+        setThirdFile(third)
+        setFourthFile(fourth)
+    }
+    // Přidat animaci na rozdělení stylu
+    // Oddělit do souboru data pro každou sekci 
     return <Kontejner>
                 <Section>
                     <Grid fluid>
@@ -104,19 +176,60 @@ export default function Landing() {
                             <Col xs={24} md={12}>
                                 <LeftBox>
                                 <LogoBox><Logo width='40%' colorStroke={theme.tool.logo} colorFill={theme.tool.logo}/></LogoBox>
-                                    <Title>Web3 Developer Library</Title>
-                                    <Subtitle>Your central ticket to decentralized development</Subtitle>
+                                    <Title>Eat all the web3 wisdom</Title>
+                                    <Subtitle>Learn to write dapps for free and shape future of web3</Subtitle>
                                 </LeftBox>
                             </Col>
                             <Col xs={24} md={12}>
                                 <Services>
-                                   <ServiceButton onClick={()=>{setServiceDescription('Work!!')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{setServiceDescription('Harder!!!')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{setServiceDescription('Build!!')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{setServiceDescription('No Pain, No GAIIN!')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{setServiceDescription('JUST DO IT!!')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Tutorials',tutDefiFile,tutNftFile,tutSecFile,tutDataFile)}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Definitions', defFirstFile, defSecondFile, defThirdFile, null)}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Repositories')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Tools')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Releases')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
                                 </Services>
-                                <Description>{serviceDescription}</Description>
+                      {serviceDescription === '' ? null :    <CodeBox>
+                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null}     
+                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Repositories' ? <Pre>Definitions and theory behind blockchains <MyLink to='/repos'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Tools' ? <Pre>Definitions and theory behind blockchains <MyLink to='/tools'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Releases' ? <Pre>Definitions and theory behind blockchains <MyLink to='/releases'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                                   <FlexRow>
+                                    <FlexColumn>
+                                        <CodeTitle> {firstFile && <Loop str={firstFile.title}/> } </CodeTitle>
+                                           {firstFile && <Loop str={firstFile.step1}/> } 
+                                           {firstFile && <Loop str={firstFile.step2}/> } 
+                                           {firstFile && <Loop str={firstFile.step3}/> } 
+                                           {firstFile && <Loop str={firstFile.step4}/> } 
+                                           {firstFile && <Loop str={firstFile.step5}/> } 
+
+                                    </FlexColumn>
+                                    <FlexColumn>
+                                    <CodeTitle> {secondFile && <Loop str={secondFile.title}/> } </CodeTitle>
+                                           {secondFile && <Loop str={secondFile.step1}/> } 
+                                           {secondFile && <Loop str={secondFile.step2}/> } 
+                                           {secondFile && <Loop str={secondFile.step3}/> } 
+                                           {secondFile && <Loop str={secondFile.step4}/> } 
+                                           {secondFile && <Loop str={secondFile.step5}/> } 
+                                    </FlexColumn>
+                                    <FlexColumn>
+                                    <CodeTitle> {thirdFile && <Loop str={thirdFile.title}/> } </CodeTitle>
+                                           {thirdFile && <Loop str={thirdFile.step1}/> } 
+                                           {thirdFile && <Loop str={thirdFile.step2}/> } 
+                                           {thirdFile && <Loop str={thirdFile.step3}/> } 
+                                           {thirdFile && <Loop str={thirdFile.step4}/> } 
+                                           {thirdFile && <Loop str={thirdFile.step5}/> } 
+                                    </FlexColumn>
+                                    <FlexColumn>
+                                 {fourthFile &&  <> <CodeTitle> {fourthFile && <Loop str={fourthFile.title}/> } </CodeTitle>
+                                           {fourthFile && <Loop str={fourthFile.step1}/> } 
+                                           {fourthFile && <Loop str={fourthFile.step2}/> } 
+                                           {fourthFile && <Loop str={fourthFile.step3}/> } 
+                                           {fourthFile && <Loop str={fourthFile.step4}/> } 
+                                           {fourthFile && <Loop str={fourthFile.step5}/> }</> }
+                                    </FlexColumn>
+                                    </FlexRow>
+                                </CodeBox>}
                             </Col>
                         </Row>
                     </Grid>

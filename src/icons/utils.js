@@ -184,3 +184,12 @@ export const DataflowIcon = ({width, height, color}) => {
     
 }
 
+export const ExitIcon = ({width, height, color}) => {
+ return   <svg width={width} height={height} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.75 21.25L17 16L11.75 10.75" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 16H17" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 5H24C24.2652 5 24.5196 5.10536 24.7071 5.29289C24.8946 5.48043 25 5.73478 25 6V26C25 26.2652 24.8946 26.5196 24.7071 26.7071C24.5196 26.8946 24.2652 27 24 27H17" stroke={color} stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+}
+

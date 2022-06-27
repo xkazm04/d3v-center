@@ -29,6 +29,7 @@
     "recharts": "^2.1.10",
     "rsuite": "^5.8.1",
     "styled-components": "^5.3.5",
+    "typewriter-effect": "^2.18.2",
     "url": "^0.11.0",
     "util": "^0.12.4"
   },
