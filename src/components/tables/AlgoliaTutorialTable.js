@@ -178,6 +178,17 @@ const RightBox = styled.div`
     }
 `
 
+
+const MobileItem = styled.div`
+    align-items: left;
+    text-align: left;
+    margin-right: 1%;
+    @media (min-width: 700px) {
+      display: none;
+    }
+`
+
+
 const SelectItem = styled.div`
     transition: 0.1s;
     align-items: left;
@@ -185,15 +196,6 @@ const SelectItem = styled.div`
     min-width: ${props => props.width};
     margin-right: 1%;
     @media (max-width: 700px) {
-      display: none;
-    }
-`
-
-const MobileItem = styled.div`
-    align-items: left;
-    text-align: left;
-    margin-right: 1%;
-    @media (min-width: 700px) {
       display: none;
     }
 `
@@ -215,15 +217,6 @@ const SelectTitle = styled.p`
     }
 `
 
-const PaginationTitle = styled.p`
-    font-family: 'NoBill';
-    text-align: left;
-    font-size: 1.2em;
-    padding-left: 10%;
-    padding-right: 5%;
-    color: ${props => props.theme.colors.text_primary};
-`
-
 const SelectTitleBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -235,6 +228,17 @@ const SelectTitleBox = styled.div`
       background: ${props => props.theme.colors.light};
     }
 `
+
+const PaginationTitle = styled.p`
+    font-family: 'NoBill';
+    text-align: left;
+    font-size: 1.2em;
+    padding-left: 10%;
+    padding-right: 5%;
+    color: ${props => props.theme.colors.text_primary};
+`
+
+
 
 const FilterButton = styled.button`
   background: ${props => props.theme.colors.background};
@@ -406,7 +410,7 @@ function Hit(props) {
       { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'} color={theme.tool.github}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
-      { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'}/></LazyLoad> : null }  
+      { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'} color={theme.colors.text_title} /></LazyLoad> : null }  
       { props.hit.Source === "blog" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }  
       { props.hit.Source === "devto" ?  <LazyLoad><DevToIcon width={'25'}/></LazyLoad> : null }  
     </HitColumn>
@@ -481,14 +485,10 @@ function Hit(props) {
   return (
     <Kontejner>
                  <InstantSearch indexName="tutorial" searchClient={searchClient}>
-                 
             <Flex> 
                 <Box><BoxTitle content='Tutorials'/>
                 <BoxSubtitle content='Learn from hundreds of tech writers'/>
-               
-                <Configure hitsPerPage={15} />   
-
-                
+                <Configure hitsPerPage={15} />  
                 <LazyLoad><FlexFilter>  
                 <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
                 <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>

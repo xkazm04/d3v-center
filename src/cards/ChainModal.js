@@ -1,7 +1,6 @@
 import {Modal } from 'rsuite';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { InfoIcon } from '../icons/utils';
 import { Acala, Arbitrum, Avalanche, Binance, Celo, Ethereum, Fantom, Flow, Harmony, Moonbeam, Polygon  } from '../icons/chain';
 
 const width=40;
@@ -13,9 +12,14 @@ const Kontejner = styled.div`
 `
 
 const MyButton = styled.button`
-    background: transparent;
-    position: absolute;
-    right: 0;
+  border: 2px solid ${props => props.theme.chart.var2_stroke};
+  font-weight: 700;
+  border-radius: 15px;
+  margin: 5px;
+  transition: 0.1s;
+  &:hover{
+    background: ${props => props.theme.colors.green};
+  }
 `
 
 
@@ -104,7 +108,7 @@ const ChainModal = ({chain}) => {
     const [ch, setChain] = useState('ethererum');
     return <Kontejner>
     
-        <MyButton onClick={handleOpen}> <InfoIcon width={20}/></MyButton>
+        <MyButton onClick={handleOpen}> Deploy</MyButton>
 
       <Modal open={open} onClose={handleClose}>
         <Modal.Header>

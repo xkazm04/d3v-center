@@ -72,7 +72,10 @@ function TopNav() {
     return (
         <Kontejner>
             <>
-                <NavGroup>         
+                <NavGroup>
+                {link === '/path' ?     
+                <ActiveItem onClick={()=>{handleLink('path')}}><MyLink to="/path">Path</MyLink></ActiveItem> :   
+                <MyLink to="/path"> <NavItem onClick={()=>{handleLink('/path')}}>Path</NavItem></MyLink> }         
                 {link === '/tutorials' ?   
                 <ActiveItem onClick={()=>{handleLink('/tutorials')}}><MyLink to="/">Tutorials</MyLink></ActiveItem> :   
                 <MyLink to="/tutorials"> <NavItem onClick={()=>{handleLink('/tutorials')}}>Tutorials</NavItem></MyLink>}  

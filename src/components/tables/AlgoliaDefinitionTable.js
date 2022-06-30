@@ -154,16 +154,6 @@ const HitSubCategory = styled(HitCategory)`
    background: ${props => props.theme.colors.green};
 `
 
-const HitUpdate = styled.div`
-  width: 80px;
-  font-size: 10px;
-  color: ${props => props.theme.colors.text_primary};
-  &:hover{
-    cursor: default;
-  }
-
-`
-
 const MyDivider = styled(Divider)`
   background: ${props => props.theme.colors.lighter};
   @media (max-width: 700px) {
@@ -313,7 +303,7 @@ const AlgoliaDefinitionTable = () => {
   const switchFilterSource = () => {
     setFilterSource(!filterSource);
   }
-  // Series handlers
+
   const [filterSeries, setFilterSeries] = useState(true);
   const switchFilterSeries = () => {
     setFilterSeries(!filterSeries);
@@ -403,7 +393,7 @@ function Hit(props) {
     { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'} color={theme.tool.github}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
       { props.hit.Source === "medium" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }
-      { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'}/></LazyLoad> : null }  
+      { props.hit.Source === "web" ?  <LazyLoad><WebIcon width={'25'} color={theme.colors.text_title}/></LazyLoad> : null }  
       { props.hit.Source === "blog" ?  <LazyLoad><MediumIcon width={'25'}/></LazyLoad> : null }  
       { props.hit.Source === "devto" ?  <LazyLoad><DevToIcon width={'25'}/></LazyLoad> : null } 
   </HitColumn>
@@ -411,12 +401,12 @@ function Hit(props) {
       <Flex>  
       <MyDivider vertical/>
           {/* Left column */}
-          <HitColumn width={'150px'}>
+          <HitColumn width={'130px'}>
               {props.hit.Series === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="Series" hit={props.hit} tagName="strong" /> </HitSeriesColumn>} 
      </HitColumn>
           <MyDivider vertical/>
           {/* Main column*/}
-        <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
+        <HitMainColumn width={'460px'} onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}>  
             <HitTitle attribute="Title" hit={props.hit}  tagName="strong"/>
             <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
         </HitMainColumn>
@@ -449,7 +439,7 @@ function Hit(props) {
            {props.hit.Subcategory === null ? null : <HitSubCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }         
         </HitColumn>
         <MyDivider vertical/>
-      <HitColumn  width={'120px'}>
+      <HitColumn  width={'90px'}>
        <RightBox>
        {props.hit.Chain === 'EVM' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
           {props.hit.Chain === 'Solana' ? <LazyLoad><Solana width={'25'}/></LazyLoad> : null}
@@ -458,9 +448,11 @@ function Hit(props) {
           {props.hit.Chain === 'Polkadot' ? <LazyLoad><Polkadot width={'25'}/></LazyLoad> : null}
           {props.hit.Chain === 'Elrond' ? <LazyLoad><Elrond width={'25'}/></LazyLoad> : null}
           {props.hit.Chain === 'Cosmos' ? <LazyLoad><Cosmos width={'25'}/></LazyLoad> : null}
-        {/* Update date */}
-        {props.hit.Update}
        </RightBox>
+       </HitColumn>
+       <MyDivider vertical/>
+       <HitColumn>
+       {props.hit.Update}
        </HitColumn>
       </Flex>
 
@@ -482,16 +474,16 @@ return (
               
           <LazyLoad><FlexFilter>  
               <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
-              <SelectFilter title={'Series'} attribute={'Series'}  width='170px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
+              <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
               <Search>     <DebouncedSearchBox delay={500}/>        
               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
               <MyDivider vertical/>
               <SelectFilter title={'Language'} attribute={'Language'}  width='100px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
-              <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='120px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
+              <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='110px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
               <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
               <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
               <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='120px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
-              <SelectFilter title={'Chain'} attribute={'Chain'}  width='110px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
+              <SelectFilter title={'Chain'} attribute={'Chain'}  width='70px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
           
       </FlexFilter></LazyLoad>
 

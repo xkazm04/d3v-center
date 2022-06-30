@@ -17,8 +17,10 @@ import MenuSelect from './MenuSelect';
 import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
 import BoxSubtitle from '../typography/BoxSubtitle';
-import ReleaseTimeline from '../charts/ReleaseTimeline'
 import { Grid, Row, Col } from 'rsuite';
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import { GithubIcon, TimeIcon, WebIcon } from '../../icons/utils';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -26,7 +28,6 @@ const searchClient = instantMeiliSearch(
 );
 
 const Kontejner = styled.div`
-
 @media (min-width: 1000px) {
   margin-left: 5%;
 }
@@ -48,14 +49,17 @@ const HitColumn = styled.div`
   &:hover{
   font-weight: 700;
 }
-  @media (max-width: 700px) {
-    display: none;
-  }
+`
+
+const LastColumn = styled.div`
+  display: flex;
 `
 
 const HitMainColumn = styled.div`
 width: ${props => props.width};
 display: flex;
+margin-top: 3px;
+margin-bottom: 3px;
 background: ${props => props.theme.colors.main};
 border-radius: 15px;
 text-align: left;
@@ -69,12 +73,6 @@ box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
       background: ${props => props.theme.colors.red};
       cursor: pointer;
   }
-`
-
-const HitSeriesColumn = styled(HitColumn)`
-  font-size: 12px;
-  padding-top: 3%;
-  font-family: 'Staatliches';
 `
 
 
@@ -96,19 +94,6 @@ const HitDescription = styled(Highlight)`
   &:hover{
     opacity: 1;
   }
-`
-
-const HitSeries = styled(Highlight)`
-  font-family: 'NoBill';
-  letter-spacing: 1.5px;
-  color: ${props => props.theme.colors.text_primary};
-  margin-left: 4%;
-  padding: 4%;
-  transition: 0.2s;
-  @media (max-width: 700px) {
-    display: none;
-  }
-
 `
 
 const HitCategory = styled(Highlight)`
@@ -144,12 +129,6 @@ const HitUpdate = styled.div`
 const MyDivider = styled(Divider)`
   background: ${props => props.theme.colors.lighter};
   @media (max-width: 700px) {
-    display: none;
-  }
-`
-
-const RightBox = styled.div`
-    @media (max-width: 700px) {
     display: none;
   }
 `
@@ -210,6 +189,7 @@ border-top: 2px solid ${props => props.theme.colors.light};
 const Search = styled.div`
  background: ${props => props.theme.colors.background};
  padding-right: 100px;
+ margin-left: 60px;
  @media (max-width: 700px) {
     padding-right: 5px;
     text-align: left;
@@ -225,7 +205,88 @@ const PaginationBox = styled.div`
   height: 50px;
   margin-bottom: 1%;
 `
+const RelTitle = styled.div`
+font-size: 1.2em;
+font-family: 'NoBill';
+`
 
+const RelFeature = styled.div`
+font-size: 0.8em;
+`
+
+const TimeButton = styled.button`
+  background: inherit;
+`
+
+const SelectItem = styled.div`
+    transition: 0.1s;
+    align-items: left;
+    text-align: left;
+    min-width: ${props => props.width};
+    margin-right: 1%;
+    @media (max-width: 700px) {
+      display: none;
+    }
+`
+
+const SelectTitle = styled.p`
+    font-family: 'NoBill';
+    text-align: left;
+    font-size: 1.2em;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: ${props => props.theme.colors.text_primary};
+    cursor: default;
+    &:hover{
+      cursor: pointer;
+      background: ${props => props.theme.colors.light};
+    }
+    @media (min-width: 700px) {
+      width: 100%;
+    }
+`
+
+const SelectTitleBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: ${props => props.theme.colors.lighter};
+  margin-bottom: 4px;
+  box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
+  &:hover{
+      cursor: pointer;
+      background: ${props => props.theme.colors.light};
+    }
+`
+
+const FilterButton = styled.button`
+  background: ${props => props.theme.colors.background};
+  transition: 0.1s;
+  &:hover{
+    opacity:0.4;
+  }
+`
+
+const MyTimeline = styled(VerticalTimeline)`
+  text-align: left;
+`
+
+const ChainDiv = styled.div`
+ font-size: 0.8em;
+`
+
+const FilterIcon = ({width, height}) => {
+  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='#0C9682' stroke="#0C9682"/>
+  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="#0C9682" stroke="white"/>
+  </svg>  
+}
+
+const FilterActiveIcon = ({width, height}) => {
+  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='red' stroke="#0C9682"/>
+  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="red" stroke="white"/>
+  </svg>  
+}
 
 
 const AlgoliaDefinitionTable = () => {
@@ -234,6 +295,16 @@ const AlgoliaDefinitionTable = () => {
 
   const handleResultClick = (reference) => {
     window.open(reference, "_blank")
+}
+
+const [filterCategory, setFilterCategory] = useState(true);
+const switchFilterCategory = () => {
+  setFilterCategory(!filterCategory);
+}
+
+const [filterSub, setFilterSub] = useState(true);
+const switchFilterSub = () => {
+  setFilterSub(!filterSub);
 }
 
 // Get me all items, query by tool
@@ -252,82 +323,101 @@ const handleTimeline = async(t) => {
 }
 
 const DebouncedSearchBox = connectSearchBox(SearchBox)
+const CustomMenuSelect = connectMenu(MenuSelect);
+
+const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
+  return(
+  <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
+  </SelectTitle > <FilterButton >
+  {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
+    
+    </FilterButton></SelectTitleBox> 
+   {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
+  
+  </SelectItem>
+  )
+}
 
 function Hit(props) {
+
+
   
   return (
     <>
 
     <ResultBox>
-      {/* Main part */}
       <Flex>  
-      <HitUpdate>   {props.hit.update}</HitUpdate>
-      <MyDivider vertical/>
-          {/* Left column */}
-         
-          <HitColumn width={'100px'}>
-        
-              {props.hit.chain === null ? <HitSeriesColumn> </HitSeriesColumn>:  <HitSeriesColumn><HitSeries attribute="chain" hit={props.hit} tagName="strong" /> </HitSeriesColumn>} 
-     </HitColumn>
-          <MyDivider vertical/>
-          <HitColumn  width={'110px'}>
-            {props.hit.category === null ? null : <HitCategory attribute="category" hit={props.hit} tagName="strong" /> }         
+      <HitColumn  width={'60px'}>
+           <ChainDiv> {props.hit.chain}</ChainDiv>       
         </HitColumn>
-        <MyDivider vertical/>
           {/* Main column*/}
         <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.reference)}}>  
             <HitTitle attribute="tool" hit={props.hit}  tagName="strong"/>
             <HitDescription attribute="difference" hit={props.hit} tagName="strong" /> 
         </HitMainColumn>
         <MyDivider vertical/>
-
+        <HitColumn  width={'110px'}>
+            {props.hit.category === null ? null : <HitCategory attribute="category" hit={props.hit} tagName="strong" /> }         
+        </HitColumn>
+        <MyDivider vertical/>
         <HitColumn  width={'100px'}>
            {props.hit.subcategory === null ? null : <HitSubCategory attribute="subcategory" hit={props.hit} tagName="strong" /> }         
         </HitColumn>
         <MyDivider vertical/>
-       <HitColumn  width={'120px'}>
-        <button onClick={()=>{handleTimeline(props.hit.tool)}}>Timeline</button>  
-       </HitColumn>
+       <LastColumn  width={'100px'}>
+       <HitUpdate>   {props.hit.update}</HitUpdate>
+        <TimeButton onClick={()=>{handleTimeline(props.hit.tool)}}><TimeIcon width='20' color={theme.colors.text_primary}/></TimeButton>  
+       </LastColumn>
       </Flex>
     </ResultBox>
     </>
   );
 }
 
-
-
 return (
   <Kontejner>
-               <InstantSearch indexName="release" searchClient={searchClient}>
-               
+        <InstantSearch indexName="release" searchClient={searchClient}>
           <Grid fluid> 
              <Row>
                 <Col xs={24} md={24} lg={7} xl={7}>
 
               <Box><BoxTitle content='Releases'/>
-              <BoxSubtitle content='Absorb all crypto foundations'/>             
-              <Configure hitsPerPage={25} />   
-              
+              <BoxSubtitle content='Check latest features and changes'/>             
+              <Configure hitsPerPage={15} />   
           <LazyLoad><FlexFilter>  
-          <Search>     <DebouncedSearchBox delay={500}/>        
-              <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
-          
-      </FlexFilter></LazyLoad>
 
+                <Search><DebouncedSearchBox delay={500}/>        
+              <MetaRow><MyStats/><ClearRefinements/></MetaRow></Search>
+
+              <MyDivider vertical/>
+              <SelectFilter title={'category'} attribute={'category'}  width='120px'  filterEnabled={filterCategory} clickFunction={switchFilterCategory}/>
+              <SelectFilter title={'subcategory'} attribute={'subcategory'}  width='120px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/>
+
+      </FlexFilter></LazyLoad>
               <HitBox> <Hits hitComponent={Hit} /></HitBox>
               {/* <Header title='Definitions'/>
               <HitBox>  <Hits hitComponent={Hit} /></HitBox> */}
-          
-
           <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
-
              </Box>
              </Col>
-             <Col xs={24} md={24} lg={7} xl={7}>
-
+             <Col xs={24} md={24} lg={8} xl={10}>
                 </Col>
-                <Col xs={24} md={24} lg={10}>
-                    <ReleaseTimeline toolData={timeline}  />
+                <Col xs={24} md={24} lg={9}>     
+             {timeline && <> {timeline.map((item) => (
+                    <div key={item.id} item={item}>
+                        <MyTimeline>
+                          <VerticalTimelineElement
+                            contentStyle={{ background: 'transparent', color: theme.colors.text_primary }}
+                            contentArrowStyle={{ borderRight: `7px solid  ${theme.colors.text_title}` }}
+                            iconStyle={{ background:  `${theme.colors.light}`, color: `${theme.colors.red}` }}
+                            icon={ item.attributes.source === 'Github' ? <GithubIcon width='20' color={theme.colors.text_title} /> :<WebIcon width='20' color={theme.colors.text_title} /> }
+                          >
+                          <RelFeature>{item.attributes.update}, {item.attributes.version}</RelFeature>
+                          <RelTitle>{item.attributes.difference}</RelTitle>
+                        </VerticalTimelineElement>
+                      </MyTimeline>
+                    </div>
+                  ))} </> }
                 </Col>
              </Row>
        </Grid>
