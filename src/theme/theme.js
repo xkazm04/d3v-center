@@ -7,12 +7,15 @@ export const lightTheme = {
        light: "#F1F1F1",
        lighter: "#F6F6F6",
        line: "#ECECEC",
+       lineAlt: "#aac5ac",
        text_title: "#007463",
        text_primary: "#000000",
        text_secondary: "#000000",
        main: "#fffdfd",
        search: "#f9f9f9",
        disabled: "#898989",
+       step: "#4d97ff",
+       text: "#0c0c0c",
  
        // Cards-Alternative colors
        blue: "#FFA3A3",
@@ -35,7 +38,8 @@ export const lightTheme = {
       unicornStroke: 'black',
       github: 'black',
       dataflow: 'black',
-      logo: '#ff6363'
+      logo: '#ff6363',
+      basic: '#296B00',
     },
     chart: {
       title: "black",
@@ -59,6 +63,7 @@ export const lightTheme = {
       light: "#601919",
       lighter: "#601919",
       line: "#9F9F9F",
+      lineAlt: "#A6E4E8",
       text_title: "#ffcfcf",
       text_primary: "#A6E4E8",
       text_secondary: "#FFFFFF",
@@ -71,6 +76,8 @@ export const lightTheme = {
       black: "#000000",
       purple: "#5A0057",
       yellow: "#fffcd9",
+      step: "#9d0000",
+      text: "#f3f3f3",
  
       red: "#280000",
 
@@ -89,7 +96,8 @@ export const lightTheme = {
       unicornStroke: '#A6E4E8',
       github: '#ff6363',
       dataflow: 'white',
-      logo: '#ff6363'
+      logo: '#ff6363',
+      basic: '#CBCF00',
     },
      chart: {
       title: "#A6E4E8",

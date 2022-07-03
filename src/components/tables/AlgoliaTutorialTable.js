@@ -20,6 +20,9 @@ import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/di
 import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
 import BoxSubtitle from '../typography/BoxSubtitle';
+import ChartStatsTut from '../charts/ChartStatsTut';
+import LoopBox from '../boxes/LoopBox';
+import { tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../../data/landingCats';
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -313,6 +316,35 @@ const Difficulty = styled.div`
   color: ${props => props.theme.colors.yellow};
 `
 
+const Head = styled.div`
+ display: flex;
+ margin-top: 2%;
+ margin-bottom: 2%;
+`
+
+const HeadTitle = styled.div`
+  margin-right: 2%;
+`
+
+const HeadChart = styled.div`
+  border-left: 1px solid  ${props => props.theme.colors.line};
+  padding-left: 2%;
+  padding-right: 2%;
+  color: ${props => props.theme.colors.text_secondary};
+  font-size: 0.8rem;
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`
+
+const HeadBackground = styled.div`
+  background:  ${props => props.theme.colors.medium};
+  border-radius: 15px;
+  height: 100%;
+  padding: 2%;
+`
+
+
 
 const AlgoliaTutorialTable = () => {
     const theme = useTheme()
@@ -441,7 +473,7 @@ function Hit(props) {
           <HitColumn  width={'130px'}>
           {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
           <Difficulty>   
-            {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25}/></LazyLoad> : null} 
+            {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25} color={theme.tool.basic}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'intermediate' ? <LazyLoad><DiffScholar width={25}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'advanced' ? <LazyLoad><DiffAdvanced width={25}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'hacker' ? <LazyLoad><DiffHacker width={25}/></LazyLoad> : null} 
@@ -486,8 +518,19 @@ function Hit(props) {
     <Kontejner>
                  <InstantSearch indexName="tutorial" searchClient={searchClient}>
             <Flex> 
-                <Box><BoxTitle content='Tutorials'/>
-                <BoxSubtitle content='Learn from hundreds of tech writers'/>
+                <Box>
+                <Head>
+                  <HeadTitle>
+                    <BoxTitle content='Tutorials'/>
+                    <BoxSubtitle content='Learn from hundreds of tech writers'/>
+                  </HeadTitle>
+                  <HeadChart>
+                  <HeadBackground><ChartStatsTut/></HeadBackground>
+                  </HeadChart>
+                  <HeadChart>
+                    <HeadBackground><LoopBox loop={false} firstFile={tutDefiFile} secondFile={tutNftFile} thirdFile={tutSecFile} fourthFile={tutDataFile}/></HeadBackground>
+                  </HeadChart>
+                </Head>
                 <Configure hitsPerPage={15} />  
                 <LazyLoad><FlexFilter>  
                 <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>

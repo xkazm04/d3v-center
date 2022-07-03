@@ -1,17 +1,21 @@
-import {useState} from 'react'
-import styled from "styled-components";
+import {useState, useContext} from 'react'
+import styled, {useTheme} from "styled-components";
 import axios from 'axios'
 import Select from 'react-select';
-import { catOptions, chainOptions, subcatDaoFeatures,subcatDaoOptions, subcatNftOptions, subcatNftFeatures, evmLangs, subcatDefiFeatures, subcatDefiOptions} from '../../data/pathOptions';
+import { catOptions, subcatDaoFeatures,subcatDaoOptions, subcatNftOptions, subcatNftFeatures, subcatDefiFeatures, subcatDefiOptions} from '../../data/pathOptions';
 import { DiffAdvanced, DiffBasic, DiffScholar } from '../../icons/difficulty';
 import { Grid, Row, Col } from 'rsuite';
-import ChainModal from '../../cards/ChainModal';
+import ChainSelector from '../../cards/ChainSelector';
+import { fetchDaoPath,fetchNftPath, fetchDefiPath, fetchSecPath, fetchSetup } from '../../data/graphQueries';
+import {ArrowIcon} from '../../icons/nav'
+import { ChainContext } from '../../contexts/ChainContext';
+import ChainStats from '../charts/ChainStats';
 
 
 const token = process.env.REACT_APP_CMS_API
 
 const Kontejner = styled.div`
-    background: ${props => props.theme.colors.light};
+    background: ${props => props.theme.colors.medium};
     margin-top: 2%;
     padding: 2%;
     @media (max-width: 1000px) {
@@ -37,7 +41,7 @@ const BoxSubtitle = styled.div`
   text-align: left;
   letter-spacing: 1.2px;
   font-family: 'NoBill';
-  font-size: 1.8em;
+  font-size: 1.6em;
   padding-bottom: 1%;
   color: ${props => props.theme.colors.text_primary};
   @media (max-width: 1000px) {
@@ -54,8 +58,6 @@ const DisplayBox = styled.div`
     text-align: left;
     @media (max-width: 1000px) {
     width: 100%;
-    margin: 0;
-    margin-top: 4%;
   }
 `
 const Button = styled.button`
@@ -118,12 +120,11 @@ const Flex = styled.div`
 
 const FlexModal = styled.div`
     display: flex;
-    flex-direction;
     justify-content: space-between;
 `
 
 const Category = styled.div`
-    font-size: 0.8em;
+    font-size: 0.9em;
     opacity: 0.8;
     &:hover{
         opacity: 1;
@@ -167,18 +168,29 @@ const customStyles = {
 const Navigation = styled.div`
     display: flex;
     flex-direction: row;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
+    padding-left: 2%;
 `
 
 const ArticleButton = styled.button`
-  border: 2px solid ${props => props.theme.colors.text_primary};
+  border: 1px solid ${props => props.theme.colors.text_primary};
   border-radius: 15px;
   font-weight: 700;
   margin: 5px;
+  color: ${props => props.theme.colors.text_primary};
   transition: 0.1s;
+  height: 30px;
   font-family: 'Spectral', serif;
+  background: ${props => props.theme.colors.background};
   &:hover{
     background: ${props => props.theme.colors.green};
+  }
+`
+
+const ArticleActButton = styled(ArticleButton)`
+  background: ${props => props.theme.colors.step};
+  &:hover{
+    background:  ${props => props.theme.colors.step};
   }
 `
 
@@ -189,13 +201,41 @@ const SecButton = styled(ArticleButton)`
   }
 `
 
+const Pulse = styled.div`
+  background: rgba(255, 82, 82, 1);
+  box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+  animation: pulse-red 2s infinite;
+  border-radius: 15px;
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+  }
+}
+`
+
+const SecActButton = styled(SecButton)`
+  background: ${props => props.theme.colors.red};
+`
+
+
 const TagArea = styled.div`
   font-weight: 700;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   position: absolute;
-  right: -20px;
+  right: -5px;
   color: ${props => props.theme.colors.unicornFill};
 `
 
@@ -210,6 +250,43 @@ const UpperTag = styled.div`
   margin-bottom: 2px;
 `
 
+const StepDescription = styled.div`
+  text-align: left;
+  font-family: 'Helvetica';
+  font-size: 1.2em;
+  padding-left: 2%;
+`
+
+const SetupKontejner = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`
+
+const SetupColumn = styled.div`
+  padding: 5%;
+  width: 100%;
+  text-align: left;
+`
+
+const TitleA = styled.div`
+  font-size: 1.1em;
+  font-weight: 700;
+`
+
+const AbsoluteDescription = styled.div`
+  position: absolute;
+  font-style: italic;
+  font-family: 'Inder';
+  font-size: 1.2em;
+  margin-left: 15px;
+  color: ${props => props.theme.colors.text_title};
+`
+
+const SubNavigation = styled.div`
+  padding-top: 5%;
+  padding-bottom: 2%;
+`
+
 
 const myTheme = (theme) => ({
     ...theme,
@@ -222,11 +299,15 @@ const myTheme = (theme) => ({
 })
 
 export default function PathForm() {
+     const theme = useTheme()
+     const StepIcon =  <ArrowIcon color={theme.colors.text_title} width='30px' height='30px'/>
+
+    const {blockchain} = useContext(ChainContext)
     const [cat, setCat] = useState({value: '', label: 'Use case category'})
-    const [chain, setChain] = useState({value: '', label: 'Ecosystem'})
+    const [chain] = useState({value: 'evm', label: 'EVM'})
     const [subcat, setSubcat] = useState({value: '', label: 'Subcategory'})
     const [feature, setFeature] = useState([])
-    const [lang, setLang] = useState({value: '', label: 'Language'})
+    const [lang] = useState({value: 'solidity', label: 'Solidity'})
 
 
     const [gqlError, setGqlError] = useState(false)
@@ -236,16 +317,16 @@ export default function PathForm() {
     const [definitions, setDefinitions] = useState(null)
     const [tools, setTools] = useState(null)
     const [repos, setRepos] = useState(null)
-    // Security articles have common query for all use cases...hopefully
+    // Security articles are common for all use cases
     const [secTutorials, setSecTutorials] = useState(null)
     const [secDefinitions, setSecDefinitions] = useState(null)
     const [secTools, setSecTools] = useState(null)
+    // Setup articles are common for all use cases
+    const [setupTutorials, setSetupTutorials] = useState(null)
+    const [setupTools, setSetupTools] = useState(null)
 
-
-
-    
-    const [secMode, setSecMode] = useState(false)
-
+    const [step, setStep] = useState("Setup")
+    const [setupState, setSetupState] = useState('Hardhat')
 
     const headers = {
         "authorization": `Bearer ${token}`,
@@ -263,60 +344,7 @@ export default function PathForm() {
             "lang": lang.label
         },
         operationName: "FetchNftPath",
-        query:` query FetchNftPath ($chainV: String, $chainL:String,$cat:String,$subcat: String,$feature:[String],$lang:String) {
-            tutorials (filters: 
-                {Chain:{eq:$chainV}, 
-          or:{Category:{eq:$cat},
-          or:{Language:{eq:$lang},
-          or:[{Subcategory:{in:[$subcat, "VRF","Data", "Metadata","Storage"]}},{Subcategory:{in:$feature}, }]}
-        }}){ 
-              data  {
-                attributes {
-                  Title 
-                  Description 
-                  Difficulty
-                }
-              }
-            }
-            definitions (filters: 
-                {Usage:{eq:$cat}, 
-                or:{Chain:{in:["Any",$chainL]}
-                } } ){ 
-              data  {
-                attributes {
-                  Title 
-                  Description 
-                }
-              }
-            }
-            tools (filters: 
-                {Chain:{eq:$chainL}, 
-            or:{Usage:{eq:$cat},
-          }}){ 
-              data  {
-                attributes {
-                  Title 
-                  Description 
-                  Chain
-                  Usage
-                  Subcategory
-                }
-              }
-            }
-            repos (filters: 
-                {language:{eq:$lang}, 
-            or:{category:{eq:$cat},
-            or:{subcategory:{eq:$subcat},
-          }}}){ 
-              data  {
-                attributes {
-                  title 
-                  description 
-                }
-              }
-            }
-          }
-          `
+        query: fetchNftPath
     }
 
     const graphqlDefiQuery = {
@@ -329,62 +357,7 @@ export default function PathForm() {
           "lang": lang.label
       },
       operationName: "FetchDefiPath",
-      query:` query FetchDefiPath ($chainV: String, $chainL:String,$cat:String,$subcat: String,$feature:[String],$lang:String) {
-          tutorials (filters: 
-              {Chain:{eq:$chainV}, 
-        or:{Category:{eq:$cat},
-        or:{Language:{eq:$lang},
-        or:[{Subcategory:{in:[$subcat]}},{Subcategory:{in:$feature}, }]}
-      }}){ 
-            data  {
-              attributes {
-                Title 
-                Description 
-                Difficulty
-              }
-            }
-          }
-          definitions (filters: 
-              {Usage:{eq:$cat},
-              or:{Subcategory:{in:["Stablecoin","Analysis","General"]},
-              or:{Chain:{in:["Any",$chainL]}
-              }}} ){ 
-            data  {
-              attributes {
-                Title 
-                Description
-                Subcategory 
-              }
-            }
-          }
-          tools (filters: 
-              {Chain:{eq:$chainL}, 
-          or:{Usage:{eq:$cat},
-        }}){ 
-            data  {
-              attributes {
-                Title 
-                Description 
-                Chain
-                Usage
-                Subcategory
-              }
-            }
-          }
-          repos (filters: 
-              {language:{eq:$lang}, 
-          or:{category:{eq:$cat},
-          or:{subcategory:{eq:$subcat},
-        }}}){ 
-            data  {
-              attributes {
-                title 
-                description 
-              }
-            }
-          }
-        }
-        `
+      query: fetchDefiPath
   }
 
   const graphqlDaoQuery = {
@@ -397,61 +370,7 @@ export default function PathForm() {
         "lang": lang.label
     },
     operationName: "FetchDaoPath",
-    query:` query FetchDaoPath ($chainV: String, $chainL:String,$cat:String,$subcat: String,$feature:[String],$lang:String) {
-        tutorials (filters: 
-            {Chain:{eq:$chainV}, 
-      or:{Category:{eq:$cat},
-      or:{Language:{eq:$lang},
-      or:[{Subcategory:{in:[$subcat, "VRF","Data", "Metadata","Storage"]}},{Subcategory:{in:$feature}, }]}
-    }}){ 
-          data  {
-            attributes {
-              Title 
-              Description 
-              Difficulty
-            }
-          }
-        }
-        definitions (filters: 
-            {Usage:{eq:$cat}, 
-            or:{Subcategory:{in:["General"]}
-            or:{Chain:{in:["Any",$chainL]}
-            }}} ){ 
-          data  {
-            attributes {
-              Title 
-              Description 
-            }
-          }
-        }
-        tools (filters: 
-            {Chain:{eq:$chainL}, 
-        or:{Usage:{eq:$cat},
-      }}){ 
-          data  {
-            attributes {
-              Title 
-              Description 
-              Chain
-              Usage
-              Subcategory
-            }
-          }
-        }
-        repos (filters: 
-            {language:{eq:$lang}, 
-        or:{category:{eq:$cat},
-        or:{subcategory:{eq:$subcat},
-      }}}){ 
-          data  {
-            attributes {
-              title 
-              description 
-            }
-          }
-        }
-      }
-      `
+    query: fetchDaoPath
 }
 
     const graphqlSecQuery = {
@@ -463,58 +382,29 @@ export default function PathForm() {
           "lang": lang.label
       },
       operationName: "FetchSecPath",
-      query:` query FetchSecPath ($chainV: String, $chainL:String,$subcat: String,$feature:[String],$lang:String) {
-          tutorials (filters: 
-              {Chain:{in:[$chainV,"Any"]}, 
-              or:{Category:{eq:"Exploit"},
-              or:{Language:{in:[$lang,"","Any"]},
-              or:[{Subcategory:{in:[$subcat, "Audit"]}},{Subcategory:{in:$feature}, }]}
-      }}){ 
-            data  {
-              attributes {
-                Title 
-                Description 
-                Difficulty
-              }
-            }
-          }
-          definitions (filters: 
-              {Usage:{eq:"Exploit"}, 
-              or:{Chain:{in:["Any",$chainL]}
-              } } ){ 
-            data  {
-              attributes {
-                Title 
-                Description 
-              }
-            }
-          }
-          tools (filters: 
-              {Chain:{eq:$chainL}, 
-          or:{Usage:{eq:"Security"},
-        }}){ 
-            data  {
-              attributes {
-                Title 
-                Description 
-                Chain
-                Usage
-                Subcategory
-              }
-            }
-          }
-        }
-        `
+      query: fetchSecPath
   }
 
+  const graphqlSetupQuery = {
+    variables: {
+        "chainL": chain.label,
+        "chainV": chain.value,
+        "subcat": subcat.label,
+        "feature": filteredFeatures,
+        "lang": lang.label
+    },
+    operationName: "FetchSetup",
+    query: fetchSetup
+}
 
-    const fetchNftArticles = async() => {
+
+    const fetchArticles = async({data}) => {
         try {
             const response = await axios( {
                 url: gqlEndpoint,
                 method: 'post',
                 headers: headers,
-                data: graphqlNftQuery
+                data: data
             })
             setTutorials(response.data.data.tutorials.data)
             setDefinitions(response.data.data.definitions.data)
@@ -527,46 +417,6 @@ export default function PathForm() {
             setGqlError(true)
         }
     } 
-
-    const fetchDefiArticles = async() => {
-      try {
-          const response = await axios( {
-              url: gqlEndpoint,
-              method: 'post',
-              headers: headers,
-              data: graphqlDefiQuery
-          })
-          setTutorials(response.data.data.tutorials.data)
-          setDefinitions(response.data.data.definitions.data)
-          setTools(response.data.data.tools.data)
-          setRepos(response.data.data.repos.data)
-          setGqlError(false)
-
-      } catch (err) {
-          console.log(err);
-          setGqlError(true)
-      }
-  } 
-
-  const fetchDaoArticles = async() => {
-    try {
-        const response = await axios( {
-            url: gqlEndpoint,
-            method: 'post',
-            headers: headers,
-            data: graphqlDaoQuery
-        })
-        setTutorials(response.data.data.tutorials.data)
-        setDefinitions(response.data.data.definitions.data)
-        setTools(response.data.data.tools.data)
-        setRepos(response.data.data.repos.data)
-        setGqlError(false)
-
-    } catch (err) {
-        console.log(err);
-        setGqlError(true)
-    }
-} 
 
 
     const fetchSecurity =async() => {
@@ -582,31 +432,71 @@ export default function PathForm() {
             setSecTools(response.data.data.tools.data)
         } catch (err) {
             console.log(err);
+            setGqlError(true)
         }
     }
+
+    const fetchSetups =async() => {
+      try {
+          const response = await axios( {
+              url: gqlEndpoint,
+              method: 'post',
+              headers: headers,
+              data: graphqlSetupQuery
+          })
+          setSetupTutorials(response.data.data.tutorials.data)
+          setSetupTools(response.data.data.tools.data)
+          setGqlError(false)
+      } catch (err) {
+          console.log(err);
+          setGqlError(true)
+      }
+  }
 
 
     const findNft = async () => {
         setResult(true)
-        await fetchNftArticles()
+        await fetchArticles({data: graphqlNftQuery})
         await fetchSecurity()
+        await fetchSetups()
     }
 
     const findDefi = async () => {
       setResult(true)
-      await fetchDefiArticles()
+      await fetchArticles({data: graphqlDefiQuery})
       await fetchSecurity()
+      await fetchSetups()
   }
 
     const findDao = async () => {
       setResult(true)
-      await fetchDaoArticles()
-      await fetchSecurity()
+      await fetchArticles({data: graphqlDaoQuery})
   }
 
 
-    const handleResultClick = (reference) => {
-        window.open(reference, "_blank")
+  const handleResultClick = async (reference,id,counter) => {
+    window.open(reference, "_blank")
+    if(counter){
+      try {
+        await addCounter(id,counter)
+      } catch (err) {
+        console.log("Error opening link")
+      }
+    }
+}
+
+
+  const addCounter = async(tutorialId,viewCounter) => {
+      const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
+      console.log(updatedId)
+      const token = process.env.REACT_APP_CMS_API // Master strapi token
+      const body = { data: { ViewCounter: viewCounter+1 } }
+      const res = await axios.put(`https://d3v-center.herokuapp.com/api/tutorials/${updatedId}`, body, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+      })
+      console.log(res)
     }
 
 
@@ -615,6 +505,7 @@ export default function PathForm() {
             <Row>
         <Col xs={24} md={6}>
         <FormBox>
+        <UpperTag>Feature in alpha - supported only EVM/Solidity</UpperTag>
        <BoxTitle>D3V path</BoxTitle>
        <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
             <MySelect
@@ -632,111 +523,167 @@ export default function PathForm() {
                     {cat && cat.value === 'defi' ? <MySelect value={feature} onChange={setFeature} isMulti options={subcatDefiFeatures} placeholder='Features (optional)' styles={customStyles} theme={myTheme}/> : null}
                     {cat && cat.value === 'dao' ? <MySelect value={subcat} onChange={setSubcat} disabled options={subcatDaoOptions} placeholder='Subcategory' styles={customStyles} theme={myTheme}/> : null}
                     {cat && cat.value === 'dao' ? <MySelect value={feature} onChange={setFeature} isMulti options={subcatDaoFeatures} placeholder='Features (optional)' styles={customStyles} theme={myTheme}/> : null}
-            {feature && <MySelect
+            {/* {feature && <MySelect
                 value={chain}
                 onChange={setChain}
                 options={chainOptions}
                 placeholder='Blockchain'
                 styles={customStyles}
                 theme={myTheme}
-                 />}
+                 />} */}
                 
-                  {chain && chain.value === 'evm' ? <MySelect value={lang} onChange={setLang} options={evmLangs} placeholder='Language' styles={customStyles} theme={myTheme} /> : null}
+                  {/* {chain && chain.value === 'evm' ? <MySelect value={lang} onChange={setLang} options={evmLangs} placeholder='Language' styles={customStyles} theme={myTheme} /> : null} */}
                  {cat.value === 'nft' && subcat !== null && chain !== null && lang !== null ? <Button onClick={findNft}>Find</Button> : null}     
                  {cat.value === 'defi' && subcat !== null && chain !== null && lang ? <Button onClick={findDefi}>Find</Button> : null}  
                  {cat.value === 'dao' && subcat !== null && chain !== null && lang ? <Button onClick={findDao}>Find</Button> : null}  
         </FormBox>
         </Col>
+          {result && <Flex><Navigation>
+                {step === 'Setup' ? <ArticleActButton>Setup</ArticleActButton> : <ArticleButton onClick={()=>setStep('Setup')}>Setup</ArticleButton> }
+                  {StepIcon}
+                {step === 'Govern' ? <ArticleActButton>Govern</ArticleActButton> : <ArticleButton onClick={()=>setStep('Govern')}>Govern</ArticleButton>}
+                  {StepIcon}
+                {step === 'Develop' ?  <ArticleActButton>D3velop</ArticleActButton> : <ArticleButton onClick={()=>setStep('Develop')}>D3velop</ArticleButton>}
+                  {StepIcon}
+                {cat.value !== 'dao' && step ==='Security' ? <SecActButton>Secure</SecActButton> : <Pulse><SecButton onClick={()=>setStep('Security')}>Secure</SecButton></Pulse> }
+                  {StepIcon}
+                {step === 'Deploy' ? <ArticleActButton>Deploy</ArticleActButton> : <ArticleButton onClick={()=>setStep('Deploy')}>Deploy</ArticleButton> }    
+            </Navigation> 
+              <StepDescription> 
+                {step === 'Setup' && <> <AbsoluteDescription>Frameworks to build, deploy and test </AbsoluteDescription>
+                <SubNavigation>
+                  {setupState === 'Truffle' ? <ArticleActButton>Truffle</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Truffle')}>Truffle</ArticleButton>}
+                  {setupState === 'Hardhat' ? <ArticleActButton>Hardhat</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Hardhat')}>Hardhat</ArticleButton>}
+                  {setupState === 'Remix' ? <ArticleActButton>Remix</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Remix')}>Remix</ArticleButton>}
+                  {setupState === 'Brownie' ? <ArticleActButton>Brownie</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Brownie')}>Brownie</ArticleButton>}
+                  {setupState === 'Foundry' ? <ArticleActButton>Foundry</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Foundry')}>Foundry</ArticleButton>}
+                  </SubNavigation>
+                  <AbsoluteDescription>Short description</AbsoluteDescription>
+                </>}
+                {step === 'Govern' && <><i>To be implemented</i></>}
+                {step === 'Develop' && <><i>To be implemented</i></>}
+                {step === 'Security' && <>Security description</>}
+                {step === 'Deploy' && <><i>To be implemented</i></>}
+              </StepDescription>
+           </Flex>}
         <Col xs={24} md={8}>
         {result &&
         <DisplayBox>
-            <Navigation>
-               <ArticleButton onClick={()=>setSecMode(false)}>D3V</ArticleButton>
-               <SecButton onClick={()=>setSecMode(true)}> Security</SecButton>
-                {chain && chain.value === 'evm' ? <ChainModal chain={chain.value}/> : null}
-            </Navigation>
-            {/* {gqlData && <>{gqlData.map((data) => (
-                          <Flex>  {data.tutorials.attributes.Title} </Flex>
-                ))}</>} */}
-            {secMode &&  <>
-            
-              {secDefinitions && <RenderSection>
-            <SectionTitle>Audit conditions</SectionTitle>
-                {secDefinitions.map((definition) => (
-                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference)}>
-                            <Flex>  {definition.attributes.Title}   <Category>{definition.attributes.Description}</Category></Flex>
-                           <div>{definition.attributes.Difficulty === 'basic' ? <DiffBasic width={25}/> : null}
-                            {definition.attributes.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {definition.attributes.Difficulty === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+            {step === 'Security' &&  <>
+            {secTutorials && <RenderSection>
+            <SectionTitle>Exploits & Vulnerabilities</SectionTitle>
+                {secTutorials.map((tutorial) => (
+                        <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                            <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+                            <TagArea>      
+                              <UpperTag>{tutorial.attributes.Category}</UpperTag>
+                          </TagArea>
                         </Result>
                 ))}
             </RenderSection>}
-            {secTutorials && <RenderSection>
-            <SectionTitle>Vulnerabilities</SectionTitle>
-                {secTutorials.map((tutorial) => (
-                        <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference)}>
-                            <Flex>  {tutorial.attributes.Title}   <Category>{tutorial.attributes.Description}</Category></Flex>
-                           <div>{tutorial.attributes.Difficulty === 'basic' ? <DiffBasic width={25}/> : null}
-                            {tutorial.attributes.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {tutorial.attributes.Difficulty === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+            {secDefinitions && <RenderSection>
+            <SectionTitle>General knowledge</SectionTitle>
+                {secDefinitions.map((definition) => (
+                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                            <Flex>  <TitleA>{definition.attributes.Title}</TitleA>   <Category>{definition.attributes.Description}</Category></Flex>
+                            <TagArea>      
+                              <UpperTag>{definition.attributes.Subcategory}</UpperTag>
+                          </TagArea>
                         </Result>
                 ))}
             </RenderSection>}
               </>}
             {tutorials && <RenderSection>
-            {secMode === false ? <> <SectionTitle>Tutorials</SectionTitle>
+            {step === 'Develop' ? <> <SectionTitle>Tutorials</SectionTitle>
                 <>
                 {tutorials.map((tutorial) => (
-                        <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference)}>
-                          <Flex>  {tutorial.attributes.Title}   <Category>{tutorial.attributes.Description}</Category></Flex>
-                           <div>{tutorial.attributes.Difficulty === 'basic' ? <DiffBasic width={25}/> : null}
+                        <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+                           <div>{tutorial.attributes.Difficulty === 'basic' ? <DiffBasic width={25} color={theme.tool.basic} /> : null}
                             {tutorial.attributes.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {tutorial.attributes.Difficulty === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+                            {tutorial.attributes.Difficulty === 'advanced' ? <DiffAdvanced width={25}/> : null}</div> 
                         </Result>
                 ))}
                 </></> : null}
             </RenderSection>}
             {definitions && <RenderSection>
-                {secMode === false ? <>
+                {step === 'Develop' ? <>
             <SectionTitle>Definitions</SectionTitle>
                 {definitions.map((definition) => (
-                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference)}>
-                            <Flex>  {definition.attributes.Title}   <Category>{definition.attributes.Description}</Category></Flex>
-                           <div>{definition.attributes.Difficulty === 'basic' ? <DiffBasic width={25}/> : null}
-                            {definition.attributes.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {definition.attributes.Difficulty === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                            <Flex><TitleA>  {definition.attributes.Title}</TitleA>  <Category>{definition.attributes.Description}</Category></Flex>
+                            <TagArea>      
+                              <UpperTag>{definition.attributes.Subcategory}</UpperTag>
+                          </TagArea>
                         </Result>
                 ))}
               </> : null}
             </RenderSection>}    
         </DisplayBox> }
+          {chain.value === 'evm' && step === 'Deploy' ? <ChainSelector eco={chain.value}/> : null}
+          {chain.value === 'evm' && step === 'Setup' ? 
+                <SetupKontejner>
+           {setupTutorials &&  <>     
+                   {setupState === 'Truffle' && <SetupColumn><SectionTitle>Truffle</SectionTitle>
+                  {setupTutorials.filter(s => s.attributes.Tool === 'Truffle').map((tutorial) => (
+                 <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                               <Flex> <TitleA>{tutorial.attributes.Title} </TitleA>  <Category>{tutorial.attributes.Description}</Category></Flex>  
+                        </Result>
+                ))}
+                  </SetupColumn>}
+                  {setupState === 'Hardhat' && <SetupColumn><SectionTitle>Hardhat</SectionTitle>
+                  {setupTutorials.filter(s => s.attributes.Tool === 'Hardhat').map((tutorial) => (
+                  <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{tutorial.attributes.Title}</TitleA>    <Category>{tutorial.attributes.Description}</Category></Flex> 
+                          </Result>
+                  ))}
+                  </SetupColumn>}
+                  {setupState === 'Remix' &&  <SetupColumn><SectionTitle>Remix</SectionTitle>
+                  {setupTutorials.filter(s => s.attributes.Tool === 'Remix').map((tutorial) => (
+                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
+                          </Result>
+                  ))}
+                  </SetupColumn>}
+                  {setupState === 'Brownie' && <SetupColumn><SectionTitle>Brownie</SectionTitle>
+                  {setupTutorials.filter(s => s.attributes.Tool === 'Brownie').map((tutorial) => (
+                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
+                          </Result>
+                  ))}
+                  </SetupColumn>}
+                  {setupState === 'Foundry' &&  <SetupColumn><SectionTitle>Foundry</SectionTitle>
+                  {setupTutorials.filter(s => s.attributes.Tool === 'Foundry').map((tutorial) => (
+                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
+                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
+                          </Result>
+                  ))}
+                  </SetupColumn>}
+                  </>}
+                  
+                </SetupKontejner>
+              : null}
         </Col>
         <Col xs={24} md={8}>
         {result &&
         <DisplayBox>
             {tools && <RenderSection>
-              {secMode === false ? <><SectionTitle>Tooling</SectionTitle>
+              {step === 'Develop' ? <><SectionTitle>Tooling</SectionTitle>
               <div >
                 {tools.map((tool) => (
                         <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
-                            <Flex>  {tool.attributes.Title}   <Category>{tool.attributes.Description}</Category></Flex>
-                            <div>{tool.attributes.Usage === 'basic' ? <DiffBasic width={25}/> : null}
-                            {tool.attributes.Usage === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {tool.attributes.Usage === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+                            <Flex> <TitleA>{tool.attributes.Title}</TitleA>    <Category>{tool.attributes.Description}</Category></Flex>
                             <TagArea>      
                               <UpperTag>{tool.attributes.Subcategory}</UpperTag>
                           </TagArea>
                         </Result>
                 ))}
-                </div> </> : <>{secTools && <RenderSection>
+                </div> </> : <>{secTools && step === 'Security' && <RenderSection>
               <SectionTitle>Tooling</SectionTitle>
               <div >
                 {secTools.map((tool) => (
                         <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
-                            <Flex>  {tool.attributes.Title}   <Category>{tool.attributes.Description}</Category></Flex>
-                            <div>{tool.attributes.Usage === 'basic' ? <DiffBasic width={25}/> : null}
-                            {tool.attributes.Usage === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {tool.attributes.Usage === 'advanced' ? <DiffAdvanced widht={25}/> : null}</div> 
+                            <Flex>  <TitleA>{tool.attributes.Title}</TitleA>   <Category>{tool.attributes.Description}</Category></Flex>
                           <TagArea>      
                               <UpperTag>{tool.attributes.Subcategory}</UpperTag>
                           </TagArea>
@@ -745,18 +692,30 @@ export default function PathForm() {
                 </div>
             </RenderSection>}</>}
             </RenderSection>}
-            {repos && <RenderSection>
+            {repos && step === 'Develop' && <RenderSection>
                 <SectionTitle>Get inspiration</SectionTitle>
                 <div >
                 {repos.map((repo) => (
                         <Result  key={repo.id} onClick={()=>handleResultClick(repo.attributes.reference)}>
-                            <Flex>  {repo.attributes.title}   <Category>{repo.attributes.description}</Category></Flex>
+                            <Flex>  <TitleA>{repo.attributes.title}</TitleA>   <Category>{repo.attributes.description}</Category></Flex>
                         </Result>
                 ))}
                 </div>
             </RenderSection>}
-            { gqlError && <div>Service unavailable due to the server maintanance</div>}
+
+            { gqlError && <div>Unable to reach some of the resources</div>}
         </DisplayBox>}
+              {chain.value === 'evm' && step === 'Deploy' ? <><ChainStats chain={blockchain}/></> : null}
+              {step === 'Setup' && setupTools && <SetupColumn><SectionTitle>Starter kits</SectionTitle>
+                  {setupTools.map((tool) => (
+                  <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
+                        <Flex> <TitleA>{tool.attributes.Title}</TitleA>    <Category>{tool.attributes.Description}</Category></Flex> 
+                        <TagArea>      
+                              <UpperTag>{tool.attributes.Subcategory}</UpperTag>
+                          </TagArea>
+                  </Result>
+                  ))}
+                  </SetupColumn>}
             </Col>
             </Row>
         </Grid>

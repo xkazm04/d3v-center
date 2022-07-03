@@ -8,8 +8,8 @@ import { DevelopIcon, CodeIcon } from "../icons/tool";
 import ArticleSection from '../cards/ArticleSection';
 import { ExitIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
-import Typewriter from 'typewriter-effect';
 import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';
+import LoopBox from '../components/boxes/LoopBox';
 
 
 
@@ -112,23 +112,6 @@ const Pre = styled.pre`
 `
 
 
-const FlexRow = styled.div`
-    display: flex;
-    flex-direction: row;
-`
-const FlexColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
-`
-
-const CodeTitle = styled.div`
-    color: ${props => props.theme.colors.text_title};
-    font-weight: 700;
-    text-transform: uppercase;
-    padding-bottom: 15%;
-`
-
 const MyLink = styled(Link)`
     background: ${props => props.theme.colors.background};
     border-radius: 5px;
@@ -139,15 +122,6 @@ const MyLink = styled(Link)`
 
 
 
-const Loop = ({str}) => {
-    return<Typewriter
-    options={{
-        strings: [str],
-        autoStart: true,
-        delay: 100,
-        loop: true
-    }}/>
-}
 
 
 
@@ -194,41 +168,7 @@ export default function Landing() {
                            {serviceDescription === 'Repositories' ? <Pre>Definitions and theory behind blockchains <MyLink to='/repos'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
                            {serviceDescription === 'Tools' ? <Pre>Definitions and theory behind blockchains <MyLink to='/tools'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
                            {serviceDescription === 'Releases' ? <Pre>Definitions and theory behind blockchains <MyLink to='/releases'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                                   <FlexRow>
-                                    <FlexColumn>
-                                        <CodeTitle> {firstFile && <Loop str={firstFile.title}/> } </CodeTitle>
-                                           {firstFile && <Loop str={firstFile.step1}/> } 
-                                           {firstFile && <Loop str={firstFile.step2}/> } 
-                                           {firstFile && <Loop str={firstFile.step3}/> } 
-                                           {firstFile && <Loop str={firstFile.step4}/> } 
-                                           {firstFile && <Loop str={firstFile.step5}/> } 
-
-                                    </FlexColumn>
-                                    <FlexColumn>
-                                    <CodeTitle> {secondFile && <Loop str={secondFile.title}/> } </CodeTitle>
-                                           {secondFile && <Loop str={secondFile.step1}/> } 
-                                           {secondFile && <Loop str={secondFile.step2}/> } 
-                                           {secondFile && <Loop str={secondFile.step3}/> } 
-                                           {secondFile && <Loop str={secondFile.step4}/> } 
-                                           {secondFile && <Loop str={secondFile.step5}/> } 
-                                    </FlexColumn>
-                                    <FlexColumn>
-                                    <CodeTitle> {thirdFile && <Loop str={thirdFile.title}/> } </CodeTitle>
-                                           {thirdFile && <Loop str={thirdFile.step1}/> } 
-                                           {thirdFile && <Loop str={thirdFile.step2}/> } 
-                                           {thirdFile && <Loop str={thirdFile.step3}/> } 
-                                           {thirdFile && <Loop str={thirdFile.step4}/> } 
-                                           {thirdFile && <Loop str={thirdFile.step5}/> } 
-                                    </FlexColumn>
-                                    <FlexColumn>
-                                 {fourthFile &&  <> <CodeTitle> {fourthFile && <Loop str={fourthFile.title}/> } </CodeTitle>
-                                           {fourthFile && <Loop str={fourthFile.step1}/> } 
-                                           {fourthFile && <Loop str={fourthFile.step2}/> } 
-                                           {fourthFile && <Loop str={fourthFile.step3}/> } 
-                                           {fourthFile && <Loop str={fourthFile.step4}/> } 
-                                           {fourthFile && <Loop str={fourthFile.step5}/> }</> }
-                                    </FlexColumn>
-                                    </FlexRow>
+                                <LoopBox loop={true} firstFile={firstFile} secondFile={secondFile} thirdFile={thirdFile} fourthFile={fourthFile}/>
                                 </CodeBox>}
                             </Col>
                         </Row>

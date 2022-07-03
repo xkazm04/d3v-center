@@ -1,7 +1,7 @@
 export const catOptions = [
     { value: 'defi', label: 'Defi' },
     { value: 'nft', label: 'NFT' },
-    { value: 'dao', label: 'DAO' },
+    // { value: 'dao', label: 'DAO' },
   ];
 
   export const subcatNftOptions = [
@@ -67,3 +67,6 @@ export const chainOptions = [
     { value: 'vyper', label: 'Vyper' }
   ];
 
+
+
+  

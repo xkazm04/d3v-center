@@ -1,6 +1,6 @@
 import {   connectHits,
     Hits} from 'react-instantsearch-dom';
-import { DevelopIcon,StorageIcon,WisdomIcon, DaoIcon, NftIcon, NodeIcon, DefiIcon, MonitorIcon, UtilityIcon, SecurityIcon, FrameworkIcon, LibraryIcon } from '../../icons/tool';
+import { DevelopIcon,StorageIcon,WisdomIcon, DaoIcon, NftIcon, NodeIcon, DefiIcon, MonitorIcon, UtilityIcon, SecurityIcon} from '../../icons/tool';
 
 import StorageCards from '../hits/StorageCards';
 import KnowledgeCards from '../hits/KnowledgeCards';
@@ -13,8 +13,6 @@ import NftCards from '../hits/NftCards';
 import NodeCards from '../hits/NodeCards';
 import styled, { useTheme } from 'styled-components'
 import UtilityCards from '../hits/UtilityCards';
-import LibraryCards from '../hits/LibraryCards';
-import FrameworkCards from '../hits/FrameworkCards';
 import SecurityCards from '../hits/SecurityCards';
 import AllCards from '../hits/AllCards';
 
@@ -108,8 +106,6 @@ const HitGroup = () => {
     const [nodeLoaded, setNodeLoaded]= useState(false);
     const [utilityLoaded, setUtilityLoaded]= useState(false);
     const [securityLoaded, setSecurityLoaded]= useState(false);
-    const [libraryLoaded, setLibraryLoaded] = useState(false);
-    const [frameworkLoaded, setFrameworkLoaded] = useState(false);
     const [allLoaded, setAllLoaded] = useState(false);
 
 
@@ -125,8 +121,6 @@ const NodeHits = connectHits(NodeCards);
 
 const UtilityHits = connectHits(UtilityCards);
 const SecurityHits = connectHits(SecurityCards);
-const LibraryHits = connectHits(LibraryCards);
-const FrameworkHits = connectHits(FrameworkCards);
 const AllHits = connectHits(AllCards);
 
  const toggleKnowledge = () => {
@@ -140,8 +134,6 @@ const AllHits = connectHits(AllCards);
    setNodeLoaded(false)
    setUtilityLoaded(false)
    setSecurityLoaded(false)
-   setLibraryLoaded(false)
-   setFrameworkLoaded(false)
    setAllLoaded(false)
  }
 
@@ -156,8 +148,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(false)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -172,8 +162,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(false)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -188,8 +176,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(false)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -204,8 +190,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(false)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -220,8 +204,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(false)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -236,8 +218,6 @@ const AllHits = connectHits(AllCards);
     setNodeLoaded(true)
     setUtilityLoaded(false)
     setSecurityLoaded(false)
-    setLibraryLoaded(false)
-    setFrameworkLoaded(false)
     setAllLoaded(false)
  }
 
@@ -252,8 +232,6 @@ const AllHits = connectHits(AllCards);
   setNodeLoaded(false)
   setUtilityLoaded(true)
   setSecurityLoaded(false)
-  setLibraryLoaded(false)
-  setFrameworkLoaded(false)
   setAllLoaded(false)
 }
 
@@ -268,8 +246,6 @@ const toggleDefi = () => {
   setNodeLoaded(false)
   setUtilityLoaded(false)
   setSecurityLoaded(false)
-  setLibraryLoaded(false)
-  setFrameworkLoaded(false)
   setAllLoaded(false)
 }
 
@@ -284,43 +260,9 @@ const toggleSecurity = () => {
   setNodeLoaded(false)
   setUtilityLoaded(false)
   setSecurityLoaded(true)
-  setLibraryLoaded(false)
-  setFrameworkLoaded(false)
   setAllLoaded(false)
 }
 
-const toggleLibrary = () => {
-  setKnowledgeLoaded(false)
-  setStorageLoaded(false)
-  setDevelopLoaded(false)
-  setMonitorLoaded(false)
-  setDaoLoaded(false)
-  setDefiLoaded(false)
-  setNftLoaded(false)
-  setNodeLoaded(false)
-  setUtilityLoaded(false)
-  setSecurityLoaded(false)
-  setLibraryLoaded(true)
-  setFrameworkLoaded(false)
-  setAllLoaded(false)
-}
-
-
-const toggleFramework = () => {
-  setKnowledgeLoaded(false)
-  setStorageLoaded(false)
-  setDevelopLoaded(false)
-  setMonitorLoaded(false)
-  setDaoLoaded(false)
-  setDefiLoaded(false)
-  setNftLoaded(false)
-  setNodeLoaded(false)
-  setUtilityLoaded(false)
-  setSecurityLoaded(false)
-  setLibraryLoaded(false)
-  setFrameworkLoaded(true)
-  setAllLoaded(false)
-}
 
 const toggleAll = () => {
   setKnowledgeLoaded(false)
@@ -333,8 +275,6 @@ const toggleAll = () => {
   setNodeLoaded(false)
   setUtilityLoaded(false)
   setSecurityLoaded(false)
-  setLibraryLoaded(false)
-  setFrameworkLoaded(false)
   setAllLoaded(true)
 }
 
@@ -357,8 +297,6 @@ const toggleAll = () => {
     <IconButton onClick={()=>toggleDevelop()}><Flex><DevelopIcon width={IconWidth}  color={theme.tool.develop}/>Develop</Flex></IconButton>
     <IconButton onClick={()=>toggleUtility()}> <Flex> <UtilityIcon width={IconWidth}/>Utilities</Flex></IconButton>
      <IconButton onClick={()=>toggleSecurity()}> <Flex><SecurityIcon width={IconWidth}/>Security</Flex></IconButton>
-     <IconButton onClick={()=>toggleLibrary()}> <Flex><LibraryIcon width={IconWidth}/>Libraries</Flex></IconButton>
-     <IconButton onClick={()=>toggleFramework()}> <Flex><FrameworkIcon width={IconWidth}/>Frameworks</Flex></IconButton>
       <IconButton onClick={()=>toggleKnowledge()}><Flex><WisdomIcon width={IconWidth}/>Knowledge</Flex></IconButton>
        <IconButton onClick={()=>toggleStorage()}><Flex><StorageIcon width={IconWidth}/>Storage</Flex></IconButton>
       <IconButton onClick={()=>toggleMonitor()}> <Flex><MonitorIcon width={IconWidth}/>Monitor</Flex></IconButton>
@@ -370,8 +308,6 @@ const toggleAll = () => {
     </Menu>
     {utilityLoaded ? <ToolSection icon={<UtilityIcon width='20'/>} title='Utilities' hit={UtilityHits}/> : null}
      {securityLoaded ? <ToolSection icon={<SecurityIcon width='20'/>} title='Security' hit={SecurityHits}/> : null}
-     {libraryLoaded ? <ToolSection icon={<LibraryIcon width='20'/>} title='Library' hit={LibraryHits}/> : null}
-     {frameworkLoaded ? <ToolSection icon={<FrameworkIcon width='20'/>} title='Framework' hit={FrameworkHits}/> : null}
      {developLoaed ? <ToolSection icon={<DevelopIcon width='20' color={theme.tool.develop}/>} title='Develop' hit={DevelopHits}/> : null}
      {knowledgeLoaded ? <ToolSection  icon={<WisdomIcon width='20'/>} title='Knowledge' hit={KnowledgeHits}/> : null}
      {storageLoaded ? <ToolSection icon={<StorageIcon width='20'/>} title='Storage' hit={StorageHits}/> : null}

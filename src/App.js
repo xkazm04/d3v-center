@@ -26,6 +26,7 @@ import { GoLight, Pill } from './icons/main';
 
 import { FilterContext } from './contexts/FilterContext';
 import { ChainApiContext } from './contexts/ChainApiContext';
+import { ChainContext } from './contexts/ChainContext';
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrandIcon } from './icons/main';
@@ -100,6 +101,7 @@ function App() {
   const [filterUsage, setFilterUsage] = useState("?filters[Usage][$notNull]")
 
   const [chainArray, setChainArray] = useState([])
+  const [blockchain, setBlockchain] = useState(null)
 
   const [theme, setTheme] = useState('light');
   const themeToggler = () => {
@@ -125,6 +127,7 @@ function App() {
     <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}> 
             <ChainApiContext.Provider value={{ chainArray, setChainArray}}> 
+            <ChainContext.Provider value={{blockchain, setBlockchain}}>
                 <Navigation>
                 <Navbar/>
                    <Flex> 
@@ -146,6 +149,7 @@ function App() {
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
+                </ChainContext.Provider>
                 </ChainApiContext.Provider>
                 </FilterContext.Provider>
     </Kontejner>
