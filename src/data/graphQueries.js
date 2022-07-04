@@ -163,6 +163,7 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
           Chain
           Usage
           Subcategory
+          Reference
         }
       }
     }
@@ -175,6 +176,7 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
         attributes {
           title 
           description 
+          reference
         }
       }
     }
@@ -223,6 +225,7 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
           Title 
           Description 
           Chain
+          Reference
           Usage
           Subcategory
         }
