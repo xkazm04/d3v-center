@@ -594,7 +594,7 @@ export default function PathForm() {
             </RenderSection>}
               </>}
             {tutorials && <RenderSection>
-            {step === 'Develop' ? <> <SectionTitle>Tutorials</SectionTitle>
+            {step === 'Develop' ? <> <SectionTitle>Guides & Tutorials</SectionTitle>
                 <>
                 {tutorials.map((tutorial) => (
                         <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
@@ -608,7 +608,7 @@ export default function PathForm() {
             </RenderSection>}
             {definitions && <RenderSection>
                 {step === 'Develop' ? <>
-            <SectionTitle>Definitions</SectionTitle>
+            <SectionTitle>Definitions & Theory</SectionTitle>
                 {definitions.map((definition) => (
                         <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
                             <Flex><TitleA>  {definition.attributes.Title}</TitleA>  <Category>{definition.attributes.Description}</Category></Flex>
