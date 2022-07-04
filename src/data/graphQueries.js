@@ -146,6 +146,9 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
           Title 
           Description
           Reference 
+          Subcategory
+          Reference
+          ViewCounter
         }
       }
     }
