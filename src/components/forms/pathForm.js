@@ -274,17 +274,15 @@ const TitleA = styled.div`
 `
 
 const AbsoluteDescription = styled.div`
-  position: absolute;
   font-style: italic;
   font-family: 'Inder';
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin-left: 15px;
   color: ${props => props.theme.colors.text_title};
 `
 
 const SubNavigation = styled.div`
-  padding-top: 5%;
-  padding-bottom: 2%;
+  padding-top: 1%;
 `
 
 
@@ -557,13 +555,17 @@ export default function PathForm() {
                   {setupState === 'Remix' ? <ArticleActButton>Remix</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Remix')}>Remix</ArticleButton>}
                   {setupState === 'Brownie' ? <ArticleActButton>Brownie</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Brownie')}>Brownie</ArticleButton>}
                   {setupState === 'Foundry' ? <ArticleActButton>Foundry</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Foundry')}>Foundry</ArticleButton>}
+                  {setupState === 'Truffle' &&  <AbsoluteDescription>Popular variant in combination with Ganache CLI & UI</AbsoluteDescription> }
+                  {setupState === 'Hardhat' &&  <AbsoluteDescription>Most used variant for e2e smart contract setup, test & deploy</AbsoluteDescription> }
+                  {setupState === 'Remix' &&  <AbsoluteDescription>Perfect for quick prototype and code analysis with rich plugins</AbsoluteDescription> }
+                  {setupState === 'Brownie' &&  <AbsoluteDescription>For those who prefer Python instead of JS</AbsoluteDescription> }
+                  {setupState === 'Foundry' &&  <AbsoluteDescription>Environment for advanced devs oriented on high performance</AbsoluteDescription> }
                   </SubNavigation>
-                  <AbsoluteDescription>Short description</AbsoluteDescription>
                 </>}
                 {step === 'Govern' && <><i>To be implemented</i></>}
-                {step === 'Develop' && <><i>To be implemented</i></>}
-                {step === 'Security' && <>Security description</>}
-                {step === 'Deploy' && <><i>To be implemented</i></>}
+                {step === 'Develop' && <AbsoluteDescription>Find resources and references which fit your needs</AbsoluteDescription>}
+                {step === 'Security' && <AbsoluteDescription>Learn from mistakes already exploited and secure your contract properly</AbsoluteDescription>}
+                {step === 'Deploy' && <AbsoluteDescription>Pick one of many EVM compatible to deploy your contract</AbsoluteDescription>}
               </StepDescription>
            </Flex>}
         <Col xs={24} md={8}>

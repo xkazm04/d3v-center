@@ -6,10 +6,12 @@ import ChartTutorial from "../components/charts/ChartUsage";
 import ChartLang from "../components/charts/ChartLang";
 import { DevelopIcon, CodeIcon } from "../icons/tool";
 import ArticleSection from '../cards/ArticleSection';
-import { ExitIcon, MediumIcon } from '../icons/utils';
+import { ExitIcon, GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
 import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';
 import LoopBox from '../components/boxes/LoopBox';
+import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
+import { PathSection } from '../icons/sections';
 
 
 
@@ -58,6 +60,7 @@ const LogoBox = styled.div`
 const Title = styled.h1`
     font-family: 'Inder';
     font-weight: 500;
+    line-height: 1em;
     text-transform: uppercase;
     color: ${props => props.theme.colors.text_title};
     font-size: 2.4em;
@@ -67,8 +70,11 @@ const Title = styled.h1`
 `
 
 const Subtitle = styled.h2`
-    font-family: 'Inder';
+    margin-top: 2%;
+    font-family: 'Helvetica';
+    font-style: "italic";
     font-weight: 500;
+    line-height: 1em;
     text-transform: uppercase;
     color: ${props => props.theme.colors.text_secondary};
     font-size: 1.5em;
@@ -120,8 +126,25 @@ const MyLink = styled(Link)`
     }
 `
 
+const Flex = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    height: 70px;
+    width: 70px;
+    font-family: 'NoBill';
+    align-items: center;
+    color: ${props => props.theme.colors.text_primary};
+    font-size: 1.2em;
+    border: 1px dashed ${props => props.theme.colors.lineAlt};
+`
 
-
+const PathPicture = styled.div`
+display: flex;
+justify-content: space-around;
+    margin-left: 5%;
+    margin-top: 5%;
+`
 
 
 
@@ -156,21 +179,44 @@ export default function Landing() {
                             </Col>
                             <Col xs={24} md={12}>
                                 <Services>
-                                   <ServiceButton onClick={()=>{handleDescription('Tutorials',tutDefiFile,tutNftFile,tutSecFile,tutDataFile)}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Definitions', defFirstFile, defSecondFile, defThirdFile, null)}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Repositories')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Tools')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Releases')}}><DevelopIcon width='50' color={theme.tool.develop}/></ServiceButton>
+                                <ServiceButton onClick={()=>{handleDescription('Path')}}>
+                                        <Flex><PathIcon width='50' height='50' color={theme.colors.text_title}/>D3V path</Flex>
+                                </ServiceButton>
+                                <ServiceButton onClick={()=>{handleDescription('Tutorials',tutDefiFile,tutNftFile,tutSecFile,tutDataFile)}}>
+                                        <Flex><TutorialIcon width='50' color={theme.colors.text_title}/>Tutorials</Flex>
+                                </ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Definitions', defFirstFile, defSecondFile, defThirdFile, null)}}>
+                                              <Flex> <DefinitionIcon width='50' color={theme.colors.text_title}/>Theories</Flex>
+                                   </ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Repositories')}}>
+                                        <Flex><GithubIcon width='50' color={theme.colors.text_title}/>Repos</Flex>
+                                    </ServiceButton>
+                                   <ServiceButton onClick={()=>{handleDescription('Tools')}}>
+                                    <Flex><DevelopIcon width='50' color={theme.colors.text_title}/>Tools</Flex>
+                                </ServiceButton>
                                 </Services>
-                      {serviceDescription === '' ? null :    <CodeBox>
+                             {serviceDescription === '' ? null :    <CodeBox>
+                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
                            {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null}     
                            {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Repositories' ? <Pre>Definitions and theory behind blockchains <MyLink to='/repos'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tools' ? <Pre>Definitions and theory behind blockchains <MyLink to='/tools'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Releases' ? <Pre>Definitions and theory behind blockchains <MyLink to='/releases'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
                                 <LoopBox loop={true} firstFile={firstFile} secondFile={secondFile} thirdFile={thirdFile} fourthFile={fourthFile}/>
                                 </CodeBox>}
                             </Col>
+                        </Row>
+                    </Grid>
+                </Section>
+                <Section>
+                    <Grid fluid>
+                        <Row>
+                            <Col xs={24} md={24}>
+                                <LeftBox>
+                                    <Title>D3V Path</Title>
+                                    <Subtitle>Use guidance at any point of your struggle</Subtitle>
+                                    <PathPicture><PathSection width={'1200'} height={'300'} color={theme.colors.text_primary}/></PathPicture>
+                                </LeftBox>
+                                </Col>
                         </Row>
                     </Grid>
                 </Section>
@@ -203,22 +249,6 @@ export default function Landing() {
                             <Col xs={24} md={12}>
                                 <RightBox>
                                         <ChartLang/>
-                                </RightBox>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </Section>
-                <Section>
-                    <Grid fluid>
-                        <Row>
-                            <Col xs={24} md={12}>
-                                <LeftBox>
-                                    <Title>D3V Path - 7/2022</Title>
-                                </LeftBox>
-                            </Col>
-                            <Col xs={24} md={12}>
-                                <RightBox>
-                                      
                                 </RightBox>
                             </Col>
                         </Row>
