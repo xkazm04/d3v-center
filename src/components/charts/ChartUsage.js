@@ -1,6 +1,8 @@
-
 import {RadarChart, PolarGrid, PolarAngleAxis, Radar, PolarRadiusAxis, Tooltip, Legend } from 'recharts'
 import styled, { useTheme } from 'styled-components'
+import {useContext} from 'react'
+
+import { TotalsContext } from '../../contexts/TotalsContext'
 
 
 const Kontejner = styled.div`
@@ -47,9 +49,9 @@ const data = [
   },
 ]
 
-  
-export default function Chart1() {
+export default function ChartUsage() {
     const theme = useTheme()
+    const { totalTut, totalDef, totalRep } = useContext(TotalsContext)
 
 
     return <Kontejner> 
@@ -58,9 +60,9 @@ export default function Chart1() {
       <PolarGrid />
       <PolarAngleAxis dataKey="cat"   stroke={theme.chart.torso}/>
       <PolarRadiusAxis angle={145} domain={[0, 100]}  stroke={theme.chart.radius} />
-      <Radar name="Tutorials (450)" dataKey="Tutorials" stroke={theme.chart.var1_stroke} fill={theme.chart.var1_fill} fillOpacity={0.6}  />
-      <Radar name="Definitions (390)" dataKey="Definitions" stroke={theme.chart.var2_stroke} fill={theme.chart.var2_fill} fillOpacity={0.6} />
-      <Radar name="Repositories (60)" dataKey="Repositories" stroke={theme.chart.var3_stroke} fill={theme.chart.var3_fill} fillOpacity={0.6} />
+      <Radar name={`Tutorials ${totalTut}`} dataKey="Tutorials" stroke={theme.chart.var1_stroke} fill={theme.chart.var1_fill} fillOpacity={0.6}  />
+      <Radar name={`Definitions ${totalDef}`} dataKey="Definitions" stroke={theme.chart.var2_stroke} fill={theme.chart.var2_fill} fillOpacity={0.6} />
+      <Radar name={`Repositories ${totalRep}`} dataKey="Repositories" stroke={theme.chart.var3_stroke} fill={theme.chart.var3_fill} fillOpacity={0.6} />
       <Legend />
       <Tooltip/>
     </RadarChart>

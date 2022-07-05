@@ -23,7 +23,7 @@ import Releases from './Pages/Releases';
 
 import { GoLight, Pill } from './icons/main';
 
-
+import { TotalsContext} from './contexts/TotalsContext';
 import { FilterContext } from './contexts/FilterContext';
 import { ChainApiContext } from './contexts/ChainApiContext';
 import { ChainContext } from './contexts/ChainContext';
@@ -100,6 +100,12 @@ function App() {
   const [filterStage, setFilterStage] = useState("?filters[Stage][$notNull]")
   const [filterUsage, setFilterUsage] = useState("?filters[Usage][$notNull]")
 
+  // Total number of articles 
+  const [totalTut, setTotalTut] = useState(0)
+  const [totalDef, setTotalDef] = useState(0)
+  const [totalRep, setTotalRep] = useState(0)
+  const [totalTool, setTotalTool] = useState(0)
+
   const [chainArray, setChainArray] = useState([])
   const [blockchain, setBlockchain] = useState(null)
 
@@ -128,6 +134,7 @@ function App() {
             <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}> 
             <ChainApiContext.Provider value={{ chainArray, setChainArray}}> 
             <ChainContext.Provider value={{blockchain, setBlockchain}}>
+              <TotalsContext.Provider value={{totalTut, setTotalTut, totalDef, setTotalDef, totalTool, setTotalTool, totalRep, setTotalRep}}> 
                 <Navigation>
                 <Navbar/>
                    <Flex> 
@@ -149,6 +156,7 @@ function App() {
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
+                </TotalsContext.Provider>
                 </ChainContext.Provider>
                 </ChainApiContext.Provider>
                 </FilterContext.Provider>

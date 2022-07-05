@@ -12,6 +12,7 @@ import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tu
 import LoopBox from '../components/boxes/LoopBox';
 import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
 import { PathSection } from '../icons/sections';
+import CharTotal from '../components/charts/ChartTotal';
 
 
 
@@ -226,7 +227,7 @@ export default function Landing() {
                             <Col xs={24} md={12}>
                                 <LeftBox>
                                     <Title>Browse through 1000+ Resources</Title>
-                                   <PictureBox> <DevelopIcon width='50%' color={theme.tool.develop}/></PictureBox>
+                                        <CharTotal/>
                                 </LeftBox>
                             </Col>
                             <Col xs={24} md={12}>
