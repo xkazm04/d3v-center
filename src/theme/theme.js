@@ -50,7 +50,19 @@ export const lightTheme = {
       var2_stroke: "hwb(119deg 18% 51%)",
       var2_fill: "#82ca9d",
       var3_stroke: "#72221c",
-      var3_fill: "red"
+      var3_fill: "red",
+      varGray_fill: '#E6E6E6',
+      varGray_stroke: "#A1A1A1",
+      varOrange_fill: "#EBE3CD",
+      varOrange_stroke: "#C2A024",
+      varYellow_fill: "#E7EBCD",
+      varYellow_stroke: "#A3C224",
+      varBlue_fill: "#CDEBE4",
+      varBlue_stroke: "#24C2B9",
+      varPurple_fill: "#E7CDEB",
+      varPurple_stroke: "#C224B3",
+      varRed_fill: "#9F3636",
+      varRed_stroke: "#DBA0A0",
     }
  }
 
@@ -108,7 +120,20 @@ export const lightTheme = {
       var2_stroke: "rgb(188 241 187)",
       var2_fill: "#82ca9d",
       var3_stroke: "#ff6363",
-      var3_fill: "red"
+      var3_fill: "red",
+      varGray_fill: '#E6E6E6',
+      varGray_stroke: "#A1A1A1",
+      varOrange_fill: "#EBE3CD",
+      varOrange_stroke: "#C2A024",
+      varYellow_fill: "#E7EBCD",
+      varYellow_stroke: "#A3C224",
+      varBlue_fill: "#CDEBE4",
+      varBlue_stroke: "#24C2B9",
+      varPurple_fill: "#E7CDEB",
+      varPurple_stroke: "#C224B3",
+      varRed_fill: "#9F3636",
+      varRed_stroke: "#DBA0A0",
+
     }
     }
  

@@ -17,10 +17,11 @@ const IconButton = styled.button`
     transition: 0.1s;
     border-radius: 5px;
     min-width: 90px;
-    padding-top:10%;
     font-size: 1.3em;
+    box-shadow: 0px 0px 2px 0px ${props => props.theme.colors.lineAlt};
+    height: 100px;
     &:hover{
-      opacity: 0.6;
+      box-shadow: 0px 0px 6px 0px ${props => props.theme.colors.lineAlt};
   }
 `
 
@@ -55,6 +56,8 @@ const FlexRow = styled.div`
   flex-direction: column;
   padding: 3%;
 `
+
+
 
 
 const ChainSelector = ({eco}) => {

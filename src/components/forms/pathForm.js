@@ -5,11 +5,12 @@ import Select from 'react-select';
 import { catOptions, subcatDaoFeatures,subcatDaoOptions, subcatNftOptions, subcatNftFeatures, subcatDefiFeatures, subcatDefiOptions} from '../../data/pathOptions';
 import { DiffAdvanced, DiffBasic, DiffScholar } from '../../icons/difficulty';
 import { Grid, Row, Col } from 'rsuite';
-import ChainSelector from '../../cards/ChainSelector';
+import ChainSelector from '../../sections/ChainSelector';
 import { fetchDaoPath,fetchNftPath, fetchDefiPath, fetchSecPath, fetchSetup } from '../../data/graphQueries';
 import {ArrowIcon} from '../../icons/nav'
 import { ChainContext } from '../../contexts/ChainContext';
-import ChainStats from '../charts/ChainStats';
+import ChainStats from '../../sections/ChainStats';
+import GovernSection from '../../sections/GovernSection';
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -562,7 +563,9 @@ export default function PathForm() {
                   {setupState === 'Foundry' &&  <AbsoluteDescription>Environment for advanced devs oriented on high performance</AbsoluteDescription> }
                   </SubNavigation>
                 </>}
-                {step === 'Govern' && <><i>To be implemented</i></>}
+                {step === 'Govern' && <> 
+                    <GovernSection/>
+                  </>}
                 {step === 'Develop' && <AbsoluteDescription>Find resources and references which fit your needs</AbsoluteDescription>}
                 {step === 'Security' && <AbsoluteDescription>Learn from mistakes already exploited and secure your contract properly</AbsoluteDescription>}
                 {step === 'Deploy' && <AbsoluteDescription>Pick one of many EVM compatible to deploy your contract</AbsoluteDescription>}

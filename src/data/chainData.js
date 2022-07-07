@@ -12,7 +12,8 @@ export const chainData = [
         "swap": "Acala hub",
         "attribute": "Acala is a decentralized finance network powering the aUSD ecosystem. It's a layer-1 smart contract platform that's scalable, Ethereum-compatible, and optimized for DeFi.",
         "reasonPlus": "Grants, Flexible fees, DeFi oriented ecosystem leverages cross-chain advatages of Polkadot and EVM+ compatible environment.",
-        "reasonMinus": "Ecosystem around still not fully developed, serves more like source of aUSD to other ecosystems."
+        "reasonMinus": "Ecosystem around still not fully developed, serves more like source of aUSD to other ecosystems.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 4030,
@@ -28,6 +29,7 @@ export const chainData = [
         "attribute": "L1 network solving trillema with block finality",
         "reasonPlus": "Fast, quality project with academic minds behind",
         "reasonMinus": "Poor DX, interoperability -> Low adoption and TVL",
+        "dec":"2", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 42161,
@@ -38,11 +40,12 @@ export const chainData = [
         "config": "https://developer.offchainlabs.com/docs/contract_deployment",
         "rpc": "https://arb1.arbitrum.io/rpc",
         "trpc": "https://rinkeby.arbitrum.io/rpc",
-        "grant":"",
+        "grant": "",
         "swap": "SushiSwap",
         "attribute": "Arbitrum is a layer 2 solution designed to improve the capabilities of Ethereum smart contracts",
-        "reasonPlus": "Leading Eth L2 so far with solid number of projects duplicated from Ethereum, easy to migrate and leverage Eth security.",
+        "reasonPlus": "Leading Eth L2 so far with solid number of Eth duplicated projects, supports Vyper, Yul (advantage over Optimism) .",
         "reasonMinus": "Much less traffic than market leading infrastructure, long-term would be challenged by other scalling solutions.",
+        "dec":"3", "tvl":"2", "ecosystem":"2" 
     },
     {
         "id": 592,
@@ -58,6 +61,7 @@ export const chainData = [
         "attribute": "Astar is a multi-chain smart contract platform (both WASM & EVM) that supports multiple blockchains and virtual machines.",
         "reasonPlus": "Long-term very powerful architecture and innovative visions how to bring new use cases to web3 together with Polka parachains.",
         "reasonMinus": "Still very young project alive, might be more difficult to build on with immature tooling around Polkadot.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1313161554,
@@ -73,6 +77,7 @@ export const chainData = [
         "attribute": "Aurora provides Ethereum compatibility, NEAR Protocol scalability, and industry-first user experience through affordable transactions.",
         "reasonPlus": "Nice financing through NEAR initial success, great marketing and solid scalability thanks to connection to NEAR.",
         "reasonMinus": "Yet still challenging to build next-gen usecases with low traffic, limited cross-chain capabilities",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 43114,
@@ -88,6 +93,7 @@ export const chainData = [
         "attribute": "Avalanche is an open, L1 platform for decentralized applications.",
         "reasonPlus": "Well adopted, solid ecosystem projects around and tech with ability to build Defi or sidechain for Gaming project",
         "reasonMinus": "Always one step behind the leaders, questionable position in future trends of Cross-chain and Gaming applications",
+        "dec":"2", "tvl":"2", "ecosystem":"2" 
     },
     {
         "id": 1839,
@@ -102,6 +108,7 @@ export const chainData = [
         "attribute": "Cheaper, faster Ethereum-like L1 platform powered by Binance and their unlimited bag of money",
         "reasonPlus": "Arguably largest traffic in the space, high number of active projects, convenient for retail onboarding",
         "reasonMinus": "Fraudy apps and cheap forks instead of innovation powerhouses, not so cheap fees as it used to be.",
+        "dec":"1", "tvl":"2", "ecosystem":"3" 
     },
     {
         "id": 2010,
@@ -116,7 +123,8 @@ export const chainData = [
         "swap": "SundaeSwap",
         "attribute": "L1 blockchain network powered by Haskell",
         "reasonPlus": "Candidate for AI, IoT use cases. Hyped community",
-        "reasonMinus": "Terrible DX, hard to adopt, limited interoperability possibilities" 
+        "reasonMinus": "Terrible DX, hard to adopt, limited interoperability possibilities" ,
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": "25",
@@ -131,7 +139,8 @@ export const chainData = [
         "swap": "VVS Finance",
         "attribute": "Built on Ethermint, which supports rapid porting of apps & smart contracts from Ethereum and other EVM-compatible chains.",
         "reasonPlus": "Strong vision to attract NFT and gaming projects, visible marketing and load of money from Crypto.com",
-        "reasonMinus": "Still in beta with long way to achieve trust and interest of capable teams around." 
+        "reasonMinus": "Still in beta with long way to achieve trust and interest of capable teams around." ,
+        "dec":"1", "tvl":"2", "ecosystem":"1" 
     },
     {
         "id": 42220,
@@ -147,6 +156,7 @@ export const chainData = [
         "attribute": "Celo is a fully EVM compatible proof-of-stake layer-1 protocol, featuring a fast ultralight client and built-in seigniorage stablecoins, collateralized by crypto and natural assets.",
         "reasonPlus": "Nice tech for mobile dapps development with grants to support projects with community value.",
         "reasonMinus": "Poor ecosystem, amount of users and TVL, intellectual resources behind seems to be limited in compare to major L1/L2 networks.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1,
@@ -162,6 +172,7 @@ export const chainData = [
         "attribute": "Nothing to be said",
         "reasonPlus": "Rich ecosystem of app with trustworthy decentralization and massive TVL attractive for institutional DeFi",
         "reasonMinus": "Inability to scale on its own leads to higher fees and reason why to build elsewhere for use cases of the future.",
+        "dec":"3", "tvl":"3", "ecosystem":"3" 
     },
     {
         "id": 11,
@@ -177,6 +188,7 @@ export const chainData = [
         "attribute": "L1 network with highly scalable architecture",
         "reasonPlus": "Effective marketing",
         "reasonMinus": "Poor DX and activity to improve it -> poor ecosystem",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 9001,
@@ -192,6 +204,7 @@ export const chainData = [
         "attribute": "Cosmos meets EVM",
         "reasonPlus": "One of firsts IBC on EVM chain with fair grants",
         "reasonMinus": "No TVL, dapps and users",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 250,
@@ -207,6 +220,7 @@ export const chainData = [
         "attribute": "L1 EVM oriented on performance. Fantom is a fast, high-throughput open-source smart contract platform for digital assets and dApps.",
         "reasonPlus": "Huge historical grants, active platform development leading to reliable and fast infrastructure",
         "reasonMinus": "Although solid tech, there is no real reason why to prefer it over other major L1/L2 networks in terms of innovations, traffic or TVL",
+        "dec":"1", "tvl":"2", "ecosystem":"2" 
     },
     {
         "id": 17,
@@ -222,6 +236,7 @@ export const chainData = [
         "attribute": "NFT specialized",
         "reasonPlus": "Gaming potentionally",
         "reasonMinus": "Cadence, Ecosystem",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1666600000,
@@ -237,6 +252,7 @@ export const chainData = [
         "attribute": "Harmony is an open and fast blockchain. Mainnet runs Ethereum applications with 2-second transaction finality and 100 times lower fees.",
         "reasonPlus": "Grants, Solid scalling techs and strong commitment to the ecosystem",
         "reasonMinus": "Recently lost trust and their superbridge got rekt, tough situation now to convince users and devs to build on top of Harmony",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 2099,
@@ -252,6 +268,7 @@ export const chainData = [
         "attribute": "BTP cross-chain protocol",
         "reasonPlus": "Promising interoperability tech",
         "reasonMinus": "Java contracts? No dev adoption yet",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 8,
@@ -267,6 +284,7 @@ export const chainData = [
         "attribute": "Need further analysis",
         "reasonPlus": "Unique architecture",
         "reasonMinus": "Unique architecture",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 5647,
@@ -282,6 +300,7 @@ export const chainData = [
         "attribute": "Architecture built for trading",
         "reasonPlus": "Rich grants and fine marketing",
         "reasonMinus": "Pact language, Low dev interest to build on",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 2222,
@@ -297,6 +316,7 @@ export const chainData = [
         "attribute": "Kava is a lightning-fast Layer-1 blockchain featuring a developer-optimized co-chain architecture that combines Ethereum and Cosmos into a single, scalable, network.",
         "reasonPlus": "Promising architecture to combine crosschain benefits from Cosmos world and network effect from Ethereum. DeFi focused roadmap.",
         "reasonMinus": "No cutting edge use case so far developed on Cosmos, low TVL and user hype leading into larger interest of developers.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 8217,
@@ -311,7 +331,8 @@ export const chainData = [
         "swap": "KLAYswap",
         "attribute": "Substrate based EVM oriented on Asian metaverse",
         "reasonPlus": "Fair TVL and focused roadmap to attract metaverse and gaming projects. Outreach to large asian markets.",
-        "reasonMinus": "All the projects around, documentation and websites just seems like cheaper versions of major L1 competitors - future of project uncertain."
+        "reasonMinus": "All the projects around, documentation and websites just seems like cheaper versions of major L1 competitors - future of project uncertain.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1088,
@@ -327,6 +348,7 @@ export const chainData = [
         "attribute": "New version of Optimistic EVM",
         "reasonPlus": "Fresh to build on - just fork something and try to earn $$$",
         "reasonMinus": "Veery low TVL, traffic and questionable future",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 20,
@@ -342,6 +364,7 @@ export const chainData = [
         "attribute": "22kb sized chain",
         "reasonPlus": "Unique node availibility",
         "reasonMinus": "Not ready for develop",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1284,
@@ -357,6 +380,7 @@ export const chainData = [
         "attribute": "It’s a highly specialized Layer 1 chain that mirrors Ethereum’s Web3 RPC, accounts, keys, subscriptions, logs, and more.",
         "reasonPlus": "An opportunity to try pilot Polka ecosystem innovations with familiar EVM tooling. Risign traction even in bear market.",
         "reasonMinus": "Concerning long-term performance capabilities, Polkadot still lacks audience to use dapps.",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 32,
@@ -372,6 +396,7 @@ export const chainData = [
         "attribute": "Solana/EVM chain",
         "reasonPlus": "Solana hype and $$$",
         "reasonMinus": "Not ready",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 42262,
@@ -387,6 +412,7 @@ export const chainData = [
         "attribute": "Unique L1 architecture for private and scalling ",
         "reasonPlus": "Interesting tech for data computing dapps and enterprise",
         "reasonMinus": "Long way to go, no real ecosystem and traction yet",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 10,
@@ -402,6 +428,7 @@ export const chainData = [
         "attribute": "Open source L2, secure, permissionless, and decentralized.",
         "reasonPlus": "Easy to migrate projects from Ethereum, well supported by Ethereum node providers and tooling, shared Eth security.",
         "reasonMinus": "Less popular Eth L2 choice with lower traffic and TVL, questionable future in tough competition.",
+        "dec":"3", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 137,
@@ -417,6 +444,7 @@ export const chainData = [
         "attribute": "Polygon is a decentralised Ethereum scaling platform that enables developers to build scalable user-friendly dApps with low transaction fees without ever sacrificing on security.",
         "reasonPlus": "One of leading techs in space, large ecosystem and multiple scalling solutions and pro-enterprise and gaming visions.",
         "reasonMinus": "Moderate TVL to build solid DeFi and little bit outside building crosschain protocols, historically questioned decentralization.",
+        "dec":"1", "tvl":"2", "ecosystem":"2" 
     },
     {
         "id": 5604,
@@ -432,6 +460,7 @@ export const chainData = [
         "attribute": "Privacy chain powered by Cosmos",
         "reasonPlus": "Good tech for private transactions, contracts in both EVM and Wasm",
         "reasonMinus": "User/Dev adoption, Strong competition around",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 5426,
@@ -447,6 +476,7 @@ export const chainData = [
         "attribute": "Chain with unlimited resources",
         "reasonPlus": "Hype, $$$",
         "reasonMinus": "Ecosystem, Interoperability",
+        "dec":"1", "tvl":"2", "ecosystem":"1" 
     },
     {
         "id": 3077,
@@ -462,6 +492,7 @@ export const chainData = [
         "attribute": "Supply chain oriented EVM copy",
         "reasonPlus": "Specific industry involvement and marketing",
         "reasonMinus": "Poor tech, ecosystem and adoption",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 2011,
@@ -477,6 +508,7 @@ export const chainData = [
         "attribute": "Alternative L1 architecture to EVM",
         "reasonPlus": "Tezos foundation grants and marketing",
         "reasonMinus": "Difficult to build on, poor interoperability potential", 
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 1958,
@@ -492,6 +524,7 @@ export const chainData = [
         "attribute": "EVM copycat",
         "reasonPlus": "Effective marketing leading to large TVL",
         "reasonMinus": "Fraudy dapps, lack of innovation",
+        "dec":"1", "tvl":"2", "ecosystem":"1" 
     },
     {
         "id": 4157,
@@ -507,6 +540,7 @@ export const chainData = [
         "attribute": "Chain agnostic contracts",
         "reasonPlus": "Promising interoperability model for unique dapps",
         "reasonMinus": "Poor DX, Tiny ecosystem",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     },
     {
         "id": 2469,
@@ -522,5 +556,6 @@ export const chainData = [
         "attribute": "PoW & PoS consensus L1 network",
         "reasonPlus": "Well marketing in past",
         "reasonMinus": "Tough to develop, use - destined to die",
+        "dec":"1", "tvl":"1", "ecosystem":"1" 
     }
 ]

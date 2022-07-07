@@ -1,0 +1,12 @@
+.rc-input-number-input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 1%;
+    padding-left: 10%;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background-color: transparent;
+}

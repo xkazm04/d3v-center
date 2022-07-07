@@ -265,3 +265,65 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
     }
   }
   `
+
+  export const fetchGovern = `query FetchGovern  {
+    tutorials (pagination: {limit: 150 },filters: 
+        {Chain:{eq:"evm"}, 
+  or:{Category:{eq:"Token"},
+  or:{Subcategory:{in:["Staking","Vesting"]}}
+}}){ 
+      data  {
+        attributes {
+          Title 
+          Description 
+          Difficulty
+          Reference
+          ViewCounter
+        }
+      }
+    }
+    definitions (pagination: {limit: 150 },filters: 
+        {Usage:{eq:"Token"},
+        or:{Chain:{in:["Any","evm"]}
+        }} ){ 
+      data  {
+        attributes {
+          Title 
+          Description
+          Subcategory 
+          Reference
+          ViewCounter
+        }
+      }
+    }
+    tools (pagination: {limit: 150 },filters: 
+        {Chain:{eq:"EVM"}, 
+    or:{Usage:{eq:"DAO"},
+  }}){ 
+      data  {
+        attributes {
+          Title 
+          Description 
+          Chain
+          Usage
+          Reference
+          Subcategory
+        }
+      }
+    }
+    repos (pagination: {limit: 150 },filters: 
+        {language:{in:["Solidity","JavaScript"]}, 
+    or:{category:{eq:"Token"},
+  }}){ 
+      data  {
+        attributes {
+          title 
+          description 
+          usage
+          subcategory
+          reference
+        }
+      }
+    }
+  }
+  `
