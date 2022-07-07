@@ -8,22 +8,18 @@ flex-direction: column;
 width: auto;
 height: 23em;
 background: ${props => props.theme.colors.lighter};
-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.02), 0px 4px 13px rgba(0, 0, 0, 0.03);
+border: 1px solid ${props => props.theme.colors.lineAlt};
+box-shadow: 0px 2px 2px ${props => props.theme.colors.lineAlt};
 border-radius: 8px;
 &:hover{
     transition: all 0.2s ease-in-out;
-    text-decoration:none;
-    box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.04), 0px 8px 26px rgba(0, 0, 0, 0.03);
 }
 `
 const Title = styled.p`
 margin-top: 10%;
-text-decoration: none;
 font-weight: 700;
 font-size: 1.2em;
-&:hover{
-    text-decoration:none;
-}
+font-family: 'Staatliches';
 `
 
 const Description = styled.p`
@@ -41,8 +37,8 @@ const TextPart = styled.div`
     padding-left: 7%;
     padding-right: 7%;
     padding-bottom: 5%;
-    font-family: 'Inder';
-    background: ${props => props.theme.colors.light};
+    font-family: 'NoBill';
+    background: ${props => props.theme.colors.medium};
     color: ${props => props.theme.colors.text_secondary};
     height: 40%;
 `
@@ -50,7 +46,7 @@ const TextPart = styled.div`
 const Date = styled.div`
     position: absolute;
     left: 15;
-    font-family: 'Inder';
+    font-family: 'NoBill';
     padding-left: 5px;
     padding-top: 5px;
     color: ${props => props.theme.colors.text_secondary};
@@ -65,8 +61,10 @@ const Button = styled.button`
     padding: 2%;
     transition: 0.1s;
     border-radius: 8px;
+    font-family: 'NoBill';
     :hover{
-        background: ${props => props.theme.colors.medium};
+        background: ${props => props.theme.colors.heavy};
+        color: ${props => props.theme.colors.text_primary};
     }
 `
 

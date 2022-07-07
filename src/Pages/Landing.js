@@ -5,7 +5,7 @@ import { Grid, Row, Col } from 'rsuite';
 import ChartTutorial from "../components/charts/ChartUsage";
 import ChartLang from "../components/charts/ChartLang";
 import { DevelopIcon, CodeIcon } from "../icons/tool";
-import ArticleSection from '../cards/ArticleSection';
+import ArticleSection from '../sections/ArticleSection';
 import { ExitIcon, GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
 import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';

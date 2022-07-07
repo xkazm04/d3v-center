@@ -359,7 +359,7 @@ const GovernSection = () => {
         <>
         <SubNavigation>
                   {component === 'Resources' ? <ArticleActButton>Resources</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Resources')}>Resources</ArticleButton>}
-                  {component === 'Chart' ? <ArticleActButton>Chart</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Chart</ArticleButton>}
+                  {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Chart</ArticleButton>}
                   {component === 'Chart' &&  <AbsoluteDescription>Visualize tokenomics - TBD</AbsoluteDescription> }
                   {component === 'Resources' &&  <AbsoluteDescription>Resources related with tokenomics and governance</AbsoluteDescription> }
         </SubNavigation>
