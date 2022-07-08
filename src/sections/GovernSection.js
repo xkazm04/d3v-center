@@ -9,7 +9,6 @@ import GovernResources from './GovernResources';
 import GovernCode from './GovernCode';
 
 
-
 const TokenForm = styled.div`
     padding-right: 2%;
     min-width: 200px;
@@ -31,8 +30,7 @@ const Label = styled.div`
     font-size: 0.9em;
     font-family: 'Inder';
     font-weight: bold;
-    width: 35%;
-    min-width: 35%;
+    min-width: 45%;
     color: ${props => props.color};
     &:hover{
         cursor: help;
@@ -74,6 +72,15 @@ const ArticleActButton = styled(ArticleButton)`
   }
 `
 
+const EmptyButton = styled(ArticleButton)`
+    background: transparent;
+    margin-bottom: 2%;
+    &:hover{
+        background: transparent;
+        cursor: default;
+    }
+`
+
 const AbsoluteDescription = styled.div`
   font-style: italic;
   font-family: 'Inder';
@@ -108,6 +115,15 @@ const UpDown = styled.div`
     }
 `
 
+const AlignLeft = styled.div`
+    text-align: left;
+    width: 100%;
+    min-width: 400px;
+    border-top: 1px solid ${props => props.theme.colors.lineAlt};
+    padding-top: 5%;
+    font-size: 0.9em;
+    color: ${props => props.theme.colors.text_title};
+`
 
 
 const GovernSection = () => {
@@ -125,7 +141,7 @@ const GovernSection = () => {
     var [teamFourMult, setTeamFourMult] = useState(3/3)
     var [teamFiveMult, setTeamFiveMult] = useState(3/3)
 
-    const calcMult = (vest,setOne,setTwo,setThree,setFour,setFive) => {
+    const calcMult = async(vest,setOne,setTwo,setThree,setFour,setFive) => {
         if(vest === 3){
             setOne(1/3)
             setTwo(2/3)
@@ -294,9 +310,9 @@ const GovernSection = () => {
         setTotalSupply(e);
     }
     const changeTeam = (e) => { setTeamMultiplier(e / 100)}
-    const changeTeamVest = (v) => {
-       setTeamVest(v)
-       calcMult(teamVest,setTeamOneMult,setTeamTwoMult,setTeamThreeMult,setTeamFourMult,setTeamFiveMult)
+    const changeTeamVest = async(v) => {
+       await setTeamVest(v)
+        calcMult(v,setTeamOneMult,setTeamTwoMult,setTeamThreeMult,setTeamFourMult,setTeamFiveMult)
     }
 
 
@@ -312,19 +328,19 @@ const GovernSection = () => {
     const changeAdv = (e) => {setAdvMultiplier(e / 100)}
     const changeAdvVest = (v) => {
         setAdvVest(v)
-        calcMult(advVest,setAdvOneMult,setAdvTwoMult,setAdvThreeMult,setAdvFourMult,setAdvFiveMult)
+        calcMult(v,setAdvOneMult,setAdvTwoMult,setAdvThreeMult,setAdvFourMult,setAdvFiveMult)
     }
 
     const changePriv = (e) => {setPrivMultiplier(e / 100)}
     const changePrivVest = (v) => {
         setPrivVest(v)
-        calcMult(privVest,setPrivOneMult,setPrivTwoMult,setPrivThreeMult,setPrivFourMult,setPrivFiveMult)
+        calcMult(v,setPrivOneMult,setPrivTwoMult,setPrivThreeMult,setPrivFourMult,setPrivFiveMult)
     }
 
     const changePub = (e) => { setPubMultiplier(e / 100)}
     const changePubVest = (v) => {
         setPubVest(v)
-        calcMult(pubVest,setPubOneMult,setPubTwoMult,setPubThreeMult,setPubFourMult,setPubFiveMult)
+        calcMult(v,setPubOneMult,setPubTwoMult,setPubThreeMult,setPubFourMult,setPubFiveMult)
     }
  
     const changeLiq = (e) => {
@@ -347,7 +363,7 @@ const GovernSection = () => {
         return (
             <>
                  <FlexColumn>
-                    <TokenInput defaultValue={value} min={1} max={100} onChange={change} width={'50px'} upHandler={upHandler} downHandler={downHandler}/><Pr>%</Pr>
+                    <TokenInput defaultValue={value} min={1} max={100} onChange={change} width={'50px'} upHandler={upHandler} downHandler={downHandler} precision={0} /><Pr>%</Pr>
                     <Whisper trigger="hover" placement="auto" speaker={<TT>{speaker}</TT>}><Label color={color}>{label}</Label></Whisper>
                     {vestValue >= 0 && <><TokenInput defaultValue={vestValue} min={1} max={5} onChange={vestChange} width={'50px'} upHandler={upHandler} downHandler={downHandler}/><Pr>vesting(y)</Pr></>}
                  </FlexColumn>
@@ -359,15 +375,15 @@ const GovernSection = () => {
         <>
         <SubNavigation>
                   {component === 'Resources' ? <ArticleActButton>Resources</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Resources')}>Resources</ArticleButton>}
-                  {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Chart</ArticleButton>}
-                  {component === 'Chart' &&  <AbsoluteDescription>Visualize tokenomics - TBD</AbsoluteDescription> }
+                  {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Tokenomics</ArticleButton>}
+                  {component === 'Chart' &&  <AbsoluteDescription>Design your tokenomics </AbsoluteDescription> }
                   {component === 'Resources' &&  <AbsoluteDescription>Resources related with tokenomics and governance</AbsoluteDescription> }
         </SubNavigation>
       <FlexColumn> 
        {component !== 'Resources' && <TokenForm>
-          <FlexColumn>To spend: {otherNumber >= 0 ? <Number>{otherNumber}</Number> : <Neg>{otherNumber}</Neg>}%</FlexColumn> 
+          <FlexColumn><Label color={theme.colors.text_primary}>To spend: </Label> {otherNumber >= 0 ? <Number>{otherNumber}</Number> : <Neg>{otherNumber}%</Neg>}</FlexColumn> 
                 <Flex>
-                    <Label>Token supply</Label><TokenInput defaultValue={10000} min={1} max={100000000000000} onChange={changeTotal} width={'150px'} /> 
+                    <FlexColumn><Label color={theme.colors.text_primary}>Token supply</Label><TokenInput defaultValue={10000} min={1} max={100000000000000} onChange={changeTotal} width={'150px'} /> </FlexColumn>
                     <FormRow value={teamNumber} change={changeTeam} vestValue={teamVest} vestChange={changeTeamVest} label={'Team'} color={theme.chart.varYellow_stroke} speaker={'Founding contributing team to sustain long-term commitment'} />
                     <FormRow value={commNumber} change={changeComm} label={'Community'} color={theme.chart.varOrange_stroke} speaker={'Allocation for incentivizing the community and staking'}/>
                     <FormRow value={treaNumber} change={changeTrea} label={'Treasury'} color={theme.chart.varBlue_stroke} speaker={'Reserve capital to cover opportunities, fuckups or distribute rewards to DAO'}/>
@@ -381,7 +397,6 @@ const GovernSection = () => {
         </TokenForm>}
         {component === 'Resources' && <GovernResources/>}
         {component === 'Code' && <GovernCode/>}
-
        {component === 'Chart' && 
        <ResponsiveContainer width="70%" height={600}>
                 <AreaChart
@@ -409,6 +424,15 @@ const GovernSection = () => {
                     </AreaChart>
         </ResponsiveContainer>}
         </FlexColumn>
+        <AlignLeft><EmptyButton>Design</EmptyButton>
+                        <li>Initial supply and allocation to team, investors, community, and other stakeholders</li>
+                        <li>Methods of distribution including token purchases, airdrops, grants, and partnerships</li>
+                        <li> Revenue split between users, service providers, and protocol</li>
+                        <li> Treasury size, structure, and intended uses</li>
+                        <li> Emission schedule including inflation, mint/burn rights, and supply caps</li>
+                        <li> Coin governance including voting, escrow, stake-weighting, vesting, and gauges</li>
+                        <li> Miner and validator compensation such as fees, emissions, and penalties</li>
+                        <li> Usage of protocol’s native tokens versus external tokens (e.g. ETH, USDC)</li></AlignLeft>
         </>
     )
 }

@@ -12,16 +12,6 @@ const Kontejner = styled.div`
 }
   
 `
-const ChartBox = styled.div`
-  margin-left: 5%;
-  margin-top: 10%;
-`
-
-const Title = styled.h3`
-  font-family: 'NoBill';
-  letter-spacing: 0.1rem;
-  color: ${props => props.theme.chart.title};
-`
 
 const data = [
     {
@@ -44,12 +34,11 @@ const data = [
     },
   ]
   
-export default function ChartLang() {
+export default function ChartPlayground() {
     const theme = useTheme()
 
+
     return <Kontejner> 
-   <Title>Tutorials by difficulty</Title>
-   <ChartBox>
       <BarChart width={530} height={350} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="diff" />
@@ -59,7 +48,6 @@ export default function ChartLang() {
             <Bar dataKey="Solidity" fill={theme.chart.var1_stroke} />
             <Bar dataKey="Rust" fill={theme.chart.var2_stroke}  />
             <Bar dataKey="JavaScript" fill={theme.chart.var3_stroke}  />
-        </BarChart>
-    </ChartBox>
+          </BarChart>
     </Kontejner>;
   }

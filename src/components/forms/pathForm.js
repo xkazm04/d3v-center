@@ -286,6 +286,17 @@ const SubNavigation = styled.div`
   padding-top: 1%;
 `
 
+const Com = styled.div`
+  font-size: 0.9em;
+  margin-left: 4%;
+  color: ${props => props.theme.colors.text_title};
+`
+
+const CodeRow = styled.div`
+  display: flex;
+  color: ${props => props.theme.colors.dark};
+`
+
 
 const myTheme = (theme) => ({
     ...theme,
@@ -635,6 +646,16 @@ export default function PathForm() {
                                <Flex> <TitleA>{tutorial.attributes.Title} </TitleA>  <Category>{tutorial.attributes.Description}</Category></Flex>  
                         </Result>
                 ))}
+                  <SectionTitle>Cheatsheet</SectionTitle>
+                  <code>
+                        <CodeRow>npm install -g truffle</CodeRow>
+                        <CodeRow>truffle unbox <Com>-- scaffold project</Com></CodeRow>
+                        <CodeRow>truffle init <Com>-- new clean project</Com></CodeRow>
+                        <CodeRow>truffle compile  <Com>-- compile to build/contracts</Com></CodeRow>
+                        <CodeRow>truffle migrate <Com>-- deploy to develop</Com></CodeRow>
+                        <CodeRow>truffle develop <Com>-- starts console, interact</Com></CodeRow>
+                        <CodeRow>truffle console <Com>-- attach console to Ganache</Com></CodeRow>
+                    </code>
                   </SetupColumn>}
                   {setupState === 'Hardhat' && <SetupColumn><SectionTitle>Hardhat</SectionTitle>
                   {setupTutorials.filter(s => s.attributes.Tool === 'Hardhat').map((tutorial) => (
@@ -642,6 +663,17 @@ export default function PathForm() {
                                  <Flex> <TitleA>{tutorial.attributes.Title}</TitleA>    <Category>{tutorial.attributes.Description}</Category></Flex> 
                           </Result>
                   ))}
+                  <SectionTitle>Cheatsheet</SectionTitle>
+                  <code>
+                        <CodeRow>npm init<Com>-- init node project</Com></CodeRow>
+                        <CodeRow>npm install --save-dev hardhat</CodeRow>
+                        <CodeRow>npx hardhat<Com>-- hardhat setup</Com></CodeRow>
+                        <CodeRow>npx hardhat compile<Com>-- compile to artifacts</Com></CodeRow>
+                        <CodeRow>npx hardhat clean<Com>-- clean compiled files</Com></CodeRow>
+                        <CodeRow>npx hardhat node<Com>-- start local node</Com></CodeRow>
+                        <CodeRow>npx hardhat run --network rinkeby scripts/deploy.js<Com>-- deploy</Com></CodeRow>
+                        <CodeRow>npx hardhat console --network localhost<Com>-- start console</Com></CodeRow>
+                    </code>
                   </SetupColumn>}
                   {setupState === 'Remix' &&  <SetupColumn><SectionTitle>Remix</SectionTitle>
                   {setupTutorials.filter(s => s.attributes.Tool === 'Remix').map((tutorial) => (
@@ -649,6 +681,14 @@ export default function PathForm() {
                           <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
                           </Result>
                   ))}
+                  <SectionTitle>Cheatsheet</SectionTitle>
+                  <code>
+                        <CodeRow>remix.debug(hash)<Com>-- debug tx</Com></CodeRow>
+                        <CodeRow>remix.debugHelp()<Com>-- display debug help</Com></CodeRow>
+                        <CodeRow>remix.exeCurrent()<Com>-- run IDE script</Com></CodeRow>
+                        <CodeRow>ethers.Contract<Com>-- connect to contract</Com></CodeRow>
+                        <CodeRow>web3.eth.accounts<Com>-- generate account & sign</Com></CodeRow>
+                    </code>
                   </SetupColumn>}
                   {setupState === 'Brownie' && <SetupColumn><SectionTitle>Brownie</SectionTitle>
                   {setupTutorials.filter(s => s.attributes.Tool === 'Brownie').map((tutorial) => (
@@ -656,6 +696,15 @@ export default function PathForm() {
                           <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
                           </Result>
                   ))}
+                  <SectionTitle>Cheatsheet</SectionTitle>
+                  <code>
+                        <CodeRow>pip3 install eth-brownie</CodeRow>
+                        <CodeRow>brownie init</CodeRow>
+                        <CodeRow>brownie bake token<Com>-- create erc20 template</Com></CodeRow>
+                        <CodeRow>brownie compile</CodeRow>
+                        <CodeRow>brownie console</CodeRow>
+                        <CodeRow>brownie run *.py --network ropsten<Com>-- deploy</Com></CodeRow>
+                    </code>
                   </SetupColumn>}
                   {setupState === 'Foundry' &&  <SetupColumn><SectionTitle>Foundry</SectionTitle>
                   {setupTutorials.filter(s => s.attributes.Tool === 'Foundry').map((tutorial) => (
@@ -663,6 +712,11 @@ export default function PathForm() {
                           <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
                           </Result>
                   ))}
+                  <SectionTitle>Cheatsheet</SectionTitle>
+                  <code>
+                  {/* eslint-disable-next-line */}
+                        <CodeRow><a href='https://github.com/foundry-rs/foundry/blob/master/forge/README.md#cheat-codes' target="_blank">Cheatcodes</a></CodeRow>
+                    </code>
                   </SetupColumn>}
                   </>}
                   

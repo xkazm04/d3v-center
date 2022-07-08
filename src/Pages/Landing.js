@@ -6,13 +6,14 @@ import ChartTutorial from "../components/charts/ChartUsage";
 import ChartLang from "../components/charts/ChartLang";
 import { DevelopIcon, CodeIcon } from "../icons/tool";
 import ArticleSection from '../sections/ArticleSection';
-import { ExitIcon, GithubIcon, MediumIcon } from '../icons/utils';
+import { GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
 import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';
 import LoopBox from '../components/boxes/LoopBox';
 import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
 import { PathSection } from '../icons/sections';
 import CharTotal from '../components/charts/ChartTotal';
+import { ExitArrow } from '../icons/arrows';
 
 
 
@@ -72,11 +73,10 @@ const Title = styled.h1`
 
 const Subtitle = styled.h2`
     margin-top: 2%;
-    font-family: 'Helvetica';
+    font-family: 'Staatliches';
     font-style: "italic";
     font-weight: 500;
     line-height: 1em;
-    text-transform: uppercase;
     color: ${props => props.theme.colors.text_secondary};
     font-size: 1.5em;
     @media (max-width: 700px) {
@@ -122,8 +122,10 @@ const Pre = styled.pre`
 const MyLink = styled(Link)`
     background: ${props => props.theme.colors.background};
     border-radius: 5px;
+    transition: 0.1s;
     &:hover{
         text-decoration: none;
+        background: ${props => props.theme.colors.light};
     }
 `
 
@@ -197,11 +199,11 @@ export default function Landing() {
                                 </ServiceButton>
                                 </Services>
                              {serviceDescription === '' ? null :    <CodeBox>
-                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null}     
-                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <ExitIcon width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null}     
+                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
                                 <LoopBox loop={true} firstFile={firstFile} secondFile={secondFile} thirdFile={thirdFile} fourthFile={fourthFile}/>
                                 </CodeBox>}
                             </Col>
@@ -214,7 +216,7 @@ export default function Landing() {
                             <Col xs={24} md={24}>
                                 <LeftBox>
                                     <Title>D3V Path</Title>
-                                    <Subtitle>Use guidance at any point of your struggle</Subtitle>
+                                    <Subtitle>Use guidance at any point of your struggle <MyLink to='/path'> <ExitArrow width='25' color={theme.chart.torso} /> </MyLink></Subtitle>
                                     <PathPicture><PathSection width={'1200'} height={'300'} color={theme.colors.text_primary}/></PathPicture>
                                 </LeftBox>
                                 </Col>

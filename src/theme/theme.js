@@ -16,6 +16,7 @@ export const lightTheme = {
        disabled: "#898989",
        step: "#4d97ff",
        text: "#0c0c0c",
+       dark: "#00306c",
  
        // Cards-Alternative colors
        blue: "#FFA3A3",
@@ -90,6 +91,7 @@ export const lightTheme = {
       yellow: "#fffcd9",
       step: "#9d0000",
       text: "#f3f3f3",
+      dark: "#c7dcf5",
  
       red: "#280000",
 
