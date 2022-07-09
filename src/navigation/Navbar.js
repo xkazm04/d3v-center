@@ -47,6 +47,7 @@ const NavGroup = styled.div`
 const MyLink = styled(Link)`
     text-decoration: none;
     color: inherit;
+    border-left: 0.1px dashed  ${props => props.theme.colors.line};
     &:hover{
         text-decoration: none;
     }

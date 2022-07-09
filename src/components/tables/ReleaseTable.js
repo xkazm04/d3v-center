@@ -58,6 +58,7 @@ const LastColumn = styled.div`
 const HitMainColumn = styled.div`
 width: ${props => props.width};
 display: flex;
+flex-direction: column;
 margin-top: 3px;
 margin-bottom: 3px;
 background: ${props => props.theme.colors.main};
@@ -88,8 +89,8 @@ const HitDescription = styled(Highlight)`
   font-family: 'Helvetica';
   font-size: 0.7rem;
   font-weight: 500;
-  opacity: 0.8;
-  margin-left: 2%;
+  opacity: 0.9;
+  font-style: italic;
   transition: 0.1s;
   &:hover{
     opacity: 1;
@@ -118,7 +119,9 @@ const HitSubCategory = styled(HitCategory)`
 
 const HitUpdate = styled.div`
   width: 80px;
-  font-size: 10px;
+  font-size: 0.8em;
+  font-weight: 700;
+  font-family: 'Helvetica';
   color: ${props => props.theme.colors.text_primary};
   &:hover{
     cursor: default;
@@ -145,6 +148,8 @@ const PaginationTitle = styled.p`
 const Flex = styled.div`
   display: flex;
   flex-direction: row;
+  border-bottom: 0.2px solid ${props => props.theme.colors.line};
+
 `
 
 const FlexFilter = styled(Flex)`
@@ -159,8 +164,6 @@ const MetaRow = styled.div`
 
 const ResultBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  border-bottom: 0.2px solid ${props => props.theme.colors.light};
   margin-top: 2px;
   transition: 0s;
   margin-bottom: 2px;
@@ -216,6 +219,10 @@ font-size: 0.8em;
 
 const TimeButton = styled.button`
   background: inherit;
+  transition: 0.1s;
+  &:hover{
+    opacity: 0.4;
+  }
 `
 
 const SelectItem = styled.div`
@@ -272,6 +279,23 @@ const MyTimeline = styled(VerticalTimeline)`
 
 const ChainDiv = styled.div`
  font-size: 0.8em;
+`
+
+
+const UpperTag = styled.div`
+  background: ${props => props.theme.colors.red};
+  border: 0.1px solid ${props => props.theme.chart.var3_fill};
+  font-family: 'Helvetica';
+  font-weight: 700;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 0.7em;
+  border-radius: 15px;
+`
+
+const DescBox = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const FilterIcon = ({width, height}) => {
@@ -352,8 +376,9 @@ function Hit(props) {
         </HitColumn>
           {/* Main column*/}
         <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.reference)}}>  
-            <HitTitle attribute="tool" hit={props.hit}  tagName="strong"/>
-            <HitDescription attribute="difference" hit={props.hit} tagName="strong" /> 
+          <DescBox> <HitDescription attribute="difference" hit={props.hit} tagName="strong" /> <UpperTag>{props.hit.version}</UpperTag></DescBox> 
+            <HitTitle attribute="tool" hit={props.hit}  tagName="strong"/>  
+            
         </HitMainColumn>
         <MyDivider vertical/>
         <HitColumn  width={'110px'}>
@@ -407,6 +432,7 @@ return (
                     <div key={item.id} item={item}>
                         <MyTimeline>
                           <VerticalTimelineElement
+                            position='right'
                             contentStyle={{ background: 'transparent', color: theme.colors.text_primary }}
                             contentArrowStyle={{ borderRight: `7px solid  ${theme.colors.text_title}` }}
                             iconStyle={{ background:  `${theme.colors.light}`, color: `${theme.colors.red}` }}

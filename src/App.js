@@ -1,6 +1,6 @@
 
 import './App.css';
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import {lightTheme, darkTheme} from "./theme/theme";
 
@@ -32,6 +32,7 @@ import { ChainContext } from './contexts/ChainContext';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrandIcon } from './icons/main';
 import {Helmet} from "react-helmet";
+import { HomeIcon } from './icons/landing';
 
 const queryClient = new QueryClient()
 
@@ -54,7 +55,8 @@ padding-top: 1%;
 
 const BrandTopBox = styled.div`
   position: absolute;
-  margin-left: 2%;
+  margin-left: 1%;
+  margin-top: 3px;
   display: flex;
 `
 
@@ -66,6 +68,16 @@ const Button = styled.div`
   background: inherit;
   cursor: pointer;
   padding: 10px;
+  border-radius: 15px; 
+  transition: 1s; 
+  margin-right: 5px;
+  &:hover{
+    background: ${props => props.theme.colors.red};
+  }
+`
+const HomeButton = styled.div`
+  background: inherit;
+  cursor: pointer;
   border-radius: 15px; 
   transition: 1s; 
   &:hover{
@@ -127,8 +139,8 @@ function App() {
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme} value={{theme,setTheme}}>
     <GlobalStyle />
     <BrandTopBox> 
-    
       {theme === 'light' ? <ThemeSwitcher><Button onClick={themeToggler}><BrandIcon color='#370000'/></Button></ThemeSwitcher> : <ThemeSwitcher><Button onClick={themeToggler}><GoLight/></Button></ThemeSwitcher>} 
+        <HomeButton><Link to='/'> {theme === 'light' ? <HomeIcon width='35' colorHeart='#007463' colorRoof='blue' /> :<HomeIcon width='35' colorHeart='#ffcfcf' colorRoof='none' />  } </Link></HomeButton>
     </BrandTopBox>
     <Kontejner>
     <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>

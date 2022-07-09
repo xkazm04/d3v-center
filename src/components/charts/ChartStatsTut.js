@@ -1,9 +1,8 @@
 
 import {BarChart, CartesianGrid, XAxis, Bar, Tooltip } from 'recharts'
 import styled, { useTheme } from 'styled-components'
-import {useContext, useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { TotalsContext } from '../../contexts/TotalsContext'
 
 const Kontejner = styled.div`
   display: flex;
@@ -13,7 +12,6 @@ const Kontejner = styled.div`
 export default function ChartStatsTut() {
     const theme = useTheme()
     const token = process.env.REACT_APP_CMS_API
-    const {totalTut} = useContext(TotalsContext)
     const [tutDefiSol, setTutDefiSol] = useState(0)
     const [tutSecSol, setTutSecSol] = useState(0)
     const [tutNftSol, setTutNftSol] = useState(0)
@@ -125,7 +123,7 @@ export default function ChartStatsTut() {
       } 
     ]
 
-    return <Kontejner> {totalTut === 0 ? null :<>Total:{totalTut}</>}
+    return <Kontejner> 
         <BarChart width={430} height={150} data={data}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="cat"  />

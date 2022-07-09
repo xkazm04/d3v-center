@@ -83,3 +83,40 @@ export const defThirdFile = {
 }
 
 
+export const pathFirstFile = {
+    title: 'Language',
+    step1: ' Solidity',
+    step2: ' Rust',
+    step3: ' JavaScript',
+    step4: ' Cairo',
+    step5: null,
+    step6: null,
+    step7: null,
+    step8: null
+}
+
+export const pathSecondFile = {
+    title: 'Defi',
+    step1: ' Lending',
+    step2: ' DEX',
+    step3: ' Vault',
+    step4: ' Payment',
+    step5: null,
+    step6: null,
+    step7: null,
+    step8: null
+}
+
+export const pathThirdFile = {
+    title: 'NFT',
+    step1: ' Collection',
+    step2: ' Gaming',
+    step3: ' Marketplace',
+    step4: ' Art',
+    step5: null,
+    step6: null,
+    step7: null,
+    step8: null
+}
+
+

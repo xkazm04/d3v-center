@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { Grid, Row, Col } from 'rsuite';
@@ -8,14 +8,67 @@ import { DevelopIcon, CodeIcon } from "../icons/tool";
 import ArticleSection from '../sections/ArticleSection';
 import { GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
-import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile } from '../data/landingCats';
+import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile, pathFirstFile, pathSecondFile, pathThirdFile } from '../data/landingCats';
 import LoopBox from '../components/boxes/LoopBox';
 import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
 import { PathSection } from '../icons/sections';
 import CharTotal from '../components/charts/ChartTotal';
 import { ExitArrow } from '../icons/arrows';
+import axios from 'axios'
+import { TotalsContext } from '../contexts/TotalsContext'
 
 
+const Pulse = styled.div`
+  box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+  animation: pulse-red 2s infinite;
+  border-radius: 5px;
+  &:hover{
+    background: black;
+  }
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+  }
+}
+`
+
+const MainPulse = styled.div`
+  box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+  padding: 2%;
+  animation: pulse-main 2s infinite;
+  border-radius: 5px;
+  transition: 0.2s;
+  &:hover{
+    background: black;
+  }
+@keyframes pulse-main {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 116, 99, 0.7);
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 116, 99, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 116, 99, 0);
+  }
+}
+`
 
 const Kontejner = styled.div`
     margin: 2%;
@@ -111,18 +164,24 @@ const CodeBox = styled.div`
     padding-left: 5%;
     padding-right: 5%;
     margin-top: 5%;
+    margin-right: 20%;
+    @media (max-width: 1300px) {
+        margin-right: 0;
+  }
 `
 
-const Pre = styled.pre`
+const Pre = styled.div`
+    display: flex;
     background: ${props => props.theme.colors.heavy};
-    padding-left: 5%;
+    margin: 2%;
+    padding: 2%;
 `
 
 
 const MyLink = styled(Link)`
-    background: ${props => props.theme.colors.background};
     border-radius: 5px;
     transition: 0.1s;
+    margin-left: 5%;
     &:hover{
         text-decoration: none;
         background: ${props => props.theme.colors.light};
@@ -149,7 +208,11 @@ justify-content: space-around;
     margin-top: 5%;
 `
 
-
+const AbsoluteBox = styled.div`
+    position: absolute;
+    right: 15rem;
+    margin-top: 50px;
+`
 
 export default function Landing() {
     const theme = useTheme()
@@ -167,6 +230,66 @@ export default function Landing() {
         setThirdFile(third)
         setFourthFile(fourth)
     }
+
+    const token = process.env.REACT_APP_CMS_API
+    const {setTotalTut,setTotalDef,setTotalRep,setTotalTool} = useContext(TotalsContext)
+
+    const getTutorials = async() => {
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/tutorials`, {headers: {
+                Authorization: `Bearer ${token}`
+                    }},)
+            const data = response.data.meta.pagination.total
+                setTotalTut(data)
+            } catch(error){
+                console.log(error)
+            }
+        }
+    
+    const getDefinitions = async() => {
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/definitions`, {headers: {
+                Authorization: `Bearer ${token}`
+                    }},)
+            const data = response.data.meta.pagination.total
+                setTotalDef(data)
+            } catch(error){
+                console.log(error)
+            }
+        }
+    
+    const getTools = async() => {
+        try{
+            const response = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/tools`, {headers: {
+                Authorization: `Bearer ${token}`
+                    }},)
+            const data = response.data.meta.pagination.total
+                setTotalTool(data)
+            } catch(error){
+                console.log(error)
+            }
+        }
+
+        const getRepos = async() => {
+            try{
+                const response = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/repos`, {headers: {
+                    Authorization: `Bearer ${token}`
+                        }},)
+                const data = response.data.meta.pagination.total
+                    setTotalRep(data)
+                } catch(error){
+                    console.log(error)
+                }
+            }
+
+    useEffect(() => {
+        getTutorials()
+        getDefinitions()
+        getTools()
+        getRepos()
+        // eslint-disable-next-line 
+    },[])
+
     // Přidat animaci na rozdělení stylu
     // Oddělit do souboru data pro každou sekci 
     return <Kontejner>
@@ -182,7 +305,7 @@ export default function Landing() {
                             </Col>
                             <Col xs={24} md={12}>
                                 <Services>
-                                <ServiceButton onClick={()=>{handleDescription('Path')}}>
+                                <ServiceButton onClick={()=>{handleDescription('Path',pathFirstFile, pathSecondFile, pathThirdFile, null)}}>
                                         <Flex><PathIcon width='50' height='50' color={theme.colors.text_title}/>D3V path</Flex>
                                 </ServiceButton>
                                 <ServiceButton onClick={()=>{handleDescription('Tutorials',tutDefiFile,tutNftFile,tutSecFile,tutDataFile)}}>
@@ -199,11 +322,11 @@ export default function Landing() {
                                 </ServiceButton>
                                 </Services>
                              {serviceDescription === '' ? null :    <CodeBox>
-                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null}     
-                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <ExitArrow width='15' color={theme.chart.torso} /> </MyLink></Pre> : null} 
+                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></Pre> : null} 
+                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'><Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse>  </MyLink></Pre> : null}     
+                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
+                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
                                 <LoopBox loop={true} firstFile={firstFile} secondFile={secondFile} thirdFile={thirdFile} fourthFile={fourthFile}/>
                                 </CodeBox>}
                             </Col>
@@ -215,8 +338,8 @@ export default function Landing() {
                         <Row>
                             <Col xs={24} md={24}>
                                 <LeftBox>
-                                    <Title>D3V Path</Title>
-                                    <Subtitle>Use guidance at any point of your struggle <MyLink to='/path'> <ExitArrow width='25' color={theme.chart.torso} /> </MyLink></Subtitle>
+                                    <Title>D3V Path  <AbsoluteBox><MainPulse><MyLink to='/path'><ExitArrow width='35' color={theme.colors.text_title} /> </MyLink></MainPulse></AbsoluteBox></Title>
+                                    <Subtitle>Use guidance at any point of your struggle</Subtitle>
                                     <PathPicture><PathSection width={'1200'} height={'300'} color={theme.colors.text_primary}/></PathPicture>
                                 </LeftBox>
                                 </Col>
