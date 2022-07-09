@@ -59,19 +59,9 @@ const UpperTag = styled.div`
   padding: 2px;
   padding-left: 4px;
   padding-right: 4px;
-  font-size: 0.7em;
+  font-size: 0.9em;
   border-radius: 15px;
-  margin-bottom: 2px;
-`
-
-const TagArea = styled.div`
   font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  position: absolute;
-  right: -5px;
-  color: ${props => props.theme.colors.unicornFill};
 `
 
 const Kontejner = styled.div`
@@ -85,9 +75,11 @@ const Section = styled.div`
 
 const Question = styled.div`
       font-family: 'Inder';
-      font-style: 'italic';
+      font-style: 'Helvetica';
       padding: 1%;
       color: ${props => props.theme.colors.text_primary};
+      font-weight: 500;
+      font-size: 1em;
       border-bottom: 0.5px solid ${props => props.theme.colors.lineAlt};
       &:hover{
         cursor: help;
@@ -196,10 +188,9 @@ export default function GovernResources() {
             <SectionTitle>Tools</SectionTitle>
                 {tools.map((tool) => (
                         <Result  key={tool.id}>
-                            <Flex><TitleA>  {tool.attributes.Title}</TitleA>  <Category>{tool.attributes.Description}</Category></Flex>
-                            <TagArea>      
-                              <UpperTag>{tool.attributes.Subcategory}</UpperTag>
-                          </TagArea>
+                            <Flex><TitleA>  {tool.attributes.Title}</TitleA>  <Category>{tool.attributes.Description}</Category></Flex>      
+                             <div> <UpperTag>{tool.attributes.Subcategory}</UpperTag></div>
+                          
                         </Result>
                 ))}
             </Section>}
@@ -212,9 +203,9 @@ export default function GovernResources() {
                 {definitions.map((definition) => (
                         <Result  key={definition.id}>
                             <Flex><TitleA>  {definition.attributes.Title}</TitleA>  <Category>{definition.attributes.Description}</Category></Flex>
-                            <TagArea>      
+                            <div>      
                               <UpperTag>{definition.attributes.Subcategory}</UpperTag>
-                          </TagArea>
+                          </div>
                         </Result>
                 ))}
             </Section>}
@@ -224,9 +215,9 @@ export default function GovernResources() {
                 {repos.map((repo) => (
                         <Result  key={repo.id}>
                             <Flex><TitleA>  {repo.attributes.title}</TitleA>  <Category>{repo.attributes.description}</Category></Flex>
-                            <TagArea>      
+                            <div>      
                               <UpperTag>{repo.attributes.subcategory}</UpperTag>
-                          </TagArea>
+                          </div>
                         </Result>
                 ))}
             </Section>}    </Col>

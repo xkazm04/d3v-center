@@ -21,6 +21,7 @@ import Path from './Pages/Path';
 import Landing from './Pages/Landing';
 import Releases from './Pages/Releases';
 import Charts from './Pages/Charts';
+import Email from './Pages/Email';
 
 import { GoLight, Pill } from './icons/main';
 
@@ -166,6 +167,7 @@ function App() {
                   <Route exact path ="/definitions"  component={Definitions}  />
                   <Route exact path ="/releases"  component={Releases}  />
                   <Route exact path ="/charts"  component={Charts}  />
+                  <Route exact path ="/email"  component={Email}  />
                   <Route exact path ="/"  component={Landing}  />
                   <Route path ="*" render={() => <Tutorials />}/> 
                   <Route render={() => <Redirect to="/" />} />

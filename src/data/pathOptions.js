@@ -13,20 +13,21 @@ export const catOptions = [
 export const subcatNftFeatures = [
     { value: 'crosschain', label: 'Crosschain' },
     { value: 'dynamic', label: 'Dynamic' },
-    { value: 'metaverse', label: 'Metaverse' },
     { value: 'fractional', label: 'Fractional' },
-    { value: 'whitelist', label: 'Whitelist' },
+    { value: 'metaverse', label: 'Metaverse' },
     { value: 'royalty', label: 'Royalty' },
+    { value: 'soulbound', label: 'Soulbound' },
+    { value: 'whitelist', label: 'Whitelist' },
     { value: 'auto', label: 'Automation (breeding)' },
   ];
 
 
   export const subcatDefiOptions = [
-    { value: 'lending', label: 'Lending' },
     { value: 'dex', label: 'DEX' },
-    { value: 'vault', label: 'Vault' },
-    { value: 'perpetual', label: 'Perpetual' },
+    { value: 'lending', label: 'Lending' },
     { value: 'payment', label: 'Payment' },
+    { value: 'perpetual', label: 'Perpetual' },
+    { value: 'vault', label: 'Vault' },
   ];
 
   export const subcatDefiFeatures = [
@@ -47,11 +48,11 @@ export const subcatNftFeatures = [
   ];
 
   export const subcatDaoFeatures = [
-    { value: 'staking', label: 'Staking' },
-    { value: 'tokenomics', label: 'Tokenomics' },
-    { value: 'automation', label: 'Automation' },
-    { value: 'stream', label: 'Stream' },
     { value: 'arbitrage', label: 'Arbitrage' },
+    { value: 'automation', label: 'Automation' },
+    { value: 'staking', label: 'Staking' },
+    { value: 'stream', label: 'Stream' },
+    { value: 'tokenomics', label: 'Tokenomics' },
     { value: 'vesting', label: 'Vesting' },
   ];
 

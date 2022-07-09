@@ -101,6 +101,8 @@ const RightBox = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: left;
+    border-left: 1px dashed ${props => props.theme.colors.line};
+    border-right: 1px dashed ${props => props.theme.colors.line};
 `
 
 const LogoBox = styled.div`
@@ -119,6 +121,8 @@ const Title = styled.h1`
     text-transform: uppercase;
     color: ${props => props.theme.colors.text_title};
     font-size: 2.4em;
+    padding: 5px;
+    box-shadow: 0px 2px 0px 0px ${props => props.theme.colors.text_title};
     @media (max-width: 700px) {
         font-size: 2em;
   }

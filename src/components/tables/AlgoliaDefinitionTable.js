@@ -425,7 +425,7 @@ function Hit(props) {
         {/* {props.hit.HitDifficulty !== null  ?  <HitDifficulty>{props.hit.Difficulty} </HitDifficulty> : null } */}
         <Difficulty>   
         {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25} color={theme.tool.basic}/></LazyLoad> : null} 
-            {props.hit.Difficulty === 'intermediate' ? <LazyLoad><DiffScholar width={25}/></LazyLoad> : null} 
+            {props.hit.Difficulty === 'intermediate' ? <LazyLoad><DiffScholar width={25} color={theme.chart.var1_stroke}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'advanced' ? <LazyLoad><DiffAdvanced width={25}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'hacker' ? <LazyLoad><DiffHacker width={25}/></LazyLoad> : null} 
         {props.hit.Difficulty}</Difficulty>

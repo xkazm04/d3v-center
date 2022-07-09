@@ -29,9 +29,11 @@ const Kontejner = styled.div`
 const FormBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 2%;
+    padding: 7%;
     margin-left: 5%;
     text-align: left;
+    border: 1px solid ${props => props.theme.colors.lineAlt};
+    border-radius: 15px;
     @media (max-width: 1000px) {
       width: 100%;
       margin: 0;
@@ -125,7 +127,7 @@ const FlexModal = styled.div`
 `
 
 const Category = styled.div`
-    font-size: 0.9em;
+    font-size: 1em;
     opacity: 0.8;
     &:hover{
         opacity: 1;
@@ -230,32 +232,27 @@ const SecActButton = styled(SecButton)`
 `
 
 
-const TagArea = styled.div`
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  position: absolute;
-  right: -5px;
-  color: ${props => props.theme.colors.unicornFill};
-`
-
 const UpperTag = styled.div`
   background: ${props => props.theme.colors.red};
   border: 0.1px solid ${props => props.theme.chart.var3_fill};
   padding: 2px;
   padding-left: 4px;
   padding-right: 4px;
-  font-size: 0.7em;
+  font-size: 0.9em;
   border-radius: 15px;
-  margin-bottom: 2px;
+  font-weight: 700;
+`
+
+const Warning = styled(UpperTag)`
+  color: red;
 `
 
 const StepDescription = styled.div`
   text-align: left;
-  font-family: 'Helvetica';
-  font-size: 1.2em;
-  padding-left: 2%;
+  font-family: 'Inder';
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-left: 2%;
 `
 
 const SetupKontejner = styled.div`
@@ -276,7 +273,7 @@ const TitleA = styled.div`
 
 const AbsoluteDescription = styled.div`
   font-style: italic;
-  font-family: 'Inder';
+  font-family: 'Courier';
   font-size: 1.1em;
   margin-left: 15px;
   color: ${props => props.theme.colors.text_title};
@@ -289,14 +286,22 @@ const SubNavigation = styled.div`
 const Com = styled.div`
   font-size: 0.9em;
   margin-left: 4%;
+  font-weight: 400;
   color: ${props => props.theme.colors.text_title};
 `
 
 const CodeRow = styled.div`
+  font-weight: 700;
   display: flex;
   color: ${props => props.theme.colors.dark};
 `
 
+const ComboTag = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  text-align: right;
+`
 
 const myTheme = (theme) => ({
     ...theme,
@@ -515,7 +520,7 @@ export default function PathForm() {
             <Row>
         <Col xs={24} md={6}>
         <FormBox>
-        <UpperTag>Feature in alpha - supported only EVM/Solidity</UpperTag>
+        <Warning>Feature in alpha - available only EVM/Solidity</Warning>
        <BoxTitle>D3V path</BoxTitle>
        <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
             <MySelect
@@ -587,26 +592,39 @@ export default function PathForm() {
         <DisplayBox>
             {step === 'Security' &&  <>
             {secTutorials && <RenderSection>
-            <SectionTitle>Exploits & Vulnerabilities</SectionTitle>
+            <SectionTitle>Exploits</SectionTitle>
                 {secTutorials.map((tutorial) => (
                         <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
                             <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
-                            <TagArea>      
+                            <div>      
                               <UpperTag>{tutorial.attributes.Category}</UpperTag>
-                          </TagArea>
+                          </div>
                         </Result>
                 ))}
             </RenderSection>}
             {secDefinitions && <RenderSection>
-            <SectionTitle>General knowledge</SectionTitle>
-                {secDefinitions.map((definition) => (
-                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                            <Flex>  <TitleA>{definition.attributes.Title}</TitleA>   <Category>{definition.attributes.Description}</Category></Flex>
-                            <TagArea>      
-                              <UpperTag>{definition.attributes.Subcategory}</UpperTag>
-                          </TagArea>
-                        </Result>
-                ))}
+            <SectionTitle>General</SectionTitle>
+                {secDefinitions.filter(s => s.attributes.Subcategory === 'General').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+            <SectionTitle>Audit</SectionTitle>
+                {secDefinitions.filter(s => s.attributes.Subcategory === 'Audit').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+            <SectionTitle>Vulnerabilities</SectionTitle>
+                {secDefinitions.filter(s => s.attributes.Subcategory === 'Vulnerability').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+              
             </RenderSection>}
               </>}
             {tutorials && <RenderSection>
@@ -615,24 +633,89 @@ export default function PathForm() {
                 {tutorials.map((tutorial) => (
                         <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
                           <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
-                           <div>{tutorial.attributes.Difficulty === 'basic' ? <DiffBasic width={25} color={theme.tool.basic} /> : null}
-                            {tutorial.attributes.Difficulty === 'intermediate' ? <DiffScholar width={25}/> : null}
-                            {tutorial.attributes.Difficulty === 'advanced' ? <DiffAdvanced width={25}/> : null}</div> 
+                           <ComboTag>{tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
+                            {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
+                            {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
+                            <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
+                            </ComboTag>    
+                           
                         </Result>
                 ))}
                 </></> : null}
             </RenderSection>}
             {definitions && <RenderSection>
                 {step === 'Develop' ? <>
-            <SectionTitle>Definitions & Theory</SectionTitle>
-                {definitions.map((definition) => (
-                        <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                            <Flex><TitleA>  {definition.attributes.Title}</TitleA>  <Category>{definition.attributes.Description}</Category></Flex>
-                            <TagArea>      
-                              <UpperTag>{definition.attributes.Subcategory}</UpperTag>
-                          </TagArea>
-                        </Result>
-                ))}
+                <SectionTitle>General topic articles</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'General').map((definition) => (
+                  <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                {subcat.label === "Lending" && <>  <SectionTitle>Lending</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Lending').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "DEX" && <>  <SectionTitle>DEX & AMM</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'DEX').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "Vault" && <>  <SectionTitle>Vaults & Yielding</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Vault').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "Perpetual" && <>  <SectionTitle>Perpetual</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Perpetual').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "Collection" && <>  <SectionTitle>NFT Collections</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Lazy').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "Gaming" && <>  <SectionTitle>Gaming</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Gaming').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+                {subcat.label === "Marketplace" && <>  <SectionTitle>Marketplace</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Rarity').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
+              {cat.value === "defi" && <>  <SectionTitle>Stablecoin</SectionTitle>
+                {definitions.filter(s => s.attributes.Subcategory === 'Stablecoin').map((definition) => (
+                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
+                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
+                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
+                          </Result>
+                  ))}
+                </>}
               </> : null}
             </RenderSection>}    
         </DisplayBox> }
@@ -732,9 +815,9 @@ export default function PathForm() {
                 {tools.map((tool) => (
                         <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
                             <Flex> <TitleA>{tool.attributes.Title}</TitleA>    <Category>{tool.attributes.Description}</Category></Flex>
-                            <TagArea>      
+                            <div>      
                               <UpperTag>{tool.attributes.Subcategory}</UpperTag>
-                          </TagArea>
+                          </div>
                         </Result>
                 ))}
                 </div> </> : <>{secTools && step === 'Security' && <RenderSection>
@@ -743,9 +826,9 @@ export default function PathForm() {
                 {secTools.map((tool) => (
                         <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
                             <Flex>  <TitleA>{tool.attributes.Title}</TitleA>   <Category>{tool.attributes.Description}</Category></Flex>
-                          <TagArea>      
+                          <div>      
                               <UpperTag>{tool.attributes.Subcategory}</UpperTag>
-                          </TagArea>
+                          </div>
                         </Result>
                 ))}
                 </div>
@@ -769,9 +852,9 @@ export default function PathForm() {
                   {setupTools.map((tool) => (
                   <Result  key={tool.id} onClick={()=>handleResultClick(tool.attributes.Reference)}>
                         <Flex> <TitleA>{tool.attributes.Title}</TitleA>    <Category>{tool.attributes.Description}</Category></Flex> 
-                        <TagArea>      
+                        <div>      
                               <UpperTag>{tool.attributes.Subcategory}</UpperTag>
-                          </TagArea>
+                          </div>
                   </Result>
                   ))}
                   </SetupColumn>}

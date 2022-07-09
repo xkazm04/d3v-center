@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Acala, Arbitrum, Astar, Aurora, Avalanche, Binance, Celo, Ethereum, Fantom, Harmony, Kava, Klaytn, Moonbeam, Optimism, Polygon } from '../icons/chain';
 import { ChainContext } from '../contexts/ChainContext';
@@ -64,6 +64,12 @@ const ChainSelector = ({eco}) => {
 
 
     const {setBlockchain} = useContext(ChainContext);
+
+    useEffect(() => {
+      setBlockchain('Ethereum')
+      // eslint-disable-next-line 
+  },[])
+
     return <Kontejner>
        {eco === 'evm' && <> 
               <ChainSection>  

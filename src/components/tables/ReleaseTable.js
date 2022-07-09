@@ -405,7 +405,6 @@ return (
           <Grid fluid> 
              <Row>
                 <Col xs={24} md={24} lg={7} xl={7}>
-
               <Box><BoxTitle content='Releases'/>
               <BoxSubtitle content='Check latest features and changes'/>             
               <Configure hitsPerPage={15} />   
