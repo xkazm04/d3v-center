@@ -4,13 +4,14 @@ import axios from 'axios'
 import Select from 'react-select';
 import { catOptions, subcatDaoFeatures,subcatDaoOptions, subcatNftOptions, subcatNftFeatures, subcatDefiFeatures, subcatDefiOptions} from '../../data/pathOptions';
 import { DiffAdvanced, DiffBasic, DiffScholar } from '../../icons/difficulty';
-import { Grid, Row, Col } from 'rsuite';
+import { Grid, Row, Col, Toggle } from 'rsuite';
 import ChainSelector from '../../sections/ChainSelector';
 import { fetchDaoPath,fetchNftPath, fetchDefiPath, fetchSecPath, fetchSetup } from '../../data/graphQueries';
 import {ArrowIcon} from '../../icons/nav'
 import { ChainContext } from '../../contexts/ChainContext';
 import ChainStats from '../../sections/ChainStats';
 import GovernSection from '../../sections/GovernSection';
+import PolkaPath from '../../sections/PolkaPath';
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -245,6 +246,7 @@ const UpperTag = styled.div`
 
 const Warning = styled(UpperTag)`
   color: red;
+  font-size: 0.8em;
 `
 
 const StepDescription = styled.div`
@@ -313,9 +315,18 @@ const myTheme = (theme) => ({
     },
 })
 
+const AbsoluteToggle = styled.div`
+  position: absolute;
+  right: 0;
+`
+
 export default function PathForm() {
      const theme = useTheme()
      const StepIcon =  <ArrowIcon color={theme.colors.text_title} width='30px' height='30px'/>
+     const [evmEco, setEvmEco] = useState(false) 
+     const toggleEco = () => {
+        setEvmEco(!evmEco)
+     }
 
     const {blockchain} = useContext(ChainContext)
     const [cat, setCat] = useState({value: '', label: 'Use case category'})
@@ -516,11 +527,14 @@ export default function PathForm() {
 
 
     return <Kontejner>
+    
+        {evmEco ? <><PolkaPath/></> : 
         <Grid fluid>
             <Row>
         <Col xs={24} md={6}>
         <FormBox>
         <Warning>Feature in alpha - available only EVM/Solidity</Warning>
+
        <BoxTitle>D3V path</BoxTitle>
        <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
             <MySelect
@@ -861,5 +875,7 @@ export default function PathForm() {
             </Col>
             </Row>
         </Grid>
-    </Kontejner>;
+        }
+         <AbsoluteToggle> <Toggle onChange={toggleEco} /></AbsoluteToggle>
+    </Kontejner>
   }
