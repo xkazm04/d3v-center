@@ -58,6 +58,11 @@ const MyStats = styled(Stats)`
   padding: 1%;
   margin-left: 20px;
   color: ${props => props.theme.colors.yellow};
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   @media (max-width: 700px) {
     margin-left: 0;
   }
@@ -68,6 +73,11 @@ const HitColumn = styled.div`
   flex-direction: start;
   text-align: left;
   padding-bottom: 2px;
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   &:hover{
   font-weight: 700;
 }
@@ -85,6 +95,11 @@ border-radius: 15px;
 text-align: left;
 padding-left: 2%;
 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 @media (max-width: 700px) {
     margin-left: 0;
     border-radius: 0;
@@ -99,6 +114,11 @@ const HitSeriesColumn = styled(HitColumn)`
   font-size: 12px;
   padding-top: 3%;
   font-family: 'Staatliches';
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 
@@ -148,6 +168,11 @@ const HitCategory = styled(Highlight)`
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const HitSubCategory = styled(HitCategory)`
@@ -173,6 +198,11 @@ const SelectItem = styled.div`
   text-align: left;
   min-width: ${props => props.width};
   margin-right: 1%;
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   @media (max-width: 700px) {
     display: none;
   }
@@ -222,14 +252,6 @@ box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
   }
 `
 
-const FilterButton = styled.button`
-background: ${props => props.theme.colors.background};
-transition: 0.1s;
-&:hover{
-  opacity:0.4;
-}
-`
-
 const MetaRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -265,6 +287,11 @@ border-top: 2px solid ${props => props.theme.colors.light};
 const Search = styled.div`
  background: ${props => props.theme.colors.background};
  padding-right: 100px;
+ animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
  @media (max-width: 700px) {
     padding-right: 5px;
     text-align: left;
@@ -359,10 +386,7 @@ const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => 
 return(
 <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
 {/* <InfoIcon width={'20'} color={'black'}/> */}
-</SelectTitle > <FilterButton >
-{filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
-  
-  </FilterButton></SelectTitleBox> 
+</SelectTitle></SelectTitleBox> 
  {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
 
 </SelectItem>
@@ -372,10 +396,7 @@ return(
 const MobileSelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
   return(
   <MobileItem> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
-  </SelectTitle > <FilterButton >
-  {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
-    
-    </FilterButton></SelectTitleBox> 
+  </SelectTitle></SelectTitleBox> 
    {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
   
   </MobileItem>
@@ -473,7 +494,7 @@ return (
               <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  
-              <SelectFilter title={'Src'} attribute={'Source'} width='90px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
+              <SelectFilter title={'Src'} attribute={'Source'} width='100px' filterEnabled={filterSource} clickFunction={switchFilterSource}/>
               <SelectFilter title={'Series'} attribute={'Series'}  width='150px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
               <Search>     <DebouncedSearchBox delay={500}/>        
               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
@@ -481,9 +502,9 @@ return (
               <SelectFilter title={'Language'} attribute={'Language'}  width='100px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/>
               <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='110px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
               <MobileSelectFilter title={'Difficulty'} attribute={'Difficulty'}  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
-              <SelectFilter title={'Usage'} attribute={'Usage'}  width='120px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
+              <SelectFilter title={'Usage'} attribute={'Usage'}  width='130px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
               <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='120px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
-              <SelectFilter title={'Chain'} attribute={'Chain'}  width='70px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
+              <SelectFilter title={'Chain'} attribute={'Chain'}  width='90px'  filterEnabled={filterChain} clickFunction={switchFilterChain} />
           
       </FlexFilter></LazyLoad>
 
@@ -502,18 +523,5 @@ return (
 )
 }
 
-const FilterIcon = ({width, height}) => {
-return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='#0C9682' stroke="#0C9682"/>
-<rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="#0C9682" stroke="white"/>
-</svg>  
-}
-
-const FilterActiveIcon = ({width, height}) => {
-return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='red' stroke="#0C9682"/>
-<rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="red" stroke="white"/>
-</svg>  
-}
 
 export default AlgoliaDefinitionTable;

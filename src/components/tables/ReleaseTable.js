@@ -265,14 +265,6 @@ const SelectTitleBox = styled.div`
     }
 `
 
-const FilterButton = styled.button`
-  background: ${props => props.theme.colors.background};
-  transition: 0.1s;
-  &:hover{
-    opacity:0.4;
-  }
-`
-
 const MyTimeline = styled(VerticalTimeline)`
   text-align: left;
 `
@@ -297,20 +289,6 @@ const DescBox = styled.div`
   display: flex;
   justify-content: space-between;
 `
-
-const FilterIcon = ({width, height}) => {
-  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='#0C9682' stroke="#0C9682"/>
-  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="#0C9682" stroke="white"/>
-  </svg>  
-}
-
-const FilterActiveIcon = ({width, height}) => {
-  return <svg width={width} height={height} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M2.27854 4.04257L7.78941 10.5554C7.81997 10.5915 7.83674 10.6373 7.83674 10.6846V16.332C7.83674 16.4038 7.87519 16.47 7.93751 16.5057L11.2518 18.3995C11.3851 18.4757 11.551 18.3795 11.551 18.2259V10.6794C11.551 10.6353 11.5656 10.5924 11.5925 10.5574L16.6095 4.03532C16.7107 3.9038 16.6169 3.71338 16.451 3.71338H2.43122C2.26095 3.71338 2.16856 3.91258 2.27854 4.04257Z" fill='red' stroke="#0C9682"/>
-  <rect x="1.41399" y="14.6313" width="18.8635" height="2.14286" transform="rotate(-45 1.41399 14.6313)" fill="red" stroke="white"/>
-  </svg>  
-}
 
 
 const AlgoliaDefinitionTable = () => {
@@ -352,12 +330,8 @@ const CustomMenuSelect = connectMenu(MenuSelect);
 const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
   return(
   <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
-  </SelectTitle > <FilterButton >
-  {filterEnabled ?  <FilterActiveIcon width={'10'} color={'#CB0000'}/> : <FilterIcon width={'10'} color={'#CB0000'}/>}
-    
-    </FilterButton></SelectTitleBox> 
+  </SelectTitle></SelectTitleBox> 
    {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
-  
   </SelectItem>
   )
 }
@@ -405,6 +379,7 @@ return (
           <Grid fluid> 
              <Row>
                 <Col xs={24} md={24} lg={7} xl={7}>
+
               <Box><BoxTitle content='Releases'/>
               <BoxSubtitle content='Check latest features and changes'/>             
               <Configure hitsPerPage={15} />   

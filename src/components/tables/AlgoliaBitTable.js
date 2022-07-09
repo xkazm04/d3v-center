@@ -64,6 +64,11 @@ const HitColumn = styled.div`
   flex-direction: start;
   text-align: left;
   padding-bottom: 2px;
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   &:hover{
   font-weight: 700;
 }
@@ -82,6 +87,11 @@ text-align: left;
 padding-left: 2%;
 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
 margin: 2px;
+animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 @media (max-width: 700px) {
     margin-left: 0;
     border-radius: 0;
@@ -145,6 +155,11 @@ const HitCategory = styled(Highlight)`
   font-size: 1em;
   background: ${props => props.theme.colors.purple};
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const HitSubCategory = styled(HitCategory)`
@@ -166,6 +181,11 @@ const SelectItem = styled.div`
   text-align: left;
   min-width: ${props => props.width};
   margin-right: 1%;
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   @media (max-width: 700px) {
     display: none;
   }
@@ -252,6 +272,11 @@ const ResultBox = styled.div`
 
 const HitBox = styled.div`
 border-top: 2px solid ${props => props.theme.colors.light};
+animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   @media (min-width: 700px) {
   position: sticky;
   padding: 5px;
@@ -260,6 +285,11 @@ border-top: 2px solid ${props => props.theme.colors.light};
 
 const Search = styled.div`
  background: ${props => props.theme.colors.background};
+ animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
  padding-right: 110px;
  @media (max-width: 700px) {
   padding-right: 5px;

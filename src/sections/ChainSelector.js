@@ -10,6 +10,11 @@ const Kontejner = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 5%;
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const IconButton = styled.button`

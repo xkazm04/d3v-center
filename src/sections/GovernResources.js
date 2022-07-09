@@ -17,6 +17,11 @@ const SectionTitle = styled.div`
     font-family: 'Spectral', serif;
     border-radius: 5px;
     margin-bottom: 2%;
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const Result = styled.div`
@@ -28,6 +33,11 @@ const Result = styled.div`
     cursor: pointer;
     color: ${props => props.theme.colors.text_title};
     border-bottom: 1px solid ${props => props.theme.colors.background};
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
     &:hover{
         background: ${props => props.theme.colors.lighter};
         box-shadow: 0px 0px 10px 0px ${props => props.theme.colors.line};
@@ -71,6 +81,11 @@ const Kontejner = styled.div`
 
 const Section = styled.div`
     margin: 1%;
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const Question = styled.div`

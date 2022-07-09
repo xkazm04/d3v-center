@@ -39,6 +39,11 @@ const FormBox = styled.div`
       width: 100%;
       margin: 0;
   }
+  animation: fadeIn 0.5s;
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 `
 
 const BoxSubtitle = styled.div`
@@ -111,10 +116,19 @@ const SectionTitle = styled.div`
     font-family: 'Spectral', serif;
     border-radius: 5px;
     margin-bottom: 2%;
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const RenderSection = styled.div`
-
+      animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const Flex = styled.div`
@@ -148,6 +162,11 @@ const Result = styled.div`
     &:hover{
         background: ${props => props.theme.colors.lighter};
         box-shadow: 0px 0px 10px 0px ${props => props.theme.colors.line};
+    }
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 `
 

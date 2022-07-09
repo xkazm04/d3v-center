@@ -24,6 +24,7 @@ const NavItem = styled.button`
     padding-left: 10px;
     margin: 5px;
     transition: 0.2s;
+    border-left: 0.1px dashed  ${props => props.theme.colors.line};
     &:hover{
         opacity: 0.6;
     }
@@ -47,7 +48,6 @@ const NavGroup = styled.div`
 const MyLink = styled(Link)`
     text-decoration: none;
     color: inherit;
-    border-left: 0.1px dashed  ${props => props.theme.colors.line};
     &:hover{
         text-decoration: none;
     }

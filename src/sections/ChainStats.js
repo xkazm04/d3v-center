@@ -8,6 +8,11 @@ const Kontejner = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5%;
+  animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   
 `
 const Title = styled.div`
@@ -16,6 +21,7 @@ const Title = styled.div`
     padding-bottom: 5%;
     font-family: 'NoBill';
     min-width: 100%;
+    animation: fadeIn 0.5s;
 `
 const StatBox = styled.div`
     display: flex;
