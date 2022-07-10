@@ -591,3 +591,29 @@ export const Klaytn = ({width, height}) => {
 </svg>
 
 }
+
+export const Cronos = ({width, height}) => {
+  return <svg width={width} height={height} viewBox="0 0 216 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_377_857)">
+  <path d="M108.005 0L0 62.4975V187.502L108.005 250L216.01 187.502V62.4975L108.005 0Z" fill="url(#paint0_linear_377_857)"/>
+  <path d="M108.005 0L0 62.4975V187.502L108.005 250V0Z" fill="url(#paint1_linear_377_857)"/>
+  <path d="M150.105 54.0059H65.3471L55.5022 97.3126H160.498L150.105 54.0059ZM80.3835 156.803V128.022L55.2331 112.118L26.7945 133.227L65.6161 200.939H81.2105L99.5252 183.666V175.165L80.3835 156.803Z" fill="white"/>
+  <path d="M135.348 103.896H80.6625L89.6903 128.022L86.96 155.165H129.07L126.34 128.022L135.348 103.896Z" fill="white"/>
+  <path d="M160.498 111.838L135.617 128.012V156.793L116.754 175.155V183.657L135.069 200.65H150.384L188.936 133.217L160.498 111.838Z" fill="white"/>
+  </g>
+  <defs>
+  <linearGradient id="paint0_linear_377_857" x1="108.002" y1="-0.000335113" x2="108.002" y2="250" gradientUnits="userSpaceOnUse">
+  <stop stop-color="#25376C"/>
+  <stop offset="1" stop-color="#1F1F49"/>
+  </linearGradient>
+  <linearGradient id="paint1_linear_377_857" x1="54.0013" y1="250" x2="54.0013" y2="-0.000327826" gradientUnits="userSpaceOnUse">
+  <stop stop-color="#25376C"/>
+  <stop offset="1" stop-color="#1F1F49"/>
+  </linearGradient>
+  <clipPath id="clip0_377_857">
+  <rect width="216" height="250" fill="white"/>
+  </clipPath>
+  </defs>
+  </svg>
+  
+}

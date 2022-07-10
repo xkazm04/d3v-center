@@ -189,7 +189,7 @@ export const chainData = [
         "trpc": "",
         "grant":"",
         "swap": "Uniswap V3",
-        "attribute": "Nothing to be said",
+        "attribute": "Mother of web3, nothing else to be said.",
         "reasonPlus": "Rich ecosystem of app with trustworthy decentralization and massive TVL attractive for institutional DeFi",
         "reasonMinus": "Inability to scale on its own leads to higher fees and reason why to build elsewhere for use cases of the future.",
         "node": "Infura",

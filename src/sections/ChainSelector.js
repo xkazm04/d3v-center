@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { Acala, Arbitrum, Astar, Aurora, Avalanche, Binance, Celo, Ethereum, Fantom, Harmony, Kava, Klaytn, Moonbeam, Optimism, Polygon } from '../icons/chain';
+import { Acala, Arbitrum, Astar, Aurora, Avalanche, Binance, Celo, Cronos, Ethereum, Fantom, Harmony, Kava, Klaytn, Moonbeam, Optimism, Polygon } from '../icons/chain';
 import { ChainContext } from '../contexts/ChainContext';
 
 const width=40;
@@ -107,7 +107,7 @@ const ChainSelector = ({eco}) => {
         <ChainSection>
             <SectionTitle>L1 market competitors</SectionTitle>  
               <Flex>
-                <FlexRow><IconButton onClick={()=>setBlockchain('Cronos')}><Fantom width={width}/><Description>Cronos</Description></IconButton></FlexRow>
+                <FlexRow><IconButton onClick={()=>setBlockchain('Cronos')}><Cronos width={width}/><Description>Cronos</Description></IconButton></FlexRow>
                  <FlexRow><IconButton onClick={()=>setBlockchain('Celo')}><Celo width={width}/><Description>Celo</Description></IconButton></FlexRow>
                  <FlexRow><IconButton onClick={()=>setBlockchain('Fantom')}><Fantom width={width}/><Description>Fantom</Description></IconButton></FlexRow>
               </Flex>

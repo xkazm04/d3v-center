@@ -267,6 +267,7 @@ const UpperTag = styled.div`
 const Warning = styled(UpperTag)`
   color: red;
   font-size: 0.8em;
+  margin-bottom: 5%;
 `
 
 const StepDescription = styled.div`
@@ -553,7 +554,7 @@ export default function PathForm() {
             <Row>
         <Col xs={24} md={6}>
         <FormBox>
-        <Warning>Feature in alpha - available only EVM/Solidity</Warning>
+        <Warning>Alpha - available only EVM/Solidity path</Warning>
 
        <BoxTitle>D3V path</BoxTitle>
        <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
@@ -668,7 +669,7 @@ export default function PathForm() {
                 {subcat.label === "Perpetual" && <GqlFilterdMapper data={definitions} title={'Perpetual'} filter={'Perpetual'}/>}
                 {subcat.label === "Collection" && <GqlFilterdMapper data={definitions} title={'NFT Collections'} filter={'Lazy'}/>}
                 {subcat.label === "Gaming" && <GqlFilterdMapper data={definitions} title={'Gaming'} filter={'Gaming'}/>}
-                {subcat.label === "Marketplace" && <GqlFilterdMapper data={definitions} title={'NFT Marketplace'} filter={'Marketplace'}/>}
+                {subcat.label === "Marketplace" && <GqlFilterdMapper data={definitions} title={'Use cases'} filter={'Use case'}/>}
                 {cat.value === "defi" && <GqlFilterdMapper data={definitions} title={'Stablecoin'} filter={'Stablecoin'}/>}
               </> : null}
             </RenderSection>}    

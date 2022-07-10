@@ -73,6 +73,11 @@ const MainPulse = styled.div`
 const Kontejner = styled.div`
     margin: 2%;
     margin-left: 3%;
+    animation: fadeIn 0.5s;
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
     @media (max-width: 700px) {
     margin: 0;
   }
@@ -122,7 +127,6 @@ const Title = styled.h1`
     color: ${props => props.theme.colors.text_title};
     font-size: 2.4em;
     padding: 5px;
-    box-shadow: 0px 2px 0px 0px ${props => props.theme.colors.text_title};
     @media (max-width: 700px) {
         font-size: 2em;
   }
