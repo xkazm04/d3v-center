@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { fetchGovern } from '../data/graphQueries';
 import { Grid, Row, Col } from 'rsuite';
 import { Tooltip as TT, Whisper } from 'rsuite';
+import { GqlMapper, GqlRMapper } from './GqlMappers';
 
 // Query sections 
 const SectionTitle = styled.div`
@@ -24,25 +25,6 @@ const SectionTitle = styled.div`
     }
 `
 
-const Result = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    outline: none;
-    padding: 1%;
-    cursor: pointer;
-    color: ${props => props.theme.colors.text_title};
-    border-bottom: 1px solid ${props => props.theme.colors.background};
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    &:hover{
-        background: ${props => props.theme.colors.lighter};
-        box-shadow: 0px 0px 10px 0px ${props => props.theme.colors.line};
-    }
-`
 
 const Flex = styled.div`
     display: flex;
@@ -50,29 +32,6 @@ const Flex = styled.div`
     text-align: left;
 `
 
-const TitleA = styled.div`
-  font-size: 1.1em;
-  font-weight: 700;
-`
-
-const Category = styled.div`
-    font-size: 0.9em;
-    opacity: 0.8;
-    &:hover{
-        opacity: 1;
-    }
-`
-
-const UpperTag = styled.div`
-  background: ${props => props.theme.colors.red};
-  border: 0.1px solid ${props => props.theme.chart.var3_fill};
-  padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 0.9em;
-  border-radius: 15px;
-  font-weight: 700;
-`
 
 const Kontejner = styled.div`
     display: flex;
@@ -167,13 +126,7 @@ export default function GovernResources() {
        <Row>
         <Col xs={24} md={9}>
            
-    {tutorials && <Section>
-    <SectionTitle>Tutorials</SectionTitle>
-            {tutorials.map((tutorial) => (
-                                <Result  key={tutorial.id}>
-                                <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
-                                </Result>
-                        ))}
+    {tutorials && <Section><GqlMapper data={tutorials} title={'Tutorials'}/>
             <Flex>
             <SectionTitle>Ask yourself</SectionTitle>
                 <Q question={"What's the utility behind token?"} speaker={<Flex>
@@ -199,43 +152,15 @@ export default function GovernResources() {
             </Flex>
             </Section>}
             </Col><Col xs={24} md={9}>
-            {tools && <Section>
-            <SectionTitle>Tools</SectionTitle>
-                {tools.map((tool) => (
-                        <Result  key={tool.id}>
-                            <Flex><TitleA>  {tool.attributes.Title}</TitleA>  <Category>{tool.attributes.Description}</Category></Flex>      
-                             <div> <UpperTag>{tool.attributes.Subcategory}</UpperTag></div>
-                          
-                        </Result>
-                ))}
-            </Section>}
+                    {tools && <Section><GqlMapper data={tools} title={'Tools'}/></Section>}
             </Col>
             </Row>
             <Row>
             <Col xs={24} md={9}>
-            {definitions && <Section>
-            <SectionTitle>Definitions & Theory</SectionTitle>
-                {definitions.map((definition) => (
-                        <Result  key={definition.id}>
-                            <Flex><TitleA>  {definition.attributes.Title}</TitleA>  <Category>{definition.attributes.Description}</Category></Flex>
-                            <div>      
-                              <UpperTag>{definition.attributes.Subcategory}</UpperTag>
-                          </div>
-                        </Result>
-                ))}
-            </Section>}
+                {definitions && <Section> <GqlMapper data={definitions} title={'Definitions & Theory'}/></Section>}
             </Col><Col xs={24} md={9}>
-            {repos && <Section>
-            <SectionTitle>Get inspired</SectionTitle>
-                {repos.map((repo) => (
-                        <Result  key={repo.id}>
-                            <Flex><TitleA>  {repo.attributes.title}</TitleA>  <Category>{repo.attributes.description}</Category></Flex>
-                            <div>      
-                              <UpperTag>{repo.attributes.subcategory}</UpperTag>
-                          </div>
-                        </Result>
-                ))}
-            </Section>}    </Col>
+            {repos && <Section> <GqlRMapper data={repos} title={'Get inspired'}/></Section>}
+                  </Col>
                 </Row>
             </Grid>}
     </Kontejner>;

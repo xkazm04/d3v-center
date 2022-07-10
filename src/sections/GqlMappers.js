@@ -204,6 +204,31 @@ export const GqlPMapperAlt = ({data, title}) => {
     )
 }
 
+export const GqlMapper = ({data, title}) => {
+    return(<>
+    <SectionTitle>{title}</SectionTitle>
+    {data.map((d) => (
+      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
+                     <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
+                     <div>   <UpperTag>{d.attributes.Subcategory}</UpperTag></div>
+              </Result>
+      ))}
+    </>)
+}
+
+export const GqlRMapper = ({data, title}) => {
+    return(<>
+    <SectionTitle>{title}</SectionTitle>
+    {data.map((d) => (
+      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.reference)}>
+                     <Flex> <TitleA>{d.attributes.title}</TitleA>    <Category>{d.attributes.description}</Category></Flex> 
+                     <div>   <UpperTag>{d.attributes.subcategory}</UpperTag></div>
+              </Result>
+      ))}
+    </>)
+}
+
+
 export const GqlFilterdMapper = ({data, title, filter}) => {
     return(<>
     <SectionTitle>{title}</SectionTitle>

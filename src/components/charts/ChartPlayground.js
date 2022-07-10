@@ -16,6 +16,7 @@ const Box = styled.div`
   flex-direction: column;
   border: 0.1px dashed ${props => props.theme.colors.text_title};  
   margin-right: 1%;
+  margin-bottom: 5%;
 `
 
 const Title = styled.div`
@@ -104,27 +105,27 @@ const dataDefTwo = [
   const dataTools = [
     {
       "name": "NFT",
-      "value": 21,
+      "Total (210)": 21,
     },
     {
       "name": "Develop",
-      "value": 55,
+      "Total (210)": 55,
     },
     {
       "name": "Monitor",
-      "value": 22,
+      "Total (210)": 22,
     },
     {
       "name": "DAO",
-      "value": 11,
+      "Total (210)": 11,
     },
     {
       "name": "Security",
-      "value": 17,
+      "Total (210)": 17,
     },
     {
       "name": "Frontend",
-      "value": 9,
+      "Total (210)": 9,
     }
 
   ]
@@ -133,27 +134,27 @@ const dataDefTwo = [
 const dataReposTwo = [
   {
     "name": "NFT",
-    "value": 27,
+    "Total (130)": 27,
   },
   {
     "name": "Defi",
-    "value": 49,
+    "Total (130)": 49,
   },
   {
     "name": "Tokenomics",
-    "value": 20,
+    "Total (130)": 20,
   },
   {
     "name": "DAO",
-    "value": 5,
+    "Total (130)": 5,
   },
   {
     "name": "Education",
-    "value": 6,
+    "Total (130)": 6,
   },
   {
     "name": "MEV",
-    "value": 8,
+    "Total (130)": 8,
   }
 
 ]
@@ -176,7 +177,6 @@ export default function ChartPlayground() {
                     left: 20,
                     bottom: 5,
                   }}
-      
       >
                <XAxis dataKey={"name"}/>
             <YAxis />
@@ -232,7 +232,7 @@ export default function ChartPlayground() {
             <Tooltip />
             <CartesianGrid strokeDasharray="3 3" />
             <Legend iconType={'line'} />
-            <Bar dataKey="value" fill={theme.chart.var1_stroke} />
+            <Bar dataKey="Total (210)" fill={theme.chart.var1_stroke} />
           </BarChart>
           </Box>
           <Box>
@@ -250,12 +250,9 @@ export default function ChartPlayground() {
             <Tooltip />
             <CartesianGrid strokeDasharray="3 3" />
             <Legend iconType={'line'} />
-            <Bar dataKey="value" fill={theme.chart.var1_stroke} />
+            <Bar dataKey="Total (130)" fill={theme.chart.var1_stroke} />
           </BarChart>
           </Box>
-    </Kontejner>
-    <Kontejner> 
-
     </Kontejner>
     
     
