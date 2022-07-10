@@ -391,3 +391,60 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
     }
   }
   `
+
+  export const fetchPolka = `query FetchPolkaPath  {
+    tutorials (pagination: {limit: 550 },filters: 
+        {Chain:{eq:"Polkadot"}}){ 
+      data  {
+        attributes {
+          Title 
+          Description 
+          Difficulty
+          Category
+          Subcategory
+          Reference
+          ViewCounter
+        }
+      }
+    }
+    definitions (pagination: {limit: 150 },filters: 
+      {Chain:{eq:"Polkadot"}}){ 
+      data  {
+        attributes {
+          Title 
+          Description
+          Usage
+          Subcategory 
+          Reference
+          ViewCounter
+        }
+      }
+    }
+    tools (pagination: {limit: 150 },filters: 
+        {Chain:{eq:"Polkadot"}
+      }){ 
+      data  {
+        attributes {
+          Title 
+          Description 
+          Chain
+          Usage
+          Reference
+          Subcategory
+        }
+      }
+    }
+    repos (pagination: {limit: 150 },filters: 
+        {language:{eq:"Ink"}}){ 
+      data  {
+        attributes {
+          title 
+          description 
+          usage
+          subcategory
+          reference
+        }
+      }
+    }
+  }
+  `

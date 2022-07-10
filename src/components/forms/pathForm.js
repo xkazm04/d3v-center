@@ -12,6 +12,7 @@ import { ChainContext } from '../../contexts/ChainContext';
 import ChainStats from '../../sections/ChainStats';
 import GovernSection from '../../sections/GovernSection';
 import PolkaPath from '../../sections/PolkaPath';
+import { GqlFilterdMapper, GqlToolMapper } from '../../sections/GqlMappers';
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -636,28 +637,9 @@ export default function PathForm() {
                 ))}
             </RenderSection>}
             {secDefinitions && <RenderSection>
-            <SectionTitle>General</SectionTitle>
-                {secDefinitions.filter(s => s.attributes.Subcategory === 'General').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-            <SectionTitle>Audit</SectionTitle>
-                {secDefinitions.filter(s => s.attributes.Subcategory === 'Audit').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-            <SectionTitle>Vulnerabilities</SectionTitle>
-                {secDefinitions.filter(s => s.attributes.Subcategory === 'Vulnerability').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-              
+                <GqlFilterdMapper data={secDefinitions} title={'General'} filter={'General'}/>
+                <GqlFilterdMapper data={secDefinitions} title={'Audit'} filter={'Audit'}/>
+                <GqlFilterdMapper data={secDefinitions} title={'Vulnerabilities'} filter={'Vulnerability'}/>
             </RenderSection>}
               </>}
             {tutorials && <RenderSection>
@@ -678,77 +660,16 @@ export default function PathForm() {
             </RenderSection>}
             {definitions && <RenderSection>
                 {step === 'Develop' ? <>
-                <SectionTitle>General topic articles</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'General').map((definition) => (
-                  <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                {subcat.label === "Lending" && <>  <SectionTitle>Lending</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Lending').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "DEX" && <>  <SectionTitle>DEX & AMM</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'DEX').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "Vault" && <>  <SectionTitle>Vaults & Yielding</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Vault').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "Perpetual" && <>  <SectionTitle>Perpetual</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Perpetual').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "Collection" && <>  <SectionTitle>NFT Collections</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Lazy').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "Gaming" && <>  <SectionTitle>Gaming</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Gaming').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-                {subcat.label === "Marketplace" && <>  <SectionTitle>Marketplace</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Rarity').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
-              {cat.value === "defi" && <>  <SectionTitle>Stablecoin</SectionTitle>
-                {definitions.filter(s => s.attributes.Subcategory === 'Stablecoin').map((definition) => (
-                 <Result  key={definition.id} onClick={()=>handleResultClick(definition.attributes.Reference,definition.id,definition.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{definition.attributes.Title}</TitleA>    <Category>{definition.attributes.Description}</Category></Flex> 
-                                 <div>   <UpperTag>{definition.attributes.Subcategory}</UpperTag></div>
-                          </Result>
-                  ))}
-                </>}
+                <GqlFilterdMapper data={definitions} title={'General topic articles'} filter={'General'}/>
+                
+                {subcat.label === "Lending" && <GqlFilterdMapper data={definitions} title={'Lending'} filter={'Lending'}/>}
+                {subcat.label === "DEX" && <GqlFilterdMapper data={definitions} title={'DEX & AMM'} filter={'DEX'}/>}
+                {subcat.label === "Vault" && <GqlFilterdMapper data={definitions} title={'Vaults & Yielding'} filter={'Vault'}/>}
+                {subcat.label === "Perpetual" && <GqlFilterdMapper data={definitions} title={'Perpetual'} filter={'Perpetual'}/>}
+                {subcat.label === "Collection" && <GqlFilterdMapper data={definitions} title={'NFT Collections'} filter={'Lazy'}/>}
+                {subcat.label === "Gaming" && <GqlFilterdMapper data={definitions} title={'Gaming'} filter={'Gaming'}/>}
+                {subcat.label === "Marketplace" && <GqlFilterdMapper data={definitions} title={'NFT Marketplace'} filter={'Marketplace'}/>}
+                {cat.value === "defi" && <GqlFilterdMapper data={definitions} title={'Stablecoin'} filter={'Stablecoin'}/>}
               </> : null}
             </RenderSection>}    
         </DisplayBox> }
@@ -773,46 +694,34 @@ export default function PathForm() {
                         <CodeRow>truffle console <Com>-- attach console to Ganache</Com></CodeRow>
                     </code>
                   </SetupColumn>}
-                  {setupState === 'Hardhat' && <SetupColumn><SectionTitle>Hardhat</SectionTitle>
-                  {setupTutorials.filter(s => s.attributes.Tool === 'Hardhat').map((tutorial) => (
-                  <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
-                                 <Flex> <TitleA>{tutorial.attributes.Title}</TitleA>    <Category>{tutorial.attributes.Description}</Category></Flex> 
-                          </Result>
-                  ))}
-                  <SectionTitle>Cheatsheet</SectionTitle>
-                  <code>
-                        <CodeRow>npm init<Com>-- init node project</Com></CodeRow>
-                        <CodeRow>npm install --save-dev hardhat</CodeRow>
-                        <CodeRow>npx hardhat<Com>-- hardhat setup</Com></CodeRow>
-                        <CodeRow>npx hardhat compile<Com>-- compile to artifacts</Com></CodeRow>
-                        <CodeRow>npx hardhat clean<Com>-- clean compiled files</Com></CodeRow>
-                        <CodeRow>npx hardhat node<Com>-- start local node</Com></CodeRow>
-                        <CodeRow>npx hardhat run --network rinkeby scripts/deploy.js<Com>-- deploy</Com></CodeRow>
-                        <CodeRow>npx hardhat console --network localhost<Com>-- start console</Com></CodeRow>
-                    </code>
+                  {setupState === 'Hardhat' && <SetupColumn>
+                    <GqlToolMapper data={setupTutorials} title={'Hardhat'} filter={'Hardhat'}/>
+                    <SectionTitle>Cheatsheet</SectionTitle>
+                    <code>
+                          <CodeRow>npm init<Com>-- init node project</Com></CodeRow>
+                          <CodeRow>npm install --save-dev hardhat</CodeRow>
+                          <CodeRow>npx hardhat<Com>-- hardhat setup</Com></CodeRow>
+                          <CodeRow>npx hardhat compile<Com>-- compile to artifacts</Com></CodeRow>
+                          <CodeRow>npx hardhat clean<Com>-- clean compiled files</Com></CodeRow>
+                          <CodeRow>npx hardhat node<Com>-- start local node</Com></CodeRow>
+                          <CodeRow>npx hardhat run --network rinkeby scripts/deploy.js<Com>-- deploy</Com></CodeRow>
+                          <CodeRow>npx hardhat console --network localhost<Com>-- start console</Com></CodeRow>
+                      </code>
                   </SetupColumn>}
-                  {setupState === 'Remix' &&  <SetupColumn><SectionTitle>Remix</SectionTitle>
-                  {setupTutorials.filter(s => s.attributes.Tool === 'Remix').map((tutorial) => (
-                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
-                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
-                          </Result>
-                  ))}
-                  <SectionTitle>Cheatsheet</SectionTitle>
-                  <code>
-                        <CodeRow>remix.debug(hash)<Com>-- debug tx</Com></CodeRow>
-                        <CodeRow>remix.debugHelp()<Com>-- display debug help</Com></CodeRow>
-                        <CodeRow>remix.exeCurrent()<Com>-- run IDE script</Com></CodeRow>
-                        <CodeRow>ethers.Contract<Com>-- connect to contract</Com></CodeRow>
-                        <CodeRow>web3.eth.accounts<Com>-- generate account & sign</Com></CodeRow>
-                    </code>
+                  {setupState === 'Remix' &&  <SetupColumn>
+                    <GqlToolMapper data={setupTutorials} title={'Remix'} filter={'Remix'}/>
+                    <SectionTitle>Cheatsheet</SectionTitle>
+                    <code>
+                          <CodeRow>remix.debug(hash)<Com>-- debug tx</Com></CodeRow>
+                          <CodeRow>remix.debugHelp()<Com>-- display debug help</Com></CodeRow>
+                          <CodeRow>remix.exeCurrent()<Com>-- run IDE script</Com></CodeRow>
+                          <CodeRow>ethers.Contract<Com>-- connect to contract</Com></CodeRow>
+                          <CodeRow>web3.eth.accounts<Com>-- generate account & sign</Com></CodeRow>
+                      </code>
                   </SetupColumn>}
-                  {setupState === 'Brownie' && <SetupColumn><SectionTitle>Brownie</SectionTitle>
-                  {setupTutorials.filter(s => s.attributes.Tool === 'Brownie').map((tutorial) => (
-                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
-                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
-                          </Result>
-                  ))}
-                  <SectionTitle>Cheatsheet</SectionTitle>
+                  {setupState === 'Brownie' && <SetupColumn>
+                      <GqlToolMapper data={setupTutorials} title={'Brownie'} filter={'Brownie'}/>
+                      <SectionTitle>Cheatsheet</SectionTitle>
                   <code>
                         <CodeRow>pip3 install eth-brownie</CodeRow>
                         <CodeRow>brownie init</CodeRow>
@@ -822,12 +731,8 @@ export default function PathForm() {
                         <CodeRow>brownie run *.py --network ropsten<Com>-- deploy</Com></CodeRow>
                     </code>
                   </SetupColumn>}
-                  {setupState === 'Foundry' &&  <SetupColumn><SectionTitle>Foundry</SectionTitle>
-                  {setupTutorials.filter(s => s.attributes.Tool === 'Foundry').map((tutorial) => (
-                          <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
-                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>    
-                          </Result>
-                  ))}
+                  {setupState === 'Foundry' &&  <SetupColumn>
+                  <GqlToolMapper data={setupTutorials} title={'Foundry'} filter={'Foundry'}/>
                   <SectionTitle>Cheatsheet</SectionTitle>
                   <code>
                   {/* eslint-disable-next-line */}
