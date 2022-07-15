@@ -9,7 +9,6 @@ import 'rsuite/dist/rsuite.min.css'
 
 import Navbar from './navigation/Navbar';
 import DonateButton from './components/buttons/DonateButton';
-import DiscordButton from './components/buttons/DiscordButton';
 import MediumButton from './components/buttons/MediumButton';
 
 import Chains from './Pages/Chains';
@@ -152,7 +151,6 @@ function App() {
                 <Navigation>
                 <Navbar/>
                    <Flex> 
-                   {theme === 'light' ? <DiscordButton color='#2D0363'/> : <DiscordButton color='#30FFE1'/>}  
                     <MediumButton color='red'/>
                     <DonateButton/>
                     </Flex>
