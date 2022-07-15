@@ -13,14 +13,14 @@ import ChainStats from '../../sections/ChainStats';
 import GovernSection from '../../sections/GovernSection';
 import PolkaPath from '../../sections/PolkaPath';
 import { GqlFilterdMapper, GqlToolMapper } from '../../sections/GqlMappers';
+import { CloseIcon, CodeIcon, ExpandIcon } from '../../icons/utils';
+import CodeComponent from '../code/CodeComponent';
 
 
 const token = process.env.REACT_APP_CMS_API
 
 const Kontejner = styled.div`
     background: ${props => props.theme.colors.medium};
-    margin-top: 2%;
-    padding: 2%;
     @media (max-width: 1000px) {
         flex-direction: column;
      }
@@ -33,6 +33,8 @@ const FormBox = styled.div`
     flex-direction: column;
     padding: 7%;
     margin-left: 5%;
+    margin-top: 7%;
+    margin-bottom: 7%;
     text-align: left;
     border: 1px solid ${props => props.theme.colors.lineAlt};
     border-radius: 15px;
@@ -157,11 +159,9 @@ const Result = styled.div`
     justify-content: space-between;
     outline: none;
     padding: 1%;
-    cursor: pointer;
     color: ${props => props.theme.colors.text_title};
     border-bottom: 1px solid ${props => props.theme.colors.background};
     &:hover{
-        background: ${props => props.theme.colors.lighter};
         box-shadow: 0px 0px 10px 0px ${props => props.theme.colors.line};
     }
     animation: fadeIn 0.5s;
@@ -194,6 +194,7 @@ const Navigation = styled.div`
     flex-direction: row;
     margin-bottom: 2%;
     padding-left: 2%;
+    margin-top: 2%;
 `
 
 const ArticleButton = styled.button`
@@ -319,12 +320,6 @@ const CodeRow = styled.div`
   color: ${props => props.theme.colors.dark};
 `
 
-const ComboTag = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: right;
-  text-align: right;
-`
 
 const myTheme = (theme) => ({
     ...theme,
@@ -337,6 +332,31 @@ const myTheme = (theme) => ({
 })
 
 const AbsoluteToggle = styled.div`
+  position: absolute;
+  right: 0;
+`
+const IconButton = styled.button`
+  background: inherit;
+  transition: 0.1s;
+  opacity: 0.6;
+  &:hover{
+    opacity: 1;
+  }
+`
+
+const CodeBox = styled.div`
+  position: absolute;
+  background: black;
+  margin-top: 5%;
+  max-height: 800px;
+  max-width: 50%;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  z-index: 1;
+  right:0;
+`
+
+const DifficultyBox = styled.div`
   position: absolute;
   right: 0;
 `
@@ -374,6 +394,22 @@ export default function PathForm() {
 
     const [step, setStep] = useState("Setup")
     const [setupState, setSetupState] = useState('Hardhat')
+
+    const [code, setCode] = useState(false)
+    const [previewVisible, setPreviewVisible] = useState(false)
+
+    const CloseButton = styled.button`
+      position: sticky;
+      padding-top: 1%;
+      top: 0;
+      background: inherit;
+      width: 100%;
+    `
+
+    const handleCodePreview = async(code) => {
+      await setCode(code)
+      setPreviewVisible(true)
+    }
 
     const headers = {
         "authorization": `Bearer ${token}`,
@@ -548,15 +584,15 @@ export default function PathForm() {
 
 
     return <Kontejner>
-    
+           {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
         {evmEco ? <><PolkaPath/></> : 
         <Grid fluid>
             <Row>
         <Col xs={24} md={6}>
         <FormBox>
         <Warning>Alpha - available only EVM/Solidity path</Warning>
-
        <BoxTitle>D3V path</BoxTitle>
+
        <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
             <MySelect
                 value={cat}
@@ -647,13 +683,18 @@ export default function PathForm() {
             {step === 'Develop' ? <> <SectionTitle>Guides & Tutorials</SectionTitle>
                 <>
                 {tutorials.map((tutorial) => (
-                        <Result  key={tutorial.id} onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}>
-                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
-                           <ComboTag>{tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
+                        <Result  key={tutorial.id}>
+                          <DifficultyBox>
+                            {tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
                             {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
                             {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
-                            <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
-                            </ComboTag>    
+                          </DifficultyBox>
+                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+
+                            <Flex>            
+                              <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}
+                            </Flex>
                            
                         </Result>
                 ))}

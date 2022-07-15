@@ -12,6 +12,7 @@ export const fetchDefiPath = `query FetchDefiPath ($chainV: String, $chainL:Stri
           Reference
           Subcategory
           ViewCounter
+          codePreview
         }
       }
     }
@@ -138,6 +139,7 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
           Reference
           Subcategory
           ViewCounter
+          codePreview
         }
       }
     }
@@ -394,7 +396,7 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
 
   export const fetchPolka = `query FetchPolkaPath  {
     tutorials (pagination: {limit: 550 },filters: 
-        {Chain:{eq:"Polkadot"}}){ 
+        {Chain:{eq:"polkadot"}}){ 
       data  {
         attributes {
           Title 

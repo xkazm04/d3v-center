@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { ArrowIcon } from "../icons/nav";
 import {Grid, Row, Col} from 'rsuite'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import { fetchPolka } from "../data/graphQueries";
-import { GqlPMapper, GqlPMapperAlt } from "./GqlMappers";
+import { GqlPFilteredMapper, GqlPMapper, GqlPMapperAlt } from "./GqlMappers";
+import CodeComponent from "../components/code/CodeComponent";
 
 const token = process.env.REACT_APP_CMS_API
 
@@ -14,7 +15,7 @@ const Kontejner = styled.div`
     flex-direction: column;
     text-align: left;
     height: 100%;
-    background: #2f2f2f;
+    background: #212121;
     padding: 3%;
     padding-left: 5%;
     border-radius: 15px;  
@@ -22,10 +23,10 @@ const Kontejner = styled.div`
 
 const Box = styled.div`
     display: flex;
+    min-width: 200px;
     flex-direction: column;
-    padding: 2%;
+    padding: 10%;
     text-align: left;
-    border: 1px solid #e6007a;
     border-radius: 15px;
     @media (max-width: 1000px) {
       width: 100%;
@@ -35,44 +36,52 @@ const Box = styled.div`
 
 const ArticleButton = styled.button`
   border: 1px solid white;
+  box-shadow: 0px 0px 3px 0px #e6007a;
   border-radius: 15px;
-  font-weight: 700;
+  font-weight: 500;
   margin: 5px;
+  letter-spacing: 1px;
   color: white;
   transition: 0.1s;
   height: 30px;
-  font-family: 'Spectral', serif;
-  background: #CE006D;
+  font-family: 'Chilanka';
+  background: inherit;
   animation: fadeIn 0.5s;
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
   &:hover{
-    background: ${props => props.theme.colors.green};
+    color: #e6007a;
   }
 `
 
+const Flex = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+const ProtocolBox = styled.div`
+    width: 20%;
+    margin: 5%;
+`
 
 
 const ArticleActButton = styled(ArticleButton)`
-  background: #CE006D;
+  background: inherit;
   &:hover{
-    background:  ${props => props.theme.colors.step};
+    color: #e6007a;
   }
 `
 
 const Navigation = styled.div`
     display: flex;
+    justify-content: center;
 `
 
 const Section = styled.div`
     display: flex;
     margin: 2%;
-`
-
-const Code = styled.code`
-    color: white;
 `
 
 const Title = styled.div`
@@ -90,11 +99,6 @@ const TitleS = styled(Title)`
     text-align: center;
     margin: 5%;
 `
-
-
-
-
-
   
 export default function PolkaPath() {
     const [gqlError, setGqlError] = useState(false);
@@ -102,7 +106,9 @@ export default function PolkaPath() {
     const [definitions, setDefinitions] = useState()
     const [tools, setTools] = useState();
     const [repos, setRepos] = useState();
-    const [hidden, setHidden] = useState(true)
+    const [ch, setCh] = useState(false)
+    const [arch, setArch] = useState(false)
+    const [build, setBuild] = useState('Setup')
 
     const [step, setStep] = useState('Learn')
     
@@ -144,98 +150,133 @@ export default function PolkaPath() {
         await fetchArticles({data: graphqlPolkaQuery})
     }
 
-    const toggleHidden = () => {
-        setHidden(!hidden)
+
+    const toggleChains = () => {
+        setCh(!ch)
     }
+
+    const toggleArch = () => {
+        setArch(!arch)
+    }
+
+    useEffect(() => {
+        findPolka()
+        // eslint-disable-next-line 
+    },[])
 
     return <><Kontejner>
                 <Title> POLKADOT</Title>
                 {gqlError && <>Failed to fetch data</>}
         <Navigation>  
-        <ArticleButton onClick={findPolka}>Fetch</ArticleButton>{StepIcon} 
-        <ArticleActButton onClick={()=>{setStep('Learn')}}>Learn</ArticleActButton>  {StepIcon}  
-        <ArticleActButton onClick={()=>{setStep('Build')}}>Build</ArticleActButton>
+           <ArticleActButton onClick={()=>{setStep('Setup')}}>Setup</ArticleActButton>  {StepIcon}  
+            <ArticleActButton onClick={()=>{setStep('Learn')}}>Learn</ArticleActButton>  {StepIcon}  
+            <ArticleActButton onClick={()=>{setStep('Build')}}>Build</ArticleActButton>
         
         </Navigation>
+        {ch && step === 'Learn' && <Flex><ProtocolBox>
+                    <TitleS>Defi protocols</TitleS> 
+                        <ArticleButton>Acala</ArticleButton>
+                        <ArticleButton>Centrifuge</ArticleButton>
+                        <ArticleButton>Coinversation</ArticleButton>
+                        <ArticleButton>Composable</ArticleButton>
+                        <ArticleButton>HydraDX</ArticleButton>
+                        <ArticleButton>Interlay</ArticleButton>
+                        <ArticleButton>Parallel</ArticleButton>
+                        <ArticleButton>Polkadex</ArticleButton>
+                        </ProtocolBox>
+                        <ProtocolBox>
+                    <TitleS>...5 more categories</TitleS> 
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        </ProtocolBox>
+                        <ProtocolBox>
+                    <TitleS>...5 more categories</TitleS> 
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        </ProtocolBox>
+                        <ProtocolBox>
+                    <TitleS>...5 more categories</TitleS> 
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        <ArticleButton>..</ArticleButton>
+                        </ProtocolBox>
+                        
+                        </Flex>
+                   
+                    }
         <Grid>
             <Row>
                 
+        {step === 'Setup' &&  <Section>
+             Setup section
+
+        </Section>}
         {step === 'Learn' &&  <Section>
                 <Col xs={12} md={4}>
                 <Box>
                     <TitleS>Path</TitleS> 
-                        <ArticleButton onClick={toggleHidden}>Crosschain</ArticleButton>
-                        <ArticleButton>Architecture</ArticleButton>
-                        <ArticleButton>Protocols</ArticleButton>
+                        <ArticleButton onClick={toggleArch}>Architecture</ArticleButton>
+                        <ArticleButton onClick={toggleArch}>Crosschain</ArticleButton>
+                        <ArticleButton onClick={toggleChains}>Parachains</ArticleButton>
                     </Box>
                 
-                {hidden ? null :  <Box>
-                    <TitleS>ChainCategory1</TitleS> 
-                        <ArticleButton>Chain1</ArticleButton>
-                        <ArticleButton>Chain2</ArticleButton>
-                        <ArticleButton>Chain3</ArticleButton>
-                    <TitleS>ChainCategory2</TitleS> 
-                        </Box>
-                    }
+
                 </Col>
-              <GqlPMapper data={definitions} title={'Defs'}/>
+                {ch && <>Parachain introduction, milestones, tech</>}
+                {arch &&  <>
+                            <GqlPFilteredMapper data={definitions} title={'Bridge'} filter={'Bridge'}/>
+                            <GqlPFilteredMapper data={definitions} title={'Protocol'} filter={'Protocol'}/>
+                        </>
+                    }
         </Section>}
         {step === 'Build' && <Section>
         <Col xs={12} md={4}> <Box>
                     <TitleS>Path</TitleS> 
-                        <ArticleButton onClick={toggleHidden}>Crosschain</ArticleButton>
-                        <ArticleButton>Architecture</ArticleButton>
-                        <ArticleButton>Protocols</ArticleButton>
+                        <ArticleButton  onClick={()=>{setBuild('Setup')}}>Setup</ArticleButton>
+                        <ArticleButton  onClick={()=>{setBuild('Defi')}}>Defi</ArticleButton>
+                        <ArticleButton  onClick={()=>{setBuild('NFT')}}>NFT</ArticleButton>
                     </Box></Col>
-                
-                {hidden ? null :   <Col xs={12} md={4}><Box>
-                    <TitleS>ChainCategory1</TitleS> 
-                        <ArticleButton>Chain1</ArticleButton>
-                        <ArticleButton>Chain2</ArticleButton>
-                        <ArticleButton>Chain3</ArticleButton>
-                    <TitleS>ChainCategory2</TitleS> 
-                        </Box></Col> 
-                    }
-                <GqlPMapper data={tutorials} title={'Tuts'}/>
+            
+             
                 <Col xs={24} md={10}>
-                    <GqlPMapper data={tools} title={'Tools'}/>
+                    {build}
+                    <GqlPMapper data={tutorials} title={'Tutorial'} />
+                </Col>
+                <Col xs={24} md={10}>
+                  <GqlPMapper data={tools} title={'Tools'}/>
                     <GqlPMapperAlt data={repos} title={'Repos'}/>
                 </Col>
+
         </Section>}
         </Row>
         {step === 'Build' && <>
         <Section>
-                <Grid>
+                <Grid>  
+                   <Title>Code comparison</Title>
+                    <ArticleActButton>Example 1</ArticleActButton>     
+                    <ArticleActButton>Example 2</ArticleActButton>     
+                    <ArticleActButton>Example 3</ArticleActButton>     
+                    <ArticleActButton>Example 4</ArticleActButton>
                     <Row>
                         <Col xs={12}>
                             <Box>
-                                <ArticleButton>Step1</ArticleButton>
+                                <CodeComponent code={'code snippet Ink!'}/>
                             </Box>
                         </Col>
                         <Col xs={12}>
                             <Box>
-                                <ArticleButton>Step1</ArticleButton>
+                                <CodeComponent code={'code snippet Ink!'}/>
                             </Box>
                         </Col>
                     </Row>
                 </Grid>
         </Section>
-        <Section>
-                <Grid>
-                    <Row>
-                        <Col xs={12}>
-                            <Box>
-                               <pre><Code>Code</Code> </pre>
-                            </Box>
-                        </Col>
-                        <Col xs={12}>
-                            <Box>
-                                 <pre><Code>Articles</Code> </pre>
-                            </Box>
-                        </Col>
-                    </Row>
-                </Grid>
-        </Section></>}
+        </>}
         </Grid>
     </Kontejner>
     </>

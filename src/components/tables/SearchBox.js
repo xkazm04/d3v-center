@@ -16,12 +16,11 @@ const Input = styled.input`
   color: ${props => props.theme.colors.text_primary};
   z-index: 95;
   border-left: 0.1px dotted ${props => props.theme.colors.red};
-  min-width: 300px;
+  min-width: 200px;
   box-shadow: 0px 1px 4px ${props => props.theme.colors.red};
   cursor: pointer;
   outline: none;
   transition: 0.1s;
-  width: 330px;
   &:hover{
       background: ${props => props.theme.colors.red};
   }

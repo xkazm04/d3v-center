@@ -203,4 +203,34 @@ export const TimeIcon = ({width, height, color}) => {
 }
 
 
+export const ExpandIcon = ({width, height, color}) => {
+    return <svg width={width} height={height} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 8H8V20" stroke={color}  stroke-width="2"/>
+    <path d="M8 8L24 24" stroke={color}  stroke-width="2"/>
+    <path d="M56 20V8H44" stroke={color}  stroke-width="2"/>
+    <path d="M56 8L40 24" stroke={color}  stroke-width="2"/>
+    <path d="M44 56H56V44" stroke={color}  stroke-width="2"/>
+    <path d="M56 56L40 40" stroke={color}  stroke-width="2"/>
+    <path d="M8 44V56H20" stroke={color}  stroke-width="2"/>
+    <path d="M8 56L24 40" stroke={color}  stroke-width="2"/>
+    </svg>
+    
+    
+}
 
+export const CodeIcon = ({width, height, color}) => {
+    return <svg width={width} height={height} viewBox="0 0 33 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M29.3926 9.49402L23.5929 14.2734C23.043 14.7123 22.993 15.4927 23.4429 15.9804C23.6929 16.273 24.0429 16.4193 24.3929 16.4193C24.6929 16.4193 24.9429 16.3217 25.1928 16.1267L32.0924 10.4206C32.3924 10.1768 32.5424 9.83541 32.5424 9.49402C32.5424 9.15263 32.3924 8.81125 32.0924 8.5674L25.1928 2.86138C24.6929 2.42246 23.8929 2.47123 23.4429 3.00769C22.993 3.49538 23.043 4.27569 23.5929 4.71462L29.3926 9.49402Z" fill={color}/>
+    <path d="M0 9.49402C0 9.83541 0.14999 10.1768 0.44997 10.4206L7.34953 16.1267C7.59951 16.3217 7.8495 16.4193 8.14948 16.4193C8.49946 16.4193 8.84943 16.273 9.09942 15.9804C9.54939 15.4927 9.49939 14.7123 8.94943 14.2734L3.1498 9.49402L8.94943 4.71462C9.49939 4.27569 9.54939 3.54415 9.09942 3.00769C8.64945 2.47123 7.8995 2.42246 7.34953 2.86138L0.44997 8.5674C0.14999 8.81125 0 9.15263 0 9.49402Z" fill={color}/>
+    <path d="M18.0211 0.768347L12.1714 17.2931C11.9215 17.9271 12.2214 18.6098 12.8714 18.9025C13.0214 18.9512 13.1714 19 13.3214 19C13.8213 19 14.2713 18.7074 14.4713 18.2197L20.3709 1.69496C20.6209 1.06096 20.3209 0.329422 19.671 0.0855746C19.021 -0.158272 18.2711 0.134345 18.0211 0.768347Z" fill={color}/>
+    </svg>
+    
+}
+
+export const CloseIcon = ({width, height, color}) => {
+return <svg width={width} height={height} viewBox="0 0 34 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="-1.5" x2="42.45" y2="-1.5" transform="matrix(0.730271 -0.683157 0.39103 0.920378 2 32)" stroke={color} stroke-width="3"/>
+<line y1="-1.5" x2="41.2756" y2="-1.5" transform="matrix(0.734723 0.678368 -0.386702 0.922205 2 3)" stroke={color} stroke-width="3"/>
+</svg>
+
+}

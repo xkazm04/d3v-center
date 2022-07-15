@@ -10,8 +10,8 @@ const Kontejner = styled.div`
 `
 
 const Title = styled.h3`
-  font-family: 'NoBill';
-  letter-spacing: 0.1rem;
+    font-family: 'Staatliches';
+  font-weight: 400;
   color: ${props => props.theme.chart.title};
 `
 

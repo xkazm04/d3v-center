@@ -18,7 +18,8 @@ const ChartBox = styled.div`
 `
 
 const Title = styled.h3`
-  font-family: 'NoBill';
+  font-family: 'Staatliches';
+  font-weight: 400;
   letter-spacing: 0.1rem;
   color: ${props => props.theme.chart.title};
 `

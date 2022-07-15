@@ -120,7 +120,7 @@ const LogoBox = styled.div`
 `
 
 const Title = styled.h1`
-    font-family: 'Inder';
+    font-family: 'Staatliches';
     font-weight: 500;
     line-height: 1em;
     text-transform: uppercase;
@@ -307,8 +307,8 @@ export default function Landing() {
                             <Col xs={24} md={12}>
                                 <LeftBox>
                                 <LogoBox><Logo width='40%' colorStroke={theme.tool.logo} colorFill={theme.tool.logo}/></LogoBox>
-                                    <Title>Eat all the web3 wisdom</Title>
-                                    <Subtitle>Learn to write dapps for free and shape future of web3</Subtitle>
+                                    <Title>Learn web3 anything </Title>
+                                    <Subtitle>Dev related</Subtitle>
                                 </LeftBox>
                             </Col>
                             <Col xs={24} md={12}>

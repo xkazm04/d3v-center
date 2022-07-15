@@ -6,7 +6,7 @@ const PolkaBox = styled.div`
     flex-direction: column;
     padding: 2%;
     text-align: left;
-    border: 1px solid #e6007a;
+    font-family: 'Chilanka';
     border-radius: 15px;
     @media (max-width: 1000px) {
       width: 100%;
@@ -19,12 +19,13 @@ const PolkaSectionTitle = styled.div`
   width: 100%;
   font-weight: 700;
   padding: 2%;
-  font-size: 1.1em;
-  background: inherit;
-  border: 2px solid #95004f;
-  font-family: 'Spectral', serif;
+  font-size: 1.3em;
+  letter-spacing: 1px;
   border-radius: 15px;
-  margin-bottom: 2%;
+  padding-left: 5%;
+  background: rgba(242, 0, 116, 0.03);
+  border-bottom: 2px dotted white;
+  margin-bottom: 5%;
   animation: fadeIn 0.5s;
   @keyframes fadeIn {
     0% { opacity: 0; }
@@ -72,11 +73,12 @@ const PolkaUpperTag = styled.div`
   background: inherit;
   border: 0.1px solid #e6007a;
   padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
+  letter-spacing: 1px;
+  padding-left: 6px;
+  padding-right: 6px;
   font-size: 0.9em;
   border-radius: 15px;
-  font-weight: 700;
+  font-weight: 400;
   color: white;
 `
 
@@ -126,7 +128,6 @@ const SectionTitle = styled.div`
     font-size: 1.1em;
     background: ${props => props.theme.colors.background};
     border-bottom: 1px solid ${props => props.theme.colors.line};
-    font-family: 'Spectral', serif;
     border-radius: 5px;
     margin-bottom: 2%;
     animation: fadeIn 0.5s;
@@ -178,7 +179,7 @@ export const GqlPMapper = ({data, title}) => {
         {data && <PolkaBox>
             <PolkaSectionTitle>{title}</PolkaSectionTitle>
                         {data.map((d) => (
-                        <PolkaResult  key={d.id}>
+                        <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
                                         <Flex> <PolkaTitleA>{d.attributes.Title}</PolkaTitleA>    <PolkaCategory>{d.attributes.Description}</PolkaCategory></Flex> 
                                         <div>   <PolkaUpperTag>{d.attributes.Subcategory}</PolkaUpperTag></div>
                                 </PolkaResult>
@@ -188,13 +189,30 @@ export const GqlPMapper = ({data, title}) => {
     )
 }
 
+export const GqlPFilteredMapper = ({data, title, filter}) => {
+  return (
+      <>
+      {data && <PolkaBox>
+          <PolkaSectionTitle>{title}</PolkaSectionTitle>
+                      {data.filter(s => s.attributes.Subcategory === filter).map((d) => (
+                      <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
+                                      <Flex> <PolkaTitleA>{d.attributes.Title}</PolkaTitleA>    <PolkaCategory>{d.attributes.Description}</PolkaCategory></Flex> 
+                                         <div>   <PolkaUpperTag>{d.attributes.Subcategory}</PolkaUpperTag></div>
+                              </PolkaResult>
+                      ))}
+              </PolkaBox>}
+      </>
+  )
+}
+
+
 export const GqlPMapperAlt = ({data, title}) => {
     return (
         <>
         {data && <PolkaBox>
             <PolkaSectionTitle>{title}</PolkaSectionTitle>
                         {data.map((d) => (
-                        <PolkaResult  key={d.id}>
+                        <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
                                         <Flex> <PolkaTitleA>{d.attributes.title}</PolkaTitleA>    <PolkaCategory>{d.attributes.description}</PolkaCategory></Flex> 
                                         <div>   <PolkaUpperTag>{d.attributes.subcategory}</PolkaUpperTag></div>
                                 </PolkaResult>
