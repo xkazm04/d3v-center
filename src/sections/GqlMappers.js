@@ -58,10 +58,12 @@ const PolkaTitleA = styled.div`
   font-size: 1.1em;
   font-weight: 700;
   color: #e6007a;
+  
 `
 
 const PolkaCategory = styled.div`
     font-size: 1em;
+    font-family: 'Helvetica';
     opacity: 0.8;
     color: white;
     &:hover{
@@ -205,6 +207,53 @@ export const GqlPFilteredMapper = ({data, title, filter}) => {
   )
 }
 
+export const GqlPFilteredCatMapper = ({data, title, filter}) => {
+  return (
+      <>
+      {data && <PolkaBox>
+          <PolkaSectionTitle>{title}</PolkaSectionTitle>
+                      {data.filter(s => s.attributes.Category === filter).map((d) => (
+                      <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
+                                      <Flex> <PolkaTitleA>{d.attributes.Title}</PolkaTitleA>    <PolkaCategory>{d.attributes.Description}</PolkaCategory></Flex> 
+                                         <div>   <PolkaUpperTag>{d.attributes.Subcategory}</PolkaUpperTag></div>
+                              </PolkaResult>
+                      ))}
+              </PolkaBox>}
+      </>
+  )
+}
+
+export const GqlPFilteredUsageMapper = ({data, title, filter}) => {
+  return (
+      <>
+      {data && <PolkaBox>
+          <PolkaSectionTitle>{title}</PolkaSectionTitle>
+                      {data.filter(s => s.attributes.Usage === filter).map((d) => (
+                      <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
+                                      <Flex> <PolkaTitleA>{d.attributes.Title}</PolkaTitleA>    <PolkaCategory>{d.attributes.Description}</PolkaCategory></Flex> 
+                                         <div>   <PolkaUpperTag>{d.attributes.Subcategory}</PolkaUpperTag></div>
+                              </PolkaResult>
+                      ))}
+              </PolkaBox>}
+      </>
+  )
+}
+
+export const GqlPFilteredRMapper = ({data, title, filter}) => {
+  return (
+      <>
+      {data && <PolkaBox>
+          <PolkaSectionTitle>{title}</PolkaSectionTitle>
+                      {data.filter(s => s.attributes.subcategory === filter).map((d) => (
+                      <PolkaResult  key={d.id} onClick={()=>handleResultClick(d.attributes.reference,d.id,d.attributes.counter)}>
+                                      <Flex> <PolkaTitleA>{d.attributes.title}</PolkaTitleA>    <PolkaCategory>{d.attributes.description}</PolkaCategory></Flex> 
+                                         <div>   <PolkaUpperTag>{d.attributes.subcategory}</PolkaUpperTag></div>
+                              </PolkaResult>
+                      ))}
+              </PolkaBox>}
+      </>
+  )
+}
 
 export const GqlPMapperAlt = ({data, title}) => {
     return (

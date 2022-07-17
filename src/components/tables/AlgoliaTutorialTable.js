@@ -117,6 +117,7 @@ const HitCategory = styled(Highlight)`
     padding-bottom: 2px;
     padding-left: 10%;
     padding-right: 10%;
+    margin-bottom: 3%;
     margin-right: 3%;
     border-radius: 15px;
     font-size: 11px;
@@ -138,6 +139,7 @@ const HitTool = styled(HitCategory)`
 `
 
 const HitUpdate = styled.div`
+    font-family: 'NoBill';
     width: 80px;
     font-size: 10px;
     color: ${props => props.theme.colors.text_primary};
@@ -325,10 +327,12 @@ const CodeBox = styled.div`
 `
 
 const FilterBox = styled.div`
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding: 15px;
+  padding-left: 0;
+  padding-bottom: 5px;
   border-top: 1px solid ${props => props.theme.colors.lineAlt};
 `
+
 
 const BtnBox = styled.div`
   display: flex;
@@ -399,7 +403,7 @@ const AlgoliaTutorialTable = () => {
       addCounter(id,counter)
   }
     const handleCodePreview = async(code) => {
-      await setCode(code)
+      setCode(code)
       setPreviewVisible(true)
     }
 
@@ -421,9 +425,9 @@ const AlgoliaTutorialTable = () => {
 const DebouncedSearchBox = connectSearchBox(SearchBox)
 const CustomMenuSelect = connectMenu(MenuSelect);
 
-const SelectFilter = ({title,attribute, width,filterEnabled, clickFunction}) => {
+const SelectFilter = ({title,attribute, width,filterEnabled}) => {
   return(
-  <SelectItem width={width}> <SelectTitleBox onClick={()=>{clickFunction()}}>   <SelectTitle >{title} 
+  <SelectItem width={width}> <SelectTitleBox>   <SelectTitle >{title} 
   </SelectTitle > </SelectTitleBox> 
    {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
   </SelectItem>
@@ -436,7 +440,7 @@ function Hit(props) {
     return (
       <>
       <ResultBox>
-      <HitColumn width={'100px'}>
+      <HitColumn width={'130px'}>
         <FlexColumn>
       { props.hit.Source === "github" ?  <LazyLoad><GithubIcon width={'25'} color={theme.tool.github}/></LazyLoad> : null } 
       { props.hit.Source === "youtube" ?  <LazyLoad><YTIcon width={'25'} color={'#CB0000'}/></LazyLoad> : null } 
@@ -450,7 +454,7 @@ function Hit(props) {
         {/* Main part */}
         <Flex>  
             <MyDivider vertical/>
-            <HitColumn width={'110px'}>
+            <HitColumn width={'100px'}>
               <RightBox>
                 <Flex>        
           {props.hit.Chain === 'evm' ? <LazyLoad><Evm width={'25'}/></LazyLoad> : null}
@@ -479,7 +483,7 @@ function Hit(props) {
               {props.hit.codePreview && <IconButton  onClick={()=>{handleCodePreview(props.hit.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</BtnBox>
           </HitMainColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'130px'}>
+          <HitColumn  width={'100px'}>
           <Difficulty>   
             {props.hit.Difficulty === 'basic' ? <LazyLoad><DiffBasic width={25} color={theme.tool.basic}/></LazyLoad> : null} 
             {props.hit.Difficulty === 'intermediate' ? <LazyLoad><DiffScholar width={25} color={theme.chart.var1_stroke}/></LazyLoad> : null} 
@@ -488,7 +492,7 @@ function Hit(props) {
           {props.hit.Difficulty}</Difficulty>   
           </HitColumn>
           <MyDivider vertical/>
-          <HitColumn  width={'120px'}>
+          <HitColumn  width={'100px'}>
             <FlexColumn>
               {props.hit.Category === null ? null : <HitCategory attribute="Category" hit={props.hit} tagName="strong" /> }    
               {props.hit.Subcategory === null ? null : <HitSubCategory attribute="Subcategory" hit={props.hit} tagName="strong" /> }  
@@ -524,23 +528,22 @@ function Hit(props) {
                 </Head>
                 <Configure hitsPerPage={15} />  
                 <LazyLoad><FlexFilter>  
-                <SelectFilter title={'Series'} attribute={'Series'}  width='110px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/>
-
-                <MyDivider vertical/>
+                  
+                <FilterBox><SelectFilter title={'Series'} attribute={'Series'}  width='145px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/></FilterBox>
                 <FlexColumn>
-                 <FilterBox><SelectFilter title={'Chain'} attribute={'Chain'}  width='120px'  filterEnabled={filterChain} clickFunction={switchFilterChain} /></FilterBox>
-                  <FilterBox><SelectFilter title={'Language'} attribute={'Language'}  width='120px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/></FilterBox>
+                 <FilterBox><SelectFilter title={'Chain'} attribute={'Chain'}  width='90px'  filterEnabled={filterChain} clickFunction={switchFilterChain} /></FilterBox>
+                  <FilterBox><SelectFilter title={'Language'} attribute={'Language'}  width='90px'  filterEnabled={filterLang} clickFunction={switchFilterLang}/></FilterBox>
                 </FlexColumn>
               
-                <Search>     <DebouncedSearchBox delay={500}/>        
-                <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
-                <SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='130px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/>
+              <FilterBox> <Search>     <DebouncedSearchBox delay={500}/>        
+                <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search></FilterBox> 
+                <FilterBox><SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='100px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/></FilterBox>
                 <FlexColumn>
-                  <SelectFilter title={'Usage'} attribute={'Category'}  width='130px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> 
-                  <SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='130px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> 
+                  <FilterBox><SelectFilter title={'Usage'} attribute={'Category'}  width='100px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> </FilterBox>
+                  <FilterBox><SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='100px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> </FilterBox> 
                 </FlexColumn>
 
-                <SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>
+                <FilterBox><SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/></FilterBox>
      
             
         </FlexFilter></LazyLoad> 

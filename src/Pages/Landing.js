@@ -3,8 +3,7 @@ import {Link} from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { Grid, Row, Col } from 'rsuite';
 import ChartTutorial from "../components/charts/ChartUsage";
-import ChartLang from "../components/charts/ChartLang";
-import { DevelopIcon, CodeIcon } from "../icons/tool";
+import { DevelopIcon } from "../icons/tool";
 import ArticleSection from '../sections/ArticleSection';
 import { GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
@@ -49,9 +48,6 @@ const MainPulse = styled.div`
   animation: pulse-main 2s infinite;
   border-radius: 5px;
   transition: 0.2s;
-  &:hover{
-    background: black;
-  }
 @keyframes pulse-main {
   0% {
     transform: scale(0.95);
@@ -72,11 +68,15 @@ const MainPulse = styled.div`
 
 const Kontejner = styled.div`
     margin: 2%;
-    margin-left: 3%;
+    margin-left: 15%;
+    margin-right: 10%;
     animation: fadeIn 0.5s;
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
+  }
+  @media (max-width: 1400px) {
+    margin: 4%;
   }
     @media (max-width: 700px) {
     margin: 0;
@@ -95,13 +95,6 @@ const LeftBox = styled.div`
     justify-content: center;
 `
 
-const PictureBox = styled.div`
-    opacity: 0.05;
-    @media (max-width: 1200px) {
-    display: none;
-  }
-`
-
 const RightBox = styled.div`
     display: flex;
     flex-direction: row;
@@ -112,7 +105,7 @@ const RightBox = styled.div`
 
 const LogoBox = styled.div`
     position: absolute;
-    top: 0;
+    top: -20;
     opacity: 0.2;
     @media (max-width: 1600px) {
         display: none;
@@ -124,7 +117,7 @@ const Title = styled.h1`
     font-weight: 500;
     line-height: 1em;
     text-transform: uppercase;
-    color: ${props => props.theme.colors.text_title};
+    color: #d9d9d9;
     font-size: 2.4em;
     padding: 5px;
     @media (max-width: 700px) {
@@ -138,7 +131,7 @@ const Subtitle = styled.h2`
     font-style: "italic";
     font-weight: 500;
     line-height: 1em;
-    color: ${props => props.theme.colors.text_secondary};
+    color: #d7fff2;
     font-size: 1.5em;
     @media (max-width: 700px) {
         font-size: 1em;
@@ -219,8 +212,16 @@ justify-content: space-around;
 const AbsoluteBox = styled.div`
     position: absolute;
     right: 15rem;
-    margin-top: 50px;
+    margin-top: 10px;
 `
+
+const TitleBox = styled.div`
+    border: 1px solid ${props => props.theme.colors.line};
+    border-radius: 15px;
+    padding: 1%;
+    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
+`
+
 
 export default function Landing() {
     const theme = useTheme()
@@ -306,9 +307,11 @@ export default function Landing() {
                         <Row>
                             <Col xs={24} md={12}>
                                 <LeftBox>
-                                <LogoBox><Logo width='40%' colorStroke={theme.tool.logo} colorFill={theme.tool.logo}/></LogoBox>
-                                    <Title>Learn web3 anything </Title>
-                                    <Subtitle>Dev related</Subtitle>
+                                <LogoBox><Logo width='20%' colorStroke={theme.tool.logo} colorFill={theme.tool.logo}/></LogoBox>
+                                    <TitleBox>
+                                            <Title>Learn web3 anything </Title>
+                                            <Subtitle>Dev related</Subtitle>
+                                    </TitleBox>
                                 </LeftBox>
                             </Col>
                             <Col xs={24} md={12}>
@@ -346,8 +349,10 @@ export default function Landing() {
                         <Row>
                             <Col xs={24} md={24}>
                                 <LeftBox>
-                                    <Title>D3V Path  <AbsoluteBox><MainPulse><MyLink to='/path'><ExitArrow width='35' color={theme.colors.text_title} /> </MyLink></MainPulse></AbsoluteBox></Title>
-                                    <Subtitle>Use guidance at any point of your struggle</Subtitle>
+                                    <TitleBox>
+                                            <Title>D3V Path  <AbsoluteBox><MainPulse><MyLink to='/path'><ExitArrow width='35' color={theme.colors.landingTitle} /> </MyLink></MainPulse></AbsoluteBox></Title>
+                                            <Subtitle>Use guidance at any point of your struggle</Subtitle>
+                                    </TitleBox>
                                     <PathPicture><PathSection width={'1200'} height={'300'} color={theme.colors.text_primary}/></PathPicture>
                                 </LeftBox>
                                 </Col>
@@ -359,7 +364,9 @@ export default function Landing() {
                         <Row>
                             <Col xs={24} md={12}>
                                 <LeftBox>
-                                    <Title>Browse through 1000+ Resources</Title>
+                                <TitleBox>
+                                          <Title>Browse through 1000+ Resources</Title>
+                                    </TitleBox>
                                         <CharTotal/>
                                 </LeftBox>
                             </Col>
@@ -372,25 +379,10 @@ export default function Landing() {
                     </Grid>
                 </Section>
                 <Section>
-                    <Grid fluid>
-                        <Row>
-                            <Col xs={24} md={12}>
-                                <LeftBox>
-                                    <Title>Learn step by step any dapp</Title>
-                                   <PictureBox> <CodeIcon width='500' fillColor={theme.chart.var3_fill} strokeColor={theme.tool.code}/></PictureBox>
-                                </LeftBox>
-                            </Col>
-                            <Col xs={24} md={12}>
-                                <RightBox>
-                                        <ChartLang/>
-                                </RightBox>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </Section>
-                <Section>
+                    <TitleBox>
                         <Title>Latest articles & Announcements</Title>
                         <MediumIcon width={'40'}/>  
+                        </TitleBox>
                     <ArticleSection/>
                 </Section>
     </Kontejner>;

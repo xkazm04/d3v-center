@@ -16,7 +16,7 @@ const Input = styled.input`
   color: ${props => props.theme.colors.text_primary};
   z-index: 95;
   border-left: 0.1px dotted ${props => props.theme.colors.red};
-  min-width: 200px;
+  min-width: 330px;
   box-shadow: 0px 1px 4px ${props => props.theme.colors.red};
   cursor: pointer;
   outline: none;

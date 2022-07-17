@@ -17,6 +17,9 @@ export const lightTheme = {
        step: "#4d97ff",
        text: "#0c0c0c",
        dark: "#00306c",
+       landingTitle: '#d9d9d9',
+       landingSubtitle: '#d7fff2',
+       landingBox: '#052f19',
  
        // Cards-Alternative colors
        blue: "#FFA3A3",
@@ -92,6 +95,9 @@ export const lightTheme = {
       step: "#9d0000",
       text: "#f3f3f3",
       dark: "#c7dcf5",
+      landingTitle: '#d9d9d9',
+      landingSubtitle: '#d7fff2',
+      landingBox: '#300000',
  
       red: "#280000",
 

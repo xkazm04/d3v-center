@@ -36,6 +36,7 @@ const FormBox = styled.div`
     margin-top: 7%;
     margin-bottom: 7%;
     text-align: left;
+    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
     border: 1px solid ${props => props.theme.colors.lineAlt};
     border-radius: 15px;
     @media (max-width: 1000px) {
@@ -52,10 +53,10 @@ const FormBox = styled.div`
 const BoxSubtitle = styled.div`
   text-align: left;
   letter-spacing: 1.2px;
-  font-family: 'NoBill';
+  font-family: 'Staatliches';
   font-size: 1.6em;
   padding-bottom: 1%;
-  color: ${props => props.theme.colors.text_primary};
+  color: ${props => props.theme.colors.landingSubtitle};
   @media (max-width: 1000px) {
     font-size: 1.2em;
     padding-left: 2%;
@@ -100,9 +101,9 @@ const BoxTitle = styled.div`
   text-align: left;
   padding-bottom: 1%;
   letter-spacing: 1.3px;
-  font-family: 'NoBill';
+  font-family: 'Staatliches';
   font-size: 2em;
-  color: ${props => props.theme.colors.text_title};
+  color: ${props => props.theme.colors.landingTitle};
    @media (max-width: 1000px) {
     font-size: 1.6em;
     padding-left: 2%;
@@ -265,11 +266,6 @@ const UpperTag = styled.div`
   font-weight: 700;
 `
 
-const Warning = styled(UpperTag)`
-  color: red;
-  font-size: 0.8em;
-  margin-bottom: 5%;
-`
 
 const StepDescription = styled.div`
   text-align: left;
@@ -332,9 +328,16 @@ const myTheme = (theme) => ({
 })
 
 const AbsoluteToggle = styled.div`
-  position: absolute;
-  right: 0;
+  display: flex;
+  color: ${props => props.theme.colors.text_primary};
+  margin-top: 20px;
+  background: ${props => props.theme.colors.background};
+  justify-content: flex-start;
+  padding-left: 15%;
+  font-style: italic;
+  padding-bottom: 1%;
 `
+
 const IconButton = styled.button`
   background: inherit;
   transition: 0.1s;
@@ -359,6 +362,15 @@ const CodeBox = styled.div`
 const DifficultyBox = styled.div`
   position: absolute;
   right: 0;
+`
+
+const PolkaToggle = styled.div`
+  color: black;
+  padding-left: 5%;
+`
+
+const MyToggle = styled(Toggle)`
+  margin-left: 1%;
 `
 
 export default function PathForm() {
@@ -585,15 +597,19 @@ export default function PathForm() {
 
     return <Kontejner>
            {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
+           <AbsoluteToggle> 
+            Switch between Polkadot and EVM path
+            <MyToggle onChange={toggleEco} checkedChildren={<PolkaToggle>Polkadot</PolkaToggle>} unCheckedChildren={<PolkaToggle>EVM</PolkaToggle>} />
+              </AbsoluteToggle>
         {evmEco ? <><PolkaPath/></> : 
         <Grid fluid>
             <Row>
+          
         <Col xs={24} md={6}>
         <FormBox>
-        <Warning>Alpha - available only EVM/Solidity path</Warning>
        <BoxTitle>D3V path</BoxTitle>
 
-       <FlexModal>      <BoxSubtitle>Choose your path to buidl</BoxSubtitle>  </FlexModal>
+       <FlexModal>      <BoxSubtitle>Find your resources</BoxSubtitle>  </FlexModal>
             <MySelect
                 value={cat}
                 defaultValue={catOptions[1]}
@@ -842,6 +858,5 @@ export default function PathForm() {
             </Row>
         </Grid>
         }
-         <AbsoluteToggle> <Toggle onChange={toggleEco} /></AbsoluteToggle>
     </Kontejner>
   }
