@@ -15,6 +15,9 @@ const Kontejner = styled.div`
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
+    @media (max-width: 1000px) {
+      padding-left: 15%;
+  }
 `
 
 const IconButton = styled.button`
@@ -27,6 +30,11 @@ const IconButton = styled.button`
     height: 100px;
     &:hover{
       box-shadow: 0px 0px 6px 0px ${props => props.theme.colors.lineAlt};
+  } 
+  @media (max-width: 1000px) {
+    font-size: 1.1em;
+    min-width: 70px;
+    height: 70px;
   }
 `
 
@@ -43,6 +51,9 @@ const SectionTitle = styled.div`
     font-family: 'NoBill';
     color: ${props => props.theme.colors.text_title};
     border-bottom: 0.1px dashed  ${props => props.theme.colors.lineAlt};
+    @media (max-width: 1000px) {
+        display: none;
+  }
 `
 
 const Description = styled.p`

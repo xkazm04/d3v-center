@@ -22,6 +22,9 @@ const Title = styled.div`
     font-family: 'NoBill';
     min-width: 100%;
     animation: fadeIn 0.5s;
+    @media (max-width: 1000px) {
+        font-size: 1.5em;
+  }
 `
 const StatBox = styled.div`
     display: flex;
@@ -37,6 +40,10 @@ const Stat = styled.div`
     min-width: 350px;
     color: ${props => props.theme.colors.text};
     justify-content: space-between;
+    @media (max-width: 1000px) {
+        min-width: 150px;
+        font-size: 1.1em;
+  }
     
 `
 
@@ -46,6 +53,10 @@ const StatTitle = styled.div`
     color: ${props => props.color};
     min-width: 150px;
     text-align: left;
+    @media (max-width: 1000px) {
+        min-width: 100px;
+        font-size: 1em;
+  }
 `
 
 const StatItem = styled.div`

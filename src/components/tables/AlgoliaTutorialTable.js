@@ -31,6 +31,9 @@ import CodeComponent from '../code/CodeComponent';
   const Kontejner = styled.div`
     display: flex;
     justify-content: center;
+    @media (max-width: 700px) {
+      padding: 2%;
+    }
   `
 
   const Box = styled.div`

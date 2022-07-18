@@ -11,8 +11,9 @@ const Div = styled.div`
   font-size: 2em;
   color: ${props => props.theme.colors.text_title};
       @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
+    font-size: 1.2em;
+    padding-left: 10%;
+    text-align: center;
   }
 `
 

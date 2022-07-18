@@ -8,8 +8,7 @@ const Div = styled.div`
   padding-bottom: 1%;
   color: ${props => props.theme.colors.text_primary};
   @media (max-width: 700px) {
-    font-size: 1em;
-    padding-left: 2%;
+    display: none;
   }
 `
 

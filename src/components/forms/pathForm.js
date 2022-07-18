@@ -42,6 +42,7 @@ const FormBox = styled.div`
     @media (max-width: 1000px) {
       width: 100%;
       margin: 0;
+      padding: 3%;
   }
   animation: fadeIn 0.5s;
   @keyframes fadeIn {
@@ -639,7 +640,7 @@ export default function PathForm() {
                  {cat.value === 'defi' && subcat !== null && chain !== null && lang ? <Button onClick={findDefi}>Find</Button> : null}  
                  {cat.value === 'dao' && subcat !== null && chain !== null && lang ? <Button onClick={findDao}>Find</Button> : null}  
         </FormBox>
-        </Col>
+        </Col>  <Col xs={24} md={8}>
           {result && <Flex><Navigation>
                 {step === 'Setup' ? <ArticleActButton>Setup</ArticleActButton> : <ArticleButton onClick={()=>setStep('Setup')}>Setup</ArticleButton> }
                   {StepIcon}
@@ -674,7 +675,8 @@ export default function PathForm() {
                 {step === 'Deploy' && <AbsoluteDescription>Pick one of many EVM compatible to deploy your contract</AbsoluteDescription>}
               </StepDescription>
            </Flex>}
-        <Col xs={24} md={8}>
+      
+
         {result &&
         <DisplayBox>
             {step === 'Security' &&  <>
