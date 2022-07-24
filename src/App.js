@@ -21,6 +21,9 @@ import Landing from './Pages/Landing';
 import Releases from './Pages/Releases';
 import Charts from './Pages/Charts';
 import Email from './Pages/Email';
+import Language from './Pages/Language';
+import Contracts from './Pages/Contracts';
+
 
 import { GoLight, Pill } from './icons/main';
 
@@ -166,8 +169,10 @@ function App() {
                   <Route exact path ="/releases"  component={Releases}  />
                   <Route exact path ="/charts"  component={Charts}  />
                   <Route exact path ="/email"  component={Email}  />
+                  <Route exact path ="/language"  component={Language}  />
+                  <Route exact path ="/contracts"  component={Contracts}  />
                   <Route exact path ="/"  component={Landing}  />
-                  <Route path ="*" render={() => <Tutorials />}/> 
+                  <Route path ="*" render={() => <Landing />}/> 
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
                 </TotalsContext.Provider>
@@ -275,7 +280,12 @@ const GlobalStyle = createGlobalStyle`
   background: ${props => props.theme.colors.red};
   opacity: 0.5;
 }
+
+.rs-modal-content{
+  background: #282a36;
+}
 `;
+
 
 
 export default App;

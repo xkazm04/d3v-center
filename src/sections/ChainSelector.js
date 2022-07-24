@@ -10,6 +10,7 @@ const Kontejner = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 5%;
+    background: ${props => props.theme.colors.blackwhite};
     animation: fadeIn 0.5s;
     @keyframes fadeIn {
       0% { opacity: 0; }

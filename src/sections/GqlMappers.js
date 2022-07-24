@@ -1,5 +1,9 @@
-import styled from "styled-components";
+import styled, {useTheme} from "styled-components";
 import axios from 'axios'
+import GqlSection from "./GqlSection";
+import { ExpandIcon } from '../icons/utils';
+
+
 
 const PolkaBox = styled.div`
     display: flex;
@@ -97,23 +101,21 @@ const TitleA = styled.div`
 const Category = styled.div`
     font-size: 1em;
     opacity: 0.8;
-    &:hover{
-        opacity: 1;
-    }
 `
-
 
 const Result = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     outline: none;
-    padding: 1%;
-    cursor: pointer;
+    padding-left: 3%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    margin-bottom: 2px;
+    background: ${props => props.theme.colors.lightGreen};;
     color: ${props => props.theme.colors.text_title};
     border-bottom: 1px solid ${props => props.theme.colors.background};
     &:hover{
-        background: ${props => props.theme.colors.lighter};
         box-shadow: 0px 0px 10px 0px ${props => props.theme.colors.line};
     }
     animation: fadeIn 0.5s;
@@ -122,33 +124,46 @@ const Result = styled.div`
       100% { opacity: 1; }
     }
 `
-const SectionTitle = styled.div`
-    color: ${props => props.theme.colors.text_primary};
-    width: 100%;
-    font-weight: 700;
-    padding: 2%;
-    font-size: 1.1em;
-    background: ${props => props.theme.colors.background};
-    border-bottom: 1px solid ${props => props.theme.colors.line};
-    border-radius: 5px;
-    margin-bottom: 2%;
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+
+const IconButton = styled.button`
+  background: inherit;
+  text-align: right;
+  transition: 0.1s;
+  opacity: 0.6;
+  &:hover{
+    opacity: 1;
+  }
 `
 
 const UpperTag = styled.div`
-  background: ${props => props.theme.colors.red};
-  border: 0.1px solid ${props => props.theme.chart.var3_fill};
+  background: ${props => props.theme.colors.landingSubtitle};
+  border: 0.1px solid ${props => props.theme.chart.landingTitle};
   padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 0.9em;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 2px;
+  font-size: 0.8em;
   border-radius: 15px;
   font-weight: 700;
 `
+
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  justify-content: space-between;
+`
+
+const GqlItem = ({d}) => {
+  const theme = useTheme()
+  return <Result  key={d.id} >
+  <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
+  <ButtonBox>            
+      <IconButton onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+      {d.attributes.Subcategory && <UpperTag>{d.attributes.Subcategory}</UpperTag>} 
+   </ButtonBox>
+</Result>
+} 
 
 const handleResultClick = async (reference,id,counter) => {
     window.open(reference, "_blank")
@@ -273,23 +288,24 @@ export const GqlPMapperAlt = ({data, title}) => {
 
 export const GqlMapper = ({data, title}) => {
     return(<>
-    <SectionTitle>{title}</SectionTitle>
-    {data.map((d) => (
-      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
-                     <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
-                     <div>   <UpperTag>{d.attributes.Subcategory}</UpperTag></div>
-              </Result>
+    <GqlSection title={title}/>
+        {data.map((d) => (
+            <GqlItem d={d}/>
       ))}
     </>)
 }
 
 export const GqlRMapper = ({data, title}) => {
+  const theme = useTheme()
     return(<>
-    <SectionTitle>{title}</SectionTitle>
+    <GqlSection title={title}/>
     {data.map((d) => (
-      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.reference)}>
+      <Result  key={d.id}>
                      <Flex> <TitleA>{d.attributes.title}</TitleA>    <Category>{d.attributes.description}</Category></Flex> 
-                     <div>   <UpperTag>{d.attributes.subcategory}</UpperTag></div>
+                     <Flex>            
+                      <IconButton onClick={()=>handleResultClick(d.attributes.reference,d.id,d.attributes.counter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                        {d.attributes.subcategory && <UpperTag>{d.attributes.subcategory}</UpperTag>}
+                    </Flex>
               </Result>
       ))}
     </>)
@@ -298,24 +314,32 @@ export const GqlRMapper = ({data, title}) => {
 
 export const GqlFilterdMapper = ({data, title, filter}) => {
     return(<>
-    <SectionTitle>{title}</SectionTitle>
+    <GqlSection title={title}/>
     {data.filter(s => s.attributes.Subcategory === filter).map((d) => (
-      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
-                     <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
-                     <div>   <UpperTag>{d.attributes.Subcategory}</UpperTag></div>
-              </Result>
+       <GqlItem d={d}/>
       ))}
     </>)
 }
 
+export const GqlFilterdToolMapper = ({data, title, filter}) => {
+  return(<>
+    <GqlSection title={title}/>
+    {data.filter(s => s.attributes.Tool === filter).map((d) => (
+       <GqlItem d={d}/>
+      ))}
+  </>)
+}
+
 export const GqlToolMapper = ({data, title, filter}) => {
     return(<>
-    <SectionTitle>{title}</SectionTitle>
-    {data.filter(s => s.attributes.Tool === filter).map((d) => (
-      <Result  key={d.id} onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}>
-                     <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
-                     <div>   <UpperTag>{d.attributes.Subcategory}</UpperTag></div>
-              </Result>
-      ))}
+    <GqlSection title={title}/>
+    {filter ? <> {data.filter(s => s.attributes.Tool === filter).map((d) => (
+          <GqlItem d={d}/>
+      ))}</> : 
+      <>
+      {data.map((d) => (
+             <GqlItem d={d}/>
+        ))}</>}
+
     </>)
 }

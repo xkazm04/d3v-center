@@ -15,7 +15,7 @@
   import SearchBox from './SearchBox';
 import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
-import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon, ExpandIcon, CodeIcon, CloseIcon } from '../../icons/utils';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon, ExpandIcon, CodeIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
@@ -319,16 +319,6 @@ const FlexColumn = styled.div`
   flex-direction: column;
 `
 
-const CodeBox = styled.div`
-  position: absolute;
-  background: black;
-  margin-top: 10%;
-  max-height: 800px;
-  overflow-y: scroll;
-  z-index: 1;
-  right:0;
-`
-
 const FilterBox = styled.div`
   padding: 15px;
   padding-left: 0;
@@ -351,19 +341,13 @@ const IconButton = styled.button`
   }
 `
 
-const CloseButton = styled.button`
-  position: sticky;
-  padding-top: 1%;
-  top: 0;
-  background: inherit;
-  width: 100%;
-`
+
 
 
 const AlgoliaTutorialTable = () => {
     const theme = useTheme()
     const [code, setCode] = useState('')
-    const [previewVisible, setPreviewVisible] = useState(false)
+    const [open, setOpen] = useState(false)
 
     // Series handlers
     const [filterSeries, setFilterSeries] = useState(true);
@@ -401,15 +385,15 @@ const AlgoliaTutorialTable = () => {
       setFilterTool(!filterTool);
     }
 
+
+    const handleCodePreview = async(code) => {
+      setCode(code)
+      setOpen(true)
+    }
     const handleResultClick = (reference,id,counter) => {
       window.open(reference, "_blank")
       addCounter(id,counter)
   }
-    const handleCodePreview = async(code) => {
-      setCode(code)
-      setPreviewVisible(true)
-    }
-
 
 
     const addCounter = async(tutorialId,viewCounter) => {
@@ -516,7 +500,6 @@ function Hit(props) {
   return (
 
     <Kontejner>
-                 {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
             <InstantSearch indexName="tutorial" searchClient={searchClient}>
             <Flex> 
                 <Box>
@@ -548,15 +531,15 @@ function Hit(props) {
 
                 <FilterBox><SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/></FilterBox>
      
-            
+                
         </FlexFilter></LazyLoad> 
 
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
             <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
                </Box>
          </Flex> 
+           <CodeComponent code={code} open={open} setOpen={setOpen}/>
       </InstantSearch>
-
       </Kontejner>
   )
 }

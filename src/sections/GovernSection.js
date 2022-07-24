@@ -8,10 +8,15 @@ import { Tooltip as TT, Whisper } from 'rsuite';
 import GovernResources from './GovernResources';
 import GovernCode from './GovernCode';
 
-
+const Kontejner = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+`
 const TokenForm = styled.div`
     padding-right: 2%;
-    min-width: 200px;
+    width: 200px;
 `
 
 const TokenInput = styled(InputNumber)`
@@ -40,12 +45,15 @@ const Label = styled.div`
 const Flex = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: left;
     margin-bottom: 2%;
 `
 
 const FlexColumn = styled.div`
     display: flex;
     flex-direction: row;
+
     margin-bottom: 2%;
     padding-top: 2%;
 `
@@ -82,14 +90,17 @@ const EmptyButton = styled(ArticleButton)`
 `
 
 const AbsoluteDescription = styled.div`
-  font-style: italic;
-  font-family: 'Inder';
+  text-align: left;
+  margin-top: 1%;
+  font-family: 'Staatliches';
   font-size: 1.1em;
+  letter-spacing: 1.2px;
   margin-left: 15px;
   color: ${props => props.theme.colors.text_title};
 `
 
 const SubNavigation = styled.div`
+    display: flex;
   padding-top: 1%;
 `
 
@@ -101,6 +112,10 @@ const Number = styled.div`
     padding-left: 5%;
     padding-right: 2%;
 
+`
+
+const ChartBox = styled.div`
+    min-width: 800px;
 `
 const Neg = styled(Number)`
     color: red;
@@ -123,6 +138,12 @@ const AlignLeft = styled.div`
     padding-top: 5%;
     font-size: 0.9em;
     color: ${props => props.theme.colors.text_title};
+`
+
+const DesktopOnly = styled.div`
+      @media (max-width: 1000px) {
+    display: none;
+  }
 `
 
 
@@ -371,13 +392,12 @@ const GovernSection = () => {
         )
     }
 
-    return (
-        <>
+    return  <Kontejner>  
         <SubNavigation>
                   {component === 'Resources' ? <ArticleActButton>Resources</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Resources')}>Resources</ArticleButton>}
-                  {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Tokenomics</ArticleButton>}
-                  {component === 'Chart' &&  <AbsoluteDescription>Design your tokenomics </AbsoluteDescription> }
-                  {component === 'Resources' &&  <AbsoluteDescription>Resources related with tokenomics and governance</AbsoluteDescription> }
+           <DesktopOnly>       {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Tokenomics</ArticleButton>}
+                  {component === 'Chart' &&  <AbsoluteDescription>Design your tokenomics </AbsoluteDescription> }</DesktopOnly>
+                  
         </SubNavigation>
       <FlexColumn> 
        {component !== 'Resources' && <TokenForm>
@@ -397,8 +417,8 @@ const GovernSection = () => {
         </TokenForm>}
         {component === 'Resources' && <GovernResources/>}
         {component === 'Code' && <GovernCode/>}
-       {component === 'Chart' && 
-       <ResponsiveContainer width="70%" height={600}>
+       {component === 'Chart' &&  <ChartBox> 
+       <ResponsiveContainer width="100%" height={600}>
                 <AreaChart
                         data={vestingSchedule}
                         margin={{
@@ -422,7 +442,8 @@ const GovernSection = () => {
                         <Area type="monotone" dataKey="PrivateSale" stackId="1"  stroke={theme.chart.var2_stroke} fill={theme.chart.var2_fill} />
                         <Area type="monotone" dataKey="PublicSale" stackId="1"  stroke={theme.chart.var3_stroke} fill={theme.chart.var3_fill} />
                     </AreaChart>
-        </ResponsiveContainer>}
+        </ResponsiveContainer>    </ChartBox>}
+
         </FlexColumn>
         <AlignLeft><EmptyButton>Design</EmptyButton>
                         <li>Initial supply and allocation to team, investors, community, and other stakeholders</li>
@@ -433,8 +454,8 @@ const GovernSection = () => {
                         <li> Coin governance including voting, escrow, stake-weighting, vesting, and gauges</li>
                         <li> Miner and validator compensation such as fees, emissions, and penalties</li>
                         <li> Usage of protocol’s native tokens versus external tokens (e.g. ETH, USDC)</li></AlignLeft>
-        </>
-    )
+    </Kontejner>
+    
 }
 
 export default GovernSection

@@ -39,11 +39,6 @@ const ActiveItem = styled(NavItem)`
     border-bottom: 3px solid ${props => props.theme.colors.yellow};
 `
 
-const Disabled = styled(NavItem)`
-    background: ${props => props.theme.colors.disabled};
-    color: ${props => props.theme.colors.red};
-`
-
 const NavGroup = styled.div`
     padding-top: 3%;   
 `
@@ -101,9 +96,6 @@ function TopNav() {
                     {link === '/releases' ?     
                     <ActiveItem onClick={()=>{handleLink('releases')}}><MyLink to="/releases">Releases</MyLink></ActiveItem> :   
                   <MyLink to="/releases"> <NavItem onClick={()=>{handleLink('/releases')}}>Releases</NavItem></MyLink> }
-
-                    <Divider vertical/>
-                   <Disabled disabled>...Newsletter</Disabled>
                 </NavGroup>
             </>
         </Kontejner>

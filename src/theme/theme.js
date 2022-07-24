@@ -14,12 +14,15 @@ export const lightTheme = {
        main: "#fffdfd",
        search: "#f9f9f9",
        disabled: "#898989",
-       step: "#4d97ff",
+       step: "#5bf176",
        text: "#0c0c0c",
        dark: "#00306c",
        landingTitle: '#d9d9d9',
        landingSubtitle: '#d7fff2',
        landingBox: '#052f19',
+       subContent: '#f9fff8',
+       subContentTitle: '#e5fce7',
+       lightGreen: '#f9fdf9',
  
        // Cards-Alternative colors
        blue: "#FFA3A3",
@@ -96,8 +99,11 @@ export const lightTheme = {
       text: "#f3f3f3",
       dark: "#c7dcf5",
       landingTitle: '#d9d9d9',
-      landingSubtitle: '#d7fff2',
+      landingSubtitle: '#830b0b',
       landingBox: '#300000',
+      subContent: '#170000',
+      subContentTitle: '#000000',
+      lightGreen: '#150000',
  
       red: "#280000",
 
