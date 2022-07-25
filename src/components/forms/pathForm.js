@@ -689,8 +689,8 @@ export default function PathForm() {
                 <GqlFilterdMapper data={secDefinitions} title={'Vulnerabilities'} filter={'Vulnerability'}/>
             </RenderSection>}
               </>}
-            {tutorials && <RenderSection>
-            {step === 'Develop' ? <> <GqlSection title='Guides & Tutorials'/>
+            {tutorials && <>
+            {step === 'Develop' ? <RenderSection> <GqlSection title='Guides & Tutorials'/>
                 <>
                 {tutorials.map((tutorial) => (
                         <Result  key={tutorial.id}>
@@ -708,10 +708,10 @@ export default function PathForm() {
                            
                         </Result>
                 ))}
-                </></> : null}
-            </RenderSection>}
-            {definitions && <RenderSection>
-                {step === 'Develop' ? <>
+                </></RenderSection> : null}
+            </>}
+            {definitions && <>
+                {step === 'Develop' ? <RenderSection>
               <GqlFilterdMapper data={definitions} title={'General topic articles'} filter={'General'}/>
                 
                 {subcat.label === "Lending" && <GqlFilterdMapper data={definitions} title={'Lending'} filter={'Lending'}/>}
@@ -722,8 +722,8 @@ export default function PathForm() {
                 {subcat.label === "Gaming" && <GqlFilterdMapper data={definitions} title={'Gaming'} filter={'Gaming'}/>}
                 {subcat.label === "Marketplace" && <GqlFilterdMapper data={definitions} title={'Use cases'} filter={'Use case'}/>}
                 {cat.value === "defi" && <GqlFilterdMapper data={definitions} title={'Stablecoin'} filter={'Stablecoin'}/>}
-              </> : null}
-            </RenderSection>}    
+              </RenderSection> : null}
+            </>}    
         </DisplayBox> }
           {chain.value === 'evm' && step === 'Deploy' ? <ChainSelector eco={chain.value}/> : null}
           {chain.value === 'evm' && step === 'Setup' ? 
@@ -796,13 +796,15 @@ export default function PathForm() {
         <Col xs={24} md={8}>
         {result &&
         <DisplayBox>
-            {tools && <RenderSection>
-              {step === 'Develop' ? <> 
+            {tools && <>
+              {step === 'Develop' ? 
+              <RenderSection> 
                 <GqlToolMapper data={tools} title={'Tooling'}/>
-                   </> : <>{secTools && step === 'Security' && <RenderSection>
+                   </RenderSection> : 
+              <>{secTools && step === 'Security' && <RenderSection>
                 <GqlToolMapper data={secTools} title={'Security tooling'}/>
-            </RenderSection>}</>}
-            </RenderSection>}
+                </RenderSection>}</>}
+            </>}
             {repos && step === 'Develop' && <RenderSection>
                 <GqlRMapper data={repos} title={'Get inspired'}/>
             </RenderSection>}
