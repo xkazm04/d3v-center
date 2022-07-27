@@ -13,18 +13,20 @@ const Button = styled.button`
   font-family: 'Staatliches';
   font-size: 1.4rem;
   margin-top: 1%;
+  margin-right: 3px;
   background: ${props => props.theme.colors.medium};
 `
 
 const ActButton = styled(Button)`
   background: ${props => props.theme.colors.lightGreen};
   color: ${props => props.theme.colors.text_title};
+ 
 `
 
 const Subtitle = styled.div`
   color: ${props => props.theme.colors.text_seondary};
   font-family: 'Staatliches';
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 `
 
 
@@ -40,7 +42,7 @@ export default function Tools() {
         {cat === 'Categorical' ? <ActButton>Categorical</ActButton> : <Button onClick={()=>{setCat('Categorical')}}>Categorical</Button>}
         <Divider vertical/>
 
-        {cat === 'Slither' ? <ActButton>Quicksec</ActButton> : <Button onClick={()=>{setCat('Slither')}}>Quicksec</Button>}
+        {cat === 'Slither' ? <ActButton>Security check</ActButton> : <Button onClick={()=>{setCat('Slither')}}>Security check</Button>}
 
         {cat === 'List' &&  <AlgoliaToolsTable/> }
         {cat === 'Categorical' &&  <AlgoliaToolsAltTable/> }

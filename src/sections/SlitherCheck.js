@@ -7,13 +7,14 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import Select from 'react-select'
-import { versionOptions } from '../data/solVersions';
+import { versionOptions, refContract } from '../data/solVersions';
 import { PlayIcon } from '../icons/utils';
 
 const Kontejner = styled.div`
     display: flex;
     flex-direction: column;
     padding: 5%;
+    padding-left: 15%;
     text-align: left;
 `
 
@@ -40,7 +41,7 @@ const CodeBox = styled.div`
 
 const PragmaBox = styled.div`
     padding-left: 2%;
-    min-width: 100px;
+    min-width: 150px;
 `
 
 const ButtonBox = styled.div`
@@ -113,10 +114,13 @@ const MySelect = styled(Select)`
 
 const ResultBox = styled.div`
     border: 1px solid ${props => props.theme.colors.line};
+    margin-top: 20%;
+    padding: 2%;
     margin-left: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-right: 8%;
     min-width: 200px;
+    border: 1px solid ${props => props.theme.colors.lineAlt};
+    background: ${props => props.theme.colors.lightGreen};
 `
 
 const ResultList = styled.div`
@@ -132,13 +136,29 @@ const Result = styled.div`
     font-weight: 700;
 `
 
+const ReferenceBox = styled.div`
+    color: ${props => props.theme.colors.text_secondary};
+    margin-top: 20%;
+    margin-left: 2%;
+`
+
+const R = styled.div`
+    text-decoration: underline;
+    cursor: pointer;
+    color: ${props => props.theme.colors.text_primary};
+    transition: 0.1s;
+    &:hover{
+        color: ${props => props.theme.colors.text_title};
+    }
+`
+
 
 export default function SlitheCheck() {
-    const [code, setCode] = useState('ahoj')
+    const [code, setCode] = useState(refContract)
     const [err, setErr] = useState('')
     const [open, setOpen] = useState(false)
-    const [version, setVersion] = useState('0.8.0')
-    const [result, setResult] = useState(false)
+    const [version, setVersion] = useState({ value: 'pragma solidity ^0.8.2', label: '0.8.2' })
+    const [result, setResult] = useState(null)
 
     const theme = useTheme();
     const customStyles = {
@@ -164,12 +184,11 @@ export default function SlitheCheck() {
 
     const checkSec = async(contract, pragma) => {
         setErr('')
-        setResult(false)
-        const body = { data: { contract: contract, pragma: pragma } }
+        setResult(null)
+        const body = { data:{sol_contract: contract, pragma: pragma.value}  }
        try{
-        const res = await axios.post(`something`, body)
-        console.log(res)
-        setResult(true)
+        const res = await axios.post(process.env.REACT_APP_SLITHER, body.data)
+        setResult(res.data)
        } catch(e){
         console.log(e)
         setErr('Submit failed, check your code if could be compile successfully in Hardhat/Truffle/Foundry/Brownie.')
@@ -180,11 +199,16 @@ export default function SlitheCheck() {
         setOpen(true)
     }
 
+        const handleReference = (reference) => {
+            window.open(reference, "_blank")
+        }
+
+
 
     return <Kontejner>
-        <FormTitle>Verify online static analysis</FormTitle>
-        <FormSubtitle>Using Slither v0.8.3</FormSubtitle>
-                   <Error> {err}</Error>
+                <FormTitle>Verify online static analysis</FormTitle>
+                <FormSubtitle>Using Slither v0.8.3</FormSubtitle>
+                   <Error> {err} {result && result.high >= 1 && result.high < 999 && <>Slither found High impact issue, Be careful</>}</Error>
                  <Flex> <CodeBox>     
                  <LabelTitle>Insert valid Solidity code</LabelTitle>
                     <Editor
@@ -203,7 +227,7 @@ export default function SlitheCheck() {
                             }}
                             />
 
-                 <button onClick={previewCode}>preview</button><CodeComponent code={code} open={open} setOpen={setOpen}/></CodeBox>
+                 <button onClick={previewCode}>preview highlighted</button><CodeComponent code={code} open={open} setOpen={setOpen}/></CodeBox>
                    <PragmaBox>
                     <LabelTitle>Select compiler version</LabelTitle>
                     <MySelect 
@@ -212,23 +236,30 @@ export default function SlitheCheck() {
                         value={version}
                         defaultValue={versionOptions[0]}
                         onChange={setVersion}
-                        placeholder='Select compiler version'
+                        placeholder='pragma solidity ^0.8.2'
                         theme={myTheme} />
                                    <ButtonBox> 
                                         {result || err ? <Button onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={theme.colors.dark}/></Button> 
                                         : <PulsingButton onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={theme.colors.dark}/></PulsingButton> }
                                     </ButtonBox>
-                    </PragmaBox>
-                    {!result && <ResultBox>
+                                    {result && <ResultBox>
                                 <LabelTitle>We have a result</LabelTitle>
                                   <ResultList>
-                                    <Result color={theme.chart.var3_stroke}><div>High:</div><div>value</div> </Result>
-                                    <Result color={theme.colors.dark}><div>Medium:</div><div></div> </Result>
-                                    <Result color={theme.chart.var3_stroke}><div>Low:</div><div></div> </Result>
-                                    <Result color={theme.chart.var3_stroke}><div>Informational:</div><div></div> </Result>
-                                    <Result color={theme.chart.var3_stroke}><div>Optimization:</div><div></div> </Result>
+                                    <Result color={theme.chart.var3_stroke}><div>High:</div><div>{result.high}</div> </Result>
+                                    <Result color={theme.colors.text_secondary}><div>Medium:</div><div>{result.medium}</div> </Result>
+                                    <Result color={theme.colors.text_secondary}><div>Low:</div><div>{result.low}</div> </Result>
+                                    <Result color={theme.colors.text_secondary}><div>Informational:</div><div>{result.informational}</div> </Result>
+                                    <Result color={theme.colors.text_secondary}><div>Optimization:</div><div>{result.optimization}</div> </Result>
                                     </ResultList>
+                                    
                         </ResultBox>}
+                    <ReferenceBox>
+                        Analyze your code with:
+                          <R onClick={()=>{handleReference('https://github.com/trailofbits/eth-security-toolbox')}}>Eth security toolbox</R>
+                          <R onClick={()=>{handleReference('https://github.com/crytic/slither')}}>Slither</R>
+                        </ReferenceBox>
+                    </PragmaBox>
+
                     
                    </Flex>
         
