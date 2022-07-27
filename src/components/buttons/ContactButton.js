@@ -28,6 +28,7 @@ font-weight: 400;
 padding: 2%;
 border-radius: 15px;
 `
+
 const MyWhisper = styled(Popover)`
 color: ${props => props.theme.colors.text_secondary};
 background: ${props => props.theme.colors.light};;
@@ -43,7 +44,7 @@ function ContactButton() {
 
     return (
 
-                < >
+                <>
                     <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
                     <MyButton icon={<LinkedIcon width='30' colorFill={theme.chart.var1_stroke} colorStroke={theme.colors.background}/>}/>
                 </Whisper>    

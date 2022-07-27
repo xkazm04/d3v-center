@@ -2,43 +2,49 @@ import {useState} from 'react'
 import AlgoliaToolsAltTable from "../components/tables/AlgoliaToolsAltTable";
 import AlgoliaToolsTable from "../components/tables/AlgoliaToolsTable";
 import styled from 'styled-components'
+import { Divider } from 'rsuite';
+import SlitheCheck from '../sections/SlitherCheck';
 
 const Kontejner = styled.div`
   margin-top: 2%;
 `
 
 const Button = styled.button`
-  box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
-  transition: 0.1s;
-  border-bottom: 2px solid ${props => props.border};
-  background: ${props => props.theme.colors.lighter};
-  color: ${props => props.theme.colors.yellow};
-  &:hover{
-    background: ${props => props.theme.colors.red};
-  }
-  &:active{
-    color: ${props => props.theme.colors.red};
-  }
+  font-family: 'Staatliches';
+  font-size: 1.4rem;
+  margin-top: 1%;
+  background: ${props => props.theme.colors.medium};
 `
 
-const Overview = styled(Button)`
-  border-right: 2px solid ${props => props.theme.colors.line};
-  
+const ActButton = styled(Button)`
+  background: ${props => props.theme.colors.lightGreen};
+  color: ${props => props.theme.colors.text_title};
 `
 
-const Categorical = styled(Button)`
+const Subtitle = styled.div`
+  color: ${props => props.theme.colors.text_seondary};
+  font-family: 'Staatliches';
+  font-size: 1.2rem;
 `
+
 
 
 
 export default function Tools() {
-  const [main, setMain] = useState(true);
+  const [cat, setCat] = useState('List'); // List, Categorical, Slither
 
 
     return <Kontejner>
-        {main ? <Overview border={'red'}  onClick={()=>{setMain(true)}}>List view</Overview> : <Overview onClick={()=>{setMain(true)}}>List view</Overview> } 
-        {main ? <Categorical  onClick={()=>{setMain(false)}}>Categorical </Categorical> : <Categorical border={'red'}   onClick={()=>{setMain(false)}}>Categorical </Categorical>}
-    
-          {main ? <AlgoliaToolsTable/> : <AlgoliaToolsAltTable/>}    
+      <Subtitle>Views/Tools</Subtitle>
+        {cat === 'List' ? <ActButton>List view</ActButton> : <Button onClick={()=>{setCat('List')}}>List view</Button>}
+        {cat === 'Categorical' ? <ActButton>Categorical</ActButton> : <Button onClick={()=>{setCat('Categorical')}}>Categorical</Button>}
+        <Divider vertical/>
+
+        {cat === 'Slither' ? <ActButton>Quicksec</ActButton> : <Button onClick={()=>{setCat('Slither')}}>Quicksec</Button>}
+
+        {cat === 'List' &&  <AlgoliaToolsTable/> }
+        {cat === 'Categorical' &&  <AlgoliaToolsAltTable/> }
+        {cat === 'Slither' &&  <SlitheCheck/> }
+     
     </Kontejner>;
   }

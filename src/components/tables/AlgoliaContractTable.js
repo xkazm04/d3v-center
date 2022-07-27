@@ -16,6 +16,7 @@ import MenuSelect from './MenuSelect';
 import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
 import CodeComponent from '../code/CodeComponent';
+import BoxSubtitle from '../typography/BoxSubtitle';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -321,7 +322,8 @@ return (
                
           <Flex> 
               <Box>
-                    <BoxTitle content='Contracts'/>
+                    <BoxTitle content='Contracts (8/2022)'/>
+                    <BoxSubtitle content='Complete mainnet library from Ethereum, Polygon and BSC'/>
 
               <Configure hitsPerPage={30} />   
               <LazyLoad><FlexFilter>  

@@ -21,9 +21,6 @@ const Pulse = styled.div`
   box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
   animation: pulse-red 2s infinite;
   border-radius: 5px;
-  &:hover{
-    background: black;
-  }
 @keyframes pulse-red {
   0% {
     transform: scale(0.95);
