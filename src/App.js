@@ -36,6 +36,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrandIcon } from './icons/main';
 import {Helmet} from "react-helmet";
 import { HomeIcon } from './icons/landing';
+import ContactButton from './components/buttons/ContactButton';
 
 const queryClient = new QueryClient()
 
@@ -154,6 +155,7 @@ function App() {
                 <Navigation>
                 <Navbar/>
                    <Flex> 
+                   <ContactButton/>
                     <MediumButton color='red'/>
                     <DonateButton/>
                     </Flex>

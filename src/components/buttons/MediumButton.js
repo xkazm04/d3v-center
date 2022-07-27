@@ -33,7 +33,7 @@ color: ${props => props.theme.colors.text_secondary};
 background: ${props => props.theme.colors.light};;
 `
 
-function MediumButton({color}) {
+function MediumButton() {
 
     const speaker =
     <MyWhisper>

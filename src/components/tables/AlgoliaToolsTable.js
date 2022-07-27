@@ -304,7 +304,7 @@ const AlgoliaToolTable = () => {
       console.log(updatedId)
       const token = process.env.REACT_APP_CMS_API // Master strapi token
       const body = { data: { ViewCounter: viewCounter+1 } }
-      const res = await axios.put(`${process.env.REACT_APP_ENVIRONMENT}/api/definitions/${updatedId}`, body, {
+      const res = await axios.put(`${process.env.REACT_APP_ENVIRONMENT}/api/tools/${updatedId}`, body, {
           headers: {
             Authorization: `Bearer ${token}`
           },

@@ -17,6 +17,7 @@ import { RustIcon, SolidityIcon, JsIcon, PythIcon } from '../../icons/utils';
 import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
 import BoxSubtitle from '../typography/BoxSubtitle';
+import axios from 'axios'
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -360,6 +361,26 @@ return(
 )
 }
 
+const handleResultClick = (reference,id, viewCounter
+  ) => {
+  window.open(reference, "_blank")
+  addCounter(id,viewCounter)
+}
+
+
+const addCounter = async(tutorialId,viewCounter) => {
+    const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
+    console.log(updatedId)
+    const token = process.env.REACT_APP_CMS_API // 
+    const body = { data: { counter: viewCounter+1 } }
+    const res = await axios.put(`${process.env.REACT_APP_ENVIRONMENT}/api/repos/${updatedId}`, body, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+})
+console.log(res)
+}
+
 
 function Hit(props) {
   return (
@@ -371,7 +392,7 @@ function Hit(props) {
          </HitColumn>
           <MyDivider vertical/>
           {/* Main column*/}
-        <HitMainColumn width={'430px'}>  
+        <HitMainColumn width={'430px'} onClick={()=>{handleResultClick(props.hit.reference,props.hit.id,props.hit.counter)}} >  
             <HitTitle attribute="title" hit={props.hit}  tagName="strong"/>
             <HitDescription attribute="description" hit={props.hit} tagName="strong" /> 
         </HitMainColumn>
