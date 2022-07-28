@@ -16,6 +16,9 @@ import { GqlFilterdMapper, GqlFilterdToolMapper, GqlMapper, GqlRMapper, GqlToolM
 import { CodeIcon, ExpandIcon } from '../../icons/utils';
 import CodeComponent from '../code/CodeComponent';
 import GqlSection from '../../sections/GqlSection';
+import SubmenuButton from '../buttons/SubmenuButton';
+import WagmiExample from '../../sections/WagmiExample';
+import AlchemyExample from '../../sections/AlchemyExample';
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -69,7 +72,6 @@ const BoxSubtitle = styled.div`
 const DisplayBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 2%;
     margin-left: 5%;
     text-align: left;
     @media (max-width: 1000px) {
@@ -231,7 +233,6 @@ const SetupKontejner = styled.div`
 `
 
 const SetupColumn = styled.div`
-  padding: 5%;
   width: 100%;
   text-align: left;
 `
@@ -358,6 +359,15 @@ const CheatBox = styled.div`
   padding: 2%;
 `
 
+const SubnavTitle = styled.div`
+  width: 100%; 
+  background: ${props => props.theme.colors.landingBox};
+  color: ${props => props.theme.colors.landingTitle};
+  font-size: 1.1em;
+  font-family: 'Staatliches';
+  text-align: center;
+`
+
 
 export default function PathForm() {
   const [open, setOpen] = useState(false);
@@ -417,6 +427,7 @@ export default function PathForm() {
 
     const [step, setStep] = useState("Setup")
     const [setupState, setSetupState] = useState('Hardhat')
+    const [starter, setStarter] = useState('Starter')
 
     const [code, setCode] = useState(false)
 
@@ -658,13 +669,13 @@ export default function PathForm() {
         <Col xs={24} md={8}>
           {result && <Flex>
             {step === 'Setup' && <>  <StepDescription> 
-              
+            <SubnavTitle>Smart contracts</SubnavTitle>
                 <SubNavigation>
-                  {setupState === 'Truffle' ? <ArticleActButton>Truffle</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Truffle')}>Truffle</ArticleButton>}
-                  {setupState === 'Hardhat' ? <ArticleActButton>Hardhat</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Hardhat')}>Hardhat</ArticleButton>}
-                  {setupState === 'Remix' ? <ArticleActButton>Remix</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Remix')}>Remix</ArticleButton>}
-                  {setupState === 'Brownie' ? <ArticleActButton>Brownie</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Brownie')}>Brownie</ArticleButton>}
-                  {setupState === 'Foundry' ? <ArticleActButton>Foundry</ArticleActButton> : <ArticleButton onClick={()=>setSetupState('Foundry')}>Foundry</ArticleButton>}
+                    <SubmenuButton phase={setupState} item='Truffle' setItem={setSetupState}/>
+                    <SubmenuButton phase={setupState} item='Hardhat' setItem={setSetupState}/>
+                    <SubmenuButton phase={setupState} item='Remix' setItem={setSetupState}/>
+                    <SubmenuButton phase={setupState} item='Brownie' setItem={setSetupState}/>
+                    <SubmenuButton phase={setupState} item='Foundry' setItem={setSetupState}/>
                   </SubNavigation>
                   {setupState === 'Truffle' &&  <AbsoluteDescription>Popular variant in combination with Ganache CLI & UI</AbsoluteDescription> }
                   {setupState === 'Hardhat' &&  <AbsoluteDescription>Most used variant for e2e smart contract setup, test & deploy</AbsoluteDescription> }
@@ -813,7 +824,23 @@ export default function PathForm() {
         </DisplayBox>}
               {chain.value === 'evm' && step === 'Deploy' ? <><ChainStats chain={blockchain}/></> : null}
               {step === 'Setup' && setupTools && <SetupColumn>
-              <GqlMapper data={setupTools} title={'Starter kits'}/>
+          <StepDescription> 
+          <SubnavTitle>Frontend</SubnavTitle>
+              <SubNavigation>
+                   <SubmenuButton phase={starter} item='Starter' setItem={setStarter}/>
+                   <SubmenuButton phase={starter} item='Wagmi' setItem={setStarter}/>
+                   <SubmenuButton phase={starter} item='Alchemy' setItem={setStarter}/>
+
+                </SubNavigation>
+                    {starter === 'Starter' &&  <AbsoluteDescription>Predefined templates to bootstrap project</AbsoluteDescription> }
+                    {starter === 'Wagmi' &&  <AbsoluteDescription>React hooks on top of Ethers</AbsoluteDescription> }
+                    {starter === 'Alchemy' &&  <AbsoluteDescription>Universal Alchemy SDK's replacement of Ethers</AbsoluteDescription> }
+
+             
+            </StepDescription> 
+                {starter === 'Starter' && <GqlMapper data={setupTools} title={'Starter kits'}/>}
+                {starter === 'Wagmi' && <WagmiExample/>}
+                {starter === 'Alchemy' && <AlchemyExample/>}
                   </SetupColumn>}
             </Col>
             </Row>
