@@ -15,6 +15,7 @@ import CharTotal from '../components/charts/ChartTotal';
 import { ExitArrow } from '../icons/arrows';
 import axios from 'axios'
 import { TotalsContext } from '../contexts/TotalsContext'
+import  {motion,useScroll} from "framer-motion/dist/framer-motion"
 
 
 const Pulse = styled.div`
@@ -219,6 +220,18 @@ const TitleBox = styled.div`
     background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
 `
 
+const Progress = styled.div`
+    position: fixed;
+    top: 150;
+     width: 100%;
+`
+
+const ProgressBar = styled.div`
+    height: 2px;
+    opacity: 0.7;
+    background: ${props => props.theme.colors.lineAlt};
+`
+
 
 export default function Landing() {
     const theme = useTheme()
@@ -228,6 +241,7 @@ export default function Landing() {
     const [secondFile, setSecondFile] = useState(null)
     const [thirdFile, setThirdFile] = useState(null)
     const [fourthFile, setFourthFile] = useState(null)
+    const { scrollYProgress } = useScroll();
 
     const handleDescription = ( desc,first,second,third, fourth  ) => {
         setServiceDescription(desc);
@@ -299,6 +313,9 @@ export default function Landing() {
     // Přidat animaci na rozdělení stylu
     // Oddělit do souboru data pro každou sekci 
     return <Kontejner>
+        <Progress><motion.div style={{ scaleX: scrollYProgress }}   initial={{ opacity: 0 }}
+                                                whileInView={{ opacity: 1 }}><ProgressBar/></motion.div>  
+                                                        </Progress>
                 <Section>
                     <Grid fluid>
                         <Row>

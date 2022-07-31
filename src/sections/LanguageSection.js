@@ -2,8 +2,8 @@ import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Divider} from 'rsuite'
 import axios from 'axios'
-import CodeComponent from '../components/code/CodeComponent'
 import Md from '../components/code/Md'
+import CodeSeparate from '../components/code/CodeSeparate'
 
 const Kontejner = styled.div`
     display: flex;
@@ -12,7 +12,7 @@ const Kontejner = styled.div`
     align-items: center;
     margin-left: 15%;
     margin-right: 15%;
-    margin-top: 5%;
+    margin-top: 1%;
     background: #f9fff8;
     border-radius: 15px;
     padding-bottom: 2%;
@@ -57,31 +57,11 @@ const SectionButton = styled.button`
     }
 `
 
-const Title = styled.h1`
-    font-family: 'Staatliches';
-    font-weight: 500;
-    line-height: 1em;
-    text-transform: uppercase;
-    color: #d9d9d9;
-    font-size: 2.4em;
-    padding: 5px;
-    @media (max-width: 700px) {
-        font-size: 2em;
-  }
+const SectionActButton = styled(SectionButton)`
+    box-shadow: 0px 0px 2px 0px ${props => props.theme.colors.primary};
+    opacity: 0.9;
 `
 
-const Subtitle = styled.h2`
-    margin-top: 2%;
-    font-family: 'Staatliches';
-    font-style: "italic";
-    font-weight: 500;
-    line-height: 1em;
-    color: #d7fff2;
-    font-size: 1.5em;
-    @media (max-width: 700px) {
-        font-size: 1em;
-  }
-`
 
 const ContentBox = styled.div`
     display: flex;
@@ -135,12 +115,19 @@ const NavButton = styled.button`
     padding: 2%;
     background: inherit;
     border: 1px solid #ced1cf; 
-    color: #ced1cf;
+    color: ${props => props.theme.colors.landingTitle};
     font-family: 'Staatliches';
     letter-spacing: 1px;
     font-size: 1.3em;
     &:hover{
         color: white;
+    }
+`
+
+const NavActButton = styled(NavButton)`
+    background: ${props => props.theme.colors.text_title};
+    &:hover{
+        color: ${props => props.theme.colors.landingTitle};
     }
 `
 
@@ -163,6 +150,11 @@ const MarkdownBox = styled.div`
     border: 1px solid ${props => props.theme.colors.lineAlt};
     color: white;
     min-height: 100px;
+`
+
+const RefBox = styled.div`
+    background: ${props => props.theme.colors.landingTitle};
+    color: ${props => props.theme.colors.text_primary};
 `
 
 
@@ -207,19 +199,21 @@ function LanguageSection() {
             await setVoc(code);
         }
 
+        const NavItem = ({state, label}) => {
+            return<>
+               {subcat === state ? <NavActButton>{label}</NavActButton> :  <NavButton onClick={()=>{setSubcat(state)}}>{label}</NavButton>}
+            </>
+        }
+
     return (
             <Kontejner>
-                        <TitleBox>
-                            <Title>Language Cheatsheet</Title>
-                            <Subtitle>Learn basic language concepts</Subtitle>
-                        </TitleBox>
                         <Nav> 
-                                <NavButton onClick={()=>{setSubcat('All')}}>All terms</NavButton>
-                                <NavButton onClick={()=>{setSubcat('Basics')}}>Basics</NavButton>
-                                <NavButton onClick={()=>{setSubcat('Types')}}>Value types</NavButton>
-                                <NavButton onClick={()=>{setSubcat('Functions')}}>Functions</NavButton>
-                                <NavButton onClick={()=>{setSubcat('Standard')}}>Standards</NavButton>
-                                <NavButton onClick={()=>{setSubcat('Security')}}>Security</NavButton>
+                            <NavItem state='All' label='All terms'/>
+                            <NavItem state='Basics' label='Basics'/>
+                            <NavItem state='Types' label='Value types'/>
+                            <NavItem state='Functions' label='Functions'/>
+                            <NavItem state='Standard' label='Standard'/>
+                            <NavItem state='Security' label='Security'/>
                          </Nav>
                         <ContentBox>
                             <List>
@@ -229,12 +223,12 @@ function LanguageSection() {
                             </List>
                             <CodeBox>
                                 <TitleSubBox>
-                                        <SectionButton onClick={()=>{setSub('Definition')}}>Definition</SectionButton>
+                                      {sub === 'Definition' ? <SectionActButton>Definition</SectionActButton> : <SectionButton onClick={()=>{setSub('Definition')}}>Definition</SectionButton>}  
                                         <Divider vertical/>
-                                        <SectionButton onClick={()=>{setSub('Example')}}>Example</SectionButton>
+                                        {sub === 'Example' ? <SectionActButton>Example</SectionActButton> : <SectionButton onClick={()=>{setSub('Example')}}>Example</SectionButton>}  
                                     </TitleSubBox>
-                                 {sub === "Example" &&  <CodeComponent code={voc}/>}
-                                 {sub === "Definition" && article && <MarkdownBox><Md source={article}/></MarkdownBox>}
+                                 {sub === "Example" && <CodeSeparate code={voc} />}
+                                 {sub === "Definition" && article && <MarkdownBox><RefBox>Reference</RefBox><Md source={article}/></MarkdownBox>}
                             </CodeBox>
                         </ContentBox>
             </Kontejner>

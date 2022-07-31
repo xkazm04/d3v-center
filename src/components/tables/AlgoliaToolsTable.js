@@ -16,8 +16,6 @@ import SearchBox from './SearchBox';
 import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
 import LazyLoad from 'react-lazyload';
-import BoxTitle from '../typography/BoxTitle';
-import BoxSubtitle from '../typography/BoxSubtitle';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -367,9 +365,7 @@ return (
                <InstantSearch indexName="tool" searchClient={searchClient}>
                
           <Flex> 
-              <Box><BoxTitle content='Tools'/>
-              <BoxSubtitle content='Save your time with effective tooling'/>
-             
+              <Box>
               <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  

@@ -1,6 +1,12 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import styled from 'styled-components'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import ExampleButton from '../buttons/ExampleButton'
+
+const Flex = styled.div`
+  display: flex;
+`
+
 
 function WagmiProfile() {
   const { address, isConnected } = useAccount()
@@ -16,7 +22,7 @@ function WagmiProfile() {
         <ExampleButton label={'Disconnect'} click={disconnect}/>
       </div>
     )
-  return  <ExampleButton label={'Connect wallet'} click={connect}/>
+  return  <Flex><ExampleButton label={'Connect wallet'} click={connect}/></Flex>
 
 }
 

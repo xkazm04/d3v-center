@@ -1,52 +1,81 @@
 import {useState} from 'react'
-import AlgoliaToolsAltTable from "../components/tables/AlgoliaToolsAltTable";
 import AlgoliaToolsTable from "../components/tables/AlgoliaToolsTable";
 import styled from 'styled-components'
 import { Divider } from 'rsuite';
 import SlitheCheck from '../sections/SlitherCheck';
+import TitleBox from '../sections/TitleBox';
+import ToolSection from '../sections/ToolSection';
 
 const Kontejner = styled.div`
-  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
 `
+
+
+const Head = styled.div`
+display: flex;
+ margin-top: 2%;
+ padding-bottom: 2%;
+ padding-left: 10%;
+ border-bottom: 1px solid ${props => props.theme.colors.red};
+`
+
 
 const Button = styled.button`
   font-family: 'Staatliches';
-  font-size: 1.4rem;
+  font-size: 1.4em;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin-top: 1%;
-  margin-right: 3px;
+  margin-right: 10px;
   background: ${props => props.theme.colors.medium};
 `
 
 const ActButton = styled(Button)`
   background: ${props => props.theme.colors.lightGreen};
   color: ${props => props.theme.colors.text_title};
- 
+
 `
 
-const Subtitle = styled.div`
-  color: ${props => props.theme.colors.text_seondary};
-  font-family: 'Staatliches';
-  font-size: 1.4rem;
+const Submenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+  border-radius: 15px;
+  padding: 2%;
+  background: ${props => props.theme.colors.landingBox};
 `
 
 
+const SubmenuDesc = styled.div`
+  font-family: 'Chilanka';
+  font-size: 1.6em;
+  color: ${props => props.theme.colors.landingTitle};
+  margin: 3%;
+  font-weight: bold;
+`
 
 
 export default function Tools() {
-  const [cat, setCat] = useState('List'); // List, Categorical, Slither
+  const [cat, setCat] = useState('List');
 
 
     return <Kontejner>
-      <Subtitle>Views/Tools</Subtitle>
+      <Head>     <TitleBox title='Tools' subtitle='Craft faster with joy'/>
+        <Submenu>      
+        <SubmenuDesc>Select section</SubmenuDesc>
+        <div>
         {cat === 'List' ? <ActButton>List view</ActButton> : <Button onClick={()=>{setCat('List')}}>List view</Button>}
         {cat === 'Categorical' ? <ActButton>Categorical</ActButton> : <Button onClick={()=>{setCat('Categorical')}}>Categorical</Button>}
         <Divider vertical/>
-
         {cat === 'Slither' ? <ActButton>Security check</ActButton> : <Button onClick={()=>{setCat('Slither')}}>Security check</Button>}
-
+        </div>
+      </Submenu>
+      </Head>
         {cat === 'List' &&  <AlgoliaToolsTable/> }
-        {cat === 'Categorical' &&  <AlgoliaToolsAltTable/> }
+        {cat === 'Categorical' &&  <ToolSection/> }
         {cat === 'Slither' &&  <SlitheCheck/> }
-     
     </Kontejner>;
   }

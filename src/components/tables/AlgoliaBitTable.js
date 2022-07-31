@@ -15,8 +15,6 @@ import SearchBox from './SearchBox';
 import MenuSelect from './MenuSelect';
 import { RustIcon, SolidityIcon, JsIcon, PythIcon } from '../../icons/utils';
 import LazyLoad from 'react-lazyload';
-import BoxTitle from '../typography/BoxTitle';
-import BoxSubtitle from '../typography/BoxSubtitle';
 import axios from 'axios'
 
 const searchClient = instantMeiliSearch(
@@ -427,9 +425,7 @@ return (
                <InstantSearch indexName="repo" searchClient={searchClient}>
                
           <Flex> 
-              <Box><BoxTitle content='Repos'/>
-              <BoxSubtitle content='Get inspired from the best'/>
-
+              <Box>
               <Configure hitsPerPage={15} />   
               <LazyLoad><FlexFilter>  
               <SelectFilter title={'Usage'} attribute={'usage'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/>

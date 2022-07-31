@@ -19,6 +19,9 @@ import GqlSection from '../../sections/GqlSection';
 import SubmenuButton from '../buttons/SubmenuButton';
 import WagmiExample from '../../sections/WagmiExample';
 import AlchemyExample from '../../sections/AlchemyExample';
+import { Watch } from  'react-loader-spinner'
+import BoxSubtitle from '../typography/BoxSubtitle';
+
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -53,19 +56,6 @@ const FormBox = styled.div`
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
-  }
-`
-
-const BoxSubtitle = styled.div`
-  text-align: left;
-  letter-spacing: 1.2px;
-  font-family: 'Staatliches';
-  font-size: 1.6em;
-  padding-bottom: 1%;
-  color: ${props => props.theme.colors.landingSubtitle};
-  @media (max-width: 1000px) {
-    font-size: 1.2em;
-    padding-left: 2%;
   }
 `
 
@@ -285,12 +275,11 @@ const myTheme = (theme) => ({
 const AbsoluteToggle = styled.div`
   display: flex;
   color: ${props => props.theme.colors.text_primary};
-  margin-top: 20px;
   background: ${props => props.theme.colors.background};
   justify-content: flex-start;
-  padding-left: 15%;
+  margin: 5%;
   font-style: italic;
-  padding-bottom: 1%;
+  padding: 2%;
 `
 
 const IconButton = styled.button`
@@ -334,23 +323,11 @@ const TitleBox = styled.div`
   }
 `
 
-const Subtitle = styled.h2`
-    margin-top: 1%;
-    font-family: 'Staatliches';
-    font-style: "italic";
-    font-weight: 500;
-    line-height: 1em;
-    color: #d7fff2;
-    font-size: 1.5em;
-    @media (max-width: 700px) {
-        font-size: 1em;
-  }
-`
-
 const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding-bottom: 1%;
 `
 
 const CheatBox = styled.div`
@@ -368,9 +345,18 @@ const SubnavTitle = styled.div`
   text-align: center;
 `
 
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const SubtitleDesc = styled.div`
+  text-align: center;
+`
 
 export default function PathForm() {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
 
      const theme = useTheme()
 
@@ -509,6 +495,7 @@ export default function PathForm() {
 
     const fetchArticles = async({data}) => {
         try {
+            setLoading(true)
             const response = await axios( {
                 url: gqlEndpoint,
                 method: 'post',
@@ -520,10 +507,12 @@ export default function PathForm() {
             setTools(response.data.data.tools.data)
             setRepos(response.data.data.repos.data)
             setGqlError(false)
+            setLoading(false)
 
         } catch (err) {
             console.log(err);
             setGqlError(true)
+            setLoading(false)
         }
     } 
 
@@ -610,7 +599,8 @@ export default function PathForm() {
 
 
     return <Kontejner>
-                    {result ?                    <TitleBox>
+       
+                    {result &&   <TitleBox>
                       <FlexRow>
                 {step === 'Setup' ? <ArticleActButton>Setup</ArticleActButton> : <ArticleButton onClick={()=>setStep('Setup')}>Setup</ArticleButton> }
                   {StepIcon}
@@ -622,29 +612,25 @@ export default function PathForm() {
                   {StepIcon}
                 {step === 'Deploy' ? <ArticleActButton>Deploy</ArticleActButton> : <ArticleButton onClick={()=>setStep('Deploy')}>Deploy</ArticleButton> }    
                 </FlexRow>
-                <Subtitle>
+                <BoxSubtitle content={<SubtitleDesc>
                   {step === 'Setup' && <>Frameworks to build, deploy and test </>}
                   {step === 'Govern' && <>Learn and design tokenomics</>}
                   {step === 'Develop' && <>Find resources and references which fit your needs</>}
                  {step === 'Security' && <>Learn from mistakes already exploited and secure your contract properly</>}
                   {step === 'Deploy' && <>Pick one of many EVM compatible to deploy your contract</>}
-                </Subtitle>
-                </TitleBox> :
-           <AbsoluteToggle> 
-            Switch between Polkadot and EVM path
-            <MyToggle onChange={toggleEco} checkedChildren={<PolkaToggle>Polkadot</PolkaToggle>} unCheckedChildren={<PolkaToggle>EVM</PolkaToggle>} />
-              </AbsoluteToggle>}
+                </SubtitleDesc>}/>
+
+                </TitleBox>} 
               <CodeComponent code={code} open={open} setOpen={setOpen}/>
 
         {evmEco ? <><PolkaPath/></> : 
         <Grid fluid>
             <Row>
-          
         <Col xs={24} md={6}>
         <FormBox>
        <BoxTitle>D3V path</BoxTitle>
 
-       <FlexModal>      <BoxSubtitle>Find your resources</BoxSubtitle>  </FlexModal>
+       <FlexModal>      <BoxSubtitle content='Find your resources'/> </FlexModal>
             <MySelect
                 value={cat}
                 defaultValue={catOptions[1]}
@@ -665,8 +651,18 @@ export default function PathForm() {
                  {cat.value === 'defi' && subcat !== null && chain !== null && lang ? <Button onClick={findDefi}>Find</Button> : null}  
                  {cat.value === 'dao' && subcat !== null && chain !== null && lang ? <Button onClick={findDao}>Find</Button> : null}  
         </FormBox>
-        </Col>          
+        <AbsoluteToggle> 
+            Switch between Polkadot and EVM path
+            <MyToggle onChange={toggleEco} checkedChildren={<PolkaToggle>Polkadot</PolkaToggle>} unCheckedChildren={<PolkaToggle>EVM</PolkaToggle>} />
+              </AbsoluteToggle>
+        </Col>         
         <Col xs={24} md={8}>
+        {loading && <Loader><Watch
+                      height = "200"
+                      width = "200"
+                      radius = "9"
+                      color = 'green'
+                    /></Loader>}
           {result && <Flex>
             {step === 'Setup' && <>  <StepDescription> 
             <SubnavTitle>Smart contracts</SubnavTitle>

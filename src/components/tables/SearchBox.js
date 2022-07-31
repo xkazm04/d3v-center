@@ -41,8 +41,10 @@ class SearchBox extends Component {
   }
 
   onChangeDebounced = (event) => {
+    event.preventDefault()
     const { refine, delay } = this.props
     const value = event.currentTarget.value
+   
 
     clearTimeout(this.timerId)
     this.timerId = setTimeout(() => refine(value), delay)

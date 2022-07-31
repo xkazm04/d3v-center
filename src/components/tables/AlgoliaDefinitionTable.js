@@ -18,9 +18,6 @@ import MenuSelect from './MenuSelect';
 import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 import LazyLoad from 'react-lazyload';
-import BoxTitle from '../typography/BoxTitle';
-import BoxSubtitle from '../typography/BoxSubtitle';
-
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
   process.env.REACT_APP_MEILI_KEY
@@ -323,6 +320,7 @@ color: ${props => props.theme.colors.yellow};
 `
 
 
+
 const AlgoliaDefinitionTable = () => {
   const theme = useTheme()
 
@@ -487,10 +485,8 @@ function Hit(props) {
 return (
   <Kontejner>
                <InstantSearch indexName="definition" searchClient={searchClient}>
-               
-          <Flex> 
-              <Box><BoxTitle content='Definitions'/>
-              <BoxSubtitle content='Absorb all crypto foundations'/>             
+          <Flex>
+              <Box> 
               <Configure hitsPerPage={15} />   
               
           <LazyLoad><FlexFilter>  

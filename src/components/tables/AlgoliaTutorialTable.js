@@ -11,17 +11,15 @@
   import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
   import styled, {useTheme} from 'styled-components'
   import Divider from 'rsuite/Divider';
-  import axios from 'axios';
   import SearchBox from './SearchBox';
 import { Cosmos, Elrond, Evm, Near, Polkadot, Solana, Ziliqa } from '../../icons/chain';
 import MenuSelect from './MenuSelect';
-import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon, ExpandIcon, CodeIcon } from '../../icons/utils';
+import { MediumIcon, RustIcon, YTIcon, SolidityIcon, JsIcon, DevToIcon, GithubIcon, WebIcon, PythIcon, ExpandIcon } from '../../icons/utils';
 import { DiffAdvanced, DiffBasic, DiffHacker, DiffScholar } from '../../icons/difficulty';
 import LazyLoad from 'react-lazyload';
-import BoxTitle from '../typography/BoxTitle';
-import BoxSubtitle from '../typography/BoxSubtitle';
 import ChartStatsTut from '../charts/ChartStatsTut';
-import CodeComponent from '../code/CodeComponent';
+import TitleBox from '../../sections/TitleBox';
+
 
   const searchClient = instantMeiliSearch(
     process.env.REACT_APP_MEILI_URL, 
@@ -31,6 +29,11 @@ import CodeComponent from '../code/CodeComponent';
   const Kontejner = styled.div`
     display: flex;
     justify-content: center;
+    animation: fadeIn 0.5s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
     @media (max-width: 700px) {
       padding: 2%;
     }
@@ -59,11 +62,6 @@ const HitColumn = styled.div`
     flex-direction: start;
     text-align: left;
     padding-bottom: 2px;
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
     @media (max-width: 700px) {
       display: none;
     }
@@ -81,11 +79,6 @@ const HitMainColumn = styled.div`
   min-width: 400px;
   box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
   margin: 2px;
-  animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
   @media (max-width: 700px) {
       margin-left: 0;
       border-radius: 0;
@@ -126,11 +119,7 @@ const HitCategory = styled(Highlight)`
     font-size: 11px;
     background: ${props => props.theme.colors.purple};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+
 `
 
 const HitSubCategory = styled(HitCategory)`
@@ -168,11 +157,6 @@ const SelectItem = styled.div`
     text-align: left;
     min-width: ${props => props.width};
     margin-right: 1%;
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
     @media (max-width: 700px) {
       display: none;
     }
@@ -245,11 +229,6 @@ const HitBox = styled.div`
 const Search = styled.div`
    background: ${props => props.theme.colors.background};
    padding-right: 50px;
-   animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
    @media (max-width: 700px) {
     padding-right: 5px;
     text-align: left;
@@ -280,10 +259,6 @@ const Head = styled.div`
  display: flex;
  margin-top: 2%;
  margin-bottom: 2%;
-`
-
-const HeadTitle = styled.div`
-  margin-right: 2%;
 `
 
 const HeadChart = styled.div`
@@ -346,8 +321,6 @@ const IconButton = styled.button`
 
 const AlgoliaTutorialTable = () => {
     const theme = useTheme()
-    const [code, setCode] = useState('')
-    const [open, setOpen] = useState(false)
 
     // Series handlers
     const [filterSeries, setFilterSeries] = useState(true);
@@ -386,29 +359,12 @@ const AlgoliaTutorialTable = () => {
     }
 
 
-    const handleCodePreview = async(code) => {
-      setCode(code)
-      setOpen(true)
-    }
-    const handleResultClick = (reference,id,counter) => {
+
+    const handleResultClick = (reference) => {
       window.open(reference, "_blank")
-      addCounter(id,counter)
+  
   }
 
-
-    const addCounter = async(tutorialId,viewCounter) => {
-        const updatedId = tutorialId.match(/\d+/)[0] // Extract id from string
-        setCode(tutorialId)
-        console.log(updatedId)
-        const token = process.env.REACT_APP_CMS_API // Master strapi token
-        const body = { data: { ViewCounter: viewCounter+1 } }
-        const res = await axios.put(`${process.env.REACT_APP_ENVIRONMENT}/api/tutorials/${updatedId}`, body, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            },
-    })
-    console.log(res)
-}
 const DebouncedSearchBox = connectSearchBox(SearchBox)
 const CustomMenuSelect = connectMenu(MenuSelect);
 
@@ -458,16 +414,15 @@ function Hit(props) {
         </Flex> 
          </RightBox>
          <HitUpdate>   {props.hit.Update}</HitUpdate>
-
           </HitColumn>
             {/* Main column*/}
           <HitMainColumn width={'330px'}>  
-            <FlexColumn>
+            <FlexColumn >
               <HitTitle attribute="Title" hit={props.hit}  tagName="strong"/>
               <HitDescription attribute="Description" hit={props.hit} tagName="strong" /> 
               </FlexColumn>
-              <BtnBox>         <IconButton  onClick={()=>{handleResultClick(props.hit.Reference,props.hit.id,props.hit.ViewCounter)}}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>
-              {props.hit.codePreview && <IconButton  onClick={()=>{handleCodePreview(props.hit.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</BtnBox>
+              <BtnBox>         <IconButton  onClick={()=>{handleResultClick(props.hit.Reference)}} ><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>
+              </BtnBox>
           </HitMainColumn>
           <MyDivider vertical/>
           <HitColumn  width={'100px'}>
@@ -504,16 +459,13 @@ function Hit(props) {
             <Flex> 
                 <Box>
                 <Head>
-                  <HeadTitle>
-                    <BoxTitle content='Tutorials'/>
-                    <BoxSubtitle content='Search web3 anything'/>
-                  </HeadTitle>
+                  <TitleBox title={'Tutorials'} subtitle={'Search web3 anything'} />
                   <HeadChart>
                   <HeadBackground><ChartStatsTut/></HeadBackground>
                   </HeadChart>
                 </Head>
                 <Configure hitsPerPage={15} />  
-                <LazyLoad><FlexFilter>  
+                <FlexFilter>  
                   
                 <FilterBox><SelectFilter title={'Series'} attribute={'Series'}  width='145px' filterEnabled={filterSeries} clickFunction={switchFilterSeries}/></FilterBox>
                 <FlexColumn>
@@ -530,15 +482,14 @@ function Hit(props) {
                 </FlexColumn>
 
                 <FilterBox><SelectFilter title={'Tool'} attribute={'Tool'}  width='100px'  filterEnabled={filterTool} clickFunction={switchFilterTool}/></FilterBox>
-     
+
                 
-        </FlexFilter></LazyLoad> 
+        </FlexFilter>
 
                 <HitBox> <Hits hitComponent={Hit} /></HitBox>
             <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
                </Box>
          </Flex> 
-           <CodeComponent code={code} open={open} setOpen={setOpen}/>
       </InstantSearch>
       </Kontejner>
   )
