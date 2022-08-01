@@ -9,6 +9,8 @@ import 'prismjs/components/prism-javascript';
 import Select from 'react-select'
 import { versionOptions, refContract } from '../data/solVersions';
 import { PlayIcon } from '../icons/utils';
+import Err from '../components/typography/Err';
+import { Watch } from  'react-loader-spinner'
 
 const Kontejner = styled.div`
     display: flex;
@@ -155,7 +157,10 @@ const A = styled.a`
     }
 `
 
-
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 export default function SlitheCheck() {
     const [code, setCode] = useState(refContract)
@@ -163,6 +168,7 @@ export default function SlitheCheck() {
     const [open, setOpen] = useState(false)
     const [version, setVersion] = useState({ value: 'pragma solidity ^0.8.2', label: '0.8.2' })
     const [result, setResult] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const theme = useTheme();
     const customStyles = {
@@ -187,13 +193,16 @@ export default function SlitheCheck() {
       }
 
     const checkSec = async(contract, pragma) => {
+        setLoading(true)
         setErr('')
         setResult(null)
         const body = { data:{sol_contract: contract, pragma: pragma.value}  }
        try{
         const res = await axios.post(process.env.REACT_APP_SLITHER, body.data)
+        setLoading(false)
         setResult(res.data)
        } catch(e){
+        setLoading(false)
         console.log(e)
         setErr('Submit failed, check your code if could be compile successfully in Hardhat/Truffle/Foundry/Brownie.')
        }
@@ -207,7 +216,7 @@ export default function SlitheCheck() {
     return <Kontejner>
                 <FormTitle>Verify online static analysis</FormTitle>
                 <FormSubtitle>Using Slither v0.8.3</FormSubtitle>
-                   <Error> {err} {result && result.high >= 1 && result.high < 999 && <>Slither found High impact issue, Be careful</>}</Error>
+                   <Error> {err} {result && result.high >= 1 && result.high < 999 && <Err content='Slither found High impact issue, Be careful'/>}</Error>
                  <Flex> <CodeBox>     
                  <LabelTitle>Insert valid Solidity code</LabelTitle>
                     <Editor
@@ -242,6 +251,12 @@ export default function SlitheCheck() {
                                         {result || err ? <Button onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={theme.colors.dark}/></Button> 
                                         : <PulsingButton onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={'#c14646'}/></PulsingButton>}
                                     </ButtonBox>
+                {loading && <Loader><Watch
+                      height = "200"
+                      width = "200"
+                      radius = "9"
+                      color = '#1F0202'
+                    /></Loader>}
                                     {result && <ResultBox>
                                 <LabelTitle>We have a result</LabelTitle>
                                   <ResultList>

@@ -4,6 +4,7 @@ import {Divider} from 'rsuite'
 import axios from 'axios'
 import Md from '../components/code/Md'
 import CodeSeparate from '../components/code/CodeSeparate'
+import Err from '../components/typography/Err'
 
 const Kontejner = styled.div`
     display: flex;
@@ -168,12 +169,14 @@ function LanguageSection() {
     const [article, setArticle] = useState(null)
     const [reference, setReference] = useState(null)
     const [sub, setSub] = useState('Definition')
+    const [err, setError] = useState(false)
     // Define in metadata subcategories, based on subcategories  display columns
     // Action ikonky + Display
 
     const token = process.env.REACT_APP_CMS_API
         const getLangArticles = async() => {
             try{
+                setError(false)
                 const response = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/languages?pagination[limit]=500&sort=Title`, {headers: {
                     Authorization: `Bearer ${token}`
                         }},)
@@ -181,6 +184,7 @@ function LanguageSection() {
                 setLangArticles(data)
                 } catch(error){
                     console.log(error)
+                    setError(true)
                 }
             }
         useEffect(() => {
@@ -223,7 +227,7 @@ function LanguageSection() {
                             <List>
                 {langArticles && subcat === 'All' && <> {langArticles.map((d) => ( <MappedArticles d={d}/> ))}</>}
                {langArticles && subcat && <> {langArticles.filter((s) => s.attributes.Type === subcat).map((d) => ( <MappedArticles d={d}/> ))}</>}
-               {!langArticles && <>Error, no articles found</>}
+               {err && <Err content='Error, no articles retrieved'/>}
                             </List>
                             <CodeBox>
                                 <TitleSubBox>
