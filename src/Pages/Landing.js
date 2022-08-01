@@ -7,8 +7,6 @@ import { DevelopIcon } from "../icons/tool";
 import ArticleSection from '../sections/ArticleSection';
 import { GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
-import { defFirstFile, defSecondFile, defThirdFile, tutDataFile, tutDefiFile, tutNftFile, tutSecFile, pathFirstFile, pathSecondFile, pathThirdFile } from '../data/landingCats';
-import LoopBox from '../components/boxes/LoopBox';
 import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
 import { PathSection } from '../icons/sections';
 import CharTotal from '../components/charts/ChartTotal';
@@ -16,7 +14,12 @@ import { ExitArrow } from '../icons/arrows';
 import axios from 'axios'
 import { TotalsContext } from '../contexts/TotalsContext'
 import  {motion,useScroll} from "framer-motion/dist/framer-motion"
-
+import path from '../images/path.png'
+import tuts from '../images/tutorials.png'
+import defs from '../images/defs.png'
+import tools from '../images/tools.png'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 const Pulse = styled.div`
   box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
@@ -151,39 +154,19 @@ const ServiceButton = styled.button`
     }
 `
 
-const CodeBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    background: black;
-    height: 100%;
-    color: white;
-    text-align: left;
-    padding-bottom: 2%;
-    font-family: 'Courier';
-    padding-left: 5%;
-    padding-right: 5%;
-    margin-top: 5%;
-    margin-right: 20%;
-    @media (max-width: 1300px) {
-        margin-right: 0;
-  }
+const ActButton = styled(ServiceButton)`
+    background: ${props => props.theme.colors.red};
 `
 
-const Pre = styled.div`
-    display: flex;
-    background: ${props => props.theme.colors.heavy};
-    margin: 2%;
-    padding: 2%;
-`
 
 
 const MyLink = styled(Link)`
     border-radius: 5px;
     transition: 0.1s;
+    width: 20px;
     margin-left: 5%;
     &:hover{
         text-decoration: none;
-        background: ${props => props.theme.colors.light};
     }
 `
 
@@ -211,6 +194,9 @@ const AbsoluteBox = styled.div`
     position: absolute;
     right: 15rem;
     margin-top: 10px;
+    @media (max-width: 900px) {
+        display: none;
+  }
 `
 
 const TitleBox = styled.div`
@@ -232,23 +218,60 @@ const ProgressBar = styled.div`
     background: ${props => props.theme.colors.lineAlt};
 `
 
+const DescBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    background: ${props => props.theme.colors.lightGreen};
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 5px;
+`
+
+const VisualSection = styled.div`
+    background: ${props => props.theme.colors.landingBox};
+    width: 30%;
+    border-right: 1px dashed ${props => props.theme.colors.line};
+    font-family: 'Chilanka';
+    font-size: 1.2em;
+    color: ${props => props.theme.colors.text_title};
+    padding-top: 2%;
+    text-align: left;
+    padding-left: 5%;
+    padding-bottom: 2%;
+`
+
+const DescSection = styled(VisualSection)`
+    background: inherit;
+    width: 50%;
+    @media (max-width: 900px) {
+        display: none;
+  }
+
+`
+
+const DescTitle = styled.div`
+    padding-bottom: 2%;
+    font-weight: bold; 
+`
+
+const SpaceBetween = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+`
 
 export default function Landing() {
     const theme = useTheme()
-    const [serviceDescription, setServiceDescription] = useState('')
+    const [serviceDescription, setServiceDescription] = useState('Path')
 
-    const [firstFile, setFirstFile] = useState(null)
-    const [secondFile, setSecondFile] = useState(null)
-    const [thirdFile, setThirdFile] = useState(null)
-    const [fourthFile, setFourthFile] = useState(null)
     const { scrollYProgress } = useScroll();
 
-    const handleDescription = ( desc,first,second,third, fourth  ) => {
+    const handleDescription = ( desc) => {
         setServiceDescription(desc);
-        setFirstFile(first)
-        setSecondFile(second)
-        setThirdFile(third)
-        setFourthFile(fourth)
     }
 
     const token = process.env.REACT_APP_CMS_API
@@ -330,33 +353,88 @@ export default function Landing() {
                             </Col>
                             <Col xs={24} md={12}>
                                 <Services>
-                                <ServiceButton onClick={()=>{handleDescription('Path',pathFirstFile, pathSecondFile, pathThirdFile, null)}}>
-                                        <Flex><PathIcon width='50' height='50' color={theme.colors.text_title}/>D3V path</Flex>
-                                </ServiceButton>
-                                <ServiceButton onClick={()=>{handleDescription('Tutorials',tutDefiFile,tutNftFile,tutSecFile,tutDataFile)}}>
-                                        <Flex><TutorialIcon width='50' color={theme.colors.text_title}/>Tutorials</Flex>
-                                </ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Definitions', defFirstFile, defSecondFile, defThirdFile, null)}}>
-                                              <Flex> <DefinitionIcon width='50' color={theme.colors.text_title}/>Theories</Flex>
-                                   </ServiceButton>
+
+        {serviceDescription === 'Path' ? <ActButton><Flex><PathIcon width='50' height='50' color={theme.colors.text_title}/>D3V path</Flex></ActButton> : 
+        <ServiceButton onClick={()=>{handleDescription('Path')}}><Flex><PathIcon width='50' height='50' color={theme.colors.text_title}/>D3V path</Flex></ServiceButton>}
+
+        {serviceDescription === 'Tutorials' ? <ActButton><Flex><TutorialIcon width='50' height='50' color={theme.colors.text_title}/>Tutorials</Flex></ActButton> : 
+                <ServiceButton onClick={()=>{handleDescription('Tutorials')}}><Flex><TutorialIcon width='50' height='50' color={theme.colors.text_title}/>Tutorials</Flex></ServiceButton>}
+
+        
+        {serviceDescription === 'Definitions' ? <ActButton><Flex><DefinitionIcon width='50' height='50' color={theme.colors.text_title}/>Theory</Flex></ActButton> : 
+                <ServiceButton onClick={()=>{handleDescription('Definitions')}}><Flex><DefinitionIcon width='50' height='50' color={theme.colors.text_title}/>Theory</Flex></ServiceButton>}
+
+
                                    <ServiceButton onClick={()=>{handleDescription('Repositories')}}>
                                         <Flex><GithubIcon width='50' color={theme.colors.text_title}/>Repos</Flex>
                                     </ServiceButton>
-                                   <ServiceButton onClick={()=>{handleDescription('Tools')}}>
-                                    <Flex><DevelopIcon width='50' color={theme.colors.text_title}/>Tools</Flex>
-                                </ServiceButton>
+
+
+        {serviceDescription === 'Tools' ? <ActButton><Flex><DevelopIcon width='50' height='50' color={theme.colors.text_title}/>Tools</Flex></ActButton> : 
+                <ServiceButton onClick={()=>{handleDescription('Tools')}}><Flex><DevelopIcon width='50' height='50' color={theme.colors.text_title}/>Tools</Flex></ServiceButton>}
+
                                 </Services>
-                             {serviceDescription === '' ? null :    <CodeBox>
-                            {serviceDescription === 'Path' ? <Pre>Find guidance anywhere on your dev journey <MyLink to='/path'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></Pre> : null} 
-                           {serviceDescription === 'Tutorials' ? <Pre>Tutorials, "How to" articles and video guides <MyLink to='/tutorials'><Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse>  </MyLink></Pre> : null}     
-                           {serviceDescription === 'Definitions' ? <Pre>Definitions and theory behind blockchains <MyLink to='/definitions'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Repositories' ? <Pre>Tons of repositories for your inspiration<MyLink to='/repos'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
-                           {serviceDescription === 'Tools' ? <Pre>Tools to help bootstrap your project and spare time<MyLink to='/tools'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /></Pulse> </MyLink></Pre> : null} 
-                                <LoopBox loop={true} firstFile={firstFile} secondFile={secondFile} thirdFile={thirdFile} fourthFile={fourthFile}/>
-                                </CodeBox>}
                             </Col>
                         </Row>
                     </Grid>
+                    <DescBox>
+                       {serviceDescription === 'Path' && <SpaceBetween>
+                        
+                        <VisualSection> <Zoom><img src={path} alt='Path' width={'350'}/></Zoom></VisualSection>
+                        <DescSection><DescTitle>Seek guidance through the dev journey.</DescTitle>
+                            <li>NFT collections</li>
+                            <li>Defi lending & Dexes</li>
+                            <li>Security best practices</li>
+                            <li>Decentralized data storage</li>
+                            <li>Maximal extractable value (MEV)</li>
+                  
+                        </DescSection>
+                        <AbsoluteBox>   <MyLink to='/path'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
+                       </SpaceBetween>} 
+
+
+                       {serviceDescription === 'Tutorials' && <SpaceBetween>
+                        
+                        <VisualSection> <Zoom><img src={tuts} alt='Path' width={'350'}/></Zoom></VisualSection>
+                        <DescSection><DescTitle>Explore new techniques.</DescTitle>
+                            <li>Setup project</li>
+                            <li>Design tokenomics</li>
+                            <li>Develop and get inspired</li>
+                            <li>Secure</li>
+                            <li>Deploy</li>
+
+                        </DescSection>
+                       
+                        <AbsoluteBox>     <MyLink to='/tutorials'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
+                       </SpaceBetween>} 
+
+                       {serviceDescription === 'Definitions' && <SpaceBetween>
+                        
+                        <VisualSection> <Zoom><img src={defs} alt='Defs' width={'350'}/></Zoom></VisualSection>
+                        <DescSection><DescTitle>Learn web3 step by step.</DescTitle>
+                            <li>Solidity language foundation</li>
+                            <li>Blockchain architecture</li>
+                            <li>Development trends</li>
+
+                        </DescSection>
+                       
+                        <AbsoluteBox>    <MyLink to='/definitions'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
+                       </SpaceBetween>} 
+
+                       {serviceDescription === 'Tools' && <SpaceBetween>
+                        
+                        <VisualSection> <Zoom><img src={tools} alt='Tools' width={'350'}/></Zoom></VisualSection>
+                        <DescSection><DescTitle>Tripple the effectivity.</DescTitle>
+                            <li>Code analysis</li>
+                            <li>Frontend interaction</li>
+                            <li>Monitoring tools</li>
+                            <li>DAO nocode</li>
+                        </DescSection>
+                       
+                        <AbsoluteBox>      <MyLink to='/tools'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
+                       </SpaceBetween>} 
+                         
+                    </DescBox>
                 </Section>
                 <Section>
                     <Grid fluid>

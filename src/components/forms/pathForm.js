@@ -21,6 +21,7 @@ import WagmiExample from '../../sections/WagmiExample';
 import AlchemyExample from '../../sections/AlchemyExample';
 import { Watch } from  'react-loader-spinner'
 import BoxSubtitle from '../typography/BoxSubtitle';
+import Err from '../typography/Err';
 
 
 
@@ -508,9 +509,11 @@ export default function PathForm() {
             setRepos(response.data.data.repos.data)
             setGqlError(false)
             setLoading(false)
+            setResult(true)
 
         } catch (err) {
             console.log(err);
+            setResult(false)
             setGqlError(true)
             setLoading(false)
         }
@@ -553,21 +556,18 @@ export default function PathForm() {
 
 
     const findNft = async () => {
-        setResult(true)
         await fetchArticles({data: graphqlNftQuery})
         await fetchSecurity()
         await fetchSetups()
     }
 
     const findDefi = async () => {
-      setResult(true)
       await fetchArticles({data: graphqlDefiQuery})
       await fetchSecurity()
       await fetchSetups()
   }
 
     const findDao = async () => {
-      setResult(true)
       await fetchArticles({data: graphqlDaoQuery})
   }
 
@@ -599,7 +599,7 @@ export default function PathForm() {
 
 
     return <Kontejner>
-       
+                   { gqlError && <Err content='Unable to reach resources'/>}
                     {result &&   <TitleBox>
                       <FlexRow>
                 {step === 'Setup' ? <ArticleActButton>Setup</ArticleActButton> : <ArticleButton onClick={()=>setStep('Setup')}>Setup</ArticleButton> }
@@ -815,8 +815,6 @@ export default function PathForm() {
             {repos && step === 'Develop' && <RenderSection>
                 <GqlRMapper data={repos} title={'Get inspired'}/>
             </RenderSection>}
-
-            { gqlError && <div>Unable to reach some of the resources</div>}
         </DisplayBox>}
               {chain.value === 'evm' && step === 'Deploy' ? <><ChainStats chain={blockchain}/></> : null}
               {step === 'Setup' && setupTools && <SetupColumn>

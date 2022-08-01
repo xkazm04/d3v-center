@@ -475,7 +475,7 @@ function Hit(props) {
               
               <FilterBox> <Search>     <DebouncedSearchBox delay={500}/>        
                 <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search></FilterBox> 
-                <FilterBox><SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='100px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/></FilterBox>
+                <FilterBox><SelectFilter title={'Difficulty'} attribute={'Difficulty'}  width='110px'  filterEnabled={filterDifficulty} clickFunction={switchFilterDifficulty}/></FilterBox>
                 <FlexColumn>
                   <FilterBox><SelectFilter title={'Usage'} attribute={'Category'}  width='100px'  filterEnabled={filterUsage} clickFunction={switchFilterUsage}/> </FilterBox>
                   <FilterBox><SelectFilter title={'Subcategory'} attribute={'Subcategory'}  width='100px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/> </FilterBox> 

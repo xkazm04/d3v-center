@@ -14,7 +14,7 @@ export const lightTheme = {
        main: "#fffdfd",
        search: "#f9f9f9",
        disabled: "#898989",
-       step: "#5bf176",
+       step: "#93ffa7",
        text: "#0c0c0c",
        dark: "#00306c",
        landingTitle: '#d9d9d9',

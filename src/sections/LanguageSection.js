@@ -137,6 +137,7 @@ const Flex = styled.div`
     justify-content: space-between;
     background: ${props => props.theme.colors.subContent};
     border-bottom: 1px solid ${props => props.theme.colors.medium};
+    box-shadow: 0px 0px 2px 0px ${props => props.theme.colors.lineAlt};
     &:hover{
         box-shadow: 0px 0px 2px 0px linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
         color: green;
@@ -153,7 +154,8 @@ const MarkdownBox = styled.div`
 `
 
 const RefBox = styled.div`
-    background: ${props => props.theme.colors.landingTitle};
+    font-size: 0.9em;
+    background: ${props => props.theme.colors.step};
     color: ${props => props.theme.colors.text_primary};
 `
 
@@ -164,6 +166,7 @@ function LanguageSection() {
     const [subcat, setSubcat] = useState('All')
     const [langArticles, setLangArticles] = useState(null)
     const [article, setArticle] = useState(null)
+    const [reference, setReference] = useState(null)
     const [sub, setSub] = useState('Definition')
     // Define in metadata subcategories, based on subcategories  display columns
     // Action ikonky + Display
@@ -187,16 +190,17 @@ function LanguageSection() {
 
         const MappedArticles = ({d}) => {
             return <>
-                 <Flex  key={d.id} onClick={()=>{openTerm(d.attributes.Book,d.attributes.Solidity)}}>
+                 <Flex  key={d.id} onClick={()=>{openTerm(d.attributes.Book,d.attributes.Solidity, d.attributes.referenceSol)}}>
                         <ListItem>{d.attributes.Title}</ListItem>   
                 </Flex>
             </>
         }
-        const openTerm = async(article, code ) => {
+        const openTerm = async(article, code, reference ) => {
             await setArticle(null)
             await setVoc(null)
             await setArticle(article);
             await setVoc(code);
+            setReference(reference)
         }
 
         const NavItem = ({state, label}) => {
@@ -228,7 +232,7 @@ function LanguageSection() {
                                         {sub === 'Example' ? <SectionActButton>Example</SectionActButton> : <SectionButton onClick={()=>{setSub('Example')}}>Example</SectionButton>}  
                                     </TitleSubBox>
                                  {sub === "Example" && <CodeSeparate code={voc} />}
-                                 {sub === "Definition" && article && <MarkdownBox><RefBox>Reference</RefBox><Md source={article}/></MarkdownBox>}
+                                 {sub === "Definition" && article && <MarkdownBox><a href={reference} target="_blank" rel="noopener noreferrer"><RefBox>{reference}</RefBox></a><Md source={article}/></MarkdownBox>}
                             </CodeBox>
                         </ContentBox>
             </Kontejner>

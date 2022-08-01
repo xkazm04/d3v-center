@@ -1,4 +1,4 @@
-import React, { Suspense} from 'react';
+import React from 'react';
 import {   InstantSearch,
     Configure
 } from 'react-instantsearch-dom';
@@ -29,6 +29,7 @@ const Kontejner = styled.div`
   margin-right: 10%;
   margin-left: 25%;
 }
+
 `
 
 const AlgoliaDefinitionTable = () => {
@@ -36,11 +37,8 @@ const AlgoliaDefinitionTable = () => {
 return (
   <Kontejner>
                <InstantSearch indexName="tool" searchClient={searchClient}>   
-              <Configure hitsPerPage={300}  />   
-              
-      <Suspense fallback={<>Loader</>}>
-      <HitGroup/>
-</Suspense>
+              <Configure hitsPerPage={300}  />    
+          <HitGroup/>
 
   </InstantSearch>
   </Kontejner>

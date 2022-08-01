@@ -45,8 +45,11 @@ const PragmaBox = styled.div`
 `
 
 const ButtonBox = styled.div`
-    margin-top: 20%;
-    margin-left: 30%;
+    padding-top: 10%;
+    padding-left: 10%;
+    padding-bottom: 10%;
+    background: #110000;
+    color: ${props => props.theme.colors.lightGreen};
 `
 
 const Button = styled.button`
@@ -71,12 +74,12 @@ const PulsingButton = styled(Button)`
     
     70% {
         transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+        box-shadow: 0 0 0 2px #4e0000;
     }
     
     100% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+        box-shadow: 0 0 0 0 #2b0000;
     }
 }
 `
@@ -88,7 +91,7 @@ const FormTitle = styled.div`
 `
 
 const FormSubtitle = styled.div`
-    font-family: 'Staatliches';
+    font-family: 'Chilanka';
     font-size: 1.1em;
     color: ${props => props.theme.colors.text_secondary};
 `
@@ -114,9 +117,7 @@ const MySelect = styled(Select)`
 
 const ResultBox = styled.div`
     border: 1px solid ${props => props.theme.colors.line};
-    margin-top: 20%;
     padding: 2%;
-    margin-left: 2%;
     padding-right: 8%;
     min-width: 200px;
     border: 1px solid ${props => props.theme.colors.lineAlt};
@@ -138,11 +139,13 @@ const Result = styled.div`
 
 const ReferenceBox = styled.div`
     color: ${props => props.theme.colors.text_secondary};
-    margin-top: 20%;
+    font-size: 1.2em;
+    font-family: 'Chilanka';
+    margin-top: 5%;
     margin-left: 2%;
 `
 
-const R = styled.div`
+const A = styled.a`
     text-decoration: underline;
     cursor: pointer;
     color: ${props => props.theme.colors.text_primary};
@@ -151,6 +154,7 @@ const R = styled.div`
         color: ${props => props.theme.colors.text_title};
     }
 `
+
 
 
 export default function SlitheCheck() {
@@ -199,11 +203,6 @@ export default function SlitheCheck() {
         setOpen(true)
     }
 
-        const handleReference = (reference) => {
-            window.open(reference, "_blank")
-        }
-
-
 
     return <Kontejner>
                 <FormTitle>Verify online static analysis</FormTitle>
@@ -239,8 +238,9 @@ export default function SlitheCheck() {
                         placeholder='pragma solidity ^0.8.2'
                         theme={myTheme} />
                                    <ButtonBox> 
+                                    Check simplified Slither API
                                         {result || err ? <Button onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={theme.colors.dark}/></Button> 
-                                        : <PulsingButton onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={theme.colors.dark}/></PulsingButton> }
+                                        : <PulsingButton onClick={()=>{checkSec(code, version)}}><PlayIcon width='50' color={'#c14646'}/></PulsingButton>}
                                     </ButtonBox>
                                     {result && <ResultBox>
                                 <LabelTitle>We have a result</LabelTitle>
@@ -254,9 +254,10 @@ export default function SlitheCheck() {
                                     
                         </ResultBox>}
                     <ReferenceBox>
-                        Analyze your code with:
-                          <R onClick={()=>{handleReference('https://github.com/trailofbits/eth-security-toolbox')}}>Eth security toolbox</R>
-                          <R onClick={()=>{handleReference('https://github.com/crytic/slither')}}>Slither</R>
+                        Analyze your code with
+                          <A href='https://github.com/trailofbits/eth-security-toolbox' target="_blank" rel="noopener noreferrer"> Eth security toolbox </A>
+                          or
+                          <A href='https://github.com/crytic/slither' target="_blank" rel="noopener noreferrer" > Slither </A> before deployment of financially impactful applications.
                         </ReferenceBox>
                     </PragmaBox>
 

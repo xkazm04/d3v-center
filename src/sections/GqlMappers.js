@@ -125,6 +125,15 @@ const Result = styled.div`
     }
 `
 
+const MiniResult = styled(Result)`
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding-left: 1%;
+    padding-right: 2px;
+    width: 250px;
+    background: ${props => props.background};
+`
+
 const IconButton = styled.button`
   background: inherit;
   text-align: right;
@@ -154,6 +163,21 @@ const ButtonBox = styled.div`
   justify-content: space-between;
 `
 
+const MiniKontejner = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const MiniBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+`
+
+const MiniDesc = styled.div`
+  text-align: left;
+`
+
 const GqlItem = ({d}) => {
   const theme = useTheme()
   return <Result  key={d.id} >
@@ -164,6 +188,30 @@ const GqlItem = ({d}) => {
    </ButtonBox>
 </Result>
 } 
+
+const GqlMiniItem = ({d}) => {	
+  const theme = useTheme()
+  return <>
+  
+  {d.attributes.Chain === 'EVM' ? <MiniResult background={theme.colors.lightGreen}   key={d.id} >
+<MiniDesc>    <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category> </MiniDesc>
+ 
+ <MiniBox>   
+     <IconButton onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+      {d.attributes.Subcategory && <UpperTag>{d.attributes.Subcategory}</UpperTag>} </MiniBox>
+      
+</MiniResult> : <MiniResult background={theme.colors.light}   key={d.id} >
+<MiniDesc>    <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category> </MiniDesc>
+ 
+ <MiniBox>   
+     <IconButton onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+      {d.attributes.Subcategory && <UpperTag>{d.attributes.Subcategory}</UpperTag>} </MiniBox>
+      
+</MiniResult>
+}
+  
+  </>
+}
 
 const handleResultClick = async (reference,id,counter) => {
     window.open(reference, "_blank")
@@ -314,11 +362,20 @@ export const GqlRMapper = ({data, title}) => {
 
 export const GqlFilterdMapper = ({data, title, filter}) => {
     return(<>
-    <GqlSection title={title}/>
+   {title && <GqlSection title={title}/>}
     {data.filter(s => s.attributes.Subcategory === filter).map((d) => (
        <GqlItem d={d}/>
       ))}
     </>)
+}
+
+export const GqlFilterdUsageMapper = ({data, title, filter}) => {
+  return(<MiniKontejner>
+ {title && <GqlSection title={title}/>}
+  {data.filter(s => s.attributes.Usage === filter).map((d) => (
+     <GqlMiniItem d={d}/>
+    ))}
+  </MiniKontejner>)
 }
 
 export const GqlFilterdToolMapper = ({data, title, filter}) => {
