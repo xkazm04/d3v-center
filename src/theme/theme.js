@@ -1,7 +1,7 @@
 export const lightTheme = {
     colors: {
        section: "#F5FFFB",
-       background: '#cfcfcf',
+       background: 'linear-gradient(180deg, #ACDABE -104.42%, #CCCCCC 57.72%, rgba(81, 106, 91, 0) 219.87%)',
        heavy: "#9E9E9E",
        medium: "#EBEBEB",  
        light: "#F1F1F1",
@@ -9,6 +9,7 @@ export const lightTheme = {
        line: "#ECECEC",
        lineAlt: "#aac5ac",
        text_title: "#007463",
+       nav: "#007463",
        text_primary: "#000000",
        text_secondary: "#000000",
        main: "#fffdfd",
@@ -19,7 +20,7 @@ export const lightTheme = {
        dark: "#00306c",
        landingTitle: '#d9d9d9',
        landingSubtitle: '#d7fff2',
-       landingBox: '#052f19',
+       landingBox: 'linear-gradient(177.62deg, rgba(250, 250, 250, 0) -287.53%, #FAFAFA -287.47%, #052F19 -7.6%, #FFFFFF 423.08%)',
        subContent: '#f9fff8',
        subContentTitle: '#e5fce7',
        lightGreen: '#f9fdf9',
@@ -76,7 +77,7 @@ export const lightTheme = {
  export const darkTheme = {
     colors: {
       section: "#FFA3A3",
-      background: "#1F0202",
+      background: "linear-gradient(179.87deg, #600000 -104.08%, #000000 156.85%, #000000 417.78%)",
       heavy: "#1F0202",
       medium: "#280000",  
       light: "#601919",
@@ -84,6 +85,7 @@ export const lightTheme = {
       line: "#9F9F9F",
       lineAlt: "#A6E4E8",
       text_title: "#ffcfcf",
+      nav: "#000000",
       text_primary: "#A6E4E8",
       text_secondary: "#FFFFFF",
       main: "#010103",
@@ -99,8 +101,8 @@ export const lightTheme = {
       text: "#f3f3f3",
       dark: "#c7dcf5",
       landingTitle: '#d9d9d9',
-      landingSubtitle: '#830b0b',
-      landingBox: '#300000',
+      landingSubtitle: '#cbeaff',
+      landingBox: 'linear-gradient(177.62deg, rgba(250, 250, 250, 0) -287.53%, #FAFAFA -287.47%, #300000 -7.6%, #000000 423.08%)',
       subContent: '#170000',
       subContentTitle: '#000000',
       lightGreen: '#150000',

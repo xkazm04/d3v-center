@@ -386,7 +386,7 @@ return (
              <Row>
                 <Col xs={24} md={24} lg={7} xl={7}>
               <Box>
-               <Submenu> <TitleBox title='Releases' subtitle='Check latest featrues and changes'/> </Submenu>    
+               <Submenu> <TitleBox title='Releases' subtitle='Check latest features and changes'/> </Submenu>    
               <Configure hitsPerPage={15} />   
           <LazyLoad><FlexFilter>  
 

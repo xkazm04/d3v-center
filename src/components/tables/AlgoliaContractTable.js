@@ -256,10 +256,15 @@ const FlexColumn = styled.div`
   flex-direction: column;
 `
 
+const FilterSection = styled.div`
+  height: 100px; 
+  background: ${props => props.theme.colors.landingBox};
+`
 
 
 const AlgoliaContractTable = () => {
-    const [code, setCode] = useState(null);
+    const [code, setCode] = useState(null)
+    const [prod] = useState(false)
     const [previewVisible, setPreviewVisible] = useState(null)
     const theme = useTheme();
 
@@ -318,7 +323,7 @@ const handleCodePreview = async(code) => {
 return (
   <Kontejner>
      {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
-               <InstantSearch indexName="contract" searchClient={searchClient}>
+ {prod &&              <InstantSearch indexName="contract" searchClient={searchClient}>
                
           <Flex> 
               <Box>
@@ -338,7 +343,12 @@ return (
              </Box>
 
        </Flex>
-  </InstantSearch>
+  </InstantSearch>}
+  <>
+    <FilterSection>Filter box </FilterSection>
+
+    
+  </>
   </Kontejner>
 )
 }

@@ -24,7 +24,7 @@ const TitleBox = styled.div`
     border-radius: 15px;
     width: 100%;
     padding: 1%;
-    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
+    background:  ${props => props.theme.colors.landingBox};
     animation: fadeIn 0.5s;
     margin-bottom: 1%;
   @keyframes fadeIn {
@@ -126,7 +126,7 @@ const NavButton = styled.button`
 `
 
 const NavActButton = styled(NavButton)`
-    background: ${props => props.theme.colors.text_title};
+    background: ${props => props.theme.colors.nav};
     &:hover{
         color: ${props => props.theme.colors.landingTitle};
     }

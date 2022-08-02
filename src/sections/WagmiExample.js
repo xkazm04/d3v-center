@@ -73,6 +73,7 @@ const WagmiExample = () => {
                     <WagmiProfile />
                     <CodeComponent code={WagmiConnect} open={openCon} setOpen={setOpenCon} />
                 </Section>
+                
                 <Section>
                     <Flex> <SectionSubtitle content='Contract Write'/> 
                     <PreviewButton setF={setOpenWrite}/>

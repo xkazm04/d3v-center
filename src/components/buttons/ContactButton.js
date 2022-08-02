@@ -46,7 +46,7 @@ function ContactButton() {
 
                 <>
                     <Whisper placement='bottomStart' trigger="click" speaker={speaker}>
-                    <MyButton icon={<LinkedIcon width='30' colorFill={theme.chart.var1_stroke} colorStroke={theme.colors.background}/>}/>
+                    <MyButton icon={<LinkedIcon width='30' colorFill={theme.chart.var1_stroke} colorStroke={theme.colors.lightGreen}/>}/>
                 </Whisper>    
             </>
     );

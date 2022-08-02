@@ -42,6 +42,8 @@ const Kontejner = styled.div`
   text-align: center;
   background: ${props => props.theme.colors.background};
   transition: 0.1s;
+  height: 100%;
+  min-height: 1200px;
 `
 
 const Navigation = styled.div`

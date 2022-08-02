@@ -45,7 +45,7 @@ const FormBox = styled.div`
     margin-bottom: 7%;
     margin-right: 2%;
     text-align: left;
-    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
+    background: ${props => props.theme.colors.landingBox};
     border: 1px solid ${props => props.theme.colors.lineAlt};
     border-radius: 15px;
     @media (max-width: 1000px) {
@@ -276,7 +276,7 @@ const myTheme = (theme) => ({
 const AbsoluteToggle = styled.div`
   display: flex;
   color: ${props => props.theme.colors.text_primary};
-  background: ${props => props.theme.colors.background};
+  background: ${props => props.theme.colors.lighter};
   justify-content: flex-start;
   margin: 5%;
   font-style: italic;
@@ -742,37 +742,38 @@ export default function PathForm() {
                   <GqlSection title={'Cheatsheet'}/>
                   <CheatBox>
                         <CodeRow>npm install -g truffle</CodeRow>
-                        <CodeRow>truffle unbox <Com>-- scaffold project</Com></CodeRow>
-                        <CodeRow>truffle init <Com>-- new clean project</Com></CodeRow>
-                        <CodeRow>truffle compile  <Com>-- compile to build/contracts</Com></CodeRow>
-                        <CodeRow>truffle migrate <Com>-- deploy to develop</Com></CodeRow>
-                        <CodeRow>truffle develop <Com>-- starts console, interact</Com></CodeRow>
-                        <CodeRow>truffle console <Com>-- attach console to Ganache</Com></CodeRow>
+                        <CodeRow>truffle unbox <Com>** scaffold project</Com></CodeRow>
+                        <CodeRow>truffle init <Com>** new clean project</Com></CodeRow>
+                        <CodeRow>truffle compile  <Com>** compile to build/contracts</Com></CodeRow>
+                        <CodeRow>truffle migrate <Com>** deploy to develop</Com></CodeRow>
+                        <CodeRow>truffle develop <Com>** starts console, interact</Com></CodeRow>
+                        <CodeRow>truffle console <Com>** attach console to Ganache</Com></CodeRow>
                     </CheatBox>
                   </SetupColumn>}
                   {setupState === 'Hardhat' && <SetupColumn>
                     <GqlToolMapper data={setupTutorials} title={'Hardhat'} filter={'Hardhat'}/>
                     <GqlSection title={'Cheatsheet'}/>
                     <CheatBox>
-                          <CodeRow>npm init<Com>-- init node project</Com></CodeRow>
+                          <CodeRow>npm init<Com>** init node project</Com></CodeRow>
                           <CodeRow>npm install --save-dev hardhat</CodeRow>
-                          <CodeRow>npx hardhat<Com>-- hardhat setup</Com></CodeRow>
-                          <CodeRow>npx hardhat compile<Com>-- compile to artifacts</Com></CodeRow>
-                          <CodeRow>npx hardhat clean<Com>-- clean compiled files</Com></CodeRow>
-                          <CodeRow>npx hardhat node<Com>-- start local node</Com></CodeRow>
-                          <CodeRow>npx hardhat run --network rinkeby scripts/deploy.js<Com>-- deploy</Com></CodeRow>
-                          <CodeRow>npx hardhat console --network localhost<Com>-- start console</Com></CodeRow>
+                          <CodeRow>npx hardhat<Com>** hardhat setup</Com></CodeRow>
+                          <CodeRow>npx hardhat compile<Com>** compile to artifacts</Com></CodeRow>
+                          <CodeRow>npx hardhat clean<Com>** clean compiled files</Com></CodeRow>
+                          <CodeRow>npx hardhat node<Com>** start local node</Com></CodeRow>
+                          <CodeRow>npx hardhat run --network rinkeby scripts/deploy.js<Com>** deploy</Com></CodeRow>
+                          <CodeRow>npx hardhat console --network localhost<Com>** start console</Com></CodeRow>
+                          <CodeRow>import "hardhat/console.sol"<Com>** console.log in .sol</Com></CodeRow>
                       </CheatBox>
                   </SetupColumn>}
                   {setupState === 'Remix' &&  <SetupColumn>
                     <GqlToolMapper data={setupTutorials} title={'Remix'} filter={'Remix'}/>
                     <GqlSection title={'Cheatsheet'}/>
                     <CheatBox>
-                          <CodeRow>remix.debug(hash)<Com>-- debug tx</Com></CodeRow>
-                          <CodeRow>remix.debugHelp()<Com>-- display debug help</Com></CodeRow>
-                          <CodeRow>remix.exeCurrent()<Com>-- run IDE script</Com></CodeRow>
-                          <CodeRow>ethers.Contract<Com>-- connect to contract</Com></CodeRow>
-                          <CodeRow>web3.eth.accounts<Com>-- generate account & sign</Com></CodeRow>
+                          <CodeRow>remix.debug(hash)<Com>** debug tx</Com></CodeRow>
+                          <CodeRow>remix.debugHelp()<Com>** display debug help</Com></CodeRow>
+                          <CodeRow>remix.exeCurrent()<Com>** run IDE script</Com></CodeRow>
+                          <CodeRow>ethers.Contract<Com>** connect to contract</Com></CodeRow>
+                          <CodeRow>web3.eth.accounts<Com>** generate account & sign</Com></CodeRow>
                       </CheatBox>
                   </SetupColumn>}
                   {setupState === 'Brownie' && <SetupColumn>
@@ -781,10 +782,10 @@ export default function PathForm() {
                   <CheatBox>
                         <CodeRow>pip3 install eth-brownie</CodeRow>
                         <CodeRow>brownie init</CodeRow>
-                        <CodeRow>brownie bake token<Com>-- create erc20 template</Com></CodeRow>
+                        <CodeRow>brownie bake token<Com>** create erc20 template</Com></CodeRow>
                         <CodeRow>brownie compile</CodeRow>
                         <CodeRow>brownie console</CodeRow>
-                        <CodeRow>brownie run *.py --network ropsten<Com>-- deploy</Com></CodeRow>
+                        <CodeRow>brownie run *.py --network ropsten<Com>** deploy</Com></CodeRow>
                     </CheatBox>
                   </SetupColumn>}
                   {setupState === 'Foundry' &&  <SetupColumn>

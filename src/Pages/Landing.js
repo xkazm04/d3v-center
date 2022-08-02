@@ -203,7 +203,7 @@ const TitleBox = styled.div`
     border: 1px solid ${props => props.theme.colors.line};
     border-radius: 15px;
     padding: 1%;
-    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
+    background:  ${props => props.theme.colors.landingBox};
 `
 
 const Progress = styled.div`
