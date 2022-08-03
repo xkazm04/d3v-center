@@ -26,10 +26,12 @@ const searchClient = instantMeiliSearch(
 );
 
 const Kontejner = styled.div`
-@media (min-width: 1000px) {
-  margin-left: 5%;
+@media (min-width: 1200px) {
+  padding-left: 10%;
 }
-
+@media (min-width: 2500px) {
+       padding-left: 15%;
+  }
 `
 
 const Box = styled.div`
@@ -43,17 +45,20 @@ const HitColumn = styled.div`
   flex-direction: start;
   text-align: left;
   padding-bottom: 2px;
-  &:hover{
+  color: ${props => props.theme.colors.text_title};
+  font-size: 1.2em;
   font-weight: 700;
-}
+  font-family: 'Chilanka';
 `
 
 const LastColumn = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 const HitMainColumn = styled.div`
-width: ${props => props.width};
+width: 450px;
 display: flex;
 flex-direction: column;
 margin-top: 3px;
@@ -63,13 +68,20 @@ border-radius: 15px;
 text-align: left;
 padding-left: 2%;
 box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
     margin-left: 0;
     border-radius: 0;
+    width: 400px;
   }
   &:hover{
       background: ${props => props.theme.colors.red};
       cursor: pointer;
+  }
+`
+
+const HitDesktColumn = styled(HitColumn)`
+  @media (max-width: 700px) {
+    display: none;
   }
 `
 
@@ -166,6 +178,7 @@ const ResultBox = styled.div`
   margin-bottom: 2px;
 `
 
+
 // Algolia styled customization
 const MyStats = styled(Stats)`
   text-align: left;
@@ -206,8 +219,8 @@ const PaginationBox = styled.div`
   margin-bottom: 1%;
 `
 const RelTitle = styled.div`
-font-size: 1.2em;
-font-family: 'NoBill';
+  font-size: 1.2em;
+  font-family: 'NoBill';
 `
 
 const RelFeature = styled.div`
@@ -270,16 +283,21 @@ const ChainDiv = styled.div`
  font-size: 0.8em;
 `
 
-
 const UpperTag = styled.div`
-  background: ${props => props.theme.colors.red};
-  border: 0.1px solid ${props => props.theme.chart.var3_fill};
-  font-family: 'Helvetica';
-  font-weight: 700;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 0.7em;
+  background: ${props => props.theme.colors.landingSubtitle};
+  border: 0.1px solid ${props => props.theme.chart.landingTitle};
+  padding: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 2px;
+  font-size: 0.8em;
   border-radius: 15px;
+  font-weight: 700;
+  @media (max-width: 700px) {
+       font-size: 0.7em;
+       padding-left: 4px;
+       padding-right: 4px;
+  }
 `
 
 const DescBox = styled.div`
@@ -342,9 +360,9 @@ function Hit(props) {
 
     <ResultBox>
       <Flex>  
-      <HitColumn  width={'60px'}>
+      <HitDesktColumn  width={'60px'}>
            <ChainDiv> {props.hit.chain}</ChainDiv>       
-        </HitColumn>
+        </HitDesktColumn>
           {/* Main column*/}
         <HitMainColumn width={'450px'} onClick={()=>{handleResultClick(props.hit.reference)}}>  
           <DescBox> <HitDescription attribute="difference" hit={props.hit} tagName="strong" /> <UpperTag>{props.hit.version}</UpperTag></DescBox> 
@@ -352,13 +370,13 @@ function Hit(props) {
             
         </HitMainColumn>
         <MyDivider vertical/>
-        <HitColumn  width={'110px'}>
+        <HitDesktColumn  width={'100px'}>
             {props.hit.category === null ? null : <HitCategory attribute="category" hit={props.hit} tagName="strong" /> }         
-        </HitColumn>
+        </HitDesktColumn>
         <MyDivider vertical/>
-        <HitColumn  width={'100px'}>
+        <HitDesktColumn  width={'90px'}>
            {props.hit.subcategory === null ? null : <HitSubCategory attribute="subcategory" hit={props.hit} tagName="strong" /> }         
-        </HitColumn>
+        </HitDesktColumn>
         <MyDivider vertical/>
        <LastColumn  width={'100px'}>
        <HitUpdate>   {props.hit.update}</HitUpdate>
@@ -384,8 +402,8 @@ return (
               <MetaRow><MyStats/><ClearRefinements/></MetaRow></Search>
 
               <MyDivider vertical/>
-              <SelectFilter title={'category'} attribute={'category'}  width='120px'  filterEnabled={filterCategory} clickFunction={switchFilterCategory}/>
-              <SelectFilter title={'subcategory'} attribute={'subcategory'}  width='120px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/>
+              <SelectFilter title={'category'} attribute={'category'}  width='115px'  filterEnabled={filterCategory} clickFunction={switchFilterCategory}/>
+              <SelectFilter title={'subcategory'} attribute={'subcategory'}  width='110px'  filterEnabled={filterSub} clickFunction={switchFilterSub}/>
 
       </FlexFilter></LazyLoad>
               <HitBox> <Hits hitComponent={Hit} /></HitBox>

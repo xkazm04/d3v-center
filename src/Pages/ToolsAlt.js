@@ -40,7 +40,7 @@ const Submenu = styled.div`
   }
 `
 export default function Tools() {
-  const [cat, setCat] = useState('List');
+  const [cat, setCat] = useState('List view');
 
 
     return <Kontejner>

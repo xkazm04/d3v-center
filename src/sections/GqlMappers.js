@@ -385,12 +385,15 @@ export const GqlFilterdMapper = ({data, title, filter}) => {
     </>)
 }
 
-export const GqlFilterdUsageMapper = ({data, title, filter}) => {
+export const GqlFilterdUsageMapper = ({data, title, filter, chain}) => {
   return(<MiniKontejner>
  {title && <GqlSection title={title}/>}
-  {data.filter(s => s.attributes.Usage === filter).map((d) => (
+  
+  {chain !== 'All' ? <>{data.filter(s => s.attributes.Usage === filter).filter(f => f.attributes.Chain === chain).map((d) => (
      <GqlMiniItem d={d}/>
-    ))}
+    ))}</> : <>{data.filter(s => s.attributes.Usage === filter).map((d) => (
+      <GqlMiniItem d={d}/>
+     ))}</>}
   </MiniKontejner>)
 }
 

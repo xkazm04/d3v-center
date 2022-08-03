@@ -3,6 +3,7 @@ import styled, {useTheme} from 'styled-components'
 import { DevelopIcon,StorageIcon,WisdomIcon, DaoIcon, NftIcon, NodeIcon, DefiIcon, MonitorIcon, UtilityIcon, SecurityIcon} from '../icons/tool';
 import axios from 'axios';
 import {GqlFilterdUsageMapper} from './GqlMappers';
+import SubmenuButton from '../components/buttons/SubmenuButton';
 
 const Kontejner = styled.div`
     margin: 2%;
@@ -69,10 +70,15 @@ const Result = styled.div`
     margin-left: 2%;
 `
 
+const Submenu = styled.div`
+  background: ${props => props.theme.colors.landingBox};
+`
+
 const ToolSection = () => {
     const theme = useTheme();
     const [error, setError] = useState(false)
     const [cat, setCat] = useState('Develop');
+    const [filter, setFilter] = useState('Any')
     const [tools, setTools] = useState()
     const IconNavButton = ({icon, desc}) => {
         return <IconBox>
@@ -118,9 +124,15 @@ const ToolSection = () => {
             <IconNavButton icon={<UtilityIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Utility"/>
             <IconNavButton icon={<SecurityIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Security"/>
     </Menu>
+    <Submenu>
+      <SubmenuButton phase={filter} item={'All'} setItem={setFilter} />
+      <SubmenuButton phase={filter} item={'Universal'} setItem={setFilter} />
+      <SubmenuButton phase={filter} item={'EVM'} setItem={setFilter} />
+      <SubmenuButton phase={filter} item={'Polkadot'} setItem={setFilter} />
+    </Submenu>
 
     <Result>
-          <GqlFilterdUsageMapper data={tools}  filter={cat}/> 
+          <GqlFilterdUsageMapper data={tools}  filter={cat} chain={filter} /> 
     </Result>
     </>
     }
