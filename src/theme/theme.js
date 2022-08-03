@@ -102,13 +102,11 @@ export const lightTheme = {
       dark: "#c7dcf5",
       landingTitle: '#d9d9d9',
       landingSubtitle: '#cbeaff',
-      landingBox: 'linear-gradient(177.62deg, rgba(250, 250, 250, 0) -287.53%, #FAFAFA -287.47%, #300000 -7.6%, #000000 423.08%)',
+      landingBox: 'linear-gradient(0deg, #FF0000 -307.13%, #FF0000 -307.09%, #A40000 -40.9%, #0C0000 112.66%)',
       subContent: '#170000',
       subContentTitle: '#000000',
       lightGreen: '#150000',
- 
       red: "#280000",
-
       blackwhite: "#000000"
 
       // Blockchain specific 

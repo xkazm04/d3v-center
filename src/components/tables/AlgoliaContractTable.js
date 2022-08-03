@@ -17,6 +17,10 @@ import LazyLoad from 'react-lazyload';
 import BoxTitle from '../typography/BoxTitle';
 import CodeComponent from '../code/CodeComponent';
 import BoxSubtitle from '../typography/BoxSubtitle';
+import CodeSeparate from '../code/CodeSeparate';
+import { refContract } from '../../data/solVersions';
+import { SwapIcon } from '../../icons/arrows';
+import { WithdrawIcon } from '../../icons/tool';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -26,7 +30,8 @@ const searchClient = instantMeiliSearch(
 const Kontejner = styled.div`
   z-index: 20;
   @media (min-width: 1000px) {
-  margin-left: 5%;
+  margin: 10%;
+  margin-top: 2%;
 }
   @media (min-width: 1800px) {
   margin-right: 10%;
@@ -244,11 +249,13 @@ const IconButton = styled.button`
 `
 
 const CloseButton = styled.button`
-  position: sticky;
   padding-top: 1%;
-  top: 0;
   background: inherit;
   width: 100%;
+  border-left: 1px solid ${props => props.theme.colors.lineAlt};
+  &:hover{
+    color: white;
+  }
 `
 
 const FlexColumn = styled.div`
@@ -257,13 +264,130 @@ const FlexColumn = styled.div`
 `
 
 const FilterSection = styled.div`
-  height: 100px; 
+  display: flex;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 100px; 
   background: ${props => props.theme.colors.landingBox};
 `
 
+const FilterBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid ${props => props.theme.colors.lineAlt};
+  border-radius: 15px;
+  padding: 5px;
+  padding-bottom: 10px;
+  margin: 10px;
+  font-size: 1.2em;
+  color: ${props => props.theme.colors.landingTitle};
+`
+
+const FilterSearch = styled(FilterBox)`
+  justify-content: flex-end;
+`
+
+const FilterTitle = styled.div`
+  font-family: 'Staatliches';
+`
+
+const Note = styled.div`
+  font-family: 'Chilanka';
+  font-size: 1.5em;
+  color: ${props => props.theme.colors.text_title};
+`
+
+const FilterRadio = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const RadioTitle = styled.div`
+  color: ${props => props.theme.colors.landingTitle};
+  font-family: 'Staatliches';
+  font-size: 0.9em;
+`
+
+const MainSection = styled.div`
+  display: flex;
+  padding-top: 2%;
+  background: ${props => props.theme.colors.lightGreen};
+  min-height: 50px;
+  background: white;
+`
+
+const MainColumn = styled.div`
+  display: flex;
+  flex-direction: row;
+  min-width: 200px;
+  padding: 1%;
+  border-right: 1px solid ${props => props.theme.colors.lineAlt};
+`
+
+const RatingColumn = styled(MainColumn)`
+  justify-content: space-between;
+`
+
+const CodeSection = styled.div`
+  position: absolute;
+  background: ${props => props.theme.colors.landingBox};
+  min-height: 50px;
+  width: 50%;
+  right: 25%;
+  top: 50%;
+  background: white;
+  @media (max-width: 700px) {
+   width: 100%;
+}
+`
+
+const CodeHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 10px;
+  background: ${props => props.theme.colors.landingBox};
+  color: ${props => props.theme.colors.landingSubtitle};
+`
+
+const ListBox = styled.div`
+  min-height: 50px;
+  background: ${props => props.theme.colors.lightGreen};
+  padding: 4%;
+`
+
+const ListTitle = styled.div`
+  font-family: 'Chilanka';
+  font-size: 1.5em;
+  color: ${props => props.theme.colors.text_primary};
+`
+
+const ListContent = styled.li`
+  text-align: left;
+  color: ${props => props.theme.colors.text_primary};
+  font-size: 1em;
+`
+
+const Low = styled.div`
+  font-family: 'Chilanka';
+  color: green;
+`
+
+const Med = styled(Low)`
+  color: black;
+`
+
+const High = styled(Low)`
+  color: red;
+`
 
 const AlgoliaContractTable = () => {
     const [code, setCode] = useState(null)
+    const [codeVisible, setCodeVisible] = useState(false)
+    const [codeSub, setCodeSub] = useState('Code')
     const [prod] = useState(false)
     const [previewVisible, setPreviewVisible] = useState(null)
     const theme = useTheme();
@@ -322,6 +446,7 @@ const handleCodePreview = async(code) => {
 
 return (
   <Kontejner>
+    <Note onClick={()=>{setCodeVisible(true)}}>Layout prototype -> estimated delivery 10.8.2022</Note>
      {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
  {prod &&              <InstantSearch indexName="contract" searchClient={searchClient}>
                
@@ -345,9 +470,46 @@ return (
        </Flex>
   </InstantSearch>}
   <>
-    <FilterSection>Filter box </FilterSection>
+    <FilterSection>
+        <FilterBox><FilterTitle>Title</FilterTitle><div><input type='text' placeholder='Title'/></div></FilterBox>
+        <FilterSearch><input type='text' placeholder='Search box'/></FilterSearch>
+        <FilterBox>
+         <FilterRadio><RadioTitle>Flag modern </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+         <FilterRadio><RadioTitle>Flag swap </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+         <FilterRadio><RadioTitle>Flag withdraw </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+        </FilterBox>
+        <FilterBox>
+          <FilterRadio><RadioTitle>All </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+          <FilterRadio><RadioTitle>Only failed </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+          <FilterRadio><RadioTitle>Passed </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
+        </FilterBox>
+        <FilterBox><FilterTitle>Filter compiler version</FilterTitle> <div><input type='text' placeholder='1/2/3'/></div></FilterBox>
+    </FilterSection>
+    <MainSection>
+        <MainColumn>Title</MainColumn>
+        <MainColumn>Name, Address, Version, Tag, Button</MainColumn>
+        <MainColumn>Flags: <SwapIcon width='20' color={theme.colors.text_title}/> <WithdrawIcon width='20' color={theme.chart.var3_stroke}/></MainColumn>
+        <RatingColumn>Slither API
+                  <Low>5L</Low><Med>5M</Med><High>5H</High>
+        </RatingColumn>
+        <MainColumn>Compiler version</MainColumn>
+    </MainSection>
+    Hit content
+    {codeVisible && 
+    <CodeSection>
+      <CodeHeader>
+       <CloseButton>Author + Title + Reference + Close  - only if Author/Title known</CloseButton> <CloseButton onClick={()=>{setCodeVisible(false)}}>Close</CloseButton>
+      </CodeHeader>
+      <CodeHeader>
+        <CloseButton onClick={()=>{setCodeSub('Code')}}>Code</CloseButton>
+        <CloseButton onClick={()=>{setCodeSub('Functions')}}>Functions</CloseButton>
+        <CloseButton onClick={()=>{setCodeSub('Events')}}>Events</CloseButton>
+      </CodeHeader>
 
-    
+     {codeSub === 'Code' && <CodeSeparate code={refContract}/>}
+     {codeSub === 'Functions' && <ListBox><ListTitle>List with functions</ListTitle><ListContent>Content</ListContent></ListBox>}
+     {codeSub === 'Events' && <ListBox><ListTitle>List with events</ListTitle><ListContent>Content</ListContent></ListBox>}
+    </CodeSection>}
   </>
   </Kontejner>
 )
