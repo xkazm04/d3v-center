@@ -101,6 +101,10 @@ const TitleA = styled.div`
 const Category = styled.div`
     font-size: 1em;
     opacity: 0.8;
+    @media (max-width: 700px) {
+       font-size: 0.9em;
+  }
+    
 `
 
 const Result = styled.div`
@@ -132,6 +136,13 @@ const MiniResult = styled(Result)`
     padding-right: 2px;
     width: 250px;
     background: ${props => props.background};
+    @media (max-width: 700px) {
+       width: 47%;
+       padding: 4px;
+       margin-left: 0;
+       margin-right: 2px;
+       margin-bottom: 2px;
+  }
 `
 
 const IconButton = styled.button`
@@ -154,6 +165,11 @@ const UpperTag = styled.div`
   font-size: 0.8em;
   border-radius: 15px;
   font-weight: 700;
+  @media (max-width: 700px) {
+       font-size: 0.7em;
+       padding-left: 4px;
+       padding-right: 4px;
+  }
 `
 
 const ButtonBox = styled.div`

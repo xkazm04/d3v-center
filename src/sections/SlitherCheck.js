@@ -18,6 +18,19 @@ const Kontejner = styled.div`
     padding: 5%;
     padding-left: 15%;
     text-align: left;
+    @media (max-width: 1000px) {
+       display: none;
+  }
+`
+
+const MobileOnly = styled.div`
+    font-family: 'Chilanka';
+    font-size: 1.2em;
+    margin-top: 30%;
+    color: ${props => props.theme.colors.landingBox};
+    @media (min-width: 1000px) {
+       display: none;
+  }
 `
 
 const Flex = styled.div`
@@ -213,7 +226,7 @@ export default function SlitheCheck() {
     }
 
 
-    return <Kontejner>
+    return <><Kontejner>
                 <FormTitle>Verify online static analysis</FormTitle>
                 <FormSubtitle>Using Slither v0.8.3</FormSubtitle>
                    <Error> {err} {result && result.high >= 1 && result.high < 999 && <Err content='Slither found High impact issue, Be careful'/>}</Error>
@@ -279,5 +292,7 @@ export default function SlitheCheck() {
                     
                    </Flex>
         
-    </Kontejner>;
+    </Kontejner>
+        <MobileOnly>Feature available only for desktop resolution</MobileOnly>
+    </>;
   }

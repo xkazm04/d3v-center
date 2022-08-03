@@ -8,6 +8,9 @@ const HeadTitle = styled.div`
   background: ${props => props.theme.colors.landingBox};
   border-radius: 15px;
   padding: 2%;
+  @media (max-width: 700px) {
+       display: none;
+  }
 `
 
 const TitleRow = styled.div`

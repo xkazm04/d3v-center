@@ -90,8 +90,6 @@ const CodeBox = styled.div`
     width: 100%;
     min-width: 500px;
     margin-left: 5%;
-    animation: fadeIn 0.5s;
-
 `
 
 const ListItem = styled.div`

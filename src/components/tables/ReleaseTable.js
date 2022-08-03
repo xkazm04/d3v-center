@@ -19,7 +19,6 @@ import { Grid, Row, Col } from 'rsuite';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { GithubIcon, TimeIcon, WebIcon } from '../../icons/utils';
-import TitleBox from '../../sections/TitleBox';
 
 const searchClient = instantMeiliSearch(
   process.env.REACT_APP_MEILI_URL, 
@@ -32,7 +31,6 @@ const Kontejner = styled.div`
 }
 
 `
-
 
 const Box = styled.div`
 padding-top: 1%;
@@ -289,13 +287,6 @@ const DescBox = styled.div`
   justify-content: space-between;
 `
 
-const Submenu = styled.div`
-  margin: 5%;
-  margin-left: 10%;
-  padding: 2%;
-  background: ${props => props.theme.colors.landingBox};
-  border-radius: 15px;
-`
 
 const AlgoliaDefinitionTable = () => {
   const theme = useTheme()
@@ -386,7 +377,6 @@ return (
              <Row>
                 <Col xs={24} md={24} lg={7} xl={7}>
               <Box>
-               <Submenu> <TitleBox title='Releases' subtitle='Check latest features and changes'/> </Submenu>    
               <Configure hitsPerPage={15} />   
           <LazyLoad><FlexFilter>  
 

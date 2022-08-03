@@ -90,6 +90,12 @@ const Section = styled.div`
     padding-top: 2%;
 `
 
+const ChartSection = styled(Section)`
+    @media (max-width: 1000px) {
+    display: none;
+  }
+`
+
 const LeftBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -144,6 +150,7 @@ const Services = styled.div`
 `
 
 const ServiceButton = styled.button`
+    font-size: 1em;
     border-radius: 15px;
     background: inherit;
     border: 1px solid ${props => props.theme.colors.medium};
@@ -152,6 +159,10 @@ const ServiceButton = styled.button`
         opacity: 0.9;
         background: ${props => props.theme.colors.medium};
     }
+    @media (max-width: 700px) {
+        font-size: 0.8em;
+        margin: 1%;
+  }
 `
 
 const ActButton = styled(ServiceButton)`
@@ -181,6 +192,10 @@ const Flex = styled.div`
     color: ${props => props.theme.colors.text_primary};
     font-size: 1.2em;
     border: 1px dashed ${props => props.theme.colors.lineAlt};
+    @media (max-width: 800px) {
+        width: 50px;
+        height: 50px;
+  }
 `
 
 const PathPicture = styled.div`
@@ -204,6 +219,9 @@ const TitleBox = styled.div`
     border-radius: 15px;
     padding: 1%;
     background:  ${props => props.theme.colors.landingBox};
+    @media (max-width: 900px) {
+        margin-bottom: 3%;
+  }
 `
 
 const Progress = styled.div`
@@ -241,6 +259,11 @@ const VisualSection = styled.div`
     text-align: left;
     padding-left: 5%;
     padding-bottom: 2%;
+    animation: fadeIn 1s;
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 `
 
 const DescSection = styled(VisualSection)`
@@ -451,7 +474,7 @@ export default function Landing() {
                         </Row>
                     </Grid>
                 </Section>
-                <Section>
+                <ChartSection>
                     <Grid fluid>
                         <Row>
                             <Col xs={24} md={12}>
@@ -469,7 +492,7 @@ export default function Landing() {
                             </Col>
                         </Row>
                     </Grid>
-                </Section>
+                </ChartSection>
                 <Section>
                     <TitleBox>
                         <Title>Latest articles & Announcements</Title>

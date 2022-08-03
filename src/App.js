@@ -44,6 +44,9 @@ const Kontejner = styled.div`
   transition: 0.1s;
   height: 100%;
   min-height: 1200px;
+  @media (max-width: 1000px) {
+    min-height: 700px;
+  }
 `
 
 const Navigation = styled.div`

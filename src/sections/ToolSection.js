@@ -20,6 +20,7 @@ const Menu = styled.div`
     box-shadow: 0px 0px 2px 0px ${props => props.theme.colors.dark};
     padding-top: 1%;
     padding-bottom: 1%;
+    flex-wrap: wrap;
 `
 
 
@@ -29,6 +30,7 @@ const Button = styled.button`
   transition: 0.1s;
   height: 80px;
   margin-bottom: 10%;
+  min-height: 5vw;
   &:hover{
     box-shadow: 0px 0px 2px 0px ${props => props.theme.colors.var3_stroke};
   }
@@ -48,6 +50,9 @@ const IconBox = styled.div`
   justify-content: space-between;
   color: ${props => props.theme.colors.text_primary};
   margin-left: 1%;
+  @media (max-width: 700px) {
+       max-height: 75px;
+  }
 `
 
 const IconDesc = styled.div`
@@ -102,17 +107,18 @@ const ToolSection = () => {
     return <Kontejner>
         {error && <>API error occured, please try again later - server might be down</>}
 {tools && <>  <Menu>
-            <IconNavButton icon={<DevelopIcon width={60} color={theme.colors.text_title}/>} desc="Develop"/>
-            <IconNavButton icon={<StorageIcon width={60} color={theme.colors.text_title}/>} desc="Storage"/>
-            <IconNavButton icon={<WisdomIcon width={60} color={theme.colors.text_title}/>} desc="Knowledge"/>
-            <IconNavButton icon={<DaoIcon width={60} color={theme.colors.text_title}/>} desc="DAO"/>
-            <IconNavButton icon={<NftIcon width={60} color={theme.colors.text_title}/>} desc="NFT"/>
-            <IconNavButton icon={<NodeIcon width={60} colorStroke={theme.colors.text_title} colorFill={theme.colors.text_title}/>} desc="Node"/>
-            <IconNavButton icon={<DefiIcon width={60}  color={theme.colors.text_title}/>} desc="Defi"/>
-            <IconNavButton icon={<MonitorIcon width={60} color={theme.colors.text_title} />} desc="Monitor"/>
-            <IconNavButton icon={<UtilityIcon width={60} color={theme.colors.text_title}/>} desc="Utility"/>
-            <IconNavButton icon={<SecurityIcon width={60} color={theme.colors.text_title}/>} desc="Security"/>
+            <IconNavButton icon={<DevelopIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Develop"/>
+            <IconNavButton icon={<StorageIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Storage"/>
+            <IconNavButton icon={<WisdomIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Knowledge"/>
+            <IconNavButton icon={<DaoIcon width={'5vw'} color={theme.colors.text_title}/>} desc="DAO"/>
+            <IconNavButton icon={<NftIcon width={'5vw'} color={theme.colors.text_title}/>} desc="NFT"/>
+            <IconNavButton icon={<NodeIcon width={'5vw'} colorStroke={theme.colors.text_title} colorFill={theme.colors.text_title}/>} desc="Node"/>
+            <IconNavButton icon={<DefiIcon width={'5vw'}  color={theme.colors.text_title}/>} desc="Defi"/>
+            <IconNavButton icon={<MonitorIcon width={'5vw'} color={theme.colors.text_title} />} desc="Monitor"/>
+            <IconNavButton icon={<UtilityIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Utility"/>
+            <IconNavButton icon={<SecurityIcon width={'5vw'} color={theme.colors.text_title}/>} desc="Security"/>
     </Menu>
+
     <Result>
           <GqlFilterdUsageMapper data={tools}  filter={cat}/> 
     </Result>
