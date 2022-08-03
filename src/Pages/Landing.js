@@ -207,7 +207,7 @@ justify-content: space-around;
 
 const AbsoluteBox = styled.div`
     position: absolute;
-    right: 15rem;
+    right: 15vw;
     margin-top: 10px;
     @media (max-width: 900px) {
         display: none;

@@ -17,9 +17,14 @@ const Kontejner = styled.div`
     background: #f9fff8;
     border-radius: 15px;
     padding-bottom: 2%;
+    @media (max-width: 700px) {
+       margin: 0;
+       width: 100%;
+  }
 `
 
 const TitleBox = styled.div`
+    display: flex;
     border: 1px solid ${props => props.theme.colors.line};
     border-radius: 15px;
     width: 100%;
@@ -27,6 +32,7 @@ const TitleBox = styled.div`
     background:  ${props => props.theme.colors.landingBox};
     animation: fadeIn 0.5s;
     margin-bottom: 1%;
+    flex-wrap: wrap;
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -41,6 +47,11 @@ const TitleSubBox = styled(TitleBox)`
     border-radius: 0px;
     display: flex;
     justify-content: center;
+    @media (max-width: 700px) {
+       margin: 0;
+       width: 100%;
+       padding: 5px;
+  }
 `
 
 const SectionButton = styled.button`
@@ -90,6 +101,9 @@ const CodeBox = styled.div`
     width: 100%;
     min-width: 500px;
     margin-left: 5%;
+    @media (max-width: 1000px) {
+       min-width: 100px;
+  }
 `
 
 const ListItem = styled.div`
@@ -99,6 +113,9 @@ const ListItem = styled.div`
     padding-left: 5%;
     padding-top: 5%;
     padding-bottom: 5%;
+    @media (max-width: 1000px) {
+        font-size: 1em;
+  }
 `
 
 const Nav = styled.div`
@@ -108,10 +125,14 @@ const Nav = styled.div`
     background: ${props => props.theme.colors.landingBox};
     padding-left: 1%;
     padding-right: 1%;
+    flex-wrap: wrap;
+    @media (max-width: 700px) {
+        justify-content: flex-start;
+  }
 `
 
 const NavButton = styled.button`
-    padding: 2%;
+    padding: 1%;
     background: inherit;
     border: 1px solid #ced1cf; 
     color: ${props => props.theme.colors.landingTitle};
@@ -121,6 +142,12 @@ const NavButton = styled.button`
     &:hover{
         color: white;
     }
+    @media (max-width: 700px) {
+        font-size: 1.1em;
+        padding:0;
+        padding-left: 5px;
+        padding-right: 5px;
+  }
 `
 
 const NavActButton = styled(NavButton)`
