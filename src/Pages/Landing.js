@@ -231,9 +231,10 @@ const Progress = styled.div`
 `
 
 const ProgressBar = styled.div`
-    height: 2px;
-    opacity: 0.7;
-    background: ${props => props.theme.colors.lineAlt};
+    height: 100px;
+    opacity: 0.01;
+    border-radius: 45px;
+    background: linear-gradient(90deg, #AEE3BD 0.63%, #FFFFFF 110.67%, #000000 110.67%);
 `
 
 const DescBox = styled.div`
@@ -360,7 +361,9 @@ export default function Landing() {
     // Oddělit do souboru data pro každou sekci 
     return <Kontejner>
         <Progress><motion.div style={{ scaleX: scrollYProgress }}   initial={{ opacity: 0 }}
-                                                whileInView={{ opacity: 1 }}><ProgressBar/></motion.div>  
+                                                whileInView={{ opacity: 1 }}>
+                                                <ProgressBar/>
+                                            </motion.div>  
                                                         </Progress>
                 <Section>
                     <Grid fluid>
@@ -404,7 +407,7 @@ export default function Landing() {
                        {serviceDescription === 'Path' && <SpaceBetween>
                         
                         <VisualSection> <Zoom><img src={path} alt='Path' width={'350'}/></Zoom></VisualSection>
-                        <DescSection><DescTitle>Seek guidance through the dev journey.</DescTitle>
+                        <DescSection><DescTitle>Seek guidance through Your dev journey.</DescTitle>
                             <li>NFT collections</li>
                             <li>Defi lending & Dexes</li>
                             <li>Security best practices</li>
@@ -466,7 +469,7 @@ export default function Landing() {
                                 <LeftBox>
                                     <TitleBox>
                                             <Title>D3V Path  <AbsoluteBox><MainPulse><MyLink to='/path'><ExitArrow width='35' color={theme.colors.landingTitle} /> </MyLink></MainPulse></AbsoluteBox></Title>
-                                            <Subtitle>Use guidance at any point of your struggle</Subtitle>
+                                            <Subtitle>Use guidance at any point of Your struggle</Subtitle>
                                     </TitleBox>
                                     <PathPicture><PathSection width={'1200'} height={'300'} color={theme.colors.text_primary}/></PathPicture>
                                 </LeftBox>
