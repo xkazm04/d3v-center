@@ -125,12 +125,11 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
   `
 
   export const fetchNftPath = ` query FetchNftPath ($chainV: String, $chainL:String,$cat:String,$subcat: String,$feature:[String],$lang:String) {
-    tutorials (pagination: {limit: 150 },filters: 
+    tutorials (pagination: {limit: 650 },filters: 
         {Chain:{eq:$chainV}, 
-  or:{Category:{eq:$cat},
-  or:{Language:{eq:$lang},
+  or:{Category:{in:[$cat, "Data"]},
   or:[{Subcategory:{in:[$subcat, "VRF","Data", "Metadata","Storage"]}},{Subcategory:{in:$feature}, }]}
-}}){ 
+}){ 
       data  {
         attributes {
           Title 
@@ -159,8 +158,8 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
       }
     }
     tools (pagination: {limit: 150 },filters: 
-        {Chain:{eq:$chainL}, 
-    or:{Usage:{eq:$cat},
+        {Chain:{in:[$chainL, "Universal"]}, 
+    or:{Usage:{in:[$cat,"Node"]},
   }}){ 
       data  {
         attributes {

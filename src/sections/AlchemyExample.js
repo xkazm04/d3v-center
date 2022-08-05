@@ -10,7 +10,8 @@ import { AlchNft, AlchCore } from '../data/interactionExamples'
 import AlchemyCore from '../components/interaction/AlchemyCore'
 
 const Kontejner = styled.div`
-    padding: 2%;
+    margin: 2%;
+    background: ${props => props.theme.colors.lighter};
 `
 
 const Section = styled.div`

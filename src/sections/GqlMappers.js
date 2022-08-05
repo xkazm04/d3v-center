@@ -182,6 +182,7 @@ const ButtonBox = styled.div`
 const MiniKontejner = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 const MiniBox = styled.div`
@@ -378,10 +379,11 @@ export const GqlRMapper = ({data, title}) => {
 
 export const GqlFilterdMapper = ({data, title, filter}) => {
     return(<>
-   {title && <GqlSection title={title}/>}
+  {data.filter(s => s.attributes.Subcategory === filter).length >= 1 && <>{title && <GqlSection title={title}/>}
     {data.filter(s => s.attributes.Subcategory === filter).map((d) => (
        <GqlItem d={d}/>
       ))}
+   </> }
     </>)
 }
 

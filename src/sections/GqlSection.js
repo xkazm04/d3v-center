@@ -10,7 +10,7 @@ const SectionTitle = styled.div`
     border: 1px solid ${props => props.theme.colors.lineAlt};
     font-family: 'Spectral', serif;
     border-radius: 5px;
-    margin-bottom: 2%;
+    margin-top: 2%;
     animation: fadeIn 0.5s;
     @keyframes fadeIn {
       0% { opacity: 0; }

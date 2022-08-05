@@ -3,7 +3,6 @@ import {   InstantSearch,
     Hits,
     Pagination,
     Configure,
-    connectMenu ,
     Highlight,
     connectSearchBox,
     ClearRefinements,
@@ -12,11 +11,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import {ExpandIcon, CodeIcon, CloseIcon } from '../../icons/utils';
 import styled, {useTheme} from 'styled-components'
 import SearchBox from './SearchBox';
-import MenuSelect from './MenuSelect';
-import LazyLoad from 'react-lazyload';
-import BoxTitle from '../typography/BoxTitle';
 import CodeComponent from '../code/CodeComponent';
-import BoxSubtitle from '../typography/BoxSubtitle';
 import CodeSeparate from '../code/CodeSeparate';
 import { refContract } from '../../data/solVersions';
 import { SwapIcon } from '../../icons/arrows';
@@ -46,10 +41,6 @@ const Kontejner = styled.div`
 }
 `
 
-const Box = styled.div`
-padding-top: 1%;
-padding-left: 2%;
-`
 
 // Algolia styled customization
 const MyStats = styled(Stats)`
@@ -105,41 +96,6 @@ const HitDescription = styled(Highlight)`
   }
 `
 
-
-const SelectItem = styled.div`
-  transition: 0.1s;
-  align-items: left;
-  text-align: left;
-  min-width: ${props => props.width};
-  margin-right: 1%;
-  animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-  @media (max-width: 700px) {
-    display: none;
-  }
-`
-
-
-const SelectTitle = styled.p`
-  font-family: 'NoBill';
-  text-align: left;
-  font-size: 1.2em;
-  padding-left: 10%;
-  padding-right: 10%;
-  color: ${props => props.theme.colors.text_primary};
-  cursor: default;
-  &:hover{
-    cursor: pointer;
-    background: ${props => props.theme.colors.light};
-  }
-  @media (min-width: 700px) {
-    width: 100%;
-  }
-`
-
 const CodeBox = styled.div`
   position: absolute;
   background: black;
@@ -160,33 +116,12 @@ const PaginationTitle = styled.p`
   color: ${props => props.theme.colors.text_primary};
 `
 
-const SelectTitleBox = styled.div`
-display: flex;
-justify-content: space-between;
-background: ${props => props.theme.colors.lighter};
-margin-bottom: 4px;
-box-shadow: 0px 0px 1px 0px ${props => props.theme.colors.text_primary};
-&:hover{
-    cursor: pointer;
-    background: ${props => props.theme.colors.light};
-  }
-`
-
-
 const MetaRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `
 
-const Flex = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const FlexFilter = styled(Flex)`
-min-height: 50px;
-`
 
 const ResultBox = styled.div`
   display: flex;
@@ -388,28 +323,12 @@ const AlgoliaContractTable = () => {
     const [code, setCode] = useState(null)
     const [codeVisible, setCodeVisible] = useState(false)
     const [codeSub, setCodeSub] = useState('Code')
-    const [prod] = useState(false)
     const [previewVisible, setPreviewVisible] = useState(null)
     const theme = useTheme();
 
-  const [filterChain, setFilterChain] = useState(true);
-  const switchFilterChain = () => {
-    setFilterChain(!filterChain);
-  }
-
 
 const DebouncedSearchBox = connectSearchBox(SearchBox)
-const CustomMenuSelect = connectMenu(MenuSelect);
-
-const SelectFilter = ({title,attribute, width,filterEnabled}) => {
-return(
-<SelectItem width={width}> <SelectTitleBox>   <SelectTitle >{title} 
-</SelectTitle ></SelectTitleBox> 
- {filterEnabled ? <CustomMenuSelect attribute={attribute} width={width}/>  : null} 
-
-</SelectItem>
-)
-}
+// const CustomMenuSelect = connectMenu(MenuSelect);
 
 
 
@@ -448,27 +367,6 @@ return (
   <Kontejner>
     <Note onClick={()=>{setCodeVisible(true)}}>Layout prototype -> estimated delivery 10.8.2022</Note>
      {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
- {prod &&              <InstantSearch indexName="contract" searchClient={searchClient}>
-               
-          <Flex> 
-              <Box>
-                    <BoxTitle content='Contracts (8/2022)'/>
-                    <BoxSubtitle content='Complete mainnet library from Ethereum, Polygon and BSC'/>
-
-              <Configure hitsPerPage={30} />   
-              <LazyLoad><FlexFilter>  
-              <SelectFilter title={'Chain'} attribute={'chain'}  width='100px'  filterEnabled={filterChain} clickFunction={switchFilterChain}/>
-              <Search>     <DebouncedSearchBox delay={500}/>        
-              <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
-     
-      </FlexFilter></LazyLoad> 
-              <HitBox> <Hits hitComponent={Hit} /></HitBox>
-          <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
-
-             </Box>
-
-       </Flex>
-  </InstantSearch>}
   <>
     <FilterSection>
         <FilterBox><FilterTitle>Title</FilterTitle><div><input type='text' placeholder='Title'/></div></FilterBox>
@@ -494,7 +392,18 @@ return (
         </RatingColumn>
         <MainColumn>Compiler version</MainColumn>
     </MainSection>
-    Hit content
+    <InstantSearch indexName="contract" searchClient={searchClient}>
+               
+
+              <Configure hitsPerPage={30} />   
+
+              <Search>     <DebouncedSearchBox delay={500}/>        
+              <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
+     
+              <HitBox> <Hits hitComponent={Hit} /></HitBox>
+          <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
+
+  </InstantSearch>
     {codeVisible && 
     <CodeSection>
       <CodeHeader>

@@ -1,22 +1,24 @@
-import {useState} from 'react'
-import styled, {useTheme} from "styled-components"
+import styled, {useTheme} from 'styled-components';
+import {useState} from 'react';
 import InputNumber from 'rc-input-number';
 import "./input.css"
 import { Legend, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart } from 'recharts';
 import {ArrowUp, ArrowDown} from '../icons/arrows';
 import { Tooltip as TT, Whisper } from 'rsuite';
-import GovernResources from './GovernResources';
-import GovernCode from './GovernCode';
 
 const Kontejner = styled.div`
     display: flex;
-    flex-direction: column;
-    text-align: left;
-    width: 100%;
+    justify-content: space-between;
+    margin-top: 10%;
 `
+
 const TokenForm = styled.div`
     padding-right: 2%;
+    margin-right: 10%;
     width: 200px;
+    @media (min-width: 1400px) {
+        margin-right: 20%;
+     }
 `
 
 const TokenInput = styled(InputNumber)`
@@ -41,6 +43,14 @@ const Label = styled.div`
         cursor: help;
     }
 `
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 2%;
+    padding-top: 2%;
+`
+
 
 const Flex = styled.div`
     display: flex;
@@ -50,68 +60,14 @@ const Flex = styled.div`
     margin-bottom: 2%;
 `
 
-const FlexColumn = styled.div`
-    display: flex;
-    flex-direction: row;
-
-    margin-bottom: 2%;
-    padding-top: 2%;
-`
-
-const ArticleButton = styled.button`
-  border: 1px solid ${props => props.theme.colors.text_primary};
-  border-radius: 15px;
-  font-weight: 700;
-  margin: 5px;
-  color: ${props => props.theme.colors.text_primary};
-  transition: 0.1s;
-  height: 30px;
-  font-family: 'Spectral', serif;
-  background: ${props => props.theme.colors.background};
-  &:hover{
-    background: ${props => props.theme.colors.green};
-  }
-`
-
-const ArticleActButton = styled(ArticleButton)`
-  background: ${props => props.theme.colors.step};
-  &:hover{
-    background:  ${props => props.theme.colors.step};
-  }
-`
-
-const EmptyButton = styled(ArticleButton)`
-    background: transparent;
-    margin-bottom: 2%;
-    &:hover{
-        background: transparent;
-        cursor: default;
-    }
-`
-
-const AbsoluteDescription = styled.div`
-  text-align: left;
-  margin-top: 1%;
-  font-family: 'Staatliches';
-  font-size: 1.1em;
-  letter-spacing: 1.2px;
-  margin-left: 15px;
-  color: ${props => props.theme.colors.text_title};
-`
-
-const SubNavigation = styled.div`
-    display: flex;
-  padding-top: 1%;
-`
-
-const Pr = styled.div`
-    font-size: 0.6em;
-`
-
 const Number = styled.div`
     padding-left: 5%;
     padding-right: 2%;
 
+`
+
+const Pr = styled.div`
+    font-size: 0.6em;
 `
 
 const ChartBox = styled.div`
@@ -130,31 +86,15 @@ const UpDown = styled.div`
     }
 `
 
-const AlignLeft = styled.div`
-    text-align: left;
-    width: 100%;
-    min-width: 400px;
-    border-top: 1px solid ${props => props.theme.colors.lineAlt};
-    padding-top: 5%;
-    font-size: 0.9em;
-    color: ${props => props.theme.colors.text_title};
-`
-
-const DesktopOnly = styled.div`
-      @media (max-width: 1000px) {
-    display: none;
-  }
-`
-
-
-const GovernSection = () => {
+const GovernChartSubsection = () => {
     const theme = useTheme()
-    const [component, setComponent] = useState('Resources')
     var [totalSupply, setTotalSupply] = useState(10000)
 
     const [teamMultiplier, setTeamMultiplier] = useState(0.10)
     const teamNumber = teamMultiplier * 100
     const teamSupply = totalSupply * teamMultiplier
+
+
     var [teamVest, setTeamVest] = useState(3)
     var [teamOneMult, setTeamOneMult] = useState(1/3)
     var [teamTwoMult, setTeamTwoMult] = useState(2/3)
@@ -336,8 +276,6 @@ const GovernSection = () => {
         calcMult(v,setTeamOneMult,setTeamTwoMult,setTeamThreeMult,setTeamFourMult,setTeamFiveMult)
     }
 
-
-
     const changeComm = (e) => {
         setCommMultiplier(e / 100);
     }
@@ -376,7 +314,6 @@ const GovernSection = () => {
         setAirMultiplier(e / 100);
     }
 
-
     const upHandler = <UpDown><ArrowUp width='20' height='10' color={theme.colors.text_title}/></UpDown>;
     const downHandler = <UpDown><ArrowDown width='20' height='10' color={theme.colors.text_secondary}/></UpDown>;
 
@@ -392,33 +329,26 @@ const GovernSection = () => {
         )
     }
 
-    return  <Kontejner>  
-        <SubNavigation>
-                  {component === 'Resources' ? <ArticleActButton>Resources</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Resources')}>Resources</ArticleButton>}
-           <DesktopOnly>       {component === 'Chart' ? <ArticleActButton>Tokenomics</ArticleActButton> : <ArticleButton onClick={()=>setComponent('Chart')}>Tokenomics</ArticleButton>}
-                  {component === 'Chart' &&  <AbsoluteDescription>Design your tokenomics </AbsoluteDescription> }</DesktopOnly>
-                  
-        </SubNavigation>
-      <FlexColumn> 
-       {component !== 'Resources' && <TokenForm>
-          <FlexColumn><Label color={theme.colors.text_primary}>To spend: </Label> {otherNumber >= 0 ? <Number>{otherNumber}</Number> : <Neg>{otherNumber}%</Neg>}</FlexColumn> 
-                <Flex>
-                    <FlexColumn><Label color={theme.colors.text_primary}>Token supply</Label><TokenInput defaultValue={10000} min={1} max={100000000000000} onChange={changeTotal} width={'150px'} /> </FlexColumn>
-                    <FormRow value={teamNumber} change={changeTeam} vestValue={teamVest} vestChange={changeTeamVest} label={'Team'} color={theme.chart.varYellow_stroke} speaker={'Founding contributing team to sustain long-term commitment'} />
-                    <FormRow value={commNumber} change={changeComm} label={'Community'} color={theme.chart.varOrange_stroke} speaker={'Allocation for incentivizing the community and staking'}/>
-                    <FormRow value={treaNumber} change={changeTrea} label={'Treasury'} color={theme.chart.varBlue_stroke} speaker={'Reserve capital to cover opportunities, fuckups or distribute rewards to DAO'}/>
-                    <FormRow value={advNumber} change={changeAdv} label={'Advisory'}  vestValue={advVest} vestChange={changeAdvVest} color={theme.chart.varOrange_stroke} speaker={"Allocation for business partners and garants"}/>
-                    <FormRow value={privNumber} change={changePriv} vestValue={privVest} vestChange={changePrivVest} label={'Private'} color={theme.chart.var2_stroke} speaker={'Allocation for private seed of token sale'}/>
-                    <FormRow value={pubNumber} change={changePub} vestValue={pubVest} vestChange={changePubVest} label={'Public'} color={theme.chart.var3_stroke} speaker={'Allocation for public seed of token sale'}/>
-                    <FormRow value={liqNumber} change={changeLiq} label={'Marketing'}  color={theme.chart.varPurple_stroke} speaker={'Marketing and liquidity provision to ensure the continuous growth'}/>
-                    <FormRow value={bouNumber} change={changeBou} label={'Bounties'} color={theme.chart.varRed_fill} speaker={'Incentivization of bug bounties and grants for ecosystem developers.'}/>
-                    <FormRow value={airNumber} change={changeAir} label={'Airdrop'} color={theme.chart.var1_stroke} speaker={'Reward for early supporters'}/>
-                </Flex>
-        </TokenForm>}
-        {component === 'Resources' && <GovernResources/>}
-        {component === 'Code' && <GovernCode/>}
-       {component === 'Chart' &&  <ChartBox> 
-       <ResponsiveContainer width="100%" height={600}>
+
+    return <Kontejner>
+    <TokenForm>
+  <FlexColumn><Label color={theme.colors.text_primary}>To spend %: </Label> {otherNumber >= 0 ? <Number>{otherNumber}</Number> : <Neg>{otherNumber}%</Neg>}</FlexColumn> 
+        <Flex>
+            <FlexColumn><Label color={theme.colors.text_primary}>Token supply</Label><TokenInput defaultValue={10000} min={1} max={100000000000000} onChange={changeTotal} width={'150px'} /> </FlexColumn>
+            <FormRow value={teamNumber} change={changeTeam} vestValue={teamVest} vestChange={changeTeamVest} label={'Team'} color={theme.chart.varYellow_stroke} speaker={'Founding contributing team to sustain long-term commitment'} />
+            <FormRow value={commNumber} change={changeComm} label={'Community'} color={theme.chart.varOrange_stroke} speaker={'Allocation for incentivizing the community and staking'}/>
+            <FormRow value={treaNumber} change={changeTrea} label={'Treasury'} color={theme.chart.varBlue_stroke} speaker={'Reserve capital to cover opportunities, fuckups or distribute rewards to DAO'}/>
+            <FormRow value={advNumber} change={changeAdv} label={'Advisory'}  vestValue={advVest} vestChange={changeAdvVest} color={theme.chart.varOrange_stroke} speaker={"Allocation for business partners and garants"}/>
+            <FormRow value={privNumber} change={changePriv} vestValue={privVest} vestChange={changePrivVest} label={'Private'} color={theme.chart.var2_stroke} speaker={'Allocation for private seed of token sale'}/>
+            <FormRow value={pubNumber} change={changePub} vestValue={pubVest} vestChange={changePubVest} label={'Public'} color={theme.chart.var3_stroke} speaker={'Allocation for public seed of token sale'}/>
+            <FormRow value={liqNumber} change={changeLiq} label={'Marketing'}  color={theme.chart.varPurple_stroke} speaker={'Marketing and liquidity provision to ensure the continuous growth'}/>
+            <FormRow value={bouNumber} change={changeBou} label={'Bounties'} color={theme.chart.varRed_fill} speaker={'Incentivization of bug bounties and grants for ecosystem developers.'}/>
+            <FormRow value={airNumber} change={changeAir} label={'Airdrop'} color={theme.chart.var1_stroke} speaker={'Reward for early supporters'}/>
+        </Flex>
+</TokenForm>
+    
+    <ChartBox> 
+       <ResponsiveContainer width="100%" height={400}>
                 <AreaChart
                         data={vestingSchedule}
                         margin={{
@@ -430,7 +360,7 @@ const GovernSection = () => {
                     >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis padding={{ left: 0 }} width={150}/>
+                    <YAxis padding={{ left: 0 }} width={50}/>
                     <Tooltip />
                     <Legend iconSize={12} iconType={'diamond'} margin={{ left: 50, top: 20 }} width={'100%'}/>
                         <Area type="monotone" dataKey="Community" stackId="1"  stroke={theme.chart.varOrange_stroke} fill={theme.chart.varOrange_fill}  />
@@ -442,20 +372,8 @@ const GovernSection = () => {
                         <Area type="monotone" dataKey="PrivateSale" stackId="1"  stroke={theme.chart.var2_stroke} fill={theme.chart.var2_fill} />
                         <Area type="monotone" dataKey="PublicSale" stackId="1"  stroke={theme.chart.var3_stroke} fill={theme.chart.var3_fill} />
                     </AreaChart>
-        </ResponsiveContainer>    </ChartBox>}
-
-        </FlexColumn>
-        <AlignLeft><EmptyButton>Design</EmptyButton>
-                        <li>Initial supply and allocation to team, investors, community, and other stakeholders</li>
-                        <li>Methods of distribution including token purchases, airdrops, grants, and partnerships</li>
-                        <li> Revenue split between users, service providers, and protocol</li>
-                        <li> Treasury size, structure, and intended uses</li>
-                        <li> Emission schedule including inflation, mint/burn rights, and supply caps</li>
-                        <li> Coin governance including voting, escrow, stake-weighting, vesting, and gauges</li>
-                        <li> Miner and validator compensation such as fees, emissions, and penalties</li>
-                        <li> Usage of protocol’s native tokens versus external tokens (e.g. ETH, USDC)</li></AlignLeft>
-    </Kontejner>
-    
+        </ResponsiveContainer>    </ChartBox>
+</Kontejner>
 }
 
-export default GovernSection
+export default GovernChartSubsection

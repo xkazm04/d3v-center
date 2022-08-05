@@ -25,7 +25,6 @@ import Email from './Pages/Email';
 import { GoLight, Pill } from './icons/main';
 
 import { TotalsContext} from './contexts/TotalsContext';
-import { FilterContext } from './contexts/FilterContext';
 import { ChainApiContext } from './contexts/ChainApiContext';
 import { ChainContext } from './contexts/ChainContext';
 
@@ -114,10 +113,7 @@ const PillBox = styled.div`
 `
 
 function App() {
-  const [filterChain, setFilterChain] = useState("?filters[Chain][$notNull]")
-  const [filterSource, setFilterSource] = useState("?filters[Source][$notNull]")
-  const [filterStage, setFilterStage] = useState("?filters[Stage][$notNull]")
-  const [filterUsage, setFilterUsage] = useState("?filters[Usage][$notNull]")
+
 
   // Total number of articles 
   const [totalTut, setTotalTut] = useState(0)
@@ -150,7 +146,6 @@ function App() {
     </BrandTopBox>
     <Kontejner>
     <PillBox> {theme === 'light' ? <Pill width={500} color='#C2CBDD'/> : <Pill width={500} color='red'/> }        </PillBox>
-            <FilterContext.Provider value={{ filterChain, setFilterChain, filterSource, setFilterSource, filterStage, setFilterStage, filterUsage, setFilterUsage}}> 
             <ChainApiContext.Provider value={{ chainArray, setChainArray}}> 
             <ChainContext.Provider value={{blockchain, setBlockchain}}>
               <TotalsContext.Provider value={{totalTut, setTotalTut, totalDef, setTotalDef, totalTool, setTotalTool, totalRep, setTotalRep}}> 
@@ -180,7 +175,6 @@ function App() {
                 </TotalsContext.Provider>
                 </ChainContext.Provider>
                 </ChainApiContext.Provider>
-                </FilterContext.Provider>
     </Kontejner>
     </ThemeProvider>
     </QueryClientProvider>

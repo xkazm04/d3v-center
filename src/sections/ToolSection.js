@@ -78,7 +78,7 @@ const ToolSection = () => {
     const theme = useTheme();
     const [error, setError] = useState(false)
     const [cat, setCat] = useState('Develop');
-    const [filter, setFilter] = useState('Any')
+    const [filter, setFilter] = useState('All')
     const [tools, setTools] = useState()
     const IconNavButton = ({icon, desc}) => {
         return <IconBox>

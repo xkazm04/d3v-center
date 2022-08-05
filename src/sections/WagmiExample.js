@@ -33,7 +33,8 @@ const { connectors } = getDefaultWallets({
   });
 
 const Kontejner = styled.div`
-    padding: 2%;
+    margin: 2%;
+    background: ${props => props.theme.colors.lighter};
 `
 
 const Section = styled.div`

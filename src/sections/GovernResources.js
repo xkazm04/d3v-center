@@ -5,26 +5,11 @@ import { fetchGovern } from '../data/graphQueries';
 import { Grid, Row, Col } from 'rsuite';
 import { Tooltip as TT, Whisper } from 'rsuite';
 import { GqlMapper, GqlRMapper } from './GqlMappers';
-
-// Query sections 
-const SectionTitle = styled.div`
-    color: ${props => props.theme.colors.text_primary};
-    width: 100%;
-    font-weight: 700;
-    padding: 2%;
-    font-size: 1.1em;
-    background: ${props => props.theme.colors.background};
-    border-bottom: 1px solid ${props => props.theme.colors.line};
-    font-family: 'Spectral', serif;
-    border-radius: 5px;
-    margin-bottom: 2%;
-    animation: fadeIn 0.5s;
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-`
-
+import GqlSection from './GqlSection';
+import CapsTitle from '../components/typography/CapsTitle';
+import SubmenuButton from '../components/buttons/SubmenuButton';
+import CapsDesc from '../components/typography/CapsDesc';
+import GovernChartSubsection from './GovernChartSubsection';
 
 const Flex = styled.div`
     display: flex;
@@ -32,15 +17,15 @@ const Flex = styled.div`
     text-align: left;
 `
 
-
 const Kontejner = styled.div`
     display: flex;
     flex-direction: column;
 `
 
 const Section = styled.div`
-    margin: 1%;
+    margin-bottom: 1%;
     animation: fadeIn 0.5s;
+    text-align: left;
     @keyframes fadeIn {
       0% { opacity: 0; }
       100% { opacity: 1; }
@@ -48,10 +33,10 @@ const Section = styled.div`
 `
 
 const Question = styled.div`
-      font-family: 'Inder';
-      font-style: 'Helvetica';
-      padding: 1%;
+      font-family: 'Chilanka';
+      padding: 2%;
       color: ${props => props.theme.colors.text_primary};
+      background: ${props => props.theme.colors.lighter};
       font-weight: 500;
       font-size: 1em;
       border-bottom: 0.5px solid ${props => props.theme.colors.lineAlt};
@@ -60,16 +45,41 @@ const Question = styled.div`
       }
 `
 
+const SubNavigation = styled.div`
+  display: flex;
+  justify-content: center;
+  background: ${props => props.theme.colors.blackwhite};
+  padding-top: 1%;
+`
+
+
+const StepDescription = styled.div`
+  background:  ${props => props.theme.colors.blackwhite};
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: 400;
+`
+const Column = styled.div`
+    margin-right: 5%;
+`
+
+const Speaker = styled.div`
+    color: white;
+    font-size: 1.1em;
+    font-family: 'Chilanka';
+`
+
 const Q = ({question, speaker}) => {
     return (
-        <Whisper trigger="hover" placement="bottom" speaker={<TT>{speaker}</TT>}><Question>{question}</Question></Whisper>
+        <Whisper trigger="hover" placement="bottom" speaker={<TT><Speaker>{speaker}</Speaker></TT>}><Question>{question}</Question></Whisper>
     )
 }
 
 export default function GovernResources() {
     const token = process.env.REACT_APP_CMS_API
 
-
+    const [sub, setSub] = useState('Tokenize')
+    const [dao, setDao] = useState('Tools')
     const [gqlError, setGqlError] = useState(false)
     const [result, setResult] = useState(false)
     const [tutorials, setTutorials] = useState(null)
@@ -121,14 +131,28 @@ export default function GovernResources() {
     
 
     return <Kontejner>
+
         {gqlError && 'Sorry, query error occured'}
          {result && <Grid> 
        <Row>
-        <Col xs={24} md={9}>
-           
-    {tutorials && <Section><GqlMapper data={tutorials} title={'Tutorials'}/>
+        <Col xs={24} md={11}><Column>
+           <CapsTitle content='Tokenomics'/> 
+        <StepDescription>
+           <SubNavigation>
+            <SubmenuButton phase={sub} item='Think' setItem={setSub}/>
+            <SubmenuButton phase={sub} item='Study' setItem={setSub}/>
+            <SubmenuButton phase={sub} item='Visualize' setItem={setSub}/>
+            <SubmenuButton phase={sub} item='Tokenize' setItem={setSub}/>
+            </SubNavigation>    
+                {sub === 'Think' && <CapsDesc content='Think about engine behind the project'/>}
+                {sub === 'Study' && <CapsDesc content='Create sustainable long-term token economy'/>}
+                {sub === 'Visualize' && <CapsDesc content='Display roughly token distribution'/>}
+                {sub === 'Tokenize' && <CapsDesc content='Build fundable utility token'/>}
+        </StepDescription>
+        {sub === 'Visualize' && <GovernChartSubsection/>}
+        {tutorials && sub === 'Think' && <Section>
             <Flex>
-            <SectionTitle>Ask yourself</SectionTitle>
+            <GqlSection title='Ask yourself'/>
                 <Q question={"What's the utility behind token?"} speaker={<Flex>
                     <li>Governance (DAO)</li>
                     <li>Exchange of value (Payment)</li>
@@ -146,22 +170,35 @@ export default function GovernResources() {
                     <li>Initial DEX offering</li>
                     <li>Dutch auctions</li>
                     <li>Launchpad</li>
-                </Flex>}/> 
-
-
-            </Flex>
+                </Flex>}
+                /> 
+            </Flex><Flex><GqlSection title='Design'/>
+                        <Question>Initial supply and allocation to team, investors, community, and other stakeholders</Question>
+                        <Question>Methods of distribution including token purchases, airdrops, grants, and partnerships</Question>
+                        <Question>Revenue split between users, service providers, and protocol</Question>
+                        <Question>Treasury size, structure, and intended uses</Question> 
+                        <Question>Emission schedule including inflation, mint/burn rights, and supply caps</Question>
+                        <Question>Coin governance including voting, escrow, stake-weighting, vesting, and gauges</Question> 
+                        <Question>Miner and validator compensation such as fees, emissions, and penalties</Question> 
+                        <Question>Usage of protocol’s native tokens versus external tokens (e.g. ETH, USDC)</Question> </Flex>
             </Section>}
-            </Col><Col xs={24} md={9}>
-                    {tools && <Section><GqlMapper data={tools} title={'Tools'}/></Section>}
+            {definitions && sub === 'Study' && <Section> <GqlMapper data={definitions} title={'Study'}/></Section>}
+            {repos && sub === 'Tokenize' && <Section> <GqlRMapper data={repos} title={'Get inspired'}/></Section>}
+            </Column>
             </Col>
+            
+            {sub !== 'Visualize' && <Col xs={24} md={11}>
+            <CapsTitle content='DAO'/> 
+                <StepDescription>
+                <SubNavigation>
+                    <SubmenuButton phase={dao} item='Tools' setItem={setDao}/>
+                    </SubNavigation>        
+                    {dao === 'Tools' && <CapsDesc content='Tools DAO description'/>}
+
+        </StepDescription>
+                    {tools && dao === 'Tools' && <Section><GqlMapper data={tools} title={'Tools'}/></Section>}
+            </Col>}
             </Row>
-            <Row>
-            <Col xs={24} md={9}>
-                {definitions && <Section> <GqlMapper data={definitions} title={'Definitions & Theory'}/></Section>}
-            </Col><Col xs={24} md={9}>
-            {repos && <Section> <GqlRMapper data={repos} title={'Get inspired'}/></Section>}
-                  </Col>
-                </Row>
             </Grid>}
     </Kontejner>;
   }

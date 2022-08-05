@@ -10,7 +10,6 @@ import { fetchDaoPath,fetchNftPath, fetchDefiPath, fetchSecPath, fetchSetup } fr
 import {ArrowIcon} from '../../icons/nav'
 import { ChainContext } from '../../contexts/ChainContext';
 import ChainStats from '../../sections/ChainStats';
-import GovernSection from '../../sections/GovernSection';
 import PolkaPath from '../../sections/PolkaPath';
 import { GqlFilterdMapper, GqlFilterdToolMapper, GqlMapper, GqlRMapper, GqlToolMapper } from '../../sections/GqlMappers';
 import { CodeIcon, ExpandIcon } from '../../icons/utils';
@@ -22,7 +21,9 @@ import AlchemyExample from '../../sections/AlchemyExample';
 import { Watch } from  'react-loader-spinner'
 import BoxSubtitle from '../typography/BoxSubtitle';
 import Err from '../typography/Err';
-
+import CapsDesc from '../typography/CapsDesc';
+import CapsTitle from '../typography/CapsTitle';
+import GovernResources from '../../sections/GovernResources';
 
 
 const token = process.env.REACT_APP_CMS_API
@@ -74,14 +75,31 @@ const Button = styled.button`
     margin-top: 5%;
     font-family: 'NoBill';
     letter-spacing: 1.2px;
-    background: ${props => props.theme.colors.text_title};
-    color: ${props => props.theme.colors.background};
+    background: ${props => props.theme.colors.landingFull};
+    color: ${props => props.theme.colors.landingTitle};
     width: 20%;
     &:hover{
         color: white;
     }
     @media (max-width: 1000px) {
     width: 40%;
+  }
+`
+
+const UpperTag = styled.div`
+  background: ${props => props.theme.colors.landingSubtitle};
+  border: 0.1px solid ${props => props.theme.chart.landingTitle};
+  padding: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 2px;
+  font-size: 0.8em;
+  border-radius: 15px;
+  font-weight: 700;
+  @media (max-width: 700px) {
+       font-size: 0.7em;
+       padding-left: 4px;
+       padding-right: 4px;
   }
 `
 
@@ -106,10 +124,9 @@ const BoxTitle = styled.div`
 `
 
 const RenderSection = styled.div`
-    background: ${props => props.theme.colors.lighter};
+    background: ${props => props.theme.colors.lightGreen};
     box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
     animation: fadeIn 0.5s;
-    padding: 1%;
     @keyframes fadeIn {
       0% { opacity: 0; }
       100% { opacity: 1; }
@@ -210,12 +227,12 @@ const SecActButton = styled(SecButton)`
   background: ${props => props.theme.colors.red};
 `
 
-
 const StepDescription = styled.div`
+  background:  ${props => props.theme.colors.blackwhite};
   text-align: left;
   font-size: 1.1em;
   font-weight: 400;
-  padding: 2%;
+  padding-bottom: 2%;
 `
 
 const SetupKontejner = styled.div`
@@ -229,18 +246,9 @@ const SetupColumn = styled.div`
 `
 
 const TitleA = styled.div`
+  display: flex;
   font-size: 1.1em;
   font-weight: 700;
-`
-
-const AbsoluteDescription = styled.div`
-  text-align: center;
-  margin-top: 1%;
-  font-family: 'Staatliches';
-  font-size: 1.1em;
-  letter-spacing: 1.2px;
-  margin-left: 15px;
-  color: ${props => props.theme.colors.text_title};
 `
 
 const SubNavigation = styled.div`
@@ -313,7 +321,7 @@ const TitleBox = styled.div`
     margin-top: 2%;
     align-items: center;
     padding: 1%;
-    background: linear-gradient(270deg, ${props => props.theme.colors.landingBox} 100%, #00574B 0%);
+    background: ${props => props.theme.colors.landingBox};
     animation: fadeIn 0.5s;
   @keyframes fadeIn {
     0% { opacity: 0; }
@@ -331,6 +339,10 @@ const FlexRow = styled.div`
   padding-bottom: 1%;
 `
 
+const FlexRowEnd = styled(FlexRow)`
+  justify-content: flex-end;
+`
+
 const CheatBox = styled.div`
   background: ${props => props.theme.colors.lightGreen};
   font-family: 'Courier';
@@ -339,11 +351,12 @@ const CheatBox = styled.div`
 
 const SubnavTitle = styled.div`
   width: 100%; 
-  background: ${props => props.theme.colors.landingBox};
-  color: ${props => props.theme.colors.landingTitle};
+  background: ${props => props.theme.colors.landingFull};
+  color: ${props => props.theme.colors.landingSubtitle};
   font-size: 1.1em;
   font-family: 'Staatliches';
   text-align: center;
+  padding: 5px;
 `
 
 const Loader = styled.div`
@@ -355,9 +368,21 @@ const SubtitleDesc = styled.div`
   text-align: center;
 `
 
+const MyRow = styled(Row)`
+  margin-top: 1%;
+  margin-bottom: 4%;
+`
+
+
+
 export default function PathForm() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false)
+  const [subdev, setSubdev] = useState('Use case')
+  const [subdevEff, setSubdevEff] = useState('Tools')
+  const [subsec, setSubsec] = useState('Common')
+  const [subsecEff, setSubsecEff] = useState('Analyze')
+
 
      const theme = useTheme()
 
@@ -613,8 +638,8 @@ export default function PathForm() {
                 {step === 'Deploy' ? <ArticleActButton>Deploy</ArticleActButton> : <ArticleButton onClick={()=>setStep('Deploy')}>Deploy</ArticleButton> }    
                 </FlexRow>
                 <BoxSubtitle content={<SubtitleDesc>
-                  {step === 'Setup' && <>Frameworks to build, deploy and test </>}
-                  {step === 'Govern' && <>Learn and design tokenomics</>}
+                  {step === 'Setup' && <>Frameworks to build, deploy and test Solidity code</>}
+                  {step === 'Govern' && <>Learn, design tokenomics and give the power to a DAO</>}
                   {step === 'Develop' && <>Find resources and references which fit your needs</>}
                  {step === 'Security' && <>Learn from mistakes already exploited and secure your contract properly</>}
                   {step === 'Deploy' && <>Pick one of many EVM compatible to deploy your contract</>}
@@ -625,7 +650,7 @@ export default function PathForm() {
 
         {evmEco ? <><PolkaPath/></> : 
         <Grid fluid>
-            <Row>
+            <MyRow>
         <Col xs={24} md={6}>
         <FormBox>
        <BoxTitle>D3V path</BoxTitle>
@@ -665,7 +690,7 @@ export default function PathForm() {
                     /></Loader>}
           {result && <Flex>
             {step === 'Setup' && <>  <StepDescription> 
-            <SubnavTitle>Smart contracts</SubnavTitle>
+            <CapsTitle content='Smart contract setup'/>
                 <SubNavigation>
                     <SubmenuButton phase={setupState} item='Truffle' setItem={setSetupState}/>
                     <SubmenuButton phase={setupState} item='Hardhat' setItem={setSetupState}/>
@@ -673,62 +698,106 @@ export default function PathForm() {
                     <SubmenuButton phase={setupState} item='Brownie' setItem={setSetupState}/>
                     <SubmenuButton phase={setupState} item='Foundry' setItem={setSetupState}/>
                   </SubNavigation>
-                  {setupState === 'Truffle' &&  <AbsoluteDescription>Popular variant in combination with Ganache CLI & UI</AbsoluteDescription> }
-                  {setupState === 'Hardhat' &&  <AbsoluteDescription>Most used variant for e2e smart contract setup, test & deploy</AbsoluteDescription> }
-                  {setupState === 'Remix' &&  <AbsoluteDescription>Perfect for quick prototype and code analysis with rich plugins</AbsoluteDescription> }
-                  {setupState === 'Brownie' &&  <AbsoluteDescription>For those who prefer Python instead of JS</AbsoluteDescription> }
-                  {setupState === 'Foundry' &&  <AbsoluteDescription>Environment for advanced devs oriented on high performance</AbsoluteDescription> }
+                  {setupState === 'Truffle' &&  <CapsDesc content='Popular variant in combination with Ganache CLI & UI'/>}
+                  {setupState === 'Hardhat' &&  <CapsDesc content='Most used variant for e2e smart contract setup, test & deploy' />}
+                  {setupState === 'Remix' &&  <CapsDesc content='Perfect for quick prototype and code analysis with rich plugins' /> }
+                  {setupState === 'Brownie' &&  <CapsDesc content='For those who prefer Python instead of JS'/> }
+                  {setupState === 'Foundry' &&  <CapsDesc content='Environment for advanced devs oriented on high performance' /> }
                
               </StepDescription> </>}
            </Flex>      
            }
-          {step === 'Govern' && <GovernSection/> }
+          {step === 'Govern' && <GovernResources/> }
 
         {result &&
         <DisplayBox>
             {step === 'Security' &&  <>
             {secTutorials && <RenderSection>
-                 <GqlMapper data={secTutorials} title='Exploits'/>
+              <StepDescription> <CapsTitle content='Security gaps'/>
+                <SubNavigation>
+                  <SubmenuButton phase={subsec} item='Common' setItem={setSubsec}/>
+                  <SubmenuButton phase={subsec} item='Exploits' setItem={setSubsec}/>
+                  <SubmenuButton phase={subsec} item='Vulnerabilities' setItem={setSubsec}/>
+                  <SubmenuButton phase={subsec} item='Audit' setItem={setSubsec}/>
+                  </SubNavigation>
+                  {subsec === 'Common' &&  <CapsDesc content='Common security resources'/>}
+                  {subsec === 'Exploits' &&  <CapsDesc content='Multimillion attacks breakdown' />}
+                  {subsec === 'Vulnerabilities' &&  <CapsDesc content='Protocol gaps caught by white hackers' />}
+                  {subsec === 'Audit' &&  <CapsDesc content='Material to read to pass audit smoothly'/>}
+              </StepDescription>
             </RenderSection>}
             {secDefinitions && <RenderSection>
-                <GqlFilterdMapper data={secDefinitions} title={'General'} filter={'General'}/>
-                <GqlFilterdMapper data={secDefinitions} title={'Audit'} filter={'Audit'}/>
-                <GqlFilterdMapper data={secDefinitions} title={'Vulnerabilities'} filter={'Vulnerability'}/>
+             {subsec === 'Common' &&   <GqlFilterdMapper data={secDefinitions} title={'General'} filter={'General'}/>}
+             {subsec === 'Exploits' && <GqlMapper data={secTutorials} title='Exploits'/>  }
+             {subsec === 'Vulnerabilities' &&     <GqlFilterdMapper data={secDefinitions} title={'Vulnerabilities'} filter={'Vulnerability'}/>}
+             {subsec === 'Audit' &&     <GqlFilterdMapper data={secDefinitions} title={'Audit'} filter={'Audit'}/>}
             </RenderSection>}
               </>}
             {tutorials && <>
-            {step === 'Develop' ? <RenderSection> <GqlSection title='Guides & Tutorials'/>
-                <>
-                {tutorials.map((tutorial) => (
+            {step === 'Develop' ? <RenderSection> 
+              <StepDescription> <CapsTitle content='Guides and tutorials'/>
+                <SubNavigation>
+                  <SubmenuButton phase={subdev} item='Use case' setItem={setSubdev}/>
+                  <SubmenuButton phase={subdev} item='General' setItem={setSubdev}/>
+                  </SubNavigation>
+                  {subdev === 'Use case' &&  <CapsDesc content='Tutorials matched your case'/>}
+                  {subdev === 'General' &&  <CapsDesc content='Common knowledge related' />}
+              </StepDescription>
+             
+            {subdev === 'Use case' &&  <>  <GqlSection title='Use case specific'/>
+                {tutorials.filter(s => s.attributes.Subcategory === subcat.label).map((tutorial) => (
                         <Result  key={tutorial.id}>
                           <DifficultyBox>
                             {tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
                             {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
                             {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
                           </DifficultyBox>
-                          <Flex>  <TitleA>{tutorial.attributes.Title}</TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+                          <Flex>  <TitleA>{tutorial.attributes.Title} </TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
 
                             <Flex>            
-                              <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
-                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}
-                            </Flex>
+                             <FlexRowEnd> <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</FlexRowEnd>
+                              <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
                            
+                            </Flex>
+                        
                         </Result>
-                ))}
-                </></RenderSection> : null}
+                ))}</>}
+                </RenderSection> : null}
+                {subdev === 'Use case' &&  <RenderSection>  <GqlSection title='Perifery features'/>
+                {tutorials.filter(s => s.attributes.Subcategory !== subcat.label).map((tutorial) => (
+                        <Result  key={tutorial.id}>
+                          <DifficultyBox>
+                            {tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
+                            {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
+                            {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
+                          </DifficultyBox>
+                          <Flex>  <TitleA>{tutorial.attributes.Title} </TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+
+                            <Flex>            
+                             <FlexRowEnd> <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</FlexRowEnd>
+                              <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
+                           
+                            </Flex>
+                        
+                        </Result>
+                ))}</RenderSection>}
             </>}
+            
             {definitions && <>
                 {step === 'Develop' ? <RenderSection>
-              <GqlFilterdMapper data={definitions} title={'General topic articles'} filter={'General'}/>
+                  
+           {subdev === 'General' &&    <GqlFilterdMapper data={definitions} title={'General topic articles'} filter={'General'}/>}
                 
-                {subcat.label === "Lending" && <GqlFilterdMapper data={definitions} title={'Lending'} filter={'Lending'}/>}
-                {subcat.label === "DEX" && <GqlFilterdMapper data={definitions} title={'DEX & AMM'} filter={'DEX'}/>}
-                {subcat.label === "Vault" && <GqlFilterdMapper data={definitions} title={'Vaults & Yielding'} filter={'Vault'}/>}
-                {subcat.label === "Perpetual" && <GqlFilterdMapper data={definitions} title={'Perpetual'} filter={'Perpetual'}/>}
-                {subcat.label === "Collection" && <GqlFilterdMapper data={definitions} title={'NFT Collections'} filter={'Lazy'}/>}
-                {subcat.label === "Gaming" && <GqlFilterdMapper data={definitions} title={'Gaming'} filter={'Gaming'}/>}
-                {subcat.label === "Marketplace" && <GqlFilterdMapper data={definitions} title={'Use cases'} filter={'Use case'}/>}
-                {cat.value === "defi" && <GqlFilterdMapper data={definitions} title={'Stablecoin'} filter={'Stablecoin'}/>}
+                {subcat.label === "Lending" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'Lending'} filter={'Lending'}/>}
+                {subcat.label === "DEX" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'DEX & AMM'} filter={'DEX'}/>}
+                {subcat.label === "Vault" &&  subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'Vaults & Yielding'} filter={'Vault'}/>}
+                {subcat.label === "Perpetual" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'Perpetual'} filter={'Perpetual'}/>}
+                {subcat.label === "Collection" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'NFT Collections'} filter={'Lazy'}/>}
+                {subcat.label === "Gaming" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'Gaming'} filter={'Gaming'}/>}
+                {subcat.label === "Marketplace" && subdev === 'Use case' && <GqlFilterdMapper data={definitions} title={'NFT Marketplace'} filter={'Marketplace'}/>}
+                {cat.value === "defi" &&  subdev === 'General' && <GqlFilterdMapper data={definitions} title={'Stablecoin'} filter={'Stablecoin'}/>}
               </RenderSection> : null}
             </>}    
         </DisplayBox> }
@@ -807,14 +876,34 @@ export default function PathForm() {
             {tools && <>
               {step === 'Develop' ? 
               <RenderSection> 
-                <GqlToolMapper data={tools} title={'Tooling'}/>
+              <StepDescription> <CapsTitle content='Guides and tutorials'/>
+                <SubNavigation>
+                  <SubmenuButton phase={subdevEff} item='Tools' setItem={setSubdevEff}/>
+                  <SubmenuButton phase={subdevEff} item='Data API' setItem={setSubdevEff}/>
+                  <SubmenuButton phase={subdevEff} item='NoCode' setItem={setSubdevEff}/>
+                  <SubmenuButton phase={subdevEff} item='Repositories' setItem={setSubdevEff}/>
+                  </SubNavigation>
+                  {subdevEff === 'Tools' &&  <CapsDesc content='Related tools'/>}
+                  {subdevEff === 'Data API' &&  <CapsDesc content='Blockchain data provders'/>}
+                  {subdevEff === 'NoCode' &&  <CapsDesc content='Nocode contracts platforms'/>}
+                  {subdevEff === 'Repositories' &&  <CapsDesc content='Related repositories' />}
+              </StepDescription>
+              {subdevEff === 'Tools' &&  <GqlFilterdMapper data={tools} title={'Tooling'} filter={subcat.label} />}
+              {subdevEff === 'Data API' &&  <GqlFilterdMapper data={tools} title={'Data API'} filter='Provider'/>}
+              {subdevEff === 'NoCode' &&  <GqlFilterdMapper data={tools} title={'NoCode'} filter='Nocode'/>}
                    </RenderSection> : 
               <>{secTools && step === 'Security' && <RenderSection>
-                <GqlToolMapper data={secTools} title={'Security tooling'}/>
+              <StepDescription> <CapsTitle content='Tooling'/>
+                <SubNavigation>
+                  <SubmenuButton phase={subsecEff} item='Analyze' setItem={setSubsecEff}/>
+                  </SubNavigation>
+                  {subsecEff === 'Analyze' &&  <CapsDesc content='Solidity code analysis and scanners'/>}
+              </StepDescription>
+               {subsecEff  && <GqlFilterdMapper data={secTools} title={'Security tooling'} filter={subsecEff}/>}
                 </RenderSection>}</>}
             </>}
             {repos && step === 'Develop' && <RenderSection>
-                <GqlRMapper data={repos} title={'Get inspired'}/>
+                {subdevEff === 'Repositories' &&  <GqlRMapper data={repos} title={'Get inspired'}/>}
             </RenderSection>}
         </DisplayBox>}
               {chain.value === 'evm' && step === 'Deploy' ? <><ChainStats chain={blockchain}/></> : null}
@@ -827,9 +916,9 @@ export default function PathForm() {
                    <SubmenuButton phase={starter} item='Alchemy' setItem={setStarter}/>
 
                 </SubNavigation>
-                    {starter === 'Starter' &&  <AbsoluteDescription>Predefined templates to bootstrap project</AbsoluteDescription> }
-                    {starter === 'Wagmi' &&  <AbsoluteDescription>React hooks on top of Ethers</AbsoluteDescription> }
-                    {starter === 'Alchemy' &&  <AbsoluteDescription>Universal Alchemy SDK's replacement of Ethers</AbsoluteDescription> }
+                    {starter === 'Starter' &&  <CapsDesc content='Predefined templates to bootstrap project'/> }
+                    {starter === 'Wagmi' &&  <CapsDesc content='React hooks on top of Ethers'/> }
+                    {starter === 'Alchemy' &&  <CapsDesc content='Universal Alchemy SDK replacement of Ethers'/>}
 
              
             </StepDescription> 
@@ -838,7 +927,7 @@ export default function PathForm() {
                 {starter === 'Alchemy' && <AlchemyExample/>}
                   </SetupColumn>}
             </Col>
-            </Row>
+            </MyRow>
         </Grid>
         }
     </Kontejner>

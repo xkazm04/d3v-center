@@ -6,8 +6,10 @@ import { EcoHigh, EcoLow, EcoMedium, DecHigh, DecMedium, DecLow, TvlHigh, TvlMed
 
 const Kontejner = styled.div`
   display: flex;
+  background: ${props => props.theme.colors.lightGreen};
   flex-direction: column;
   padding: 5%;
+  min-width: 100%;
   animation: fadeIn 0.5s;
     @keyframes fadeIn {
       0% { opacity: 0; }
@@ -37,7 +39,6 @@ const StatBox = styled.div`
 const Stat = styled.div`
     font-size: 1.3em;
     display: flex;
-    min-width: 350px;
     color: ${props => props.theme.colors.text};
     justify-content: space-between;
     @media (max-width: 1000px) {
@@ -51,7 +52,7 @@ const StatTitle = styled.div`
     font-family: 'Staatliches';
     font-size: 1.1em;
     color: ${props => props.color};
-    min-width: 150px;
+    min-width: 50px;
     text-align: left;
     @media (max-width: 1000px) {
         min-width: 100px;
