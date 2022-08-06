@@ -764,7 +764,7 @@ export default function PathForm() {
                         </Result>
                 ))}</>}
                 </RenderSection> : null}
-                {subdev === 'Use case' &&  <RenderSection>  <GqlSection title='Perifery features'/>
+                {/* {subdev === 'Use case' &&  <RenderSection>  <GqlSection title='Perifery features'/>
                 {tutorials.filter(s => s.attributes.Subcategory !== subcat.label).map((tutorial) => (
                         <Result  key={tutorial.id}>
                           <DifficultyBox>
@@ -782,7 +782,7 @@ export default function PathForm() {
                             </Flex>
                         
                         </Result>
-                ))}</RenderSection>}
+                ))}</RenderSection>} */}
             </>}
             
             {definitions && <>
