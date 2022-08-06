@@ -36,6 +36,23 @@ const Submenu = styled.div`
   }
 `
 
+const Button = styled.button`
+  font-family: 'Staatliches';
+  font-size: 1.4em;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 1%;
+  margin-right: 10px;
+  opacity: 0.5;
+  background: ${props => props.theme.colors.medium};
+  @media (max-width: 700px) {
+        font-size: 1.1em;
+        padding: 5px;
+  }
+`
+
 
 export default function Bits() {
   const [repos, setRepos] = useState('Recommended')
@@ -46,7 +63,8 @@ export default function Bits() {
         <SubnavTitle content='Select section'/>
         <div>
           <SubnavButton phase={repos} item='Recommended' setItem={setRepos}/>
-          <SubnavButton phase={repos} item='Contract library' setItem={setRepos}/>
+          <Button disabled>Contract library 8/2022</Button>
+          {/* <SubnavButton phase={repos} item='Contract library 8/2022' setItem={setRepos}/> */}
         </div>
       </Submenu>
 

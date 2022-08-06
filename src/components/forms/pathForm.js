@@ -437,7 +437,7 @@ export default function PathForm() {
     const [setupTutorials, setSetupTutorials] = useState(null)
     const [setupTools, setSetupTools] = useState(null)
 
-    const [step, setStep] = useState("Setup")
+    const [step, setStep] = useState("Develop")
     const [setupState, setSetupState] = useState('Hardhat')
     const [starter, setStarter] = useState('Starter')
 

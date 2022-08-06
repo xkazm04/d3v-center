@@ -368,9 +368,12 @@ return (
     <Note onClick={()=>{setCodeVisible(true)}}>Layout prototype -> estimated delivery 10.8.2022</Note>
      {previewVisible && <CodeBox> <CloseButton onClick={()=>{setPreviewVisible(false)}}><CloseIcon width={15} color={"red"}/></CloseButton> <CodeComponent code={code}/></CodeBox>}
   <>
+
+    <InstantSearch indexName="contract" searchClient={searchClient}>
     <FilterSection>
         <FilterBox><FilterTitle>Title</FilterTitle><div><input type='text' placeholder='Title'/></div></FilterBox>
-        <FilterSearch><input type='text' placeholder='Search box'/></FilterSearch>
+        <FilterSearch><Search>     <DebouncedSearchBox delay={500}/>        
+               <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search></FilterSearch>
         <FilterBox>
          <FilterRadio><RadioTitle>Flag modern </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
          <FilterRadio><RadioTitle>Flag swap </RadioTitle><input type="radio" id="html" name="fav_language" value="HTML"></input></FilterRadio>
@@ -383,6 +386,15 @@ return (
         </FilterBox>
         <FilterBox><FilterTitle>Filter compiler version</FilterTitle> <div><input type='text' placeholder='1/2/3'/></div></FilterBox>
     </FilterSection>
+
+               <Configure hitsPerPage={30} />   
+ 
+
+      
+               <HitBox> <Hits hitComponent={Hit} /></HitBox>
+           <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
+ 
+   </InstantSearch>
     <MainSection>
         <MainColumn>Title</MainColumn>
         <MainColumn>Name, Address, Version, Tag, Button</MainColumn>
@@ -392,18 +404,7 @@ return (
         </RatingColumn>
         <MainColumn>Compiler version</MainColumn>
     </MainSection>
-    <InstantSearch indexName="contract" searchClient={searchClient}>
-               
 
-              <Configure hitsPerPage={30} />   
-
-              <Search>     <DebouncedSearchBox delay={500}/>        
-              <MetaRow>   <MyStats/><ClearRefinements />  </MetaRow></Search>
-     
-              <HitBox> <Hits hitComponent={Hit} /></HitBox>
-          <PaginationBox> <PaginationTitle>Page</PaginationTitle><Pagination /></PaginationBox> 
-
-  </InstantSearch>
     {codeVisible && 
     <CodeSection>
       <CodeHeader>
