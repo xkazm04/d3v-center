@@ -5,7 +5,7 @@ import { NftIcon, NodeIcon } from '../icons/tool';
 import { Unicorn } from '../icons/funny';
 import { Logo } from '../icons/main';
 import { GithubIcon, DataflowIcon } from '../icons/utils';
-import { DillemaIcon, PacmanIcon, ThinkIcon } from '../icons/landing';
+import { DillemaIcon, PacmanIcon, ThinkIcon, Web3Icon } from '../icons/landing';
 
 
 function ArticleSection() {
@@ -15,6 +15,7 @@ function ArticleSection() {
             <>
                 <Grid fluid>
                     <Row>
+                    <ArticleCard date='30.7.2022' title='Web3 high-level overview' description='What is web3 about and what brings to the table' pic={<Web3Icon height='40px' color={theme.tool.github}/>} reference='https://medium.com/web3-magazine/web3-high-level-overview-c5e0ff583326' />
                     <ArticleCard date='22.7.2022' title='So, which blockchain to choose?' description='Another view on which blockchain to choose as a home for your dapp.' pic={<DillemaIcon width='150px' color={theme.tool.nft}/>} reference='https://medium.com/web3-magazine/nft-gaming-dev-tools-a4b7651f6a48'/>
                     </Row>
                     <Row>  

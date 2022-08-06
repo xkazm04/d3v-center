@@ -2,14 +2,12 @@ import {useState, useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 import { Grid, Row, Col } from 'rsuite';
-import ChartTutorial from "../components/charts/ChartUsage";
 import { DevelopIcon } from "../icons/tool";
 import ArticleSection from '../sections/ArticleSection';
 import { GithubIcon, MediumIcon } from '../icons/utils';
 import { Logo } from '../icons/main';
 import { DefinitionIcon, PathIcon, TutorialIcon } from '../icons/landing';
 import { PathSection } from '../icons/sections';
-import CharTotal from '../components/charts/ChartTotal';
 import { ExitArrow } from '../icons/arrows';
 import axios from 'axios'
 import { TotalsContext } from '../contexts/TotalsContext'
@@ -90,25 +88,12 @@ const Section = styled.div`
     padding-top: 2%;
 `
 
-const ChartSection = styled(Section)`
-    @media (max-width: 1000px) {
-    display: none;
-  }
-`
-
 const LeftBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
 `
 
-const RightBox = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    border-left: 1px dashed ${props => props.theme.colors.line};
-    border-right: 1px dashed ${props => props.theme.colors.line};
-`
 
 const LogoBox = styled.div`
     position: absolute;
@@ -421,7 +406,7 @@ export default function Landing() {
 
                        {serviceDescription === 'Tutorials' && <SpaceBetween>
                         
-                        <VisualSection> <Zoom><img src={tuts} alt='Path' width={'350'}/></Zoom></VisualSection>
+                        <VisualSection> <Zoom><img src={tuts} alt='Tutorials' width={'350'}/></Zoom></VisualSection>
                         <DescSection><DescTitle>Explore new techniques.</DescTitle>
                             <li>Setup project</li>
                             <li>Design tokenomics</li>
@@ -459,6 +444,18 @@ export default function Landing() {
                        
                         <AbsoluteBox>      <MyLink to='/tools'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
                        </SpaceBetween>} 
+
+                       {serviceDescription === 'Repositories' && <SpaceBetween>
+                        
+                        <VisualSection> </VisualSection>
+                        <DescSection><DescTitle>Get inspired from the best.</DescTitle>
+                            <li>Categorized repositories</li>
+                            <li>Best practices and templates</li>
+                            <li>Mainnet contract archive (8/22)</li>
+                        </DescSection>
+                       
+                        <AbsoluteBox>      <MyLink to='/repos'> <Pulse><ExitArrow width='15' color={theme.chart.torso} /> </Pulse></MyLink></AbsoluteBox>
+                       </SpaceBetween>} 
                          
                     </DescBox>
                 </Section>
@@ -477,25 +474,6 @@ export default function Landing() {
                         </Row>
                     </Grid>
                 </Section>
-                <ChartSection>
-                    <Grid fluid>
-                        <Row>
-                            <Col xs={24} md={12}>
-                                <LeftBox>
-                                <TitleBox>
-                                          <Title>Browse through 1000+ Resources</Title>
-                                    </TitleBox>
-                                        <CharTotal/>
-                                </LeftBox>
-                            </Col>
-                            <Col xs={24} md={12}>
-                                <RightBox>
-                                        <ChartTutorial/>
-                                </RightBox>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </ChartSection>
                 <Section>
                     <TitleBox>
                         <Title>Latest articles & Announcements</Title>
