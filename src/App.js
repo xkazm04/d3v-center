@@ -4,7 +4,7 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import {lightTheme, darkTheme} from "./theme/theme";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'rsuite/dist/rsuite.min.css'
 
 import Navbar from './navigation/Navbar';
@@ -33,6 +33,10 @@ import { BrandIcon } from './icons/main';
 import {Helmet} from "react-helmet";
 import { HomeIcon } from './icons/landing';
 import ContactButton from './components/buttons/ContactButton';
+
+import ReactGA from 'react-ga'
+const TRACKING_ID = "G-PREN8WHSLH"
+ReactGA.initialize(TRACKING_ID);
 
 const queryClient = new QueryClient()
 
@@ -129,6 +133,10 @@ function App() {
     theme === 'light' ? setTheme('dark') : setTheme('light')
 }
 
+
+useEffect(() => {
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}, []);
 
 
   return (

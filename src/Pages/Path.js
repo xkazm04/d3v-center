@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import PathForm from "../components/forms/pathForm";
+import PathSection from "../sections/PathSection";
 
 export default function Path() {
 
@@ -17,5 +18,7 @@ export default function Path() {
       // eslint-disable-next-line
     }, []);
 
-    return <><PathForm/></>;
+    return <>
+    {process.env.REACT_APP_STAGE === 'dev' && <PathSection/>}
+    <PathForm/></>;
   }
