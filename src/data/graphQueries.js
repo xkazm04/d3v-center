@@ -118,6 +118,8 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
           title 
           description 
           reference
+          counter
+          subcategory
         }
       }
     }
@@ -173,7 +175,7 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
       }
     }
     repos (pagination: {limit: 150 },filters: 
-        {language:{eq:$lang}, 
+        {language:{in:[$lang, "Solidity"]}, 
     or:{category:{eq:$cat},
     or:{subcategory:{eq:$subcat},
   }}}){ 
@@ -182,6 +184,8 @@ export const fetchDaoPath = `query FetchDaoPath ($chainV: String, $chainL:String
           title 
           description 
           reference
+          counter
+          subcategory
         }
       }
     }

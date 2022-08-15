@@ -360,9 +360,20 @@ export const GqlMapper = ({data, title}) => {
     </>)
 }
 
-export const GqlRMapper = ({data, title}) => {
+export const GqlRMapper = ({data, title, filter}) => {
   const theme = useTheme()
     return(<>
+    {filter ? <>
+      <GqlSection title={title}/>
+    {data.filter(s => s.attributes.subcategory === filter).map((d) => (
+      <Result  key={d.id}>
+                     <Flex> <TitleA>{d.attributes.title}</TitleA>    <Category>{d.attributes.description}</Category></Flex> 
+                     <Flex>            
+                      <IconButton onClick={()=>handleResultClick(d.attributes.reference,d.id,d.attributes.counter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                        {d.attributes.subcategory && <UpperTag>{d.attributes.subcategory}</UpperTag>}
+                    </Flex>
+              </Result>
+      ))}  </> :  <>
     <GqlSection title={title}/>
     {data.map((d) => (
       <Result  key={d.id}>
@@ -372,7 +383,8 @@ export const GqlRMapper = ({data, title}) => {
                         {d.attributes.subcategory && <UpperTag>{d.attributes.subcategory}</UpperTag>}
                     </Flex>
               </Result>
-      ))}
+      ))}   
+      </>}
     </>)
 }
 

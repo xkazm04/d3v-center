@@ -743,6 +743,25 @@ export default function PathForm() {
                   {subdev === 'Use case' &&  <CapsDesc content='Tutorials matched your case'/>}
                   {subdev === 'General' &&  <CapsDesc content='Common knowledge related' />}
               </StepDescription>
+           {subdev === 'Use case' && subcat && <RenderSection>  {tutorials.length > 0 &&  <GqlSection title='Perifery features'/>}
+                {tutorials.filter(s => s.attributes.Subcategory !== subcat.label).map((tutorial) => (
+                        <Result  key={tutorial.id}>
+                          <DifficultyBox>
+                            {tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
+                            {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
+                            {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
+                          </DifficultyBox>
+                          <Flex>  <TitleA>{tutorial.attributes.Title} </TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
+
+                            <Flex>            
+                             <FlexRowEnd> <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
+                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</FlexRowEnd>
+                              <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
+                           
+                            </Flex>
+                        
+                        </Result>
+                ))}</RenderSection>}
              
             {subdev === 'Use case' &&  <>  <GqlSection title='Use case specific'/>
                 {tutorials.filter(s => s.attributes.Subcategory === subcat.label).map((tutorial) => (
@@ -764,25 +783,6 @@ export default function PathForm() {
                         </Result>
                 ))}</>}
                 </RenderSection> : null}
-                {/* {subdev === 'Use case' &&  <RenderSection>  <GqlSection title='Perifery features'/>
-                {tutorials.filter(s => s.attributes.Subcategory !== subcat.label).map((tutorial) => (
-                        <Result  key={tutorial.id}>
-                          <DifficultyBox>
-                            {tutorial.attributes.Difficulty === 'basic' ? <div><DiffBasic width={20} color={theme.tool.basic} /></div> : null}
-                            {tutorial.attributes.Difficulty === 'intermediate' ? <div><DiffScholar width={20} color={theme.chart.var1_stroke}/></div> : null}
-                            {tutorial.attributes.Difficulty === 'advanced' ? <div><DiffAdvanced width={20}/></div> : null}
-                          </DifficultyBox>
-                          <Flex>  <TitleA>{tutorial.attributes.Title} </TitleA>   <Category>{tutorial.attributes.Description}</Category></Flex>
-
-                            <Flex>            
-                             <FlexRowEnd> <IconButton onClick={()=>handleResultClick(tutorial.attributes.Reference,tutorial.id,tutorial.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
-                              {tutorial.attributes.codePreview && <IconButton  onClick={()=>{handleCodePreview(tutorial.attributes.codePreview)}}><CodeIcon width={15} color={theme.chart.varRed_fill}/></IconButton>}</FlexRowEnd>
-                              <UpperTag>{tutorial.attributes.Subcategory}</UpperTag>
-                           
-                            </Flex>
-                        
-                        </Result>
-                ))}</RenderSection>} */}
             </>}
             
             {definitions && <>
@@ -879,8 +879,8 @@ export default function PathForm() {
               <StepDescription> <CapsTitle content='Guides and tutorials'/>
                 <SubNavigation>
                   <SubmenuButton phase={subdevEff} item='Tools' setItem={setSubdevEff}/>
-                  <SubmenuButton phase={subdevEff} item='Data API' setItem={setSubdevEff}/>
-                  <SubmenuButton phase={subdevEff} item='NoCode' setItem={setSubdevEff}/>
+               {cat.label === 'NFT' &&  <SubmenuButton phase={subdevEff} item='Data API' setItem={setSubdevEff}/>}
+               {cat.label === 'NFT' &&  <SubmenuButton phase={subdevEff} item='NoCode' setItem={setSubdevEff}/>}
                   <SubmenuButton phase={subdevEff} item='Repositories' setItem={setSubdevEff}/>
                   </SubNavigation>
                   {subdevEff === 'Tools' &&  <CapsDesc content='Related tools'/>}
@@ -903,7 +903,7 @@ export default function PathForm() {
                 </RenderSection>}</>}
             </>}
             {repos && step === 'Develop' && <RenderSection>
-                {subdevEff === 'Repositories' &&  <GqlRMapper data={repos} title={'Get inspired'}/>}
+                {subdevEff === 'Repositories' &&  <GqlRMapper data={repos} title={'Get inspired'} filter={subcat.label}/>}
             </RenderSection>}
         </DisplayBox>}
               {chain.value === 'evm' && step === 'Deploy' ? <><ChainStats chain={blockchain}/></> : null}
