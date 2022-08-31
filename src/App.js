@@ -36,7 +36,14 @@ import ContactButton from './components/buttons/ContactButton';
 
 import ReactGA from 'react-ga'
 const TRACKING_ID = "G-PREN8WHSLH"
-ReactGA.initialize(TRACKING_ID);
+ReactGA.initialize(TRACKING_ID, {
+  gaOptions: {
+    allowLinker: true
+  },
+});
+
+ReactGA.ga('require', 'linker');
+ReactGA.ga('linker:autoLink', ['d3vlibrary.com']);
 
 const queryClient = new QueryClient()
 
@@ -135,8 +142,11 @@ function App() {
 
 
 useEffect(() => {
-  ReactGA.pageview(window.location.pathname + window.location.search);
+  if (process.env.REACT_APP_STAGE === 'production' ){
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
 }, []);
+
 
 
   return (

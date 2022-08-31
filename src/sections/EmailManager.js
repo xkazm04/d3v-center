@@ -2,13 +2,35 @@ import { fetchNewsPath } from '../data/graphQueries';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-
-const Section = styled.div`
-    padding-top: 3%;
-`
+import { GqlMapper, GqlRMapper } from './GqlMappers';
 
 const Kontejner = styled.div`
     display: flex;
+    margin-left: 5%;
+`
+const Section = styled.div`
+    padding: 1%;
+    max-width: 500px;
+    text-align: left;
+`
+
+
+const Title = styled.div`
+    font-size: 1.8rem;
+    font-family: 'Staatliches', cursive;
+    color: ${props => props.theme.colors.text_primary};
+`
+
+const Subtitle = styled.div`
+    font-size: 1.6rem;
+    font-family: 'Staatliches', cursive;
+    color: ${props => props.theme.colors.text_title};
+`
+
+const SecTitle = styled.div`
+    color: ${props => props.theme.colors.text_primary};
+    font-size: 1.5rem;
+    font-family: 'Staatliches';
 `
 
 export default function EmailManager() {
@@ -23,6 +45,34 @@ export default function EmailManager() {
     const [tools,setTools] = useState()
     const [definitions,setDefinitions] = useState()
     const [gqlError, setGqlError] = useState()
+    const [newsletter] = useState('subscribe to newsletter')
+    const [err, setErr] = useState()
+
+    const findSubscription = async() => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_ENVIRONMENT}/api/subs?filters[Email][eq]=${newsletter}`)
+            console.log(res)
+            if (res.data.length > 0) {
+                setErr('You are already subscribed')
+            }
+        }  catch(e){
+            setErr('Something went wrong on my side')
+        }
+    }
+
+    const subscribe = async() => {
+        const data = {
+            data: {Email: newsletter}
+        }
+        try {
+            const res = await axios.post(`${process.env.REACT_APP_ENVIRONMENT}/api/subs`, data)
+            console.log(res)
+        }  catch(e){
+            await setErr('Unable to subscribe')
+            await findSubscription()
+        }
+    }
+
 
     const gqlEndpoint = `${process.env.REACT_APP_ENVIRONMENT}/graphql`
     const token = process.env.REACT_APP_CMS_API;
@@ -68,40 +118,35 @@ export default function EmailManager() {
     },[])
 
 
-    return <><button onClick={findNews}>Refetch</button>
+    return <>
+    <Title>News</Title>
+    <Subtitle>Subscribe to weekly updates</Subtitle>
+    <div>
+        {newsletter === 'subscribed'  ? <input type='email' value={newsletter} placeholder='Subscribe to newsletter'/> :  <input type='text'  value={newsletter} placeholder='Subscribed'/> }
+        <button onClick={()=>{subscribe()}}>Submit</button>
+        {err && <div>{err}</div>}
+    </div>
     {gqlError && <>Error</>}
 
     <Kontejner>
     {definitions &&  <Section>
-        {definitions.map((i) => (
-                    <div  key={i.id}>
-                                    <> <>{i.attributes.Title}</>    <>{i.attributes.Description}</></> 
-                                    <div>   <>{i.attributes.Subcategory}</></div>
-                            </div>
-        ))}</Section>}
+        <SecTitle>Definitions</SecTitle>
+        <GqlMapper data={definitions} title='Definitions'/>
+    </Section>}
     
     {tutorials &&  <Section>
-        {tutorials.map((i) => (
-                    <div  key={i.id}>
-                                    <> <>{i.attributes.Title}</>    <>{i.attributes.Description}</></> 
-                                    <div>   <>{i.attributes.Subcategory}</></div>
-                            </div>
-        ))}</Section>}
+            <SecTitle>Tutorials</SecTitle>
+            <GqlMapper data={tutorials} title='Tutorials'/>
+        </Section>}
 
     {tools &&  <Section>
-        {tools.map((i) => (
-                    <div  key={i.id}>
-                                    <> <>{i.attributes.Title}</>    <>{i.attributes.Description}</></> 
-                                    <div>   <>{i.attributes.Subcategory}</></div>
-                            </div>
-        ))}</Section>}
+        <SecTitle>Tools</SecTitle>
+        <GqlMapper data={tools} title='Tools'/>
+    </Section>}
     {repos &&  <Section>
-        {repos.map((i) => (
-                    <div  key={i.id}>
-                                    <> <>{i.attributes.title}</>    <>{i.attributes.description}</></> 
-                                    <div>   <>{i.attributes.subcategory}</></div>
-                            </div>
-        ))}</Section>}
+        <SecTitle>Repositories</SecTitle>
+        <GqlRMapper data={repos} title='Repositories'/>
+        </Section>}
     </Kontejner>
     </>;
   }

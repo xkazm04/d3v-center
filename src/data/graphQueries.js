@@ -338,9 +338,7 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
   `
 
   export const fetchNewsPath = `query FetchNews  {
-    tutorials (pagination: {limit: 150 },filters: 
-        {Update:{gt:"2022-06-15"}
-    }){ 
+    tutorials (sort: "Update:desc", pagination: {limit: 15 }){ 
       data  {
         attributes {
           Title 
@@ -348,28 +346,25 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
           Difficulty
           Reference
           ViewCounter
+          Update
         }
       }
     }
-    definitions (pagination: {limit: 150 },filters: 
-        {Usage:{eq:"Token"},
-        or:{Chain:{in:["Any","evm"]}
-        }} ){ 
+    definitions (sort: "Update:desc",pagination: {limit: 15 }){
       data  {
         attributes {
           Title 
           Description
-          Subcategory 
+          Subcategory
           Reference
           ViewCounter
+          Update
         }
       }
     }
-    tools (pagination: {limit: 150 },filters: 
-        {Chain:{eq:"EVM"}, 
-    or:{Usage:{eq:"DAO"},
-  }}){ 
+    tools (sort: "id:desc",pagination: {limit: 15 }){ 
       data  {
+        id
         attributes {
           Title 
           Description 
@@ -380,11 +375,9 @@ export const fetchSecPath = `query FetchSecPath ( $chainL:String,$subcat: String
         }
       }
     }
-    repos (pagination: {limit: 150 },filters: 
-        {language:{in:["Solidity","JavaScript"]}, 
-    or:{category:{eq:"Token"},
-  }}){ 
+    repos (sort: "id:desc", pagination: {limit: 15 }){ 
       data  {
+        id
         attributes {
           title 
           description 

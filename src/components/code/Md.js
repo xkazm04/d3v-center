@@ -11,12 +11,18 @@ const Kontejner = styled.div`
     text-align: left;
     padding: 5%;
     background: ${props => props.theme.colors.lightGreen};
+    @media (max-width: 1000px) {
+    font-size: 0.7em;
+  }
 `
 
 const P = styled.p`
     color: ${props => props.theme.colors.text_primary};
-    font-size: 1em;
+    font-size: 0.8em;
     font-family: 'Helvetica';
+    @media (max-width: 1000px) {
+    font-size: 0.7em;
+  }
 `
 
 const Link = styled.a`
@@ -27,7 +33,10 @@ const Link = styled.a`
 const H1 = styled.div`
   color: ${props => props.theme.colors.text_title};
   font-family: 'Staatliches';
-  font-size: 2.5em;
+  font-size: 1.6em;
+  @media (max-width: 1000px) {
+    font-size: 1.2em;
+  }
 `
 
 const H2 = styled.div`
@@ -35,21 +44,30 @@ const H2 = styled.div`
   font-family: 'Staatliches';
   padding-bottom: 1%;
   padding-top: 1%;
-  font-size: 2em;
+  font-size: 1.5em;
   letter-spacing: 1px;
+  @media (max-width: 1000px) {
+    font-size: 1em;
+  }
 `
 
 const H3 = styled.div`
   color: ${props => props.theme.colors.text_primary};
   font-family: 'Staatliches';
-  font-size: 1.5em;
+  font-size: 1.3em;
   letter-spacing: 1px;
+  @media (max-width: 1000px) {
+    font-size: 0.8em;
+  }
 `
 const Code = styled.code`
   background: ${props => props.theme.colors.light};
   border-radius: 5px;
   padding-left: 4px;
   padding-right: 4px;
+  @media (max-width: 1000px) {
+    font-size: 0.7em;
+  }
 `
 
 const Pre = styled.pre`
@@ -82,7 +100,7 @@ const Md = ({source}) => {
     useEffect(() => {
       setMarkdownSource(source);
       // eslint-disable-next-line
-    }, []);
+    }, [source]);
   
     return <Kontejner>{reactContent}</Kontejner>
 }

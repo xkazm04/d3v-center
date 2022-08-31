@@ -179,6 +179,11 @@ const ButtonBox = styled.div`
   justify-content: space-between;
 `
 
+const Date = styled.div`
+  font-size: 0.8em;
+  color: ${props => props.theme.colors.text_secondary};
+`
+
 const MiniKontejner = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -198,7 +203,7 @@ const MiniDesc = styled.div`
 const GqlItem = ({d}) => {
   const theme = useTheme()
   return <Result  key={d.id} >
-  <Flex> <TitleA>{d.attributes.Title}</TitleA>    <Category>{d.attributes.Description}</Category></Flex> 
+  <Flex> <TitleA>{d.attributes.Title}</TitleA> <Date>{d.attributes.Update}</Date>   <Category>{d.attributes.Description}</Category></Flex> 
   <ButtonBox>            
       <IconButton onClick={()=>handleResultClick(d.attributes.Reference,d.id,d.attributes.ViewCounter)}><ExpandIcon width={15} color={theme.colors.text_primary}/></IconButton>                
       {d.attributes.Subcategory && <UpperTag>{d.attributes.Subcategory}</UpperTag>} 
@@ -351,12 +356,33 @@ export const GqlPMapperAlt = ({data, title}) => {
     )
 }
 
-export const GqlMapper = ({data, title}) => {
-    return(<>
-    <GqlSection title={title}/>
-        {data.map((d) => (
-            <GqlItem d={d}/>
-      ))}
+    export const GqlMapper = ({data, title, filterDiff, filterSub, filterTool, noFilter}) => {
+        return(<>
+      {noFilter &&  <> <GqlSection title={title}/>
+            {data.map((d) => (
+                <GqlItem d={d}/>
+          ))}
+              </>
+    }
+
+     {filterSub && <> {data.filter(s => s.attributes.Subcategory === filterSub).length >= 1 && <>{title && <GqlSection title={title}/>}
+        {data.filter(s => s.attributes.Subcategory === filterSub).map((d) => (
+          <GqlItem d={d}/>
+          ))}
+      </> }</>}
+
+      {filterSub && filterDiff && <> {data.filter(s => s.attributes.Subcategory === filterSub).length >= 1 && <>{title && <GqlSection title={title}/>}
+        {data.filter(s => s.attributes.Subcategory === filterSub).filter(e => e.attributes.Difficulty === filterDiff).map((d) => (
+          <GqlItem d={d}/>
+          ))}
+      </> }</>}
+
+      {filterTool && <> {data.filter(s => s.attributes.Tool === filterTool).length >= 1 && <>{title && <GqlSection title={title}/>}
+        {data.filter(s => s.attributes.Tool === filterTool).map((d) => (
+          <GqlItem d={d}/>
+          ))}
+      </> }</>}
+
     </>)
 }
 
