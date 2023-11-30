@@ -33,7 +33,7 @@
     "react-lazyload": "^3.2.0",
     "react-loader-spinner": "^5.1.7-beta.1",
     "react-medium-image-zoom": "^4.4.3",
-    "react-query": "^3.38.0",
+    "react-query": "^4.0.0",
     "react-remark": "^2.1.0",
     "react-router-dom": "^5.3.1",
     "react-scripts": "5.0.0",
@@ -51,7 +51,7 @@
     "typewriter-effect": "^2.18.2",
     "url": "^0.11.0",
     "util": "^0.12.4",
-    "wagmi": "^0.6.0"
+    "wagmi": "^0.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
